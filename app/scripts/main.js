@@ -61,6 +61,14 @@
     });
   }
 
+  $(document).ready(function(){
+    window.devDayRegister = function() {
+        $('html, body').animate({
+            scrollTop: $("#register-container").offset().top
+        }, 1000);
+      };
+  });
+
   // Particles
   $('.devday-bg').particleground({
     dotColor: 'rgba(63, 81, 181, 0.45)',
@@ -98,9 +106,11 @@
 
   var sahajBangaloreMap = initialize_map('sahaj-bangalore-map', 12.924995, 77.627850);
 
+
   var $name = $("#devday-register-form input[name='name']"),
       $email = $("#devday-register-form input[name='email']"),
       $phone = $("#devday-register-form input[name='phone']");
+
 
   function registerCallBack() {
     $("#registration-success").removeClass("hidden");
@@ -161,6 +171,19 @@
       element.addClass("error");
     }
   }
+
+  $($name).on("keyup keypress", function() {
+    checkValidation($name, validateName($name.val()));
+  });
+
+  $($email).on("keyup keypress", function() {
+    checkValidation($email, validateEmail($email.val()));
+  });
+
+  $($phone).on("keyup keypress", function() {
+    checkValidation($phone, validateMobile($phone.val()));
+  });
+
 
   $("#sign-up-button").click(function(){
     var name = $name.val(),

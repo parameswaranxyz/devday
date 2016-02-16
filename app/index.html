@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="DevDay, Sahaj, Sahaj Software, Tehnical, Meetup">
+  <meta name="description" content="DevDay, Sahaj, Sahaj Software, Technical, Meetup">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DevDay Bangalore</title>
 
@@ -64,17 +64,19 @@
 <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
   <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-    </div>
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-      <h3>Dev Day</h3>
-    </div>
-    <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-    </div>
+
+    <div class="devday-header"></div>
+    <article class="devday-header__container">
+      <p>DevDay is a monthly informal social event event for developers interested in all things technology; to share
+      experiences, ideas, opinions and prespectives in software development.</p>
+      <button type="button" id="register-link" onclick="window.devDayRegister();" class="sign-up-button">Register</button>
+      <!--<a id="register-link" href="register-container" class="sign-up-button">Register</a>-->
+    </article>
+
   </header>
 
-  <div class="mdl-layout__content">
-    <section class="section--center mdl-grid mdl-color--white">
+  <div class="mdl-layout__content mdl-color--white">
+    <section class="section--center mdl-grid">
 
       <div class="event-highlights mdl-cell--3-col">
         <div class="event-highlights--circle"></div>
@@ -115,11 +117,12 @@
     </section>
 
     <section class="section--center mdl-grid devday-bg mdl-color--white">
-      <h2 class="devday-highlights">Speakers<hr/></h2>
+      <h2 class="devday-highlights">Speakers
+        <hr/>
+      </h2>
     </section>
 
     <section class="section--presenter devday-bg mdl-color--white mdl-grid">
-
       <div class="section__presenter-container mdl-cell--6-col">
         <div class="section__presenter-container-icons animated twitter-container fadeInLeft">
           <i class="zmdi zmdi-twitter animated infinite wobble zmdi-hc-fw"></i>
@@ -155,7 +158,9 @@
     </section>
 
     <section class="section--center mdl-grid devday-bg mdl-color--white">
-      <h2 class="devday-highlights">Register<hr/></h2>
+      <h2 class="devday-highlights">Register
+        <hr/>
+      </h2>
     </section>
 
     <section id="registration" class="section--center mdl-grid mdl-color--white">
@@ -174,7 +179,9 @@
     </section>
 
     <section class="section--center mdl-grid mdl-color--white">
-      <h2 class="devday-highlights">Venue<hr/></h2>
+      <h2 class="devday-highlights">Venue
+        <hr/>
+      </h2>
     </section>
 
     <section class="section--center mdl-grid mdl-color--white">
