@@ -110,13 +110,15 @@
           crossDomain: true,
           statusCode: {
               0: function (){
-                console.log("0: clear form and show success message");
+                $("#registration-success").removeClass("hidden");
+                $("#registration").hide();
                 $("#devday-register-form input[name='name']").val('');
                 $("#devday-register-form input[name='email']").val('');
                 $("#devday-register-form input[name='phone']").val('');
               },
               200: function (){
-                console.log("200: clear form and show success message");
+                $("#registration-success").removeClass("hidden");
+                $("#registration").hide();
                 $("#devday-register-form input[name='name']").val('');
                 $("#devday-register-form input[name='email']").val('');
                 $("#devday-register-form input[name='phone']").val('');

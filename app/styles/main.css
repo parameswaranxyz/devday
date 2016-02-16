@@ -389,3 +389,19 @@ input {
   border: 2px solid rgba(255, 0, 0, 0.51);
   box-shadow: inset 0 -2px rgba(255, 0, 0, 0.51);
 }
+
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+
+#registration-success p {
+  margin: 0 20px;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+}
