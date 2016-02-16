@@ -1,0 +1,191 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Devday by sahajsoft</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Devday</h1>
+        <p></p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/sahajsoft/devday" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/sahajsoft/devday/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/sahajsoft/devday/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h1>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><a href="https://github.com/google/web-starter-kit/releases/latest"><img src="https://cloud.githubusercontent.com/assets/110953/11445049/f05512ba-9520-11e5-8fdb-8c8eb5f690d0.jpg" alt="Web Starter Kit"></a>
+</h1>
+
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+
+<p><a href="https://developers.google.com/web/starter-kit">Web Starter Kit</a> is an opinionated boilerplate for web development. Tools for building a great experience across many devices and <a href="#web-performance">performance oriented</a>. Helping you to stay productive following the best practices outlined in Google's <a href="https://developers.google.com/web/fundamentals">Web Fundamentals</a>. A solid starting point for both professionals and newcomers to the industry.</p>
+
+<h3>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h3>
+
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Responsive boilerplate</td>
+<td>A responsive boilerplate optimized for the multi-screen web. Powered by <a href="http://getmdl.io">Material Design Lite</a>.  You're free to use either this or a completely clean-slate  via <a href="https://github.com/google/web-starter-kit/blob/master/app/basic.html">basic.html</a>.</td>
+</tr>
+<tr>
+<td>Sass support</td>
+<td>Compile <a href="http://sass-lang.com/">Sass</a> into CSS with ease, bringing support for variables, mixins and more. (Run <code>gulp serve</code> or <code>gulp</code> for production)</td>
+</tr>
+<tr>
+<td>Performance optimization</td>
+<td>Minify and concatenate JavaScript, CSS, HTML and images to help keep your pages lean. (Run <code>gulp</code> to create an optimised version of your project to <code>/dist</code>)</td>
+</tr>
+<tr>
+<td>Code Linting</td>
+<td>JavaScript code linting is done using <a href="http://eslint.org">ESLint</a> - a pluggable linter tool for identifying and reporting on patterns in JavaScript. Web Starter Kit uses ESLint with <a href="https://github.com/google/eslint-config-google">eslint-config-google</a>, which tries to follow the Google JavaScript style guide.</td>
+</tr>
+<tr>
+<td>ES2015 via Babel 6.0</td>
+<td>Optional ES2015 support using <a href="https://babeljs.io/">Babel</a>. To enable ES2015 support remove the line <code>"only": "gulpfile.babel.js",</code> in the <a href=".babelrc">.babelrc</a> file. ES2015 source code will be automatically transpiled to ES5 for wide browser support.</td>
+</tr>
+<tr>
+<td>Built-in HTTP Server</td>
+<td>A built-in server for previewing your site locally while you develop and iterate</td>
+</tr>
+<tr>
+<td>Live Browser Reloading</td>
+<td>Reload the browser in real-time anytime an edit is made without the need for an extension. (Run <code>gulp serve</code> and edit your files)</td>
+</tr>
+<tr>
+<td>Cross-device Synchronization</td>
+<td>Synchronize clicks, scrolls, forms and live-reload across multiple devices as you edit your project. Powered by <a href="http://browsersync.io">BrowserSync</a>. (Run <code>gulp serve</code> and open up the IP provided on other devices on your network)</td>
+</tr>
+<tr>
+<td>Offline support</td>
+<td>Thanks to our baked in <a href="http://www.html5rocks.com/en/tutorials/service-worker/introduction/">Service Worker</a> <a href="https://github.com/google/web-starter-kit/blob/master/gulpfile.babel.js#L226">pre-caching</a>, sites deploying <code>dist</code> to a HTTPS domain will enjoy offline support. This is made possible by <a href="https://github.com/GoogleChrome/sw-precache/">sw-precache</a>.</td>
+</tr>
+<tr>
+<td>PageSpeed Insights</td>
+<td>Web performance metrics showing how well your site performs on mobile and desktop (Run <code>gulp pagespeed</code>)</td>
+</tr>
+</tbody>
+</table>
+
+<h2>
+<a id="quickstart" class="anchor" href="#quickstart" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Quickstart</h2>
+
+<p><a href="https://github.com/google/web-starter-kit/releases/latest">Download</a> the kit or clone this repository and build on what is included in the <code>app</code> directory.</p>
+
+<p>There are two HTML starting points, from which you can choose:</p>
+
+<ul>
+<li>
+<code>index.html</code> - the default starting point, containing Material Design layout.</li>
+<li>
+<code>basic.html</code> - no layout, but still includes our minimal mobile best-practices</li>
+</ul>
+
+<p>Be sure to look over the <a href="docs/install.md">installation docs</a> to verify your environment is prepared to run WSK.
+Once you have verified that your system can run WSK, check out the <a href="docs/commands.md">commands</a> available to get started.</p>
+
+<h2>
+<a id="web-performance" class="anchor" href="#web-performance" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Web Performance</h2>
+
+<p>Web Starter Kit strives to give you a high performance starting point out of the box. Our median Web Page Test <a href="http://www.webpagetest.org/result/151201_VW_XYC/">scores</a> for the default template have a <a href="https://sites.google.com/a/webpagetest.org/docs/using-webpagetest/metrics/speed-index">Speed Index</a> of ~1100 (1000 is ideal) and a repeat-visit Speed Index of ~550 thanks to Service Worker precaching. </p>
+
+<h2>
+<a id="browser-support" class="anchor" href="#browser-support" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Browser Support</h2>
+
+<p>At present, we officially aim to support the last two versions of the following browsers:</p>
+
+<ul>
+<li>Chrome</li>
+<li>Edge</li>
+<li>Firefox</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>Internet Explorer 9+</li>
+</ul>
+
+<p>This is not to say that Web Starter Kit cannot be used in browsers older than those reflected, but merely that our focus will be on ensuring our layouts work great in the above.</p>
+
+<h2>
+<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<p>If you find yourself running into issues during installation or running the tools, please check our <a href="https://github.com/google/web-starter-kit/wiki/Troubleshooting">Troubleshooting</a> guide and then open an <a href="https://github.com/google/web-starter-kit/issues">issue</a>. We would be happy to discuss how they can be solved.</p>
+
+<h2>
+<a id="a-boilerplate-only-option" class="anchor" href="#a-boilerplate-only-option" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A Boilerplate-only Option</h2>
+
+<p>If you would prefer not to use any of our tooling, delete the following files from the project: <code>package.json</code>, <code>gulpfile.babel.js</code>, <code>.jshintrc</code> and <code>.travis.yml</code>. You can now safely use the boilerplate with an alternative build-system or no build-system at all if you choose.</p>
+
+<h2>
+<a id="docs-and-recipes" class="anchor" href="#docs-and-recipes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Docs and Recipes</h2>
+
+<ul>
+<li>
+<a href="https://github.com/google/web-starter-kit/blob/master/docs/file-appendix.md">File Appendix</a> - What do the different files here do?</li>
+<li>
+<a href="https://github.com/google/web-starter-kit/blob/master/docs/mdl-sass.md">Using Material Design Lite's Sass</a> - how to get MDL's Sass working with WSK</li>
+<li>
+<a href="https://github.com/google/web-starter-kit/blob/master/docs/deploy.md">Deployment guides</a> - available for Firebase, Google App Engine and other services.</li>
+<li>
+<a href="https://github.com/gulpjs/gulp/tree/master/docs/recipes">Gulp recipes</a> - the official Gulp recipes directory includes a comprehensive list of guides for different workflows you can add to your project.</li>
+</ul>
+
+<h2>
+<a id="inspiration" class="anchor" href="#inspiration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Inspiration</h2>
+
+<p>Web Starter Kit is inspired by <a href="http://html5boilerplate.com/mobile/">Mobile HTML5 Boilerplate</a> and Yeoman's <a href="https://github.com/yeoman/generator-gulp-webapp">generator-gulp-webapp</a>, having taken input from contributors to both projects during development. Our <a href="https://github.com/google/web-starter-kit/wiki/FAQ">FAQs</a> attempt to answer commonly asked questions about the project.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Contributions, questions and comments are all welcome and encouraged. For code contributions to Web Starter Kit, please see our <a href="CONTRIBUTING.md">Contribution guide</a> before submitting a pull request. <a href="https://developers.google.com/web/starter-kit/">Website</a> related issues should be filed on the <a href="https://github.com/google/WebFundamentals/issues/new">Web Fundamentals</a> issue tracker.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Apache 2.0<br>
+Copyright 2015 Google Inc</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/sahajsoft">sahajsoft</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
