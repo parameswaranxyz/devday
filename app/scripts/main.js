@@ -98,5 +98,80 @@
 
   var sahajBangaloreMap = initialize_map('sahaj-bangalore-map', 12.924995, 77.627850);
 
+  function registerUser(name, email, phone) {
+      $.ajax({
+          url: "https://docs.google.com/forms/d/1_qsC8Er-qKfjWjgJ0BjrawalFCfoOO6Q4qOh2H5UDeI/formResponse",
+          data: {
+            "entry.799761301" : name,
+            "entry.1111908573" : email,
+            "entry.681310805": phone},
+          type: "POST",
+          dataType: "xml",
+          crossDomain: true,
+          statusCode: {
+              0: function (){
+                console.log("0: clear form and show success message");
+                $("#devday-register-form input[name='name']").val('');
+                $("#devday-register-form input[name='email']").val('');
+                $("#devday-register-form input[name='phone']").val('');
+              },
+              200: function (){
+                console.log("200: clear form and show success message");
+                $("#devday-register-form input[name='name']").val('');
+                $("#devday-register-form input[name='email']").val('');
+                $("#devday-register-form input[name='phone']").val('');
+              }
+          }
+      });
+  }
+
+  function validateName(name) {
+    var re = /(\w+)\s*(\w+)/;
+    return re.test(name);
+  }
+
+  function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function validateMobile(mobile) {
+    var re = /^(\+91-|\+91|0)?\d{10}$/;
+    return re.test(mobile);
+  }
+
+  var $name = $("#devday-register-form input[name='name']"),
+      $email = $("#devday-register-form input[name='email']"),
+      $phone = $("#devday-register-form input[name='phone']");
+
+  var success = {
+    name: false,
+    email: false,
+    phone: false
+  };
+
+  function checkValidation(element, value) {
+    if(value) {
+      success[element[0].getAttribute("name")] = true;
+      element.removeClass("error");
+    } else {
+      success[element[0].getAttribute("name")] = false;
+      element.addClass("error");
+    }
+  }
+
+  $("#sign-up-button").click(function(){
+    var name = $name.val(),
+        email = $email.val(),
+        phone = $phone.val();
+
+    checkValidation($name, validateName(name));
+    checkValidation($email, validateEmail(email));
+    checkValidation($phone, validateMobile(phone));
+
+    if(success.name && success.email && success.phone) {
+      registerUser(name, email, phone);
+    }
+  });
 
 })();
