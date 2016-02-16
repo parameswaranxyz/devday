@@ -98,6 +98,18 @@
 
   var sahajBangaloreMap = initialize_map('sahaj-bangalore-map', 12.924995, 77.627850);
 
+  var $name = $("#devday-register-form input[name='name']"),
+      $email = $("#devday-register-form input[name='email']"),
+      $phone = $("#devday-register-form input[name='phone']");
+
+  function registerCallBack() {
+    $("#registration-success").removeClass("hidden");
+    $("#registration").hide();
+    $name.val('');
+    $email.val('');
+    $phone.val('');
+  }
+
   function registerUser(name, email, phone) {
       $.ajax({
           url: "https://docs.google.com/forms/d/1_qsC8Er-qKfjWjgJ0BjrawalFCfoOO6Q4qOh2H5UDeI/formResponse",
@@ -110,18 +122,10 @@
           crossDomain: true,
           statusCode: {
               0: function (){
-                $("#registration-success").removeClass("hidden");
-                $("#registration").hide();
-                $("#devday-register-form input[name='name']").val('');
-                $("#devday-register-form input[name='email']").val('');
-                $("#devday-register-form input[name='phone']").val('');
+                registerCallBack();
               },
               200: function (){
-                $("#registration-success").removeClass("hidden");
-                $("#registration").hide();
-                $("#devday-register-form input[name='name']").val('');
-                $("#devday-register-form input[name='email']").val('');
-                $("#devday-register-form input[name='phone']").val('');
+                registerCallBack();
               }
           }
       });
@@ -141,10 +145,6 @@
     var re = /^(\+91-|\+91|0)?\d{10}$/;
     return re.test(mobile);
   }
-
-  var $name = $("#devday-register-form input[name='name']"),
-      $email = $("#devday-register-form input[name='email']"),
-      $phone = $("#devday-register-form input[name='phone']");
 
   var success = {
     name: false,
