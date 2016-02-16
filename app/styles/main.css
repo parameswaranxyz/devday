@@ -9,8 +9,9 @@ html, body {
   background: url('../images/devday-banner.png') no-repeat;
   width: 100%;
   background-size: contain;
-  height: 320px;
+  height: 380px;
   background-position: center;
+  background-color: #0063B1;
 }
 
 .devday-header__container {
@@ -279,11 +280,13 @@ html, body {
   -o-animation: spin 1.5s infinite linear;
   -ms-animation: spin +1.5s infinite linear;
 }
+.section--map-container {
+  padding-bottom: 0;
+}
 
 #sahaj-bangalore-map {
     width: 100%;
     height: 500px;
-    margin-bottom: 25px;
 }
 
 #sahaj-bangalore-map > div {
@@ -440,20 +443,4 @@ input {
   background-color: rgba(255, 186, 186, 0.89);
   border: 2px solid rgba(255, 0, 0, 0.51);
   box-shadow: inset 0 -2px rgba(255, 0, 0, 0.51);
-}
-
-.success {
-  color: #4F8A10;
-  background-color: #DFF2BF;
-}
-
-#registration-success p {
-  margin: 0 20px;
-  padding: 20px;
-  border-radius: 5px;
-  width: 100%;
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
-  font-size: 20px;
 }

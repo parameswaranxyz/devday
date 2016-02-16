@@ -172,15 +172,15 @@
     }
   }
 
-  $($name).on("keyup keypress", function() {
+  $name.on("keyup keypress", function() {
     checkValidation($name, validateName($name.val()));
   });
 
-  $($email).on("keyup keypress", function() {
+  $email.on("keyup keypress", function() {
     checkValidation($email, validateEmail($email.val()));
   });
 
-  $($phone).on("keyup keypress", function() {
+  $phone.on("keyup keypress", function() {
     checkValidation($phone, validateMobile($phone.val()));
   });
 
