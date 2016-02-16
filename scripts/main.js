@@ -61,13 +61,13 @@
     });
   }
 
-  $(document).ready(function(){
-    window.devDayRegister = function() {
-        $('html, body').animate({
-            scrollTop: $("#register-container").offset().top
-        }, 1000);
-      };
-  });
+  // $(document).ready(function(){
+  //   window.devDayRegister = function() {
+  //       $('html, body').animate({
+  //           scrollTop: $("#register-container").offset().top
+  //       }, 1000);
+  //     };
+  // });
 
   // Particles
   $('.devday-bg').particleground({
@@ -198,5 +198,16 @@
       registerUser(name, email, phone);
     }
   });
+
+    function registerScrollLocation(buttonId, destinationId){
+        $("#"+buttonId).click(function () {
+            $('html, body').animate({
+                scrollTop: $("#"+destinationId).offset().top
+            }, 500);
+
+        });
+    }
+
+    registerScrollLocation('register-link', 'devday-register');
 
 })();
