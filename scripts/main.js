@@ -209,5 +209,8 @@
     }
 
     registerScrollLocation('register-link', 'devday-register');
+    
+    registerScrollLocation('sahaj-office-map', 'sahaj-bangalore-map');
+
 
 })();
