@@ -1,4 +1,3 @@
-/* eslint-env browser */
 (function() {
   'use strict';
 
@@ -61,13 +60,29 @@
     });
   }
 
-  // $(document).ready(function(){
-  //   window.devDayRegister = function() {
-  //       $('html, body').animate({
-  //           scrollTop: $("#register-container").offset().top
-  //       }, 1000);
-  //     };
-  // });
+
+  $("#goto-registration").on("click", function(event) {
+    event.stopPropagation();
+    $('html, body').animate({
+        scrollTop: $("#registration-title").offset().top
+    }, 1000);
+    $('#participant-name').focus();
+  });
+
+  $("#goto-map").on("click", function(event) {
+    event.stopPropagation();
+    $('html, body').animate({
+        scrollTop: $("#map-title").offset().top
+    }, 1200);
+  });
+
+   $("#goto-speaker").on("click", function(event) {
+    event.stopPropagation();
+    $('html, body').animate({
+        scrollTop: $("#presenter-title").offset().top
+    }, 1000);
+   });
+
 
   // Particles
   $('.devday-bg').particleground({
@@ -114,7 +129,7 @@
 
   function registerCallBack() {
     $("#registration-success").removeClass("hidden");
-    $("#registration").hide();
+    $("#registration-container").hide();
     $name.val('');
     $email.val('');
     $phone.val('');
@@ -198,19 +213,5 @@
       registerUser(name, email, phone);
     }
   });
-
-    function registerScrollLocation(buttonId, destinationId){
-        $("#"+buttonId).click(function () {
-            $('html, body').animate({
-                scrollTop: $("#"+destinationId).offset().top
-            }, 500);
-
-        });
-    }
-
-    registerScrollLocation('register-link', 'devday-register');
-    
-    registerScrollLocation('sahaj-office-map', 'sahaj-bangalore-map');
-
 
 })();

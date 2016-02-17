@@ -2,3 +2,4 @@ node_modules/
 dist
 devday.iml
 .tmp/
+.idea/
