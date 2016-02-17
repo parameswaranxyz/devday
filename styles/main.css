@@ -169,7 +169,10 @@ body {
     top: -55px;
     left: 16px;
     width: 100%;
-    text-align: center; } }
+    text-align: center; }
+
+  #registration-title {
+    margin-top: -40px; } }
 
 .section__presenter-container-name h4 {
   color: #000000; }
