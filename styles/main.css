@@ -28,15 +28,16 @@ body {
     overflow : visible;
 }
 
+.mdl-layout__container {
+    position: static;
+
+    width: auto;
+    height: auto;
+}
+
 @media screen and(max-width : 839px) {
     .mdl-layout {
         display : block;
-    }
-
-    .mdl-layout__container {
-        position: static;
-        width: auto;
-        height: auto;
     }
 }
 
