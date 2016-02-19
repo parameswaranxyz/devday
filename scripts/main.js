@@ -116,7 +116,13 @@
       var map_options = {
           center: officeLocation,
           zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: false
       };
       var map = new google.maps.Map(map_canvas, map_options);
       var marker = new google.maps.Marker({
