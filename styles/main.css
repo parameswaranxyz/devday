@@ -24,6 +24,11 @@ body {
   background-position: center;
   background-size: contain; }
 
+@media screen and (min-width: 1170px) {
+  .devday-header {
+    height: 380px;
+  } }
+
 .mdl-layout {
   overflow: visible; }
 
@@ -51,7 +56,7 @@ body {
 
 @media screen and (min-width: 1170px) {
   .devday-header__container {
-    top: 45px;
+    top: 95px;
     left: 20%; } }
 
 .goto-registration,
