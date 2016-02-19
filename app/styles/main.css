@@ -5,9 +5,20 @@ body {
   margin: 0;
   padding: 0; }
 
+.devday-logo {
+  background: url("../images/logo.png") no-repeat;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-size: contain;
+  left: 20px;
+  z-index: 5;
+  top: -10px;
+}
+
 .devday-header {
   width: 100%;
-  height: 380px;
+  height: 450px;
   background: url("../images/devday-banner.png") no-repeat;
   background-color: #0063B1;
   background-position: center;
@@ -21,13 +32,14 @@ body {
   width: auto;
   height: auto; }
 
+
 @media screen and (max-width: 839px) {
   .mdl-layout {
     display: block; } }
 
 .devday-header__container {
   position: absolute;
-  top: 10px;
+  top: 70px;
   left: 15%;
   width: 60%;
   padding: 25px 20px;
@@ -37,7 +49,7 @@ body {
   border-radius: 5px;
   background-color: #FCFCFC; }
 
-@media screen and (min-width: 479px) {
+@media screen and (min-width: 1170px) {
   .devday-header__container {
     top: 45px;
     left: 20%; } }
@@ -179,9 +191,10 @@ body {
     margin-top: -65px; } }
 
 .section__presenter-container-name h4 {
-  color: #000000; }
+  color: #616161; }
 
 .section__presenter-container-name h3 {
+  color: #000000 !important;
   margin-bottom: 10px; }
 
 .zmdi-hc-fw {
@@ -403,13 +416,19 @@ color: #A6AAA9; }
     display: block;
 }
 
+@media screen and (max-width: 479px) {
+  .section--map-container-address {
+     left: 10px;
+     padding: 10px;
+  } }
+
 @media screen and (min-width: 840px) {
   .section--map-container {
-    padding: 0 20px 0; }  
+    padding: 0 20px 0; }
 
   .section--map-container-address {
-    top: 60px;
-    opacity: 0.9; 
+    top: 30px;
+    opacity: 0.9;
     -webkit-box-shadow: 0 9px 10px #777;
     -moz-box-shadow: 0 9px 10px #777;
     box-shadow: 0 9px 10px #777; } }
@@ -423,7 +442,7 @@ color: #A6AAA9; }
     text-decoration: none;
     font-size: 16px;
     font-weight: normal; }
-        
+
 
 .section--map-container-address address {
     font-size: 16px;
@@ -433,16 +452,22 @@ color: #A6AAA9; }
 
 .section--map-container-address address h2 {
     margin: 0 0 10px;
-    font-size: 24px;
+    font-size: 19px;
     color: #000000;
 }
-    
+
+@media screen and (min-width: 480px) {
+  .section--map-container-address address h2 {
+    font-size: 24px;
+  } }
+
 #sahaj-bangalore-map {
   width: 100%;
   height: 500px; }
 
+
 #sahaj-bangalore-map > div {
-  pointer-events: none; }
+    pointer-events: none; }
 
 .devday-highlights {
   font-weight: 100;
@@ -465,11 +490,11 @@ color: #A6AAA9; }
     color: #097AB2;
     margin: 40px 0 15px; }
 
-.devday-speaker-invite > div { 
+.devday-speaker-invite > div {
     display: none;
 }
 
-.devday-speaker-invite > div.active { 
+.devday-speaker-invite > div.active {
     display: block;
 }
 .devday-info-email {
