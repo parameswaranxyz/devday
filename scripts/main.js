@@ -61,7 +61,7 @@
   }
 
 
-  $("#goto-registration").on("click", function(event) {
+  $(".goto-registration").on("click", function(event) {
     event.stopPropagation();
     $('html, body').animate({
         scrollTop: $("#registration-title").offset().top
@@ -101,6 +101,14 @@
         .setClassToggle(".section__presenter-container-icons", "active")
         .addTo(controller);
 
+  new ScrollMagic.Scene({triggerElement: ".contact-info"})
+	    .setClassToggle(".devday-speaker-invite > div", "active")
+	    .addTo(controller);
+
+  new ScrollMagic.Scene({triggerElement: "#map-title"})
+	    .setClassToggle(".section--map-container-address", "active")
+		.addTo(controller);
+
   // Sahaj Map
   function initialize_map(map_id, latitude, longitude) {
       var map_canvas = document.getElementById(map_id);
@@ -133,7 +141,7 @@
     $name.val('');
     $email.val('');
     $phone.val('');
-  }
+  };
 
   function registerUser(name, email, phone) {
       $.ajax({
@@ -154,22 +162,22 @@
               }
           }
       });
-  }
+  };
 
   function validateName(name) {
     var re = /(\w+)\s*(\w+)/;
     return re.test(name);
-  }
+  };
 
   function validateEmail(email) {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-  }
+  };
 
   function validateMobile(mobile) {
     var re = /^(\+91-|\+91|0)?\d{10}$/;
     return re.test(mobile);
-  }
+  };
 
   var success = {
     name: false,
@@ -185,7 +193,7 @@
       success[element[0].getAttribute("name")] = false;
       element.addClass("error");
     }
-  }
+  };
 
   $name.on("keyup keypress", function() {
     checkValidation($name, validateName($name.val()));

@@ -7,15 +7,11 @@ body {
 
 .devday-header {
   width: 100%;
-  height: 600px;
+  height: 380px;
   background: url("../images/devday-banner.png") no-repeat;
   background-color: #0063B1;
   background-position: center;
   background-size: contain; }
-
-@media screen and (min-width: 840px) {
-  .devday-header {
-    height: 380px; } }
 
 .mdl-layout {
   overflow: visible; }
@@ -31,8 +27,8 @@ body {
 
 .devday-header__container {
   position: absolute;
-  top: 45px;
-  left: 20%;
+  top: 10px;
+  left: 15%;
   width: 60%;
   padding: 25px 20px;
   opacity: 0.9;
@@ -41,21 +37,28 @@ body {
   border-radius: 5px;
   background-color: #FCFCFC; }
 
-@media screen and (max-width: 479px) {
+@media screen and (min-width: 479px) {
   .devday-header__container {
-    left: 15%; } }
+    top: 45px;
+    left: 20%; } }
 
-#goto-registration,
+.goto-registration,
 #goto-speaker,
 #goto-map {
   cursor: pointer; }
 
 .devday-header__container .sign-up-button {
-  position: absolute;
-  bottom: -100px;
-  left: 30%;
-  width: 40%;
-  pointer-events: none; }
+    position: absolute;
+    bottom: -45px;
+    left: 25%;
+    width: 50%;
+    pointer-events: none; }
+
+@media screen and (min-width: 479px) {
+  .devday-header__container .sign-up-button {
+    bottom: -100px;
+    left: 30%;
+    width: 40%; } }
 
 .devday-header__container p {
   font-size: 24px;
@@ -97,6 +100,7 @@ body {
 /*Presenter Container*/
 .pg-canvas {
   position: absolute;
+  left: 0;
   z-index: 1; }
 
 .section__presenter-container {
@@ -171,7 +175,7 @@ body {
     width: 100%;
     text-align: center; }
 
-  #registration-title {
+  .devday-speaker-invite-container {
     margin-top: -65px; } }
 
 .section__presenter-container-name h4 {
@@ -216,46 +220,9 @@ body {
       -ms-flex-pack: center;
           justify-content: center; }
 
-.event-highlights--text h4 {
-  margin-bottom: 15px;
-  text-align: center;
-  color: #000000; }
-
-.event-highlights--text h6 {
-  margin: 0 auto;
-  text-align: center;
-  color: #A6AAA9; }
-
-@media screen and (max-width: 839px) {
-  .event-highlights--text h6 {
-    margin-bottom: 25px; } }
-
-.event-highlights i {
-  font-size: 62px;
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  left: calc(100% - 85%);
-  padding: 44px 35px;
-  color: #F39019; }
-
-@media screen and (min-width: 360px) and (max-width: 719px) {
-  .event-highlights i {
-    left: calc(100% - 81%); } }
-
-@media screen and (min-width: 720px) and (max-width: 959px) {
-  .event-highlights i {
-    left: calc(100% - 77%); } }
-
-@media screen and (min-width: 960px) and (max-width: 1280px) {
-  .event-highlights i {
-    left: calc(100% - 75%); } }
-
-@media screen and (min-width: 1281px) {
-  .event-highlights i {
-    left: calc(100% - 66%); } }
-
-.event-highlights > div {
+.event-highlights > article {
+    width: 160px;
+    height: 160px;
   -webkit-align-items: center;
       -ms-flex-align: center;
               -ms-grid-row-align: center;
@@ -263,6 +230,61 @@ body {
   -webkit-justify-content: center;
       -ms-flex-pack: center;
           justify-content: center; }
+
+.event-highlights i {
+  font-size: 62px;
+  position: absolute;
+  z-index: 3;
+  top: 49px;
+  left: 34%;
+  color: #F39019; }
+
+@media screen and (min-width: 360px) and (max-width: 719px) {
+  .event-highlights i {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite; } }
+
+.event-navigate-links:hover i {
+    color: #0264BF;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+@media screen and (min-width: 720px) and (max-width: 1169px) {
+  .event-highlights i {
+    left: 36%; } }
+
+@media screen and (min-width: 1170px) and (max-width: 1280px) {
+  .event-highlights i {
+    left: 38%; } }
+
+@media screen and (min-width: 1281px) {
+  .event-highlights i {
+    left: 42%; } }
 
 @-webkit-keyframes spin {
   0% {
@@ -279,10 +301,11 @@ body {
 .event-highlights--circle {
   width: 150px;
   height: 150px;
-  -webkit-animation: spin 1.5s infinite linear;
-  -moz-animation: spin 1.5s infinite linear;
-  -ms-animation: spin +1.5s infinite linear;
-  -o-animation: spin 1.5s infinite linear;
+  animation: spin 1.5s infinite linear;
+  -webkit-animation: spin 1.5s infinite ease;
+  -moz-animation: spin 1.5s infinite ease;
+  -ms-animation: spin +1.5s infinite ease;
+  -o-animation: spin 1.5s infinite ease;
   border-top: 5px solid #2D6D9D;
   border-right: 5px solid #3881AA;
   border-bottom: 5px solid #6099B7;
@@ -290,9 +313,130 @@ body {
   border-radius: 50%;
   background: #FFFFFF; }
 
-.section--map-container {
-  padding-bottom: 0; }
+.event-navigate-links:hover .event-highlights--circle {
+  animation: none;
+  -webkit-animation: none;
+  -moz-animation: none;
+  -ms-animation: none;
+  -o-animation: none; }
 
+@-moz-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+.event-highlights--text h4 {
+margin-bottom: 15px;
+text-align: center;
+color: #000000; }
+
+@media screen and (min-width: 360px) and (max-width: 719px) {
+  .event-highlights--text h4 {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite; } }
+
+.event-navigate-links:hover .event-highlights--text h4 {
+    color: #F39019;
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 1s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.event-highlights--text h6 {
+margin: 0 auto;
+text-align: center;
+color: #A6AAA9; }
+
+.section--map-container {
+  padding: 375px 20px 0; }
+
+@media screen and (max-width: 839px) {
+  .event-highlights--text h6 {
+    margin-bottom: 25px; }  }
+
+.section--map-container-address {
+    position: absolute;
+    top: 0;
+    left: 32px;
+    padding: 20px;
+    z-index: 5;
+    background: #FFF;
+    display: none;}
+
+.section--map-container-address.active {
+    display: block;
+}
+
+@media screen and (min-width: 840px) {
+  .section--map-container {
+    padding: 0 20px 0; }  
+
+  .section--map-container-address {
+    top: 60px;
+    opacity: 0.9; 
+    -webkit-box-shadow: 0 9px 10px #777;
+    -moz-box-shadow: 0 9px 10px #777;
+    box-shadow: 0 9px 10px #777; } }
+
+.section--map-container-address h5 {
+    color: #000;
+    margin-bottom: 12px; }
+
+.section--map-container-address a {
+    color: #3A3434;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: normal; }
+        
+
+.section--map-container-address address {
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.35;
+    color: #3A3434; }
+
+.section--map-container-address address h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    color: #000000;
+}
+    
 #sahaj-bangalore-map {
   width: 100%;
   height: 500px; }
@@ -312,7 +456,30 @@ body {
   border-top: none;
   border-bottom: 5px solid #0377B0; }
 
-/*Register Form*/
+.devday-speaker-invite {
+    position: relative;
+    z-index: 5;
+    font-size: 22px;
+    text-align: center;
+    line-height: 1.25;
+    color: #097AB2;
+    margin: 40px 0 15px; }
+
+.devday-speaker-invite > div { 
+    display: none;
+}
+
+.devday-speaker-invite > div.active { 
+    display: block;
+}
+.devday-info-email {
+    position: relative;
+    z-index: 5;
+    color: #097AB2;
+    font-weight: 500;
+    text-decoration: none; }
+
+/*Registration Form*/
 input {
   font-family: inherit;
   box-sizing: border-box;
@@ -411,6 +578,21 @@ input {
 ::-moz-focus-inner {
   padding: 0;
   border: 0; }
+
+.success {
+  color: #4F8A10;
+  background-color: #DFF2BF;
+}
+
+#registration-success p {
+  margin: 0 20px;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 20px;
+}
 
 .error {
   color: #D8000C;
