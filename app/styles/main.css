@@ -6,21 +6,21 @@ body {
   padding: 0; }
 
 .devday-logo {
-  background: url("../images/logo.png") no-repeat;
+  background: url("../images/logo.gif") no-repeat;
   position: absolute;
   width: 200px;
   height: 200px;
   background-size: contain;
   left: 20px;
   z-index: 5;
-  top: -10px;
+  top: 15px;
 }
 
 .devday-header {
   width: 100%;
   height: 450px;
   background: url("../images/devday-banner.png") no-repeat;
-  background-color: #0063B1;
+  background-color: #354497;
   background-position: center;
   background-size: contain; }
 
@@ -49,7 +49,7 @@ body {
   width: 60%;
   padding: 25px 20px;
   opacity: 0.9;
-  color: #0063B1;
+  color: #354497;
   border: 1px solid #A6D0F6;
   border-radius: 5px;
   background-color: #FCFCFC; }
@@ -500,7 +500,7 @@ input {
   margin: 0 20px;
   padding: 20px 10px;
   border-radius: 5px;
-  background-color: #0063B1; }
+  background-color: #354497; }
 
 @media screen and (min-width: 840px) {
   .devday-register {
