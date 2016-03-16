@@ -151,11 +151,11 @@
 
   function registerUser(name, email, phone) {
       $.ajax({
-          url: "https://docs.google.com/forms/d/19jtiupDWraGM1d4M8EQDHiaZCCmKt16wq9XOXqWlENY/formResponse",
+          url: "https://docs.google.com/forms/d/1Q_rqoZWxHXXiSE3DBRLvYdsTJwIHd7IQuMNadtg4CHk/formResponse",
           data: {
-            "entry.710840430" : name,
-            "entry.2028895933" : email,
-            "entry.310522985": phone},
+            "entry.1835601702" : name,
+            "entry.190890788" : email,
+            "entry.1343889675": phone},
           type: "POST",
           dataType: "xml",
           crossDomain: true,
