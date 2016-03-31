@@ -90,8 +90,8 @@
     lineColor: '#9499B5',
     lineWidth: 0.25,
     particleRadius: 4,
-    proximity: 100,
-    density: 20000
+    proximity: 80,
+    density: 30000
   });
 
   // Scroll - Social Media icons
