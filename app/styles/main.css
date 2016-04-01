@@ -439,10 +439,6 @@ color: #A6AAA9; }
   width: 100%;
   height: 500px; }
 
-
-#sahaj-bangalore-map > div {
-    pointer-events: none; }
-
 .devday-highlights {
   font-weight: 100;
   margin: 40px 0 25px;
