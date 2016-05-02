@@ -217,7 +217,8 @@ body {
 
 .section__presenter-container-name h3 {
   color: #000000 !important;
-  margin-bottom: 10px; }
+  margin-bottom: 10px; 
+  font-size: 30px; }
 
 @media screen and (max-width: 767px) {
   .section__presenter-container-name h3 { 
