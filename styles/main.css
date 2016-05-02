@@ -219,6 +219,18 @@ body {
   color: #000000 !important;
   margin-bottom: 10px; }
 
+@media screen and (max-width: 767px) {
+  .section__presenter-container-name h3 { 
+    margin-bottom: 45px;
+    font-size: 26px;
+    line-height: 32px;
+  }
+
+  .section__presenter-container-name h3.presenter-mobile {
+    margin-bottom: 0;
+  }
+}  
+
 .zmdi-hc-fw {
   width: 1.28571429em;
   text-align: center; }
