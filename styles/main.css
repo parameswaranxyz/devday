@@ -17,13 +17,17 @@ body {
 }
 
 .devday-header {
-  position: relative;
   width: 100%;
-  height: 300px;
-  background: url("../images/arduino-day.jpg") no-repeat;
+  height: 450px;
+  background: url("../images/devday-banner.png") no-repeat;
   background-color: #354497;
   background-position: center;
   background-size: contain; }
+
+@media screen and (min-width: 1170px) {
+  .devday-header {
+    height: 380px;
+  } }
 
 .mdl-layout {
   overflow: visible; }
@@ -39,10 +43,16 @@ body {
     display: block; } }
 
 .devday-header__container {
-    width: 60%;
-    padding: 25px 20px;
-    color: #354497;
-    margin: 0 auto; }
+  position: absolute;
+  top: 70px;
+  left: 15%;
+  width: 60%;
+  padding: 25px 20px;
+  opacity: 0.9;
+  color: #354497;
+  border: 1px solid #A6D0F6;
+  border-radius: 5px;
+  background-color: #FCFCFC; }
 
 @media screen and (min-width: 1170px) {
   .devday-header__container {
@@ -54,17 +64,18 @@ body {
 #goto-map {
   cursor: pointer; }
 
-.devday-header .sign-up-button {
+.devday-header__container .sign-up-button {
     position: absolute;
-    width: 250px;
-    bottom: 95px;
-    right: 15px;
+    bottom: -50px;
+    left: 25%;
+    width: 50%;
     pointer-events: none; }
 
-@media screen and (max-width: 480px) {
-  .devday-header .sign-up-button {
-    bottom: 165px;
-    left: calc(50% - 125px); } }
+@media screen and (min-width: 479px) {
+  .devday-header__container .sign-up-button {
+    bottom: -100px;
+    left: 30%;
+    width: 40%; } }
 
 .devday-header__container p {
   font-size: 24px;
