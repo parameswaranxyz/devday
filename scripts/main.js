@@ -152,7 +152,7 @@
 
   function registerUser(name, email, phone) {
       $.ajax({
-          url: "https://docs.google.com/forms/d/1enI_Tz7w2U5oDNMZ1mEmMIY56eU9643JPy7rDLKiuN0/formResponse",
+          url: "https://docs.google.com/forms/d/17I8-e7DltY5zLStkHosjXMwQ7uf0fd51GkJDDXkEbfM/formResponse",
           data: {
             "entry.288897361" : name,
             "entry.543157192" : email,
