@@ -482,7 +482,12 @@ color: #A6AAA9; }
     text-align: center;
     line-height: 1.25;
     color: #097AB2;
-    margin: 40px 0 15px; }
+    margin: 10px 0 15px; }
+
+.devday-speaker-invite a {
+    display: block;
+    margin-top: 25px;
+}    
 
 .devday-speaker-invite > div {
     display: none;
@@ -554,6 +559,11 @@ input {
   box-shadow: inset 0 -2px #D76B60;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
   outline: none;}
+
+.talks-button {
+  background: rgba(0, 128, 0, 0.74);
+  box-shadow: inset 0 -2px rgba(0, 128, 0, 0.72);
+}
 
 @media (min-width: 840px) {
   .sign-up-button {
