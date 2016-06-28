@@ -5,3 +5,6 @@ devday.iml
 .idea/
 .vs/config/applicationhost.config
 *.suo
+_site
+.sass-cache
+.jekyll-metadata
