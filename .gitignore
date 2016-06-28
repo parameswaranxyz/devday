@@ -3,3 +3,5 @@ dist
 devday.iml
 .tmp/
 .idea/
+.vs/config/applicationhost.config
+*.suo
