@@ -5,7 +5,7 @@
         margin-bottom: 80px;
     }
 
-    &.container {
+    &.section {
         max-width: 1600px;
         width: calc(100% - 16px);
         margin: 0 auto;
@@ -20,7 +20,7 @@
         flex-shrink: 0;
     }
 
-    &.wrapper {
+    &.container {
         margin-top: -35vh;
         -webkit-flex-shrink: 0;
         -ms-flex-negative: 0;

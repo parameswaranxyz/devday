@@ -1,8 +1,8 @@
-﻿---
+---
 layout: post
 title:  "Technical meetup"
 date:   2016-03-05 10:30:00 +0530
-categories: technical generic
+categories: events technology
 ---
 
 Abstract

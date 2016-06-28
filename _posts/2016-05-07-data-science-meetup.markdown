@@ -1,8 +1,8 @@
-﻿---
+---
 layout: post
 title:  "Data science: How it helps"
 date:   2016-05-07 10:30:00 +0530
-categories: data-science
+categories: events data-science
 ---
 
 

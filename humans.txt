@@ -3,11 +3,11 @@
 
 # TEAM
 
-  <name> -- <role> -- <twitter>
+  Sudarsan Balaji -- Developer -- theartfuldev
 
 # THANKS
 
-  <name>
+  Sudarsan Balaji
 
 # TECHNOLOGY COLOPHON
 

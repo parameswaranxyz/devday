@@ -1,8 +1,8 @@
-﻿---
+---
 layout: post
 title:  "Data science: How it helps"
 date:   2016-04-02 10:30:00 +0530
-categories: arduino
+categories: events arduino
 ---
 
 Devday archives

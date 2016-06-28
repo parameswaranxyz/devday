@@ -462,7 +462,7 @@ pre {
 				padding: 80px 56px;
 				margin-bottom: 80px; }
 
-.post.container {
+.post.section {
 				max-width: 1600px;
 				width: calc(100% - 16px);
 				margin: 0 auto; }
@@ -474,4 +474,24 @@ pre {
 				-webkit-flex-shrink: 0;
 				-ms-flex-negative: 0;
 				flex-shrink: 0; }
+
+.post.container {
+				margin-top: -35vh;
+				-webkit-flex-shrink: 0;
+				-ms-flex-negative: 0;
+				flex-shrink: 0; }
+
+.devday.footer {
+				margin-top: 80px;
+				height: 120px;
+				padding: 40px;
+				-webkit-align-items: center;
+				-ms-flex-align: center;
+				-ms-grid-row-align: center;
+				align-items: center;
+				background-color: #3F51B5;
+				box-sizing: border-box; }
+
+.devday.logo {
+				height: 48px; }
 
