@@ -13,6 +13,10 @@
 
     main {
         @extend .mdl-layout__content;
+        
+        .panel {
+            padding: 8px;
+        }
     }
 
     section {
@@ -173,6 +177,11 @@
 
                     &.right {
                         float: right;
+                    }
+
+                    &:hover {
+                        background: transparent;
+                        color: black;
                     }
                 }
             }

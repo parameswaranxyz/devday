@@ -6,63 +6,65 @@
     <div class="container">
         <div class="layout">
             <main>
-                <section class="intro">
-                    <div class="cover">
-                        <div class="content">
-                            <header>
-                                <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
-                            </header>
-                            {{ event.abstract }}
+                <div class="panel">
+                    <section class="intro">
+                        <div class="cover">
+                            <div class="content">
+                                <header>
+                                    <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
+                                </header>
+                                {{ event.abstract }}
+                            </div>
+                            <footer>
+                                <a class="button">Participate</a>
+                                <a class="button">Present</a>
+                            </footer>
                         </div>
-                        <footer>
-                            <a class="button">Participate</a>
-                            <a class="button">Present</a>
-                        </footer>
-                    </div>
-                </section>
-                <section class="agenda">
-                    <div class="cover">
-                        <div class="content">
-                            <header>
-                                <h4>Agenda</h4>
-                            </header>
-                            {% for sub_event in event.agenda %}
-                                {%if sub_event.type == "talk" %}    
-                                <div class="thumbnail">
-                                    <h5>{{ sub_event.local_time }}</h5>
-                                    <h6>{{ sub_event.local_time_post }}</h6>
-                                </div>
-                                <div class="info">
-                                    <h5>{{ sub_event.title }}</h5>
-                                    {% if sub_event.authors %}
-                                    <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
-                                    {% endif %}
-                                    {% if sub_event.abstract %}
-                                    {{ sub_event.abstract }}
-                                    {% endif %}
-                                </div>
-                                {% else %}
-                                <div class="thumbnail break">
-                                    <h5>{{ sub_event.local_time }}</h5>
-                                    <h5>{{ sub_event.local_time_post }}</h6>
-                                </div>
-                                <div class="info break">
-                                    <div class="centerer">
-                                        <h5>{{ sub_event.title }}</h5>
+                    </section>
+                    <section class="agenda">
+                        <div class="cover">
+                            <div class="content">
+                                <header>
+                                    <h4>Agenda</h4>
+                                </header>
+                                {% for sub_event in event.agenda %}
+                                    {%if sub_event.type == "talk" %}    
+                                    <div class="thumbnail">
+                                        <h5>{{ sub_event.local_time }}</h5>
+                                        <h6>{{ sub_event.local_time_post }}</h6>
                                     </div>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
+                                    <div class="info">
+                                        <h5>{{ sub_event.title }}</h5>
+                                        {% if sub_event.authors %}
+                                        <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
+                                        {% endif %}
+                                        {% if sub_event.abstract %}
+                                        {{ sub_event.abstract }}
+                                        {% endif %}
+                                    </div>
+                                    {% else %}
+                                    <div class="thumbnail break">
+                                        <h5>{{ sub_event.local_time }}</h5>
+                                        <h5>{{ sub_event.local_time_post }}</h6>
+                                    </div>
+                                    <div class="info break">
+                                        <div class="centerer">
+                                            <h5>{{ sub_event.title }}</h5>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <footer>
+                                <a class="right button">Register</a>
+                            </footer>
                         </div>
-                        <footer>
-                            <a class="right button">Register</a>
-                        </footer>
-                    </div>
-                </section>
-                <section class="info">
-                    <p>{{ event.venue }}</p>
-                    <p>{{ event.time | date_to_string }}</p>
-                </section>
+                    </section>
+                    <section class="info">
+                        <p>{{ event.venue }}</p>
+                        <p>{{ event.time | date_to_string }}</p>
+                    </section>
+                </div>
             </main>
             <aside>
                 <div class="attendees">
