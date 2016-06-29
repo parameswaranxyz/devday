@@ -4,36 +4,64 @@
   {% include head_mdl.html %}
 <body class="devday event">
     <div class="container">
-        <main>
-            <section class="intro">
-                <div>
-                    <p>Upcoming Event: {{ event.name }} on {{ event.time | date_to_string }}</p>
-                    <button>Participate</button><span>&lt;&lt; or &gt;&gt;</span><button>Present</button>
+        <div class="layout">
+            <main>
+                <section class="intro">
+                    <div class="cover">
+                        <div class="content">
+                            <header>
+                                <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
+                            </header>
+                            {{ event.abstract }}
+                        </div>
+                        <footer>
+                            <a class="button">Participate</a>
+                            <a class="button">Present</a>
+                        </footer>
+                    </div>
+                </section>
+                <section class="agenda">
+                    <div class="cover">
+                        <div class="content">
+                            <header>
+                                <h4>Agenda</h4>
+                            </header>
+                            {% for sub_event in event.agenda %}
+                                <div class="thumbnail">
+                                    <div class="time">{{ sub_event.local_time }}</div>
+                                    <div class="time">{{ sub_event.local_time_post }}</div>
+                                </div>
+                                <div class="info">
+                                    {%if sub_event.type == "talk" %}
+                                        <h5>{{ sub_event.title }}</h5>
+                                        {% if sub_event.authors %}
+                                            <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
+                                        {% endif %}
+                                        {% if sub_event.abstract %}
+                                            {{ sub_event.abstract }}
+                                        {% endif %}
+                                    {% else %}
+                                        <h5 class="break">{{ sub_event.title }}</h5>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <footer>
+                            <a class="right button">Register</a>
+                        </footer>
+                    </div>
+                </section>
+                <section class="info">
+                    <p>{{ event.venue }}</p>
+                    <p>{{ event.time | date_to_string }}</p>
+                </section>
+            </main>
+            <aside>
+                <div class="attendees">
+                    21 people attending.
                 </div>
-            </section>
-            <section class="agenda">
-                <table>
-                    <thead>
-                    <tr>
-                        <td>Time</td>
-                        <td>Event</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for sub_event in event.agenda %}
-                    <tr>
-                        <td>{{ sub_event.time }}</td>
-                        <td>{{ sub_event.title }}</td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </section>
-            <section class="info">
-                <p>{{ event.venue }}</p>
-                <p>{{ event.time | date_to_string }}</p>
-            </section>
-        </main>
+            </aside>
+        </div>
     </div>
 </body>
 </html>

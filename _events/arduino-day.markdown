@@ -18,6 +18,9 @@ agenda:
 - 
     type: "talk"
     title: "Database-Days of the future past"
+    local_time: "10:30"
+    local_time_post: "AM"
+    abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna."
     authors: 
     - 
         name: "Avinash Nijampure"
@@ -31,6 +34,9 @@ agenda:
     type: "talk"
     time: "2016-06-04T11:30:00+05:30"
     title: "SQLite: Why aren't you using it more?"
+    local_time: "10:30"
+    local_time_post: "AM"
+    abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna."
     authors: 
     - 
         name: "Srimathi Harinarayanan"
@@ -42,6 +48,9 @@ agenda:
     type: "talk"
     title: "Databases as event streams"
     time: "2016-06-04T12:15:00+05:30"
+    local_time: "10:30"
+    local_time_post: "AM"
+    abstract: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna."
     authors: 
     - 
         name: "Shashank Teotia"

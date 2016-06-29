@@ -18,14 +18,22 @@ agenda:
         name: "Avinash Nijampure"
         avatar: ""
     time: "2016-06-04T10:30:00+05:30"
+    local_time: "10:30"
+    local_time_post: "AM"
+    abstract: "Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis"
 - 
     type: "break"
     time: "2016-06-04T11:15:00+05:30"
     title: "Tea Break"
+    local_time: "11:15"
+    local_time_post: "AM"
 - 
     type: "talk"
     time: "2016-06-04T11:30:00+05:30"
     title: "SQLite: Why aren't you using it more?"
+    local_time: "11:30"
+    local_time_post: "AM"
+    abstract: "Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis"
     authors: 
     - 
         name: "Srimathi Harinarayanan"
@@ -37,6 +45,9 @@ agenda:
     type: "talk"
     title: "Databases as event streams"
     time: "2016-06-04T12:15:00+05:30"
+    local_time: "11:15"
+    local_time_post: "AM"
+    abstract: "Dolore ex deserunt aute fugiat aute nulla ea sunt aliqua nisi cupidatat eu. Duis nulla tempor do aute et eiusmod velit exercitation nostrud quis"
     authors: 
     - 
         name: "Shashank Teotia"
@@ -44,5 +55,7 @@ agenda:
 - 
     type: "break"
     title: "Lunch Break"
-    time: "2016-06-04"
+    time: "2016-06-04T13:00:00+05:30"
+    local_time: "01:00"
+    local_time_post: "PM"
 ---
