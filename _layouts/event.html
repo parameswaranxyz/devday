@@ -27,23 +27,31 @@
                                 <h4>Agenda</h4>
                             </header>
                             {% for sub_event in event.agenda %}
+                                {%if sub_event.type == "talk" %}    
                                 <div class="thumbnail">
-                                    <div class="time">{{ sub_event.local_time }}</div>
-                                    <div class="time">{{ sub_event.local_time_post }}</div>
+                                    <h5>{{ sub_event.local_time }}</h5>
+                                    <h6>{{ sub_event.local_time_post }}</h6>
                                 </div>
                                 <div class="info">
-                                    {%if sub_event.type == "talk" %}
-                                        <h5>{{ sub_event.title }}</h5>
-                                        {% if sub_event.authors %}
-                                            <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
-                                        {% endif %}
-                                        {% if sub_event.abstract %}
-                                            {{ sub_event.abstract }}
-                                        {% endif %}
-                                    {% else %}
-                                        <h5 class="break">{{ sub_event.title }}</h5>
+                                    <h5>{{ sub_event.title }}</h5>
+                                    {% if sub_event.authors %}
+                                    <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
+                                    {% endif %}
+                                    {% if sub_event.abstract %}
+                                    {{ sub_event.abstract }}
                                     {% endif %}
                                 </div>
+                                {% else %}
+                                <div class="thumbnail break">
+                                    <h5>{{ sub_event.local_time }}</h5>
+                                    <h5>{{ sub_event.local_time_post }}</h6>
+                                </div>
+                                <div class="info break">
+                                    <div class="centerer">
+                                        <h5>{{ sub_event.title }}</h5>
+                                    </div>
+                                </div>
+                                {% endif %}
                             {% endfor %}
                         </div>
                         <footer>

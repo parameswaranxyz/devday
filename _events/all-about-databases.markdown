@@ -12,7 +12,7 @@ venue: "Bangalore"
 agenda: 
 - 
     type: "talk"
-    title: "Database-Days of the future past"
+    title: "Databases: Days of the future past"
     authors: 
     - 
         name: "Avinash Nijampure"
@@ -24,7 +24,7 @@ agenda:
 - 
     type: "break"
     time: "2016-06-04T11:15:00+05:30"
-    title: "Tea Break"
+    title: "Tea and snacks"
     local_time: "11:15"
     local_time_post: "AM"
 - 
@@ -54,7 +54,7 @@ agenda:
         avatar: ""
 - 
     type: "break"
-    title: "Lunch Break"
+    title: "Lunch"
     time: "2016-06-04T13:00:00+05:30"
     local_time: "01:00"
     local_time_post: "PM"
