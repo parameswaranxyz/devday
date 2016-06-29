@@ -20,3 +20,22 @@ github_username:  sahajsoft
 # Build settings
 markdown: kramdown
 encoding: utf-8
+
+# Collection settings
+collections:
+  events:
+    output: true
+    permalink: /events/:path/
+defaults:
+  -
+    scope:
+      path: '' # an empty string here means all files in the project
+      type: posts # previously `post` in Jekyll 2.2.
+    values:
+      layout: post
+  -
+    scope:
+      path: ''
+      type: events
+    values:
+      layout: event
