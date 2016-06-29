@@ -19,6 +19,10 @@
   
     
   
-    <UserProperties _3schema_4events_1schema_1json__JSONSchema="http://json-schema.org/draft-04/schema" _3data_4events_1json__JSONSchema=""/>
+    
+  
+    
+  
+    <UserProperties _3schema_4events_1schema_1json__JSONSchema="http://json-schema.org/draft-04/schema" _3data_4events_1json__JSONSchema="https://raw.githubusercontent.com/sahajsoft/devday/use-jekyll/_data/schema/events.schema.json"/>
   </Globals>
 </VisualWebDeveloper>
