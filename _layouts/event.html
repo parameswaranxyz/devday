@@ -1,3 +1,4 @@
+{% assign event = page %}
 <!DOCTYPE html>
 <html lang="en">
   {% include head_mdl.html %}
@@ -6,7 +7,7 @@
         <main>
             <section class="intro">
                 <div>
-                    <p>Upcoming Event: {{ page.name }} on {{ page.time | date_to_string }}</p>
+                    <p>Upcoming Event: {{ event.name }} on {{ event.time | date_to_string }}</p>
                     <button>Participate</button><span>&lt;&lt; or &gt;&gt;</span><button>Present</button>
                 </div>
             </section>
@@ -19,7 +20,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for sub_event in page.agenda %}
+                    {% for sub_event in event.agenda %}
                     <tr>
                         <td>{{ sub_event.time }}</td>
                         <td>{{ sub_event.title }}</td>
@@ -28,7 +29,10 @@
                     </tbody>
                 </table>
             </section>
-            <section class="info"></section>
+            <section class="info">
+                <p>{{ event.venue }}</p>
+                <p>{{ event.time | date_to_string }}</p>
+            </section>
         </main>
     </div>
 </body>
