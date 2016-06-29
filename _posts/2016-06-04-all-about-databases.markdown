@@ -4,6 +4,7 @@ title:  "All about databases"
 date:   2016-06-04 10:30:00 +0530
 categories: events
 tags: databases
+author: "devday_ team"
 ---
 
 A Date with Databases. This meet up would be all about Databases - the internals and the overall.

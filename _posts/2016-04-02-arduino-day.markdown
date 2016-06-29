@@ -4,6 +4,7 @@ title:  "Data science: How it helps"
 date:   2016-04-02 10:30:00 +0530
 categories: events
 tags: arduino
+author: "devday_ team"
 ---
 
 Devday archives
