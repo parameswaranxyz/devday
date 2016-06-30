@@ -7,12 +7,10 @@
         <div class="layout">
             <main>
                 <div class="panel">
-                    <section class="intro">
-                        <div class="cover">
+                    <section class="centered intro">
+                        <div class="twelve column card">
                             <div class="content">
-                                <header>
-                                    <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
-                                </header>
+                                <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
                                 {{ event.abstract }}
                             </div>
                             <footer>
@@ -21,12 +19,10 @@
                             </footer>
                         </div>
                     </section>
-                    <section class="agenda">
-                        <div class="cover">
+                    <section class="centered agenda">
+                        <div class="twelve column card">
                             <div class="content">
-                                <header>
-                                    <h4>Agenda</h4>
-                                </header>
+                                <h4 class="full-width">Agenda</h4>
                                 {% for sub_event in event.agenda %}
                                     {%if sub_event.type == "talk" %}    
                                     <div class="thumbnail">
@@ -56,19 +52,40 @@
                                 {% endfor %}
                             </div>
                             <footer>
-                                <a class="right button">Register</a>
+                                <a class="button">Register</a>
                             </footer>
                         </div>
                     </section>
-                    <section class="info">
-                        <p>{{ event.venue }}</p>
-                        <p>{{ event.time | date_to_string }}</p>
+                    <section class="centered info">
+                        <div class="location card">
+                            <a href="https://www.google.co.in/maps/place/Sahaj+Software+Solutions+Pvt.+Ltd./@12.924928,77.627855,15z/data=!4m5!3m4!1s0x0:0x9fc1c9bd2d066d5a!8m2!3d12.924928!4d77.627855">
+                                <header>
+                                    <h4>Location</h4>
+                                </header>
+                            </a>
+                        </div>
+                        <div class="event card">
+                            <header>
+                                <h4>{{ event.name }}</h4>
+                                <h5>{{ event.time | date_to_string }}</h5>
+                                <h6>{{ event.event_time }}</h6>
+                            </header>
+                            <footer>
+                                <a class="button">Add to calendar</a>
+                                <div class="absolute right">
+                                    <a class="button"><i class="material-icons">event</i></a>
+                                </div>
+                            </footer>
+                        </div>
                     </section>
                 </div>
             </main>
             <aside>
                 <div class="attendees">
                     21 people attending.
+                </div>
+                <div class="speakers">
+                    4 speakers.
                 </div>
             </aside>
         </div>

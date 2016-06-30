@@ -7,8 +7,13 @@ author: "devday_ team"
 name: "All about databases"
 abstract: "A Date with Databases. This meet up would be all about Databases - the internals and the overall. The idea is to tear down databases, across relational/non relational, and understand them deep down."
 time: "2016-06-04T10:30:00+05:30"
+event_time: "10:30 AM - 1:00 PM"
 registration_closes: "2016-06-04T10:30:00+05:30"
-venue: "Bangalore"
+venue: |
+  #365, 3rd Floor, Sulochana Building,
+  1st Cross Road, 3rd Block,
+  Koramangala, Sarjapura Main Road,
+  Bangalore 560034"
 agenda: 
 - 
     type: "talk"

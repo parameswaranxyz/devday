@@ -1,7 +1,21 @@
-﻿.devday.event {
+﻿.right {
+    float: right;
+
+    &.absolute {
+        position: absolute;
+        right: 0;
+        float: none;
+    }
+}
+
+.devday.event {
     @extend .mdl-color-text--grey-700;
     @extend .mdl-color--grey-100;
     
+    .full-width {
+        width: 100%;
+    }
+
     .container {
         @extend .mdl-color-text--grey-700;
         @extend .mdl-layout__container;
@@ -20,13 +34,19 @@
     }
 
     section {
-        @extend .mdl-grid--no-spacing;
-        @extend .mdl-shadow--2dp;
+        &.agenda, &.intro {
+            @extend .mdl-shadow--2dp;
+        }
+
         @extend .mdl-grid;
-        max-width: 860px;
-        position: relative;
-        margin-bottom: 48px;
-        padding: 0;
+        @extend .mdl-grid--no-spacing;
+
+        &.centered {
+            max-width: 860px;
+            position: relative;
+            margin-bottom: 48px;
+            padding: 0;
+        }
 
         &.agenda {
             
@@ -40,10 +60,89 @@
             }
         }
 
-        .cover {
+        &.info {
+            margin-bottom: 0;
+
+            .card {
+                margin-bottom: 48px;
+                @extend .mdl-shadow--2dp;
+                @extend .mdl-cell--4-col-phone;
+                @media(max-width: 479px){
+                    width: 100%;
+                }
+                
+                &.event {
+                    @extend .mdl-cell--4-col-desktop;
+                    @extend .mdl-cell--4-col-tablet;
+                    @media(min-width: 480px) {
+                        margin-left: 32px;
+                    }
+
+                    header {
+                        @extend .mdl-card--expand;
+                        align-items: flex-start;
+                        flex-direction: column;
+
+                        h4 {
+                            text-transform: capitalize;
+                            align-self: flex-start;
+                        }
+
+                        h4, h5, h6 {
+                            margin-top: 0;
+                        }
+                    }
+
+                    footer {
+                        display: flex;
+                        box-sizing:border-box;
+                        align-items: center;
+                        padding: 4px;
+
+                        .absolute.right {
+                            right: 4px; 
+                            
+                            .button {
+                                padding: 0;
+
+                            }
+                        }
+                    }
+                }
+
+                &.location {
+                    max-height: 256px;
+                    @extend .mdl-cell--8-col-desktop;
+                    @extend .mdl-cell--4-col-tablet;
+
+                    a {
+                        text-decoration: none;
+                    }
+
+                    header {
+                        background: url('/images/bangalore-map.jpg');
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: center;
+                        height: 256px;
+                        padding: 0;
+
+                        h4 {
+                            background: rgba(0, 0, 0, 0.2);
+                            background: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 0.5));
+                            color: white;
+                            @extend .full-width;
+                            padding: 40px;
+                            padding-bottom: 8px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .card {
             @extend .mdl-card;
             @extend .mdl-cell;
-            @extend .mdl-cell--12-col;
             height: auto;
             display: -webkit-flex;
             display: -ms-flexbox;
@@ -52,6 +151,26 @@
             -ms-flex-direction: column;
             flex-direction: column;
             margin: 0;
+
+            &.twelve.column {
+                @extend .mdl-cell--12-col;
+            }
+
+            &.eight.column {
+                @extend .mdl-cell--8-col;
+            }
+
+            &.four.column {
+                @extend .mdl-cell--4-col;
+            }
+
+            header {
+                @extend .mdl-card__title;
+
+                h4{
+                    @extend .mdl-card__title-text;
+                }
+            }
 
             .content {
                 @extend .mdl-card__supporting-text;
@@ -64,7 +183,7 @@
                 color: inherit;
                 width: calc(100% - 80px);
 
-                header h4 {
+                h4 {
                     margin-top: 0;
                     margin-bottom: 20px;
 
@@ -75,7 +194,8 @@
 
                 .thumbnail {
                     @extend .mdl-cell;
-                    @extend .mdl-cell--2-col;
+                    @extend .mdl-cell--2-col-desktop;
+                    @extend .mdl-cell--2-col-tablet;
                     @extend .mdl-cell--1-col-phone;
                     margin: 0;
 
@@ -117,10 +237,9 @@
                     -webkit-flex-shrink: 0;
                     -ms-flex-negative: 0;
                     flex-shrink: 0;
-                    padding-top: 8px;
+                    padding: 4px 8px;
                     margin: 0;
                     margin-bottom: 8px;
-                    padding-bottom: 8px;
 
                     h6 {
                         margin: -10px 0 8px;
@@ -174,10 +293,6 @@
                 .button {
                     @extend .mdl-button;
                     @extend .mdl-button--accent;
-
-                    &.right {
-                        float: right;
-                    }
 
                     &:hover {
                         background: transparent;
