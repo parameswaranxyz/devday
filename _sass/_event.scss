@@ -4,294 +4,305 @@
     @extend .mdl-color-text--grey-700;
     @extend .mdl-color--grey-100;
 
-    .container {
+    & > .container {
         @extend .mdl-color-text--grey-700;
         @extend .mdl-layout__container;
-    }
 
-    .layout {
-        @extend .mdl-layout;
-    }
+        & > .layout {
+            @extend .mdl-layout;
 
-    main {
-        @extend .mdl-layout__content;
-        
-        .panel {
-            padding: 8px;
-        }
-    }
+            & > main {
+                @extend .mdl-layout__content;
 
-    section {
-        &.agenda, &.intro {
-            @extend .mdl-shadow--2dp;
-        }
+                & > .panel {
+                    padding: 8px;
 
-        @extend .mdl-grid;
-        @extend .mdl-grid--no-spacing;
+                    & > section {
 
-        &.centered {
-            max-width: 860px;
-            position: relative;
-            margin-bottom: 48px;
-            padding: 0;
-        }
-
-        &.agenda {
-            
-            .content {
-                @extend .mdl-grid;
-
-                header {
-                    @extend .mdl-cell;
-                    @extend .mdl-cell--12-col;
-                }
-            }
-        }
-
-        &.info {
-            margin-bottom: 0;
-
-            .card {
-                margin-bottom: 48px;
-                @extend .mdl-shadow--2dp;
-                @extend .mdl-cell--4-col-phone;
-                @media(max-width: 479px){
-                    width: 100%;
-                }
-                
-                &.event {
-                    @extend .mdl-cell--4-col-desktop;
-                    @extend .mdl-cell--4-col-tablet;
-                    @media(min-width: 480px) {
-                        margin-left: 32px;
-                    }
-
-                    header {
-                        @extend .mdl-card--expand;
-                        align-items: flex-start;
-                        flex-direction: column;
-
-                        h4 {
-                            text-transform: capitalize;
-                            align-self: flex-start;
+                        &.agenda, &.intro {
+                            @extend .mdl-shadow--2dp;
                         }
 
-                        h4, h5, h6 {
-                            margin-top: 0;
+                        @extend .mdl-grid;
+                        @extend .mdl-grid--no-spacing;
+
+                        &.centered {
+                            max-width: 860px;
+                            position: relative;
+                            margin-bottom: 48px;
+                            padding: 0;
                         }
-                    }
 
-                    footer {
-                        display: flex;
-                        box-sizing:border-box;
-                        align-items: center;
-                        padding: 4px;
+                        &.agenda {
 
-                        .absolute.right {
-                            right: 4px; 
-                            
-                            .button {
-                                padding: 0;
+                            .content {
+                                @extend .mdl-grid;
 
+                                header {
+                                    @extend .mdl-cell;
+                                    @extend .mdl-cell--12-col;
+                                }
                             }
                         }
-                    }
-                }
 
-                &.location {
-                    max-height: 256px;
-                    @extend .mdl-cell--8-col-desktop;
-                    @extend .mdl-cell--4-col-tablet;
+                        &.info {
+                            margin-bottom: 0;
 
-                    a {
-                        text-decoration: none;
-                    }
+                            .card {
+                                margin-bottom: 48px;
+                                @extend .mdl-shadow--2dp;
+                                @extend .mdl-cell--4-col-phone;
 
-                    header {
-                        background: url('/images/bangalore-map.jpg');
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        background-position: center;
-                        height: 256px;
-                        padding: 0;
+                                @media(max-width: 479px) {
+                                    width: 100%;
+                                }
 
-                        h4 {
-                            background: rgba(0, 0, 0, 0.2);
-                            background: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 0.5));
-                            color: white;
-                            @extend .full.width;
-                            padding: 40px;
-                            padding-bottom: 8px;
+                                &.event {
+                                    @extend .mdl-cell--4-col-desktop;
+                                    @extend .mdl-cell--4-col-tablet;
+
+                                    @media(min-width: 480px) {
+                                        margin-left: 32px;
+                                    }
+
+                                    & > header {
+                                        @extend .mdl-card--expand;
+                                        align-items: flex-start;
+                                        flex-direction: column;
+
+                                        h4 {
+                                            text-transform: capitalize;
+                                            align-self: flex-start;
+                                        }
+
+                                        h4, h5, h6 {
+                                            margin-top: 0;
+                                        }
+                                    }
+
+                                    & > footer {
+                                        display: flex;
+                                        box-sizing: border-box;
+                                        align-items: center;
+                                        padding: 4px;
+
+                                        .absolute.right {
+                                            right: 4px;
+
+                                            .button {
+                                                padding: 0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                &.location {
+                                    max-height: 256px;
+                                    @extend .mdl-cell--8-col-desktop;
+                                    @extend .mdl-cell--4-col-tablet;
+
+                                    & > header {
+                                        height: 256px;
+                                        padding: 0;
+
+                                        & > a {
+                                            text-decoration: none;
+                                            height: 100%;
+                                            width: 100%;
+
+                                            & > .filler {
+                                                background: url('/images/bangalore-map.jpg');
+                                                background-repeat: no-repeat;
+                                                background-size: cover;
+                                                background-position: center;
+                                                height: 100%;
+                                                position: relative;
+
+                                                & > h4 {
+                                                    background: rgba(0, 0, 0, 0.2);
+                                                    background: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 0.5));
+                                                    color: white;
+                                                    @extend .full.width;
+                                                    padding: 20px;
+                                                    padding-bottom: 8px;
+                                                    position: absolute;
+                                                    bottom: 0;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
-            }
-        }
 
-        .card {
-            @extend .mdl-card;
-            @extend .mdl-cell;
-            height: auto;
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-flex-direction: column;
-            -ms-flex-direction: column;
-            flex-direction: column;
-            margin: 0;
-
-            &.twelve.column {
-                @extend .mdl-cell--12-col;
-            }
-
-            &.eight.column {
-                @extend .mdl-cell--8-col;
-            }
-
-            &.four.column {
-                @extend .mdl-cell--4-col;
-            }
-
-            header {
-                @extend .mdl-card__title;
-
-                h4{
-                    @extend .mdl-card__title-text;
-                }
-            }
-
-            .content {
-                @extend .mdl-card__supporting-text;
-                height: auto;
-                margin: 40px;
-                -webkit-flex-grow: 1;
-                -ms-flex-positive: 1;
-                flex-grow: 1;
-                padding: 0;
-                color: inherit;
-                width: calc(100% - 80px);
-
-                h4 {
-                    margin-top: 0;
-                    margin-bottom: 20px;
-
-                    .title {
-                        text-transform: capitalize;
-                    }
-                }
-
-                .thumbnail {
-                    @extend .mdl-cell;
-                    @extend .mdl-cell--2-col-desktop;
-                    @extend .mdl-cell--2-col-tablet;
-                    @extend .mdl-cell--1-col-phone;
-                    margin: 0;
-
-                    h5, h6 {
-                        text-align: center;
-                        color: #3f51b5 !important;
-                    }
-
-                    h5 {
-                        margin-bottom: 0;
-                    }
-                    h6 {
-                        margin-top: 0;
-                    }
-
-                    .avatar {
-                        width: 64px;
-                        height: 64px;
-                        @extend .mdl-color--primary;
-                        border-radius: 50%;
-                    }
-
-                    &.break {
-                        h5 {
-                            font-size: inherit;
+                        .card {
+                            @extend .mdl-card;
+                            @extend .mdl-cell;
+                            height: auto;
+                            display: -webkit-flex;
+                            display: -ms-flexbox;
+                            display: flex;
+                            -webkit-flex-direction: column;
+                            -ms-flex-direction: column;
+                            flex-direction: column;
                             margin: 0;
+
+                            &.twelve.column {
+                                @extend .mdl-cell--12-col;
+                            }
+
+                            &.eight.column {
+                                @extend .mdl-cell--8-col;
+                            }
+
+                            &.four.column {
+                                @extend .mdl-cell--4-col;
+                            }
+
+                            & > header {
+                                @extend .mdl-card__title;
+
+                                h4 {
+                                    @extend .mdl-card__title-text;
+                                }
+                            }
+
+                            & > .content {
+                                @extend .mdl-card__supporting-text;
+                                height: auto;
+                                margin: 40px;
+                                -webkit-flex-grow: 1;
+                                -ms-flex-positive: 1;
+                                flex-grow: 1;
+                                padding: 0;
+                                color: inherit;
+                                width: calc(100% - 80px);
+
+                                h4 {
+                                    margin-top: 0;
+                                    margin-bottom: 20px;
+
+                                    .title {
+                                        text-transform: capitalize;
+                                    }
+                                }
+
+                                .thumbnail {
+                                    @extend .mdl-cell;
+                                    @extend .mdl-cell--2-col-desktop;
+                                    @extend .mdl-cell--2-col-tablet;
+                                    @extend .mdl-cell--1-col-phone;
+                                    margin: 0;
+
+                                    h5, h6 {
+                                        text-align: center;
+                                        color: #3f51b5 !important;
+                                    }
+
+                                    h5 {
+                                        margin-bottom: 0;
+                                    }
+
+                                    h6 {
+                                        margin-top: 0;
+                                    }
+
+                                    .avatar {
+                                        width: 64px;
+                                        height: 64px;
+                                        @extend .mdl-color--primary;
+                                        border-radius: 50%;
+                                    }
+
+                                    &.break {
+                                        h5 {
+                                            font-size: inherit;
+                                            margin: 0;
+                                        }
+                                    }
+                                }
+
+                                .info {
+                                    @extend .mdl-cell;
+                                    @extend .mdl-cell--10-col-desktop;
+                                    @extend .mdl-cell--6-col-tablet;
+                                    @extend .mdl-cell--3-col-phone;
+                                    -webkit-flex-grow: 1;
+                                    -ms-flex-positive: 1;
+                                    flex-grow: 1;
+                                    -webkit-flex-shrink: 0;
+                                    -ms-flex-negative: 0;
+                                    flex-shrink: 0;
+                                    padding: 4px 8px;
+                                    margin: 0;
+                                    margin-bottom: 8px;
+
+                                    h6 {
+                                        margin: -10px 0 8px;
+                                        text-transform: capitalize;
+                                        color: #999;
+                                        font-size: small;
+                                    }
+
+                                    h5 {
+                                        margin: 0;
+                                        color: #666;
+                                        text-transform: capitalize;
+                                        margin-bottom: 0.5em;
+                                        font-size: inherit;
+                                    }
+
+                                    &.break {
+
+                                        .centerer {
+                                            white-space: nowrap;
+                                            height: 100%;
+
+                                            &:before {
+                                                content: '';
+                                                display: inline-block;
+                                                height: 100%;
+                                                vertical-align: middle;
+                                                margin-right: -0.25em;
+                                            }
+
+                                            h5 {
+                                                text-transform: uppercase;
+                                                display: inline-block;
+                                                vertical-align: middle;
+                                                width: 300px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            & > footer {
+                                @extend .mdl-card__actions;
+                                margin: 0;
+                                padding: 4px 40px;
+                                color: inherit;
+                                height: auto;
+                                border-top: 1px solid rgba(0, 0, 0, 0.12);
+
+                                .button {
+                                    @extend .mdl-button;
+                                    @extend .mdl-button--accent;
+
+                                    &:hover {
+                                        background: transparent;
+                                        color: black;
+                                    }
+                                }
+                            }
+                        }
+
+                        .info:not(:last-child) {
+                            border-bottom: 1px solid rgba(0,0,0,.13);
                         }
                     }
                 }
-
-                .info {
-                    @extend .mdl-cell;
-                    @extend .mdl-cell--10-col-desktop;
-                    @extend .mdl-cell--6-col-tablet;
-                    @extend .mdl-cell--3-col-phone;
-                    -webkit-flex-grow: 1;
-                    -ms-flex-positive: 1;
-                    flex-grow: 1;
-                    -webkit-flex-shrink: 0;
-                    -ms-flex-negative: 0;
-                    flex-shrink: 0;
-                    padding: 4px 8px;
-                    margin: 0;
-                    margin-bottom: 8px;
-
-                    h6 {
-                        margin: -10px 0 8px;
-                        text-transform: capitalize;
-                        color: #999;
-                        font-size: small;
-                    }
-
-                    h5 {
-                        margin: 0;
-                        color: #666;
-                        text-transform: capitalize;
-                        margin-bottom: 0.5em;
-                        font-size: inherit;
-                    }
-
-                    &.break {
-
-                        .centerer {
-                            white-space: nowrap;
-                            height: 100%;
-
-                            &:before{
-                                content: '';
-                                display: inline-block;
-                                height: 100%;
-                                vertical-align: middle;
-                                margin-right: -0.25em;
-                            }
-                            
-                            h5 {
-                                text-transform: uppercase;
-                                display: inline-block;
-                                vertical-align: middle;
-                                width: 300px;
-                            }
-                        }
-                        
-                    }
-                }
             }
-
-            footer {
-                @extend .mdl-card__actions;
-                margin: 0;
-                padding: 4px 40px;
-                color: inherit;
-                height: auto;
-                border-top: 1px solid rgba(0, 0, 0, 0.12);
-
-                .button {
-                    @extend .mdl-button;
-                    @extend .mdl-button--accent;
-
-                    &:hover {
-                        background: transparent;
-                        color: black;
-                    }
-                }
-            }
-        }
-
-        .info:not(:last-child) {
-            border-bottom: 1px solid rgba(0,0,0,.13);
         }
     }
 }

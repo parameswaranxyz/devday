@@ -1,5 +1,5 @@
 ---
-
+permalink: /archive/
 ---
 <!DOCTYPE html>
 <html>
@@ -16,10 +16,6 @@
     <meta property="og:title" content="{% if page.title %}{{ page.title | escape }}{% else %}{{ site.title | escape }}{% endif %}" />
     <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}" />
     <meta property="og:image" content="http://devday.in/images/devday.gif" />
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-    <!-- Web Application Manifest -->
-    <link rel="manifest" href="/manifest.json">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="{{ "/css/archive.css" | prepend: site.baseurl }}">
@@ -28,6 +24,7 @@
 <body class="devday archive">
     <div class="container">
         <div class="layout">
+            {% include header_mdl.html %}
             <main>
                 <div class="panel">
                     {% for event in site.events %}
