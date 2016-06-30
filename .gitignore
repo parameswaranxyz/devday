@@ -3,3 +3,9 @@ dist
 devday.iml
 .tmp/
 .idea/
+.vs/
+*.suo
+_site
+.sass-cache
+.jekyll-metadata
+Gemfile.lock

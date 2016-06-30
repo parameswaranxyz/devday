@@ -1,0 +1,95 @@
+---
+layout: mdl_blank
+---
+{% assign event = page %}
+<body class="devday event">
+    <div class="container">
+        <div class="layout">
+            <main>
+                <div class="panel">
+                    <section class="centered intro">
+                        <div class="twelve column card">
+                            <div class="content">
+                                <h4>Upcoming Event: <span class="title">{{ event.name }}</span> on {{ event.time | date_to_string }}</h4>
+                                {{ event.abstract }}
+                            </div>
+                            <footer>
+                                <a class="button">Participate</a>
+                                <a class="button">Present</a>
+                            </footer>
+                        </div>
+                    </section>
+                    <section class="centered agenda">
+                        <div class="twelve column card">
+                            <div class="content">
+                                <h4 class="full width">Agenda</h4>
+                                {% for sub_event in event.agenda %}
+                                {%if sub_event.type != "break" %}
+                                <div class="thumbnail">
+                                    <h5>{{ sub_event.local_time }}</h5>
+                                    <h6>{{ sub_event.local_time_post }}</h6>
+                                </div>
+                                <div class="info">
+                                    <h5>{{ sub_event.title }}</h5>
+                                    {% if sub_event.authors %}
+                                    <h6>by {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
+                                    {% endif %}
+                                    {% if sub_event.abstract %}
+                                    {{ sub_event.abstract }}
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                <div class="thumbnail break">
+                                    <h5>{{ sub_event.local_time }}</h5>
+                                    <h5>{{ sub_event.local_time_post }}</h6>
+                                </div>
+                                <div class="info break">
+                                    <div class="centerer">
+                                        <h5>{{ sub_event.title }}</h5>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                            <footer>
+                                <a class="button">Register</a>
+                            </footer>
+                        </div>
+                    </section>
+                    <section class="centered info">
+                        <div class="location card">
+                            <header>
+                                <a href="https://www.google.co.in/maps/place/Sahaj+Software+Solutions+Pvt.+Ltd./@12.924928,77.627855,15z/data=!4m5!3m4!1s0x0:0x9fc1c9bd2d066d5a!8m2!3d12.924928!4d77.627855">
+                                    <div class="filler">
+                                        <h4>Location</h4>
+                                    </div>
+                                </a>
+                            </header>
+                        </div>
+                        <div class="event card">
+                            <header>
+                                <h4>{{ event.name }}</h4>
+                                <h5>{{ event.time | date_to_string }}</h5>
+                                <h6>{{ event.event_time }}</h6>
+                            </header>
+                            <footer>
+                                <a class="button">Add to calendar</a>
+                                <div class="absolute right">
+                                    <a class="button"><i class="material-icons">event</i></a>
+                                </div>
+                            </footer>
+                        </div>
+                    </section>
+                </div>
+            </main>
+            <aside>
+                <div class="attendees">
+                    21 people attending.
+                </div>
+                <div class="speakers">
+                    4 speakers.
+                </div>
+            </aside>
+        </div>
+    </div>
+</body>
