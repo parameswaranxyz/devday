@@ -32,7 +32,7 @@ layout: mdl_blank
                                 <div class="info">
                                     <h5>{{ sub_event.title }}</h5>
                                     {% if sub_event.authors %}
-                                    <h6>By {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
+                                    <h6>by {{ sub_event.authors | map: 'name' | join: ', ' }}</h6>
                                     {% endif %}
                                     {% if sub_event.abstract %}
                                     {{ sub_event.abstract }}
