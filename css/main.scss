@@ -1,5 +1,5 @@
 ---
-# Only the main Sass file needs front matter (the dashes are enough)
+# For front matter transforms
 ---
 @charset "utf-8";
 
@@ -47,3 +47,7 @@ $on-laptop: 800px;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import "devday", "header", "event";
+
+.devday.event > .container > .layout > main > .panel > section.info .card.location > header > a > .filler {
+    background-image: url('{{ site.github.url }}/images/bangalore-map.jpg');
+}

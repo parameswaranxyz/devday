@@ -18,7 +18,7 @@ permalink: /archive/
     <meta property="og:image" content="http://devday.in/images/devday.gif" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="../css/archive.css">
+    <link rel="stylesheet" href="{{ site.github.url }}/css/archive.css">
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
 </head>
 <body class="devday archive">
@@ -31,7 +31,7 @@ permalink: /archive/
                     {% for event in events reversed %}
                     <article class="centered">
                         <div class="twelve column card">
-                            <a href="..{{ event.url }}">
+                            <a href="{{ site.github.url }}{{ event.url }}">
                                 <i class="material-icons">arrow_forward</i>
                                 <span class="hidden">Go</span>
                             </a>
