@@ -31,10 +31,10 @@ permalink: /archive/
                     {% for event in events reversed %}
                     <article class="centered">
                         <div class="twelve column card">
-                            <button>
+                            <a href="{{ event.url }}">
                                 <i class="material-icons">arrow_forward</i>
                                 <span class="hidden">Go</span>
-                            </button>
+                            </a>
                             <header>
                                 <h4>{{ event.name }}</h4>
                             </header>

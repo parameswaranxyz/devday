@@ -63,7 +63,7 @@
                                 }
                             }
 
-                            & > button {
+                            & > a {
                                 @extend .mdl-button;
                                 @extend .mdl-button--fab;
                                 @extend .mdl-button--colored;
@@ -216,6 +216,7 @@
                                     @extend .mdl-button;
                                     @extend .mdl-button--accent;
                                     text-transform: none;
+                                    padding: 0;
 
                                     &:hover {
                                         background: transparent;
@@ -225,6 +226,7 @@
 
                                 i {
                                     vertical-align: middle;
+                                    margin-right: 10px;
                                 }
                             }
                         }
