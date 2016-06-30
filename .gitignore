@@ -3,7 +3,7 @@ dist
 devday.iml
 .tmp/
 .idea/
-.vs/config/applicationhost.config
+.vs/
 *.suo
 _site
 .sass-cache
