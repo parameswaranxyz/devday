@@ -51,8 +51,11 @@
                 line-height: 68px;
                 background-color: transparent !important;
                 border-bottom: 4px solid transparent;
-                @extend .mdl-navigation__link;
-                @extend .mdl-typography--text-uppercase;
+
+                & > a {
+                    @extend .mdl-navigation__link;
+                    @extend .mdl-typography--text-uppercase;
+                }
             }
         }
     }

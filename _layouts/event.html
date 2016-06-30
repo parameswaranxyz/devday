@@ -24,7 +24,7 @@ layout: mdl_blank
                             <div class="content">
                                 <h4 class="full width">Agenda</h4>
                                 {% for sub_event in event.agenda %}
-                                {%if sub_event.type == "talk" %}
+                                {%if sub_event.type != "break" %}
                                 <div class="thumbnail">
                                     <h5>{{ sub_event.local_time }}</h5>
                                     <h6>{{ sub_event.local_time_post }}</h6>
