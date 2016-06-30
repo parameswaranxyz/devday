@@ -1,7 +1,7 @@
+---
+layout: mdl_blank
+---
 {% assign event = page %}
-<!DOCTYPE html>
-<html lang="en">
-  {% include head_mdl.html %}
 <body class="devday event">
     <div class="container">
         <div class="layout">
@@ -22,7 +22,7 @@
                     <section class="centered agenda">
                         <div class="twelve column card">
                             <div class="content">
-                                <h4 class="full-width">Agenda</h4>
+                                <h4 class="full width">Agenda</h4>
                                 {% for sub_event in event.agenda %}
                                     {%if sub_event.type == "talk" %}    
                                     <div class="thumbnail">
@@ -91,4 +91,3 @@
         </div>
     </div>
 </body>
-</html>

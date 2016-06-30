@@ -1,6 +1,6 @@
-﻿@import "devday";
+@import "devday";
 
-.devday.event {
+.devday.archive {
     @extend .mdl-color-text--grey-700;
     @extend .mdl-color--grey-100;
 
@@ -15,118 +15,20 @@
 
     main {
         @extend .mdl-layout__content;
-        
+
         .panel {
             padding: 8px;
         }
     }
 
-    section {
-        &.agenda, &.intro {
-            @extend .mdl-shadow--2dp;
-        }
-
+    article {
+        @extend .mdl-shadow--2dp;
         @extend .mdl-grid;
         @extend .mdl-grid--no-spacing;
-
-        &.centered {
-            max-width: 860px;
-            position: relative;
-            margin-bottom: 48px;
-            padding: 0;
-        }
-
-        &.agenda {
-            
-            .content {
-                @extend .mdl-grid;
-
-                header {
-                    @extend .mdl-cell;
-                    @extend .mdl-cell--12-col;
-                }
-            }
-        }
-
-        &.info {
-            margin-bottom: 0;
-
-            .card {
-                margin-bottom: 48px;
-                @extend .mdl-shadow--2dp;
-                @extend .mdl-cell--4-col-phone;
-                @media(max-width: 479px){
-                    width: 100%;
-                }
-                
-                &.event {
-                    @extend .mdl-cell--4-col-desktop;
-                    @extend .mdl-cell--4-col-tablet;
-                    @media(min-width: 480px) {
-                        margin-left: 32px;
-                    }
-
-                    header {
-                        @extend .mdl-card--expand;
-                        align-items: flex-start;
-                        flex-direction: column;
-
-                        h4 {
-                            text-transform: capitalize;
-                            align-self: flex-start;
-                        }
-
-                        h4, h5, h6 {
-                            margin-top: 0;
-                        }
-                    }
-
-                    footer {
-                        display: flex;
-                        box-sizing:border-box;
-                        align-items: center;
-                        padding: 4px;
-
-                        .absolute.right {
-                            right: 4px; 
-                            
-                            .button {
-                                padding: 0;
-
-                            }
-                        }
-                    }
-                }
-
-                &.location {
-                    max-height: 256px;
-                    @extend .mdl-cell--8-col-desktop;
-                    @extend .mdl-cell--4-col-tablet;
-
-                    a {
-                        text-decoration: none;
-                    }
-
-                    header {
-                        background: url('/images/bangalore-map.jpg');
-                        background-repeat: no-repeat;
-                        background-size: cover;
-                        background-position: center;
-                        height: 256px;
-                        padding: 0;
-
-                        h4 {
-                            background: rgba(0, 0, 0, 0.2);
-                            background: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 0.5));
-                            color: white;
-                            @extend .full.width;
-                            padding: 40px;
-                            padding-bottom: 8px;
-                        }
-                    }
-                }
-            }
-        }
+        max-width: 860px;
+        position: relative;
+        margin-bottom: 48px;
+        padding: 0;
 
         .card {
             @extend .mdl-card;
@@ -154,9 +56,36 @@
 
             header {
                 @extend .mdl-card__title;
+                padding: 40px;
+                padding-bottom: 0;
 
-                h4{
+                h4 {
                     @extend .mdl-card__title-text;
+                    color: $tertiary-color;
+                    text-transform: capitalize;
+                }
+            }
+
+            & > button {
+                @extend .mdl-button;
+                @extend .mdl-button--fab;
+                @extend .mdl-button--colored;
+                @extend .mdl-shadow--4dp;
+                @extend .mdl-color--accent;
+                position: absolute;
+                right: 28px;
+                top: 28px;
+            }
+
+            .secondary.header {
+                @extend .mdl-card__title;
+                padding: 0 40px;
+
+                h5 {
+                    color: $primary-color;
+                    text-transform: capitalize;
+                    font-size: inherit;
+                    margin: 0;
                 }
             }
 
@@ -172,12 +101,20 @@
                 width: calc(100% - 80px);
 
                 h4 {
-                    margin-top: 0;
-                    margin-bottom: 20px;
+                    margin: 0;
+                    text-transform: capitalize;
+                    color: $tertiary-color;
+                }
 
-                    .title {
-                        text-transform: capitalize;
-                    }
+                h5 {
+                    margin: 0;
+                    position: absolute;
+                    right: 8px;
+                    top: 8px;
+                    padding: 8px;
+                    font-size: inherit;
+                    font-weight: bold;
+                    color: $primary-color;
                 }
 
                 .thumbnail {
@@ -195,6 +132,7 @@
                     h5 {
                         margin-bottom: 0;
                     }
+
                     h6 {
                         margin-top: 0;
                     }
@@ -250,14 +188,14 @@
                             white-space: nowrap;
                             height: 100%;
 
-                            &:before{
+                            &:before {
                                 content: '';
                                 display: inline-block;
                                 height: 100%;
                                 vertical-align: middle;
                                 margin-right: -0.25em;
                             }
-                            
+
                             h5 {
                                 text-transform: uppercase;
                                 display: inline-block;
@@ -265,7 +203,6 @@
                                 width: 300px;
                             }
                         }
-                        
                     }
                 }
             }
@@ -278,20 +215,21 @@
                 height: auto;
                 border-top: 1px solid rgba(0, 0, 0, 0.12);
 
-                .button {
+                .tag {
                     @extend .mdl-button;
                     @extend .mdl-button--accent;
+                    text-transform: none;
 
                     &:hover {
                         background: transparent;
                         color: black;
                     }
                 }
-            }
-        }
 
-        .info:not(:last-child) {
-            border-bottom: 1px solid rgba(0,0,0,.13);
+                i {
+                    vertical-align: middle;
+                }
+            }
         }
     }
 }

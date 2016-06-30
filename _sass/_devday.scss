@@ -1,4 +1,29 @@
-﻿.devday.logo {
+﻿@import "mdl";
+
+$primary-color: #3f51b5;
+$secondary-color: #303f9f;
+$tertiary-color: #283593;
+$primary-accent: #ff4081;
+
+
+.hidden {
+    @extend .visuallyhidden;
+}
+
+.devday.logo {
     height: 24px;
 }
 
+.full.width {
+    width: 100%;
+}
+
+.right {
+    float: right;
+
+    &.absolute {
+        position: absolute;
+        right: 0;
+        float: none;
+    }
+}

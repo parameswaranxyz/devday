@@ -39,3 +39,5 @@ defaults:
       type: events
     values:
       layout: event
+
+exclude: [ "node_modules" ]
