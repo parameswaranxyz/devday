@@ -2,7 +2,7 @@
 title:  "All about databases"
 date:   2016-06-04 10:30:00 +0530
 categories: events
-tags: databases
+tags: ["databases","sqlite","event streams"]
 author: "devday_ team"
 name: "All about databases"
 abstract: "A Date with Databases. This meet up would be all about Databases - the internals and the overall. The idea is to tear down databases, across relational/non relational, and understand them deep down."

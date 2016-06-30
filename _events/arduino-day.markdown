@@ -2,7 +2,7 @@
 title:  "Arduino Day"
 date:   2016-04-02 10:30:00 +0530
 categories: events
-tags: arduino
+tags: arduino genuino iot
 author: "devday_ team"
 name: "Arduino day"
 event_time: "10:30 AM - 02:30 PM"
