@@ -1,60 +1,68 @@
-.devday > .container > .layout > header > .container {
-    @extend .android-header !optional;
+.devday > .container > .layout > header {
+
     @extend .mdl-layout__header;
-    @extend .mdl-layout__header--waterfall;
+    @extend .mdl-layout__header--scroll;
+    @extend .mdl-color--primary;
 
-    & > .content {
-        @extend .mdl-layout__header-row;
+    & > .container {
+        @extend .android-header !optional;
+        @extend .mdl-layout__header;
+        @extend .mdl-layout__header--waterfall;
 
-        & > .title {
-            @extend .mdl-layout-title;
+        & > .content {
+            @extend .mdl-layout__header-row;
 
-            & > img {
-                height: 24px;
-            }
-        }
+            & > .title {
+                @extend .mdl-layout-title;
 
-        & > .search.box {
-            @extend .mdl-textfield;
-            @extend .mdl-textfield--expandable;
-            @extend .mdl-textfield--floating-label;
-            @extend .mdl-textfield--align-right;
-            @extend .mdl-textfield--full-width;
-
-            & > label {
-                @extend .mdl-button;
-                @extend .mdl-button--icon;
-            }
-
-            & > .input.holder {
-                @extend .mdl-textfield__expandable-holder;
-
-                & > input[type=text] {
-                    @extend .textfield__input !optional;
+                & > img {
+                    height: 24px;
                 }
             }
-        }
 
-        & > .navigation.container {
-            direction: rtl;
-            -webkit-order: 1;
-            -ms-flex-order: 1;
-            order: 1;
-            width: 500px;
-            transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            & > .search.box {
+                @extend .mdl-textfield;
+                @extend .mdl-textfield--expandable;
+                @extend .mdl-textfield--floating-label;
+                @extend .mdl-textfield--align-right;
+                @extend .mdl-textfield--full-width;
 
-            @extend .mdl-navigation;
+                & > label {
+                    @extend .mdl-button;
+                    @extend .mdl-button--icon;
+                }
 
-            & > nav {
-                display: inline-block;
-                height: 60px;
-                line-height: 68px;
-                background-color: transparent !important;
-                border-bottom: 4px solid transparent;
+                & > .input.holder {
+                    @extend .mdl-textfield__expandable-holder;
 
-                & > a {
-                    @extend .mdl-navigation__link;
-                    @extend .mdl-typography--text-uppercase;
+                    & > input[type=text] {
+                        @extend .textfield__input !optional;
+                    }
+                }
+            }
+
+            & > .navigation.container {
+                @extend .mdl-navigation;
+
+                direction: rtl;
+                -webkit-order: 1;
+                -ms-flex-order: 1;
+                order: 1;
+                margin-left: auto!important;
+                width: auto;
+                transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+                
+                & > nav {
+                    display: inline-block;
+                    height: 60px;
+                    line-height: 68px;
+                    background-color: transparent !important;
+                    border-bottom: 4px solid transparent;
+
+                    & > a {
+                        @extend .mdl-navigation__link;
+                        @extend .mdl-typography--text-uppercase;
+                    }
                 }
             }
         }
