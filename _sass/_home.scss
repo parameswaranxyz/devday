@@ -1,0 +1,184 @@
+@import "devday";
+
+.devday.home {
+
+    &::before {
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center center;
+        content: '';
+        will-change: transform;
+        z-index: -2;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        position: fixed;
+    }
+
+    &::after {
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+        background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+        background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+        background: radial-gradient(ellipse at center,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        content: '';
+        will-change: transform;
+        z-index: -1;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        position: fixed;
+    }
+    
+    & > .container {
+        @extend .mdl-layout__container;
+        
+        & > .layout {
+            @extend .mdl-layout;
+            @extend .has-drawer;
+            @extend .is-upgraded;
+
+            & > main {
+                @extend .mdl-layout__content;
+                padding-top: 230px;
+                position: relative;
+
+                & > header {
+                    
+                    padding: 20px;
+
+                    & > h1 {
+                        text-align: center;
+
+                        & > img {
+                            width: 75%;
+                            max-width: 840px;
+                        }
+                    }
+
+                    & > h2 {
+                        text-align: center;
+                        color: white;
+                        font-weight: 100;
+
+                    }
+                }
+
+                & > .content {
+                    @extend .mdl-grid;
+                    display: -webkit-flex !important;
+                    display: -ms-flexbox !important;
+                    display: flex !important;
+                    max-width: 900px;
+                    padding: 0;
+                    display: -webkit-flex;
+                    display: -ms-flexbox;
+                    display: flex;
+                    width: 100%;
+                    margin: 0 auto;
+                    -webkit-flex-shrink: 0;
+                    -ms-flex-negative: 0;
+                    flex-shrink: 0;
+
+                    & > .card {
+                        @extend .mdl-card;
+                        @extend .mdl-cell;
+                        @extend .mdl-cell--4-col-phone;
+                        @extend .mdl-cell--4-col-tablet;
+                        @extend .mdl-cell--6-col-desktop;
+                    }
+
+                    & > nav {
+                        @extend .mdl-cell;
+                        @extend .mdl-cell--4-col-phone;
+                        @extend .mdl-cell--8-col-tablet;
+                        @extend .mdl-cell--12-col-desktop;
+                        
+                        margin: 12px 15px;
+                        display: -webkit-flex;
+                        display: -ms-flexbox;
+                        display: flex;
+                        -webkit-flex-direction: row;
+                        -ms-flex-direction: row;
+                        flex-direction: row;
+                        -webkit-justify-content: space-between;
+                        -ms-flex-pack: justify;
+                        justify-content: space-between;
+                        -webkit-align-items: center;
+                        -ms-flex-align: center;
+                        align-items: center;
+                        color: white;
+                        font-weight: 500;
+
+                        & > a {
+                            color: white;
+                            text-decoration: none;
+                            margin-left: auto;
+
+                            & > button {
+                                @extend .mdl-button;
+                                @extend .mdl-button--icon;
+                            }
+                        }
+                    }
+                } 
+
+                & > footer {
+
+                    @extend .mdl-mini-footer;
+                    margin-top: 80px;
+                    height: 120px;
+                    padding: 40px;
+                    -webkit-align-items: center;
+                    -ms-flex-align: center;
+                    -ms-grid-row-align: center;
+                    align-items: center;
+                    background-color: white;
+                    box-sizing: border-box;
+
+                    & > .section {
+
+                        &.right {
+                            margin-left: auto !important;
+                            float: none !important;
+                        }
+
+                    }
+
+                    .social.button {
+                        @extend .mdl-mini-footer--social-btn;
+                        background-position: center;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                        background-color: transparent;
+                        margin: 0 16px;
+                        width: 24px;
+                        height: 24px;
+                        cursor: pointer;
+                        opacity: 0.46;
+                        border-radius: 2px;
+
+                        &.twitter {
+                            background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png');
+                        }
+
+                        &.facebook {
+                            background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_facebook_black_24dp.png');
+                        }
+
+                        &.google.plus {
+                            background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_gplus_black_24dp.png');
+                        }
+                    }
+                }
+            }
+
+            & > .obfuscator {
+                @extend .mdl-layout__obfuscator;
+            }
+
+        }
+    }
+}
