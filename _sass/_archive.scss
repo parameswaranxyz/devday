@@ -16,6 +16,7 @@
 
                 & > .panel {
                     padding: 8px;
+                    padding-top: 60px;
 
 
                     & > article {
@@ -39,168 +40,53 @@
                             flex-direction: column;
                             margin: 0;
 
-                            &.twelve.column {
+                            &.event {
                                 @extend .mdl-cell--12-col;
-                            }
-
-                            &.eight.column {
-                                @extend .mdl-cell--8-col;
-                            }
-
-                            &.four.column {
-                                @extend .mdl-cell--4-col;
+                                overflow: visible !important;
+                                z-index: 10;
                             }
 
                             & > header {
                                 @extend .mdl-card__title;
-                                padding: 40px;
-                                padding-bottom: 0;
+                                padding: 40px 40px 10px;
+                                background: $primary-color;
 
                                 h4 {
                                     @extend .mdl-card__title-text;
-                                    color: $tertiary-color;
+                                    color: white;
                                     text-transform: capitalize;
                                 }
                             }
 
-                            & > a {
+                            & > .go.to.event.button {
                                 @extend .mdl-button;
                                 @extend .mdl-button--fab;
-                                @extend .mdl-button--colored;
                                 @extend .mdl-shadow--4dp;
                                 @extend .mdl-color--accent;
+                                color: white;
                                 position: absolute;
                                 right: 28px;
-                                top: 28px;
-                            }
-
-                            & > .secondary.header {
-                                @extend .mdl-card__title;
-                                padding: 0 40px;
-
-                                h5 {
-                                    color: $primary-color;
-                                    text-transform: capitalize;
-                                    font-size: inherit;
-                                    margin: 0;
-                                }
+                                top: -28px;
+                                width: 56px;
+                                height: 56px;
                             }
 
                             & > .content {
                                 @extend .mdl-card__supporting-text;
                                 height: auto;
-                                margin: 40px;
+                                margin: 10px 40px 40px;
                                 -webkit-flex-grow: 1;
                                 -ms-flex-positive: 1;
                                 flex-grow: 1;
                                 padding: 0;
                                 color: inherit;
                                 width: calc(100% - 80px);
-
-                                h4 {
-                                    margin: 0;
-                                    text-transform: capitalize;
-                                    color: $tertiary-color;
-                                }
-
-                                h5 {
-                                    margin: 0;
-                                    position: absolute;
-                                    right: 8px;
-                                    top: 8px;
-                                    padding: 8px;
+                                
+                                & > h5 {
+                                    color: $primary-color !important;
                                     font-size: inherit;
                                     font-weight: bold;
-                                    color: $primary-color;
-                                }
-
-                                .thumbnail {
-                                    @extend .mdl-cell;
-                                    @extend .mdl-cell--2-col-desktop;
-                                    @extend .mdl-cell--2-col-tablet;
-                                    @extend .mdl-cell--1-col-phone;
-                                    margin: 0;
-
-                                    h5, h6 {
-                                        text-align: center;
-                                        color: #3f51b5 !important;
-                                    }
-
-                                    h5 {
-                                        margin-bottom: 0;
-                                    }
-
-                                    h6 {
-                                        margin-top: 0;
-                                    }
-
-                                    .avatar {
-                                        width: 64px;
-                                        height: 64px;
-                                        @extend .mdl-color--primary;
-                                        border-radius: 50%;
-                                    }
-
-                                    &.break {
-                                        h5 {
-                                            font-size: inherit;
-                                            margin: 0;
-                                        }
-                                    }
-                                }
-
-                                .info {
-                                    @extend .mdl-cell;
-                                    @extend .mdl-cell--10-col-desktop;
-                                    @extend .mdl-cell--6-col-tablet;
-                                    @extend .mdl-cell--3-col-phone;
-                                    -webkit-flex-grow: 1;
-                                    -ms-flex-positive: 1;
-                                    flex-grow: 1;
-                                    -webkit-flex-shrink: 0;
-                                    -ms-flex-negative: 0;
-                                    flex-shrink: 0;
-                                    padding: 4px 8px;
-                                    margin: 0;
-                                    margin-bottom: 8px;
-
-                                    h6 {
-                                        margin: -10px 0 8px;
-                                        text-transform: capitalize;
-                                        color: #999;
-                                        font-size: small;
-                                    }
-
-                                    h5 {
-                                        margin: 0;
-                                        color: #666;
-                                        text-transform: capitalize;
-                                        margin-bottom: 0.5em;
-                                        font-size: inherit;
-                                    }
-
-                                    &.break {
-
-                                        .centerer {
-                                            white-space: nowrap;
-                                            height: 100%;
-
-                                            &:before {
-                                                content: '';
-                                                display: inline-block;
-                                                height: 100%;
-                                                vertical-align: middle;
-                                                margin-right: -0.25em;
-                                            }
-
-                                            h5 {
-                                                text-transform: uppercase;
-                                                display: inline-block;
-                                                vertical-align: middle;
-                                                width: 300px;
-                                            }
-                                        }
-                                    }
+                                    margin-top: 0;
                                 }
                             }
 
@@ -212,11 +98,18 @@
                                 height: auto;
                                 border-top: 1px solid rgba(0, 0, 0, 0.12);
 
-                                .tag {
+                                & > a {
                                     @extend .mdl-button;
                                     @extend .mdl-button--accent;
-                                    text-transform: none;
-                                    padding: 0;
+
+                                    &.right {
+                                        display: none;
+                                    }
+
+                                    &.tag {
+                                        text-transform: none;
+                                        padding: 0;
+                                    }
 
                                     &:hover {
                                         background: transparent;

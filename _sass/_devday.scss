@@ -5,6 +5,22 @@ $secondary-color: #303f9f;
 $tertiary-color: #283593;
 $primary-accent: #ff4081;
 
+$dark-primary-text-color: rgba(0,0,0,0.87);
+$dark-secondary-text-color: rgba(0,0,0,0.54);
+$dark-disabled-text-color: rgba(0,0,0,0.38);
+$dark-hint-text-color: $dark-disabled-text-color;
+$dark-icon-text-color: $dark-disabled-text-color;
+$dark-divider-text-color: rgba(0,0,0,0.12);
+
+
+$light-primary-text-color: rgba(255,255,255,1);
+$light-secondary-text-color: rgba(255,255,255,0.70);
+$light-disabled-text-color: rgba(255,255,255,0.50);
+$light-hint-text-color: $light-disabled-text-color;
+$light-icon-text-color: $light-disabled-text-color;
+$light-divider-text-color: rgba(255,255,255,0.12);
+
+
 .hidden {
     @extend .visuallyhidden;
 }
