@@ -49,5 +49,7 @@ $on-laptop: 800px;
 @import "devday", "header", "home";
 
 .devday.home::before {
+    // source: https://www.pexels.com/photo/people-meeting-workspace-team-7097/
+    // TODO: resize and serve according to screen size
     background-image: url('{{ site.github.url }}/images/people-coffee-tea-meeting.jpg');
 }
