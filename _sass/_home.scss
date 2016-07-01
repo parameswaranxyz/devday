@@ -40,7 +40,7 @@
             @extend .has-drawer;
             @extend .is-upgraded;
 
-            & > main {
+            & > .content {
                 @extend .mdl-layout__content;
                 padding-top: 230px;
                 position: relative;
@@ -66,7 +66,7 @@
                     }
                 }
 
-                & > .content {
+                & > main {
                     @extend .mdl-grid;
                     display: -webkit-flex !important;
                     display: -ms-flexbox !important;
@@ -174,11 +174,6 @@
                     }
                 }
             }
-
-            & > .obfuscator {
-                @extend .mdl-layout__obfuscator;
-            }
-
         }
     }
 }
