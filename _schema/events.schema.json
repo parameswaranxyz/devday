@@ -43,8 +43,8 @@
       "description": "A sub-event of the event included in the agenda.",
       "properties": {
         "type": {
-          "enum": [ "talk", "break" ],
-          "description": "The type of the sub-event. Currently can be talk or break."
+          "enum": [ "break", "workshop", "talk", "tutorial", "hackathon" ],
+          "description": "The type of the sub-event."
         },
         "title": {
           "type": "string",
