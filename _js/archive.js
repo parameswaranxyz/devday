@@ -33,7 +33,7 @@ function main({ dom }) {
                   ...event.tags.map(tag =>
                     a('.tag', { props: { href: window.baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag)
                   ),
-                  a('.right.button', { props: { href: window.baseUrl + event.Url } }, 'View Event')
+                  a('.right.button', { props: { href: window.baseUrl + event.url } }, 'View Event')
                 ])
               ])
             ])

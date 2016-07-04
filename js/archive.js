@@ -13504,7 +13504,7 @@ function main(_ref) {
       }).map(function (event) {
         return (0, _dom.article)('.centered', [(0, _dom.div)('.event.card', [(0, _dom.a)('.go.to.event.button', { props: { href: window.baseUrl + event.url } }, [(0, _dom.i)('.material-icons', 'arrow_forward'), (0, _dom.span)('.hidden', 'Go')]), (0, _dom.header)([(0, _dom.h4)([event.name])]), (0, _dom.div)('.content', [(0, _dom.h5)(getDisplayTime(event.time)), event.abstract]), (0, _dom.footer)([(0, _dom.i)('.material-icons', 'label')].concat(_toConsumableArray(event.tags.map(function (tag) {
           return (0, _dom.a)('.tag', { props: { href: window.baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
-        })), [(0, _dom.a)('.right.button', { props: { href: window.baseUrl + event.Url } }, 'View Event')]))])]);
+        })), [(0, _dom.a)('.right.button', { props: { href: window.baseUrl + event.url } }, 'View Event')]))])]);
       }));
     })
   };
