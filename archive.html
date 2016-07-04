@@ -9,32 +9,11 @@ permalink: /archive/
         <div class="layout">
             {% include header_mdl.html %}
             <main>
-                <div class="panel">
-                    {% assign events = site.events | sort: 'time' %}
-                    {% for event in events reversed %}
-                    <article class="centered">
-                        <div class="event card">
-                            <a class="go to event button" href="{{ site.github.url }}{{ event.url }}"><i class="material-icons">arrow_forward</i><span class="hidden">Go</span></a>
-                            <header>
-                                <h4>{{ event.name }}</h4>
-                            </header>
-                            <div class="content">
-                                <h5>{{ event.time | date_to_string }}</h5>
-                                {{ event.abstract }}
-                            </div>
-                            <footer>
-                                <i class="material-icons">label</i>
-                                {% for tag in event.tags %}
-                                <a class="tag">{{ tag }}</a>
-                                {% endfor %}
-                                <a class="right button" href="{{ site.github.url }}{{ event.url }}">View Event</a>
-                            </footer>
-                        </div>
-                    </article>
-                    {% endfor %}
-                </div>
             </main>
         </div>
     </div>
+    <script type="text/javascript">
+        window.baseUrl = "{{ site.github.url }}";
+    </script>
 </body>
 </html>

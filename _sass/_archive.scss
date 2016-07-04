@@ -69,6 +69,9 @@
                                 top: -28px;
                                 width: 56px;
                                 height: 56px;
+                                
+                                //TODO: Check
+                                display:none;
                             }
 
                             & > .content {
@@ -103,7 +106,9 @@
                                     @extend .mdl-button--accent;
 
                                     &.right {
-                                        display: none;
+
+                                        //TODO: Check
+                                        // display: none;
                                     }
 
                                     &.tag {

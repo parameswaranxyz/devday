@@ -1,0 +1,36 @@
+{
+  "name": "devday",
+  "version": "1.0.0",
+  "description": "The site for devday",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"bundle exec jekyll serve --watch\" \"watchify _js/archive.js -o js/archive.js -t [ babelify — presets [ es2015 stage-0 ] ]\"",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "devday"
+  ],
+  "author": "devday_ team at Sahaj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artfuldev/devday/issues"
+  },
+  "homepage": "https://github.com/artfuldev/devday",
+  "dependencies": {
+    "@cycle/dom": "^10.0.5",
+    "@cycle/history": "^4.0.0",
+    "@cycle/xstream-run": "^3.0.3",
+    "xstream": "^5.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.10.1",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.0.1",
+    "concurrently": "^2.1.0",
+    "watchify": "^3.7.0"
+  }
+}
