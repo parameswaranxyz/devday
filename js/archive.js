@@ -13490,19 +13490,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function main(_ref) {
-	var dom = _ref.dom;
+  var dom = _ref.dom;
 
-	return {
-		dom: _xstream2.default.fromArray([0]).map(function (n) {
-			return (0, _dom.div)('.panel', window.events.sort(function (a, b) {
-				return new Date(b.time) - new Date(a.time);
-			}).map(function (event) {
-				return (0, _dom.article)('.centered', [(0, _dom.div)('.event.card', [(0, _dom.a)('.go.to.event.button', { props: { href: window.baseUrl + event.url } }, [(0, _dom.i)('.material-icons', 'arrow_forward'), (0, _dom.span)('.hidden', 'Go')]), (0, _dom.header)([(0, _dom.h4)([event.name])]), (0, _dom.div)('.content', [(0, _dom.h5)(event.time), event.abstract]), (0, _dom.footer)([(0, _dom.i)('.material-icons', 'label')].concat(_toConsumableArray(event.tags.map(function (tag) {
-					return (0, _dom.a)('.tag', { props: { href: window.baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
-				})), [(0, _dom.a)('.right.button', { props: { href: window.baseUrl + event.Url } }, 'View Event')]))])]);
-			}));
-		})
-	};
+  return {
+    dom: _xstream2.default.periodic(200).map(function (n) {
+      return (0, _dom.div)('.panel', window.events.sort(function (a, b) {
+        return new Date(b.time) - new Date(a.time);
+      }).map(function (event) {
+        return (0, _dom.article)('.centered', [(0, _dom.div)('.event.card', [(0, _dom.a)('.go.to.event.button', { props: { href: window.baseUrl + event.url } }, [(0, _dom.i)('.material-icons', 'arrow_forward'), (0, _dom.span)('.hidden', 'Go')]), (0, _dom.header)([(0, _dom.h4)([event.name])]), (0, _dom.div)('.content', [(0, _dom.h5)(event.time), event.abstract]), (0, _dom.footer)([(0, _dom.i)('.material-icons', 'label')].concat(_toConsumableArray(event.tags.map(function (tag) {
+          return (0, _dom.a)('.tag', { props: { href: window.baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
+        })), [(0, _dom.a)('.right.button', { props: { href: window.baseUrl + event.Url } }, 'View Event')]))])]);
+      }));
+    })
+  };
 }
 
 (0, _xstreamRun.run)(main, { dom: (0, _dom.makeDOMDriver)('main') });
