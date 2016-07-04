@@ -3,6 +3,11 @@ import xs from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, article, a, i, span, header, h4, h5, footer, makeDOMDriver } from '@cycle/dom';
 
+function getDisplayTime(time) {
+  var timeSplits = new Date(time).toString().split(' ');
+  return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
+}
+
 function main({ dom }) {
   return {
     dom: xs.periodic(200)
@@ -20,7 +25,7 @@ function main({ dom }) {
                   h4([event.name])
                 ]),
                 div('.content', [
-                  h5(event.time),
+                  h5(getDisplayTime(event.time)),
                   event.abstract
                 ]),
                 footer([
