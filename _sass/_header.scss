@@ -1,7 +1,6 @@
 .devday > .container > .layout > header {
 
     @extend .mdl-layout__header;
-    @extend .mdl-layout__header--scroll;
     @extend .mdl-color--primary;
 
     & > .container {
