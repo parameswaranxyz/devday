@@ -1,57 +1,43 @@
 ---
-
+# Front matter
 ---
 <!DOCTYPE html>
 <html>
-  {% include head_home.html %}
-  <body class="devday home">
-    <div class="container">
-      <div class="layout">
-        <div class="content">
-          <header>
-            <h1><span class="hidden">devday_</span><image src="{{ site.github.url }}/images/logo.gif"></image></h1>
-            <h2>a monthly informal event for developers to share their experiences, ideas, opinions & perspectives about technology.</h2>
-          </header>
-          <main>
-            <article class="upcoming event card">
-              <a class="go to event button" title="go to event">
-                <span class="hidden">go to event</span>
-                <i class="material-icons">keyboard_arrow_right</i>
-              </a>
-            </article>
-            <nav>
-              <a href="{{ site.github.url }}/archive/" title="view all previous events">
-                More
-                <button>
-                  <i class="material-icons" role="presentation">arrow_forward</i>
-                </button>
-              </a>
-            </nav>
-          </main>
-          <footer>
-            <div class="left section">
-              <button class="twitter social button">
-                <span class="hidden">Twitter</span>
-              </button>
-              <button class="facebook social button">
-                <span class="hidden">Facebook</span>
-              </button>
-              <button class="google plus social button">
-                <span class="hidden">Google Plus</span>
-              </button>
-            </div>
-            <div class="right section">
-              <button class="share social button">
-                <i class="material-icons" role="presentation">share</i>
-                <span class="hidden">share</span>
-              </button>
-            </div>
-          </footer>
-        </div>
+{% include head_home.html %}
+<body class="devday home">
+  <div class="container">
+    <div class="layout">
+      <div class="content">
+        <header>
+          <h1><span class="hidden">devday_</span><img src="/images/logo.gif"></h1>
+          <h2>a monthly informal event for developers to share their <span class="noun">perspectives</span> about <span class="topic">technology</span></h2>
+        </header>
+        <main>
+          <article class="upcoming event card">
+            <a class="go to event button" title="go to event">
+              <span class="hidden">go to event</span>
+              <i class="material-icons">keyboard_arrow_right</i>
+            </a>
+          </article>
+          <nav>
+            <a href="/archive" title="view all previous events">More<button><i class="material-icons">arrow_forward</i></button></a>
+          </nav>
+        </main>
+        <footer>
+          <div class="left section">
+            <button class="twitter social button"><span class="hidden">twitter</span></button>
+            <button class="facebook social button"><span class="hidden">facebook</span></button>
+            <button class="google plus social button"><span class="hidden">google plus</span></button>
+          </div>
+          <div class="right section">
+            <button class="share social button"><i class="material-icons">share</i><span class="hidden">share</span></button>
+          </div>
+        </footer>
       </div>
     </div>
-    <script type="text/javascript">
+  </div>
+  <script type="text/javascript">
         window.baseUrl = "{{ site.github.url }}";
     </script>
-  </body>
+</body>
 </html>
