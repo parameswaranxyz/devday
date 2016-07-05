@@ -64,13 +64,21 @@
                         font-weight: 100;
                         font-size: 2em;
                         line-height: 1em;
+                        max-width: 85%;
+                        margin: 0 auto;
 
-                        & > .noun {
-                            font-weight: 300;
-                        }
+                        & > span {
+                            border-bottom: 1px rgba(255,255,255,0.87) solid;
+                            // TODO: Check if needed
+                            // display: inline-block;
 
-                        & > .topic {
-                            text-decoration: underline;
+                            &.noun {
+                                width: 160px;
+                            }
+
+                            &.topic {
+                                width: 210px;
+                            }
                         }
                     }
                 }
