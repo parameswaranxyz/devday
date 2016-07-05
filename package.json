@@ -4,7 +4,7 @@
   "description": "The site for devday",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"bundle exec jekyll serve --watch\" \"watchify _js/archive.js -o js/archive.js -t [ babelify — presets [ es2015 stage-0 ] ]\"",
+    "dev": "concurrently \"bundle exec jekyll serve --watch\" \"watchify _js/archive.js -o js/archive.js -t [ babelify — presets [ es2015 stage-0 ] ]\" \"watchify _js/home.js -o js/home.js -t [ babelify — presets [ es2015 stage-0 ] ]\"",
     "start": "npm run dev"
   },
   "keywords": [

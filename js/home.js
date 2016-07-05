@@ -13,30 +13,36 @@ var _dom = require('@cycle/dom');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
+var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 
-function getDisplayTime(time) {
-  var timeSplits = new Date(time).toString().split(' ');
-  return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-}
-
-function main(_ref) {
+function home(_ref) {
   var dom = _ref.dom;
 
+  var noun$ = _xstream2.default.periodic(1000).map(function (x) {
+    return x % nouns.length;
+  }).map(function (i) {
+    return nouns[i];
+  });
+  var topic$ = _xstream2.default.periodic(4000).map(function (x) {
+    return x % topics.length;
+  }).map(function (i) {
+    return topics[i];
+  });
+  var vtree$ = _xstream2.default.combine(noun$, topic$).map(function (x) {
+    var noun = x[0];
+    var topic = x[1];
+    return (0, _dom.div)('.content', [(0, _dom.header)([(0, _dom.h1)([(0, _dom.span)('.hidden', 'devday_'), (0, _dom.img)({ props: { src: window.baseUrl + '/images/logo.gif' } })]), (0, _dom.h2)(['a monthly informal event for developers to share their ' + noun + ' about ' + topic])]), (0, _dom.main)([
+    // TODO: two upcoming events, design
+    (0, _dom.article)('.upcoming.event.card', [(0, _dom.a)('.go.to.event.button', { props: { title: 'go to event' } }, [(0, _dom.span)('.hidden', 'go to event'), (0, _dom.i)('.material-icons', 'keyboard_arrow_right')])]), (0, _dom.nav)([(0, _dom.a)({ props: { href: window.baseUrl + '/archive', title: 'view all previous events' } }, ['More', (0, _dom.button)([(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')])])])]), (0, _dom.footer)([(0, _dom.div)('.left.section', [(0, _dom.button)('.twitter.social.button', [(0, _dom.span)('.hidden', 'twitter')]), (0, _dom.button)('.facebook.social.button', [(0, _dom.span)('.hidden', 'facebook')]), (0, _dom.button)('.google.plus.social.button', [(0, _dom.span)('.hidden', 'google plus')])]), (0, _dom.div)('.right.section', [(0, _dom.button)('.share.social.button', [(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'share'), (0, _dom.span)('.hidden', 'share')])])])]);
+  });
+
   return {
-    dom: _xstream2.default.periodic(200).map(function (n) {
-      return (0, _dom.div)('.panel', window.events.sort(function (a, b) {
-        return new Date(b.time) - new Date(a.time);
-      }).map(function (event) {
-        return (0, _dom.article)('.centered', [(0, _dom.div)('.event.card', [(0, _dom.a)('.go.to.event.button', { props: { href: window.baseUrl + event.url } }, [(0, _dom.i)('.material-icons', 'arrow_forward'), (0, _dom.span)('.hidden', 'Go')]), (0, _dom.header)([(0, _dom.h4)([event.name])]), (0, _dom.div)('.content', [(0, _dom.h5)(getDisplayTime(event.time)), event.abstract]), (0, _dom.footer)([(0, _dom.i)('.material-icons', 'label')].concat(_toConsumableArray(event.tags.map(function (tag) {
-          return (0, _dom.a)('.tag', { props: { href: window.baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
-        })), [(0, _dom.a)('.right.button', { props: { href: window.baseUrl + event.url } }, 'View Event')]))])]);
-      }));
-    })
+    dom: vtree$
   };
 }
 
-(0, _xstreamRun.run)(main, { dom: (0, _dom.makeDOMDriver)('main') });
+(0, _xstreamRun.run)(home, { dom: (0, _dom.makeDOMDriver)('.devday.home>.container>.layout') });
 
 },{"@cycle/dom":11,"@cycle/xstream-run":69,"babel-polyfill":72,"xstream":371}],2:[function(require,module,exports){
 "use strict";
