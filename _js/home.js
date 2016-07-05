@@ -28,16 +28,20 @@ function home({ dom }) {
           span('.topic', x[1])
         ])
       ])
-    );
-  const mainDom$ = xs.of(
-    main([
-      // TODO: two upcoming events, design
+    );  
+  // TODO: design the cards
+  const upcomingEventsDom = window.events
+    .filter(event => new Date(event.time) - new Date() >= 0)
+    .map(event =>
       article('.upcoming.event.card', [
         a('.go.to.event.button', { props: { title: 'go to event' } }, [
           span('.hidden', 'go to event'),
           i('.material-icons', 'keyboard_arrow_right')
         ])
-      ]),
+      ]));
+  const mainDom$ = xs.of(
+    main([
+      ...upcomingEventsDom,
       nav([
         a({ props: { href: window.baseUrl + '/archive', title: 'view all previous events' } }, [
           'More',
@@ -69,16 +73,7 @@ function home({ dom }) {
       ])
     ]));
   const vtree$ = xs.combine(headerDom$, mainDom$, footerDom$)
-    .map(x => {
-      const headerDom = x[0];
-      const mainDom = x[1];
-      const footerDom = x[2];
-      return div('.content', [
-        headerDom,
-        mainDom,
-        footerDom
-      ])
-    })
+    .map(x => div('.content', x));
 
   return {
     dom: vtree$
