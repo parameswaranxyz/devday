@@ -19,22 +19,29 @@ var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 
 function home(_ref) {
   var dom = _ref.dom;
 
+
   var noun$ = _xstream2.default.periodic(1000).map(function (x) {
     return x % nouns.length;
   }).map(function (i) {
     return nouns[i];
   });
-  var topic$ = _xstream2.default.periodic(4000).map(function (x) {
+  var topic$ = _xstream2.default.periodic(3000).map(function (x) {
     return x % topics.length;
   }).map(function (i) {
     return topics[i];
   });
-  var vtree$ = _xstream2.default.combine(noun$, topic$).map(function (x) {
-    var noun = x[0];
-    var topic = x[1];
-    return (0, _dom.div)('.content', [(0, _dom.header)([(0, _dom.h1)([(0, _dom.span)('.hidden', 'devday_'), (0, _dom.img)({ props: { src: window.baseUrl + '/images/logo.gif' } })]), (0, _dom.h2)(['a monthly informal event for developers to share their ' + noun + ' about ' + topic])]), (0, _dom.main)([
-    // TODO: two upcoming events, design
-    (0, _dom.article)('.upcoming.event.card', [(0, _dom.a)('.go.to.event.button', { props: { title: 'go to event' } }, [(0, _dom.span)('.hidden', 'go to event'), (0, _dom.i)('.material-icons', 'keyboard_arrow_right')])]), (0, _dom.nav)([(0, _dom.a)({ props: { href: window.baseUrl + '/archive', title: 'view all previous events' } }, ['More', (0, _dom.button)([(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')])])])]), (0, _dom.footer)([(0, _dom.div)('.left.section', [(0, _dom.button)('.twitter.social.button', [(0, _dom.span)('.hidden', 'twitter')]), (0, _dom.button)('.facebook.social.button', [(0, _dom.span)('.hidden', 'facebook')]), (0, _dom.button)('.google.plus.social.button', [(0, _dom.span)('.hidden', 'google plus')])]), (0, _dom.div)('.right.section', [(0, _dom.button)('.share.social.button', [(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'share'), (0, _dom.span)('.hidden', 'share')])])])]);
+  var headerDom$ = _xstream2.default.combine(noun$, topic$).map(function (x) {
+    return (0, _dom.header)([(0, _dom.h1)([(0, _dom.span)('.hidden', 'devday_'), (0, _dom.img)({ props: { src: window.baseUrl + '/images/logo.gif' } })]), (0, _dom.h2)(['a monthly informal event for developers to share their ', (0, _dom.span)('.noun', x[0]), ' about ', (0, _dom.span)('.topic', x[1])])]);
+  });
+  var mainDom$ = _xstream2.default.of((0, _dom.main)([
+  // TODO: two upcoming events, design
+  (0, _dom.article)('.upcoming.event.card', [(0, _dom.a)('.go.to.event.button', { props: { title: 'go to event' } }, [(0, _dom.span)('.hidden', 'go to event'), (0, _dom.i)('.material-icons', 'keyboard_arrow_right')])]), (0, _dom.nav)([(0, _dom.a)({ props: { href: window.baseUrl + '/archive', title: 'view all previous events' } }, ['More', (0, _dom.button)([(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')])])])]));
+  var footerDom$ = _xstream2.default.of((0, _dom.footer)([(0, _dom.div)('.left.section', [(0, _dom.button)('.twitter.social.button', [(0, _dom.span)('.hidden', 'twitter')]), (0, _dom.button)('.facebook.social.button', [(0, _dom.span)('.hidden', 'facebook')]), (0, _dom.button)('.google.plus.social.button', [(0, _dom.span)('.hidden', 'google plus')])]), (0, _dom.div)('.right.section', [(0, _dom.button)('.share.social.button', [(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'share'), (0, _dom.span)('.hidden', 'share')])])]));
+  var vtree$ = _xstream2.default.combine(headerDom$, mainDom$, footerDom$).map(function (x) {
+    var headerDom = x[0];
+    var mainDom = x[1];
+    var footerDom = x[2];
+    return (0, _dom.div)('.content', [headerDom, mainDom, footerDom]);
   });
 
   return {
