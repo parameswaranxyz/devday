@@ -13,6 +13,7 @@ function main({ dom }) {
     dom: xs.periodic(200)
       .map(n =>
         div('.panel', window.events
+          .filter(event => new Date(event.time) - new Date() < 0)
           .sort((a, b) => new Date(b.time) - new Date(a.time))
           .map(event =>
             article('.centered', [
