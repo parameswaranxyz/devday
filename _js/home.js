@@ -32,6 +32,7 @@ function home({ dom }) {
   // TODO: design the cards
   const upcomingEventsDom = window.events
     .filter(event => new Date(event.time) - new Date() >= 0)
+    .take(2)
     .map(event =>
       article('.upcoming.event.card', [
         a('.go.to.event.button', { props: { title: 'go to event' } }, [
