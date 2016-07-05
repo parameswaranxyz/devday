@@ -13512,7 +13512,7 @@ function home(_ref) {
   // TODO: design the cards
   var upcomingEventsDom = window.events.filter(function (event) {
     return new Date(event.time) - new Date() >= 0;
-  }).take(2).map(function (event) {
+  }).slice(0, 2).map(function (event) {
     return (0, _dom.article)('.upcoming.event.card', [(0, _dom.a)('.go.to.event.button', { props: { title: 'go to event' } }, [(0, _dom.span)('.hidden', 'go to event'), (0, _dom.i)('.material-icons', 'keyboard_arrow_right')])]);
   });
   var mainDom$ = _xstream2.default.of((0, _dom.main)([].concat(_toConsumableArray(upcomingEventsDom), [(0, _dom.nav)([(0, _dom.a)({ props: { href: window.baseUrl + '/archive', title: 'view all previous events' } }, ['More', (0, _dom.button)([(0, _dom.i)('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')])])])])));
