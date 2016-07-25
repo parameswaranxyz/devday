@@ -1,4 +1,3 @@
-import "babel-polyfill";
 import xs from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, main, article, a, i, nav, button, footer, makeDOMDriver } from '@cycle/dom';
