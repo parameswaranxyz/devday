@@ -134,7 +134,9 @@
       return map;
   }
 
-  var sahajBangaloreMap = initialize_map('sahaj-bangalore-map', 12.924995, 77.627850);
+  
+  var bangalore_map = initialize_map('bangalore-map', 12.924995, 77.627850);
+  var chennai_map = initialize_map('chennai-map', 12.9821963,80.2517205);
 
 
   var $name = $("#devday-register-form input[name='name']"),
