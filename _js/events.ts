@@ -1,29 +1,36 @@
 import { Stream } from 'xstream';
-import { operators } from './../data/operators';
+import { DevdayEvent } from './definitions';
 
-export class DataSource {
-  data$: Stream<string>;
-  constructor(operator$: Stream<string>) {
+const events: DevdayEvent[] = [];
+
+export class EventsSource {
+  event$: Stream<DevdayEvent>;
+  events$: Stream<DevdayEvent[]>;
+  constructor(event$: Stream<string>) {
     const xs = Stream;
-    operator$.addListener({
-      next: () => {},
-      error: () => {},
-      complete: () => {}
+    event$.addListener({
+      next: () => { },
+      error: () => { },
+      complete: () => { }
     });
-    this.data$ =
-      operator$.map(op =>
-        xs
-        .fromArray(operators)
-        .filter(operator => op === operator))
+    this.event$ =
+      event$
+        .filter(url => url !== 'archive')
+        .map(url =>
+          xs.fromArray(events)
+            .filter(event => url === event.url))
         .flatten();
+    this.events$ =
+      event$.filter(url => url === 'archive')
+        .mapTo(events);
   }
 }
 
-export function makeDataDriver(): (operator$: Stream<string>) => DataSource {
-  function dataDriver(operator$: Stream<string>) {
-    return new DataSource(operator$);
+export function makeEventsDriver(): (event$: Stream<string>) => EventsSource {
+  function eventsDriver(event$: Stream<string>) {
+    return new EventsSource(event$);
   }
-  return dataDriver;
+  return eventsDriver;
 }
 
-export default makeDataDriver;
+export default makeEventsDriver;
