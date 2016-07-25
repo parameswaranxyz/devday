@@ -4,6 +4,6 @@ import { makeRoutesDriver } from './router';
 import { makeDOMDriver } from '@cycle/dom';
 
 run(main, {
-    dom: makeDOMDriver('body'),
-    routes: makeRoutesDriver()
+  dom: makeDOMDriver('body'),
+  routes: makeRoutesDriver()
 });
