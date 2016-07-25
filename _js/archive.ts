@@ -26,6 +26,7 @@ function renderHeader(baseUrl: string): VNode {
 }
 
 function archive(sources: Sources): Sinks {
+  const xs = Stream;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$;
   const baseUrl = (window as BaseUrlProvider).baseUrl;
@@ -76,8 +77,8 @@ function archive(sources: Sources): Sinks {
 
   return {
     dom: vdom$,
-    routes: null,
-    events: null
+    routes: xs.empty(),
+    events: xs.empty()
   };
 }
 
