@@ -1,13 +1,14 @@
 import { Sources, Sinks } from './definitions';
+import home from './home';
 import archive from './archive';
 import xs from 'xstream';
 
 function main(sources: Sources): Sinks {
+  const homeSinks = home(sources);
   const archiveSinks = archive(sources);
-
-  const vdom$ = xs.merge(archiveSinks.dom);
-  const route$ = xs.merge(archiveSinks.routes);
-  const event$ = xs.merge(archiveSinks.events);
+  const vdom$ = xs.merge(homeSinks.dom, archiveSinks.dom);
+  const route$ = xs.merge(homeSinks.routes, archiveSinks.routes);
+  const event$ = xs.merge(homeSinks.events, archiveSinks.events);
   return {
     dom: vdom$,
     routes: route$,
