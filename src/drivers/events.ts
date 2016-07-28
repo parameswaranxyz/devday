@@ -14,14 +14,14 @@ export class EventsSource {
     });
     this.event$ =
       event$
-        .filter(url => url !== 'archive')
         .map(url =>
-          xs.fromArray(events)
-            .filter(event => url === event.url))
-        .flatten();
+          events
+            .filter(event => url === event.url)
+            .shift());
     this.events$ =
-      event$.filter(url => url === '' || url === 'archive')
-        .mapTo(events);
+      event$
+        .mapTo(events)
+        .startWith(events);
   }
 }
 

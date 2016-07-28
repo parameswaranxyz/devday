@@ -5,6 +5,7 @@ import event from './event';
 import xs from 'xstream';
 
 function main(sources: Sources): Sinks {
+  // return home(sources);
   const homeSinks = home(sources);
   const archiveSinks = archive(sources);
   const eventSinks = event(sources);

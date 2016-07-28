@@ -8,7 +8,7 @@ const topics = ['technology', 'internet of things', 'cloud computing', 'arduino'
 
 function home(sources: Sources): Sinks {
   const xs = Stream;
-  const route$ = sources.routes.route$.startWith('');
+  const route$ = sources.routes.route$;
   const baseUrl = (window as BaseUrlProvider).baseUrl;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)
@@ -20,9 +20,9 @@ function home(sources: Sources): Sinks {
   const currentDate = new Date();
   const vtree$ =
     route$
-      .filter(url => url === '')
-      .map(route =>
+      .map(url =>
         xs.combine(noun$, topic$, events$)
+          .filter(() => url === '')
           .map(([noun, topic, events]) =>
             div('.devday.home', [
               div('.container', [

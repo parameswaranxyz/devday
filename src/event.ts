@@ -33,7 +33,7 @@ function renderAgendaEntry(entry: AgendaEntry): VNode {
 function event(sources: Sources): Sinks {
   const xs = Stream;
   const route$ = sources.routes.route$;
-  const event$ = sources.events.event$;
+  const event$ = sources.events.event$.filter(Boolean);
   const events$ = sources.events.events$;
   const baseUrl = (window as BaseUrlProvider).baseUrl;
   const eventRequest$ = route$

@@ -34,9 +34,7 @@ export class RoutesSource {
     const hashChangeProducer = new HashChangeProducer();
     const hashRoute$ =
       xs.create(hashChangeProducer)
-        .map((ev: HashChangeEvent) =>
-          (ev.target as Window).location.hash.replace('#', ''))
-        .map(hash => (hash || '').replace('/', ''))
+        .map((ev: HashChangeEvent) => (ev.target as Window).location.hash.replace('#/', ''))
         .startWith(window.location.hash.replace('#', '') || '');
     this.route$ = hashRoute$;
   }
