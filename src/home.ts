@@ -53,7 +53,7 @@ function home(sources: Sources): Sinks {
                             ])
                           ])),
                       nav([
-                        a({ props: { href: baseUrl + '/archive/', title: 'view all previous events' } }, [
+                        a({ props: { href: baseUrl + '/#/archive/', title: 'view all previous events' } }, [
                           'More',
                           button([
                             i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')

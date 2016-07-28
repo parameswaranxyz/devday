@@ -1,43 +1,49 @@
----
-# Front matter
----
 <!DOCTYPE html>
 <html>
-{% include head_home.html %}
-<body class="devday home">
-  <div class="container">
-    <div class="layout">
-      <div class="content">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEVDAY</title>
+  <meta name="description" content="DEVDAY is a monthly technical meetup for developers">
+  <meta property="og:url" content="http://devday.in/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DEVDAY" />
+  <meta property="og:description" content="DEVDAY is a monthly technical meetup for developers" />
+  <meta property="og:image" content="http://devday.in/images/devday.gif" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="css/archive.css">
+  <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+  <script defer src="dist/app.js"></script>
+</head>
+<body>
+  <div class="devday archive">
+    <div class="container">
+      <div class="layout">
         <header>
-          <h1><span class="hidden">devday_</span><img src="{{ site.github.url }}/images/logo.gif"></h1>
-          <h2>a monthly informal event for developers to share their <span class="noun">perspectives</span> about <span class="topic">technology</span></h2>
+          <div class="container">
+            <div class="content">
+              <a class="title" href="/">
+                <img src="/images/logo.gif">
+              </a>
+              <div class="navigation container">
+                <nav>
+                  <a href="/archive">Archive</a>
+                </nav>
+              </div>
+            </div>
+          </div>
         </header>
         <main>
-          <article class="upcoming event card">
-            <a class="go to event button" title="go to event">
-              <span class="hidden">go to event</span>
-              <i class="material-icons">keyboard_arrow_right</i>
-            </a>
-          </article>
-          <nav>
-            <a href="/archive" title="view all previous events">More<button><i class="material-icons">arrow_forward</i></button></a>
-          </nav>
         </main>
-        <footer>
-          <div class="left section">
-            <button class="twitter social button"><span class="hidden">twitter</span></button>
-            <button class="facebook social button"><span class="hidden">facebook</span></button>
-            <button class="google plus social button"><span class="hidden">google plus</span></button>
-          </div>
-          <div class="right section">
-            <button class="share social button"><i class="material-icons">share</i><span class="hidden">share</span></button>
-          </div>
-        </footer>
       </div>
     </div>
   </div>
   <script type="text/javascript">
-        window.baseUrl = "{{ site.github.url }}";
-  </script>
+        window.baseUrl = '';
+    </script>
 </body>
+
 </html>

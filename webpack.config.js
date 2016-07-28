@@ -1,16 +1,16 @@
 var webpack = require('webpack');  
 module.exports = {  
-  entry: './_js/app.ts',
+  entry: './src/app.ts',
   output: {
-    filename: './_js/app.js'
+    filename: './dist/app.js'
   },
   devtool: 'source-map',
   resolve: {
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin()
-  ],
+  // plugins: [
+  //   new webpack.optimize.UglifyJsPlugin()
+  // ],
   module: {
     loaders: [
       { test: /\.ts$/, loader: 'ts' }
