@@ -8,7 +8,7 @@ const topics = ['technology', 'internet of things', 'cloud computing', 'arduino'
 
 function home(sources: Sources): Sinks {
   const xs = Stream;
-  const route$ = sources.routes.route$;
+  const route$ = sources.routes.route$.startWith('');
   const baseUrl = (window as BaseUrlProvider).baseUrl;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)

@@ -5,7 +5,7 @@ import { makeRoutesDriver } from './drivers/router';
 import { makeEventsDriver } from './drivers/events';
 
 run(main, {
-  dom: makeDOMDriver('body'),
+  dom: makeDOMDriver('#app'),
   routes: makeRoutesDriver(),
   events: makeEventsDriver()
 });
