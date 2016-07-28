@@ -1,7 +1,6 @@
 import { Stream } from 'xstream';
-import { DevdayEvent } from './definitions';
-
-const events: DevdayEvent[] = [];
+import events from './../data/events';
+import { DevdayEvent } from './../definitions';
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
@@ -21,7 +20,7 @@ export class EventsSource {
             .filter(event => url === event.url))
         .flatten();
     this.events$ =
-      event$.filter(url => url === 'archive')
+      event$.filter(url => url === '' || url === 'archive')
         .mapTo(events);
   }
 }

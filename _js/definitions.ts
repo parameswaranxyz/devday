@@ -1,6 +1,6 @@
 import { DOMSource } from '@cycle/dom/xstream-typings';
-import { RoutesSource } from './router';
-import { EventsSource } from './events.ts';
+import { RoutesSource } from './drivers/router';
+import { EventsSource } from './drivers/events';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
 
@@ -38,11 +38,11 @@ export enum AgendaEntryType {
 
 export interface Author {
   name: string;
-  twitter_handle: string;
-  github_username: string;
-  facebook_username: string;
-  linkedin_profile_url: string;
-  image_url: string;
+  twitter_handle?: string;
+  github_username?: string;
+  facebook_username?: string;
+  linkedin_profile_url?: string;
+  image_url?: string;
 }
 
 export interface AgendaEntry {
