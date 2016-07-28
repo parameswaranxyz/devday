@@ -4,9 +4,9 @@ var path = require('path');
 module.exports = {
   entry: [
     './src/app.ts',
-    './css/home.scss',
-    './css/archive.scss',
-    './css/event.scss'
+    // './css/home.scss',
+    // './css/archive.scss',
+    // './css/event.scss'
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -25,7 +25,7 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.ts$/, loader: 'ts' },
-      { test: /\.scss$/, loader: "style!css!autoprefixer!sass" }
+      { test: /\.scss$/, loaders: [ 'style', 'css', 'sass'] }
     ]
   },
   sassLoader: {
