@@ -4,7 +4,7 @@
   "description": "The site for devday",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"bundle exec jekyll serve --watch\" \"watchify _js/archive.js -o js/archive.js -t [ babelify — presets [ es2015 stage-0 ] ]\" \"watchify _js/home.js -o js/home.js -t [ babelify — presets [ es2015 stage-0 ] ]\"",
+    "dev": "concurrently \"webpack --watch\" \"lite-server\"",
     "start": "npm run dev"
   },
   "keywords": [
@@ -17,20 +17,21 @@
   },
   "homepage": "https://github.com/artfuldev/devday",
   "dependencies": {
-    "@cycle/dom": "^10.0.5",
-    "@cycle/history": "^4.0.0",
+    "@cycle/dom": "^10.1.0",
     "@cycle/xstream-run": "^3.0.3",
-    "xstream": "^5.1.0"
+    "xstream": "^5.2.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
-    "babel-polyfill": "^6.9.1",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-preset-stage-0": "^6.5.0",
-    "babelify": "^7.3.0",
-    "browserify": "^13.0.1",
-    "concurrently": "^2.1.0",
-    "watchify": "^3.7.0"
+    "autoprefixer-loader": "^3.2.0",
+    "concurrently": "^2.2.0",
+    "css-loader": "^0.23.1",
+    "lite-server": "^2.2.2",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "ts-loader": "^0.8.2",
+    "typescript": "^1.8.10",
+    "typings": "^1.3.1",
+    "webpack": "^1.13.1"
   }
 }
