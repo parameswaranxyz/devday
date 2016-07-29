@@ -395,69 +395,59 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Talk,
-        title: 'Talk 1',
+        title: 'Creating offline/desktop applications using Electron',
         abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
         authors: [
           {
-            name: "Avinash Nijampure"
+            name: 'Sairam Krishnamurthy',
+            image_url: 'images/speakers/sairam.jpg'
           }
         ],
         time: {
-          start_time: new Date('2016-06-04T10:30:00+05:30')
-        }
-      } as AgendaEntry,
-      {
-        type: AgendaEntryType.Break,
-        time: {
-          start_time: new Date('2016-06-04T11:15:00+05:30')
-        },
-        title: 'Tea and snacks'
-      } as AgendaEntry,
-      {
-        type: AgendaEntryType.Talk,
-        title: 'Journey of Samvid',
-        abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-        authors: [
-          {
-            name: 'Shashank Teotia'
-          }
-        ],
-        time: {
-          start_time: new Date('2016-06-04T11:30:00+05:30')
+          start_time: new Date('2016-08-04T18:30:00+05:30')
         }
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'Simple obstacle avoiding Robot using Arduino',
+        title: 'Building native mobile applications using React Native',
         abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
         authors: [
           {
-            name: 'Deepak Nararyana Rao'
+            name: 'Vagmi Mudumbai',
+            image_url: 'images/speakers/vagmi.jpg'
           }
         ],
         time: {
-          start_time: new Date('2016-04-02T12:15:00+05:30')
+          start_time: new Date('2016-08-04T19:00:00+05:30')
         }
       } as AgendaEntry,
       {
-        type: AgendaEntryType.Workshop,
-        title: 'Workshop on Arduino',
+        type: AgendaEntryType.Talk,
+        title: 'Functional Reactive Programming with Cycle.js',
         abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
         authors: [
           {
-            name: 'Deepak Nararyana Rao'
+            name: 'Sudarsan Balaji',
+            image_url: 'images/speakers/sudarsan.png'
+          }
+        ],
+        time: {
+          start_time: new Date('2016-08-04T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Writing for IoT using Johnny-Five',
+        abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+        authors: [
+          {
+            name: 'Raj Bharath Kannan',
+            image_url: 'images/speakers/raj.png'
           }
         ],
         time: {
           start_time: new Date('2016-04-02T13:00:00+05:30')
         }
-      } as AgendaEntry,
-      {
-        type: AgendaEntryType.Break,
-        time: {
-          start_time: new Date('2016-06-04T13:45:00+05:30')
-        },
-        title: 'Lunch Break'
       } as AgendaEntry
     ]
   }

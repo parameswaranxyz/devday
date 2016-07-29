@@ -7,6 +7,8 @@
         "**/*.js": { "when": "$(basename).ts" },
         "node_modules": true,
         ".sass-cache": true,
-        "**/*.js.map": true
+        "**/*.js.map": true,
+        "images": true,
+        "dist": true
     }
 }

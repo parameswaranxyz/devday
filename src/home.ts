@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, header, h1, span, img, h2, main, article, a, i, nav, button, footer, makeDOMDriver } from '@cycle/dom';
-import { Sources, Sinks, DevdayEvent } from './definitions';
+import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
+import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
@@ -18,7 +18,37 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
       .filter(ev => ev.venue === BANGALORE_ADDRESS)
       .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
       .shift();
-  return [ bangaloreEvent, chennaiEvent ];
+  return [bangaloreEvent, chennaiEvent];
+}
+
+function renderTopEvent(event: DevdayEvent): VNode {
+  return article('.upcoming.event.card', [
+    div('.info', [
+      h4([event.event_time.start_time.toDateString()]),
+      h3([event.title]),
+      p([event.abstract]),
+    ]),
+    div('.speakers',
+      [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
+        .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
+    ),
+    div('.secondary.info', [
+      div('.location', [
+        address([
+          event.venue.locality + ',',
+          br(),
+          event.venue.city
+        ])
+      ]),
+      div('.attending', [
+        p('JOIN NOW')
+      ])
+    ]),
+    a('.go.to.event.button', { props: { title: 'go to event' } }, [
+      span('.hidden', 'go to event'),
+      i('.material-icons', 'keyboard_arrow_right')
+    ])
+  ]);
 }
 
 function home(sources: Sources): Sinks {
@@ -57,16 +87,7 @@ function home(sources: Sources): Sinks {
                       ])
                     ]),
                     main([
-                      // TODO: design the cards
-                      ...topEvents(events)
-                        .map(event =>
-                          article('.upcoming.event.card', [
-                            h1([event.title]),
-                            a('.go.to.event.button', { props: { title: 'go to event' } }, [
-                              span('.hidden', 'go to event'),
-                              i('.material-icons', 'keyboard_arrow_right')
-                            ])
-                          ])),
+                      ...topEvents(events).map(renderTopEvent),
                       nav([
                         a({ props: { href: '#/archive', title: 'view all previous events' } }, [
                           'More',
