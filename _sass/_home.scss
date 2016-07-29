@@ -138,12 +138,12 @@
                             @extend .mdl-button;
                             @extend .mdl-button--fab;
                             @extend .mdl-color--accent;
-                            color: white;
-                            position: absolute;
+                            color: white !important;
+                            position: absolute !important;
                             top: -28px;
                             right: 28px;
-                            height: 56px;
-                            width: 56px;
+                            height: 56px !important;
+                            width: 56px !important;
                         }
                     }
 
