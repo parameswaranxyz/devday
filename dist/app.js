@@ -2085,6 +2085,25 @@
 	        .shift();
 	    return [bangaloreEvent, chennaiEvent];
 	}
+	function renderTopEvent(event) {
+	    return dom_1.article('.upcoming.event.card', [
+	        dom_1.div('.info', [
+	            dom_1.h4([event.event_time.start_time.toDateString()]),
+	            dom_1.h3([event.title]),
+	            dom_1.p([event.abstract]),
+	        ]),
+	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
+	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url } }); })),
+	        dom_1.div('.secondary.info', [
+	            dom_1.div('.location'),
+	            dom_1.div('.attending')
+	        ]),
+	        dom_1.a('.go.to.event.button', { props: { title: 'go to event' } }, [
+	            dom_1.span('.hidden', 'go to event'),
+	            dom_1.i('.material-icons', 'keyboard_arrow_right')
+	        ])
+	    ]);
+	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
@@ -2120,16 +2139,7 @@
 	                                    dom_1.span('.topic', topic)
 	                                ])
 	                            ]),
-	                            dom_1.main(topEvents(events)
-	                                .map(function (event) {
-	                                return dom_1.article('.upcoming.event.card', [
-	                                    dom_1.h1([event.title]),
-	                                    dom_1.a('.go.to.event.button', { props: { title: 'go to event' } }, [
-	                                        dom_1.span('.hidden', 'go to event'),
-	                                        dom_1.i('.material-icons', 'keyboard_arrow_right')
-	                                    ])
-	                                ]);
-	                            }).concat([
+	                            dom_1.main(topEvents(events).map(renderTopEvent).concat([
 	                                dom_1.nav([
 	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
 	                                        'More',

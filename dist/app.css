@@ -12088,14 +12088,59 @@ iframe {
     flex-shrink: 0; }
     .devday.home > .container > .layout > .content > main > .upcoming.event.card {
       overflow: visible !important;
-      z-index: 10; }
+      z-index: 10;
+      box-sizing: border-box !important; }
+      .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info {
+        width: 65%;
+        padding: 20px;
+        padding-top: 0;
+        overflow: hidden;
+        box-sizing: border-box !important; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h4 {
+          font-size: inherit;
+          color: rgba(0, 0, 0, 0.54);
+          margin-bottom: 0; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h3 {
+          margin-top: 0;
+          height: 80px; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > p {
+          text-overflow: ellipsis;
+          overflow: hidden;
+          height: 120px; }
+      .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers {
+        background: #7986CB;
+        position: relative;
+        padding: 50px 20px 20px 20px;
+        box-sizing: border-box !important; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers::before {
+          content: 'speakers';
+          text-transform: uppercase;
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          color: rgba(255, 255, 255, 0.7); }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers > .avatar {
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          margin: 0;
+          margin-right: 20px;
+          margin-bottom: 20px; }
+          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers > .avatar:first-child {
+            margin-left: 20px; }
+      .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info {
+        height: 100px;
+        width: 100%;
+        background: #5C6BC0;
+        box-sizing: border-box !important; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .go.to.event.button {
-        color: white;
-        position: absolute;
+        color: white !important;
+        position: absolute !important;
         top: -28px;
         right: 28px;
-        height: 56px;
-        width: 56px; }
+        height: 56px !important;
+        width: 56px !important; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;
