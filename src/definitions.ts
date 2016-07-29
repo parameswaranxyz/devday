@@ -29,6 +29,7 @@ export interface Address {
   city: string;
   zip: number;
   map_link: string;
+  map_image: string;
 }
 
 export enum AgendaEntryType {
@@ -66,8 +67,4 @@ export interface DevdayEvent {
   registration_time: EventTime;
   venue: Address;
   agenda: AgendaEntry[];
-}
-
-export interface BaseUrlProvider {
-  baseUrl: string;
 }

@@ -48,8 +48,8 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(127);
-	var events_1 = __webpack_require__(128);
+	var router_1 = __webpack_require__(125);
+	var events_1 = __webpack_require__(126);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2044,11 +2044,10 @@
 
 	"use strict";
 	var home_1 = __webpack_require__(7);
-	var archive_1 = __webpack_require__(125);
-	var event_1 = __webpack_require__(126);
+	var archive_1 = __webpack_require__(122);
+	var event_1 = __webpack_require__(123);
 	var xstream_1 = __webpack_require__(4);
 	function main(sources) {
-	    // return home(sources);
 	    var homeSinks = home_1.default(sources);
 	    var archiveSinks = archive_1.default(sources);
 	    var eventSinks = event_1.default(sources);
@@ -2072,7 +2071,6 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
-	__webpack_require__(122);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function home(sources) {
@@ -2100,7 +2098,7 @@
 	                            dom_1.header([
 	                                dom_1.h1([
 	                                    dom_1.span('.hidden', 'devday_'),
-	                                    dom_1.img({ props: { src: baseUrl + '/images/logo.gif' } })
+	                                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                                ]),
 	                                dom_1.h2([
 	                                    'a monthly informal event for developers to share their ',
@@ -2121,7 +2119,7 @@
 	                                ]);
 	                            }).concat([
 	                                dom_1.nav([
-	                                    dom_1.a({ props: { href: baseUrl + '/#/archive/', title: 'view all previous events' } }, [
+	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
 	                                        'More',
 	                                        dom_1.button([
 	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
@@ -8632,285 +8630,6 @@
 /* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js?sourceMap!./home.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(124)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js?sourceMap!./home.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js?sourceMap!./home.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 123 */,
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(false) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
-
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
@@ -8918,16 +8637,16 @@
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 	}
-	function renderHeader(baseUrl) {
+	function renderHeader() {
 	    return dom_1.header([
 	        dom_1.div('.container', [
 	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: baseUrl + '/' } }, [
-	                    dom_1.img({ props: { src: baseUrl + 'images/logo.gif' } })
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
@@ -8938,7 +8657,6 @@
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$;
-	    var baseUrl = window.baseUrl;
 	    var currentDate = new Date();
 	    var vdom$ = route$
 	        .filter(function (url) { return url === 'archive'; })
@@ -8947,7 +8665,7 @@
 	            return dom_1.div('.devday.archive', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
-	                        renderHeader(baseUrl),
+	                        renderHeader(),
 	                        dom_1.main([
 	                            dom_1.div('.panel', events
 	                                .filter(function (event) { return event.event_time.start_time - currentDate < 0; })
@@ -8955,10 +8673,6 @@
 	                                .map(function (event) {
 	                                return dom_1.article('.centered', [
 	                                    dom_1.div('.event.card', [
-	                                        dom_1.a('.go.to.event.button', { props: { href: baseUrl + event.url } }, [
-	                                            dom_1.i('.material-icons', 'arrow_forward'),
-	                                            dom_1.span('.hidden', 'Go')
-	                                        ]),
 	                                        dom_1.header([
 	                                            dom_1.h4([event.title])
 	                                        ]),
@@ -8969,9 +8683,9 @@
 	                                        dom_1.footer([
 	                                            dom_1.i('.material-icons', 'label')
 	                                        ].concat(event.tags.map(function (tag) {
-	                                            return dom_1.a('.tag', { props: { href: baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
+	                                            return dom_1.a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag);
 	                                        }), [
-	                                            dom_1.a('.right.button', { props: { href: baseUrl + event.url } }, 'View Event')
+	                                            dom_1.a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
 	                                        ]))
 	                                    ])
 	                                ]);
@@ -8993,51 +8707,98 @@
 
 
 /***/ },
-/* 126 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
+	var definitions_1 = __webpack_require__(124);
 	function getDisplayTime(date) {
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 	}
-	function renderHeader(baseUrl) {
+	function renderHeader() {
 	    return dom_1.header([
 	        dom_1.div('.container', [
 	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: baseUrl + '/' } }, [
-	                    dom_1.img({ props: { src: baseUrl + 'images/logo.gif' } })
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
 	        ])
 	    ]);
 	}
+	function getHHMM(date) {
+	    var hours = date.getHours();
+	    var minutes = date.getMinutes();
+	    return (hours > 12 ? (hours - 12).toString() : hours.toString()) + ':' + minutes.toString();
+	}
+	function getMeridien(date) {
+	    return date.getHours() > 12 ? 'PM' : 'AM';
+	}
 	function renderAgendaEntry(entry) {
-	    // TODO: Render
-	    return dom_1.div('.thumbnail');
+	    switch (entry.type) {
+	        case definitions_1.AgendaEntryType.Talk:
+	            return [
+	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
+	                    dom_1.h5(entry.title),
+	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
+	                    entry.abstract
+	                ])
+	            ];
+	        case definitions_1.AgendaEntryType.Break:
+	            return [
+	                dom_1.div('.thumbnail.break', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info.break', [
+	                    dom_1.div('.centerer', [
+	                        dom_1.h5(entry.title)
+	                    ])
+	                ])
+	            ];
+	    }
+	}
+	function getAgendaNodes(agenda) {
+	    return [].concat.apply([], agenda.map(renderAgendaEntry));
+	}
+	function renderAgenda(agenda) {
+	    return dom_1.section('.centered.agenda', [
+	        dom_1.div('.twelve.column.card', [
+	            dom_1.div('.content', [
+	                dom_1.h4('.full.width', 'Agenda')
+	            ].concat(getAgendaNodes(agenda))),
+	            dom_1.footer([
+	                dom_1.a('.button', 'Register')
+	            ])
+	        ])
+	    ]);
 	}
 	function event(sources) {
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
 	    var event$ = sources.events.event$.filter(Boolean);
 	    var events$ = sources.events.events$;
-	    var baseUrl = window.baseUrl;
 	    var eventRequest$ = route$
 	        .filter(function (url) { return url !== 'archive' && url !== ''; });
 	    var currentDate = new Date();
 	    var vdom$ = event$
 	        .map(function (event) {
-	        return dom_1.div('.devday.archive', [
+	        return dom_1.div('.devday.event', [
 	            dom_1.div('.container', [
 	                dom_1.div('.layout', [
-	                    renderHeader(baseUrl),
+	                    renderHeader(),
 	                    dom_1.main([
 	                        dom_1.div('.panel', [
 	                            dom_1.section('.centered.intro', [
@@ -9056,16 +8817,7 @@
 	                                    ])
 	                                ])
 	                            ]),
-	                            dom_1.section('.centered.agenda', [
-	                                dom_1.div('.twelve.column.card', [
-	                                    dom_1.div('.content', [
-	                                        dom_1.h4('.full.width', 'Agenda')
-	                                    ].concat(event.agenda.map(renderAgendaEntry))),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Register')
-	                                    ])
-	                                ])
-	                            ]),
+	                            renderAgenda(event.agenda),
 	                            dom_1.section('.centered.info', [
 	                                dom_1.div('.location.card', [
 	                                    dom_1.header([
@@ -9109,7 +8861,20 @@
 
 
 /***/ },
-/* 127 */
+/* 124 */
+/***/ function(module, exports) {
+
+	"use strict";
+	(function (AgendaEntryType) {
+	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
+	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
+	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
+	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
+	var AgendaEntryType = exports.AgendaEntryType;
+
+
+/***/ },
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9161,12 +8926,12 @@
 
 
 /***/ },
-/* 128 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
-	var events_1 = __webpack_require__(129);
+	var events_1 = __webpack_require__(127);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
@@ -9202,11 +8967,29 @@
 
 
 /***/ },
-/* 129 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var definitions_1 = __webpack_require__(130);
+	var definitions_1 = __webpack_require__(124);
+	var BANGALORE_ADDRESS = {
+	    line_one: '#365, 3rd Floor, Sulochana Building',
+	    line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
+	    locality: 'Koramangala',
+	    city: 'Bangalore',
+	    zip: 560034,
+	    map_link: '',
+	    map_image: ''
+	};
+	var CHENNAI_ADDRESS = {
+	    line_one: 'Sahaj Software Solutions Pvt. Ltd.',
+	    line_two: 'Type 2/15, Dr.V.S.I Estate, Rajiv Gandhi Salai',
+	    locality: 'Thiruvanmiyur',
+	    city: 'Chennai',
+	    zip: 600041,
+	    map_link: '',
+	    map_image: ''
+	};
 	exports.events = [
 	    {
 	        title: 'DevDay Technical Meetup',
@@ -9216,13 +8999,13 @@
 	        author: 'devday_ team',
 	        abstract: 'DEVDAY is a monthly informal event for developers to share their experiences, ideas, opinions, and perspectives, about technology.',
 	        event_time: {
-	            start_time: new Date('2016-03-05T10:30:00+05:30')
+	            start_time: new Date('2016-03-05T10:30:00+05:30'),
 	        },
 	        publish_time: new Date('2016-03-05T10:30:00+05:30'),
 	        registration_time: {
 	            start_time: new Date('2016-03-05T10:30:00+05:30')
 	        },
-	        venue: {},
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9268,23 +9051,475 @@
 	                title: 'Lunch Break'
 	            }
 	        ]
+	    },
+	    {
+	        title: 'Data science: How it helps',
+	        url: 'data-science-how-it-helps',
+	        categories: ['events'],
+	        tags: ['data-science'],
+	        author: 'devday_ team',
+	        abstract: 'On this 3 Edition of DevDay, we have Viral B. Shah, co-inventor of JuliaLang, and other speakers from Sahaj, to share their  experiences and learnings on Data Science.',
+	        event_time: {
+	            start_time: new Date('2016-05-07T10:30:00+05:30'),
+	            end_time: new Date('2016-05-07T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-05-07T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-05-07T10:30:00+05:30'),
+	            end_time: new Date('2016-05-07T13:30:00+05:30')
+	        },
+	        venue: BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Julia - A fresh approach to data science and technical computing',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Viral B. Shah"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-05-07T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-04-02T11:15:00+05:30')
+	                },
+	                title: 'Tea Break'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Applied data science for developers',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {}
+	                ],
+	                time: {
+	                    start_time: new Date('2016-05-07T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-05-07T13:00:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'All about databases',
+	        url: 'all-about-databases',
+	        categories: ['events'],
+	        tags: ['databases', 'sqlite', 'event streams'],
+	        author: 'devday_ team',
+	        abstract: 'A Date with Databases. This meet up would be all about Databases - the internals and the overall. The idea is to tear down databases, across relational/non relational, and understand them deep down.',
+	        event_time: {
+	            start_time: new Date('2016-06-04T10:30:00+05:30'),
+	            end_time: new Date('2016-06-04T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-06-04T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-06-04T10:30:00+05:30'),
+	            end_time: new Date('2016-06-04T10:30:00+05:30')
+	        },
+	        venue: BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Databases: Days of the future past',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Avinash Nijampure"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T11:15:00+05:30')
+	                },
+	                title: 'Tea and snacks'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'SQLite: Why aren\'t you using it more?',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Srimathi Harinarayanan'
+	                    },
+	                    {
+	                        name: 'Navaneeth KN'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Databases as event streams',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Shashank Teotia'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T12:15:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T13:00:00+05:30')
+	                },
+	                title: 'Lunch'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'Arduino Day',
+	        url: 'arduino-day',
+	        categories: ['events'],
+	        tags: ['arduino-genuino-iot'],
+	        author: 'devday_ team',
+	        abstract: 'Arduino Day is a worldwide birthday celebration of Arduino and Genuino. It\'s a one day event –organized directly by the community, or by the Arduino founders– where people interested in Arduino and Genuino get together, share their experiences, and learn more.',
+	        event_time: {
+	            start_time: new Date('2016-04-02T10:30:00+05:30'),
+	            end_time: new Date('2016-04-02T14:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-04-02T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-04-02T10:30:00+05:30'),
+	            end_time: new Date('2016-04-02T10:30:00+05:30')
+	        },
+	        venue: BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Adventures with Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Himesh Reddivari"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-04-02T11:15:00+05:30')
+	                },
+	                title: 'Tea Break'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Journey of Samvid',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Shashank Teotia'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Simple obstacle avoiding Robot using Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T12:15:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Workshop on Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T13:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T13:45:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'Cloud Computing',
+	        url: 'cloud-computing',
+	        categories: ['events'],
+	        tags: ['cloud computing', 'cloud'],
+	        author: 'devday_ team',
+	        abstract: 'Upload. Download. Dock. Serve. Functions on demand. Everything to do with the cloud.',
+	        event_time: {
+	            start_time: new Date('2016-07-09T10:30:00+05:30'),
+	            end_time: new Date('2016-07-09T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-07-09T10:30:00+05:30'),
+	            end_time: new Date('2016-07-09T10:30:00+05:30')
+	        },
+	        venue: BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Talk 1',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Avinash Nijampure"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-07-09T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-07-09T11:15:00+05:30')
+	                },
+	                title: 'Tea and snacks'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'SQLite: Why aren\'t you using it more?',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Srimathi Harinarayanan'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-07-09T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Databases as event streams',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Shashank Teotia'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-07-09T12:15:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-07-09T13:00:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'Internet of Things',
+	        url: 'internet-of-things',
+	        categories: ['events'],
+	        tags: ['iot', 'robotics', 'hardware'],
+	        author: 'devday_ team',
+	        abstract: 'Blinky lights. Home automation. Arduino. Intel Edison. Philips 8055. ATmega16. If these ring a bell (or don\'t), you\'ve come to the right place. Let the fun begin!',
+	        event_time: {
+	            start_time: new Date('2016-08-09T10:30:00+05:30'),
+	            end_time: new Date('2016-08-09T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-09T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-08-09T10:30:00+05:30'),
+	            end_time: new Date('2016-08-09T10:30:00+05:30')
+	        },
+	        venue: BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Talk 1',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Avinash Nijampure"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T11:15:00+05:30')
+	                },
+	                title: 'Tea and snacks'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Journey of Samvid',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Shashank Teotia'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Simple obstacle avoiding Robot using Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T12:15:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Workshop on Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T13:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T13:45:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'JS Everywhere',
+	        url: 'js-everywhere',
+	        categories: ['events'],
+	        tags: ['js', 'javascript', 'react-native', 'cycle-js'],
+	        author: 'devday_ team',
+	        abstract: 'Desktop or offline applications? We\'ve got you covered. Reactive applications? Try cycle. Native moblie applications? We have React Native. Internet of Things? Johnny Five\'s here to help. JavaScript has evolved into one of the easiest and ubiquitous language around, and it looks like there isn\'t much that can\'t be done with it. JS Everywhere - Let\'s rejoice!',
+	        event_time: {
+	            start_time: new Date('2016-08-04T18:30:00+05:30'),
+	            end_time: new Date('2016-08-04T20:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-08-04T18:30:00+05:30'),
+	            end_time: new Date('2016-08-04T18:30:00+05:30')
+	        },
+	        venue: CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Talk 1',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Avinash Nijampure"
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T11:15:00+05:30')
+	                },
+	                title: 'Tea and snacks'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Journey of Samvid',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Shashank Teotia'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-06-04T11:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Simple obstacle avoiding Robot using Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T12:15:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Workshop on Arduino',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Deepak Nararyana Rao'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T13:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-06-04T13:45:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = exports.events;
-
-
-/***/ },
-/* 130 */
-/***/ function(module, exports) {
-
-	"use strict";
-	(function (AgendaEntryType) {
-	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
-	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
-	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
-	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
-	var AgendaEntryType = exports.AgendaEntryType;
 
 
 /***/ }

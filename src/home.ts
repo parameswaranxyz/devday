@@ -31,7 +31,7 @@ function home(sources: Sources): Sinks {
                     header([
                       h1([
                         span('.hidden', 'devday_'),
-                        img({ props: { src: baseUrl + '/images/logo.gif' } })
+                        img({ props: { src: 'images/logo.gif' } })
                       ]),
                       h2([
                         'a monthly informal event for developers to share their ',
@@ -53,7 +53,7 @@ function home(sources: Sources): Sinks {
                             ])
                           ])),
                       nav([
-                        a({ props: { href: baseUrl + '/#/archive/', title: 'view all previous events' } }, [
+                        a({ props: { href: '#/archive', title: 'view all previous events' } }, [
                           'More',
                           button([
                             i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')

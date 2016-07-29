@@ -292,7 +292,7 @@
                                     @extend .mdl-button--accent;
 
                                     &:hover {
-                                        background: transparent;
+                                        background: transparent !important;
                                         color: black;
                                     }
                                 }
