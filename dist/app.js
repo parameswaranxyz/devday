@@ -8717,6 +8717,7 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
+	var definitions_1 = __webpack_require__(127);
 	function getDisplayTime(date) {
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
@@ -8737,9 +8738,56 @@
 	        ])
 	    ]);
 	}
+	function getHHMM(date) {
+	    var hours = date.getHours();
+	    var minutes = date.getMinutes();
+	    return (hours > 12 ? (hours - 12).toString() : hours.toString()) + ':' + minutes.toString();
+	}
+	function getMeridien(date) {
+	    return date.getHours() > 12 ? 'PM' : 'AM';
+	}
 	function renderAgendaEntry(entry) {
-	    // TODO: Render
-	    return dom_1.div('.thumbnail');
+	    switch (entry.type) {
+	        case definitions_1.AgendaEntryType.Talk:
+	            return [
+	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
+	                    dom_1.h5(entry.title),
+	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
+	                    entry.abstract
+	                ])
+	            ];
+	        case definitions_1.AgendaEntryType.Break:
+	            return [
+	                dom_1.div('.thumbnail.break', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info.break', [
+	                    dom_1.div('.centerer', [
+	                        dom_1.h5(entry.title)
+	                    ])
+	                ])
+	            ];
+	    }
+	}
+	function getAgendaNodes(agenda) {
+	    return [].concat.apply([], agenda.map(renderAgendaEntry));
+	}
+	function renderAgenda(agenda) {
+	    return dom_1.section('.centered.agenda', [
+	        dom_1.div('.twelve.column.card', [
+	            dom_1.div('.content', [
+	                dom_1.h4('.full.width', 'Agenda')
+	            ].concat(getAgendaNodes(agenda))),
+	            dom_1.footer([
+	                dom_1.a('.button', 'Register')
+	            ])
+	        ])
+	    ]);
 	}
 	function event(sources) {
 	    var xs = xstream_1.Stream;
@@ -8773,16 +8821,7 @@
 	                                    ])
 	                                ])
 	                            ]),
-	                            dom_1.section('.centered.agenda', [
-	                                dom_1.div('.twelve.column.card', [
-	                                    dom_1.div('.content', [
-	                                        dom_1.h4('.full.width', 'Agenda')
-	                                    ].concat(event.agenda.map(renderAgendaEntry))),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Register')
-	                                    ])
-	                                ])
-	                            ]),
+	                            renderAgenda(event.agenda),
 	                            dom_1.section('.centered.info', [
 	                                dom_1.div('.location.card', [
 	                                    dom_1.header([
