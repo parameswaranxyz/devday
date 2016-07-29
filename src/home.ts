@@ -58,11 +58,10 @@ function home(sources: Sources): Sinks {
                     ]),
                     main([
                       // TODO: design the cards
-                      ...events
-                        .filter(event => event.event_time.start_time - currentDate >= 0)
-                        .slice(0, 2)
+                      ...topEvents(events)
                         .map(event =>
                           article('.upcoming.event.card', [
+                            h1([event.title]),
                             a('.go.to.event.button', { props: { title: 'go to event' } }, [
                               span('.hidden', 'go to event'),
                               i('.material-icons', 'keyboard_arrow_right')
