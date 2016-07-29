@@ -4,7 +4,7 @@
   "description": "The site for devday",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"sass --watch ./_sass/app.scss ./dist/app.css\" \"webpack --watch\" \"lite-server\"",
+    "dev": "concurrently \"sass --watch ./_sass/app.scss:./dist/app.css\" \"webpack --watch\" \"lite-server\"",
     "start": "npm run dev"
   },
   "keywords": [
