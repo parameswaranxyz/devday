@@ -8766,7 +8766,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: "Viral B. Shah"
+	                        name: "Viral B. Shah",
+	                        image_url: 'images/speakers/viral-shah.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8785,7 +8786,9 @@
 	                title: 'Applied data science for developers',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
-	                    {}
+	                    {
+	                        name: 'Unknown'
+	                    }
 	                ],
 	                time: {
 	                    start_time: new Date('2016-05-07T11:30:00+05:30')
@@ -8844,10 +8847,12 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Srimathi Harinarayanan'
+	                        name: 'Srimathi Harinarayanan',
+	                        image_url: 'images/speakers/srimathi.jpg'
 	                    },
 	                    {
-	                        name: 'Navaneeth KN'
+	                        name: 'Navaneeth KN',
+	                        image_url: 'navneeth.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8860,7 +8865,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Shashank Teotia'
+	                        name: 'Shashank Teotia',
+	                        image_url: 'images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8900,7 +8906,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: "Himesh Reddivari"
+	                        name: "Himesh Reddivari",
+	                        image_url: 'images/speakers/himesh-reddivari.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8920,7 +8927,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Shashank Teotia'
+	                        name: 'Shashank Teotia',
+	                        image_url: 'images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8933,7 +8941,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Deepak Nararyana Rao'
+	                        name: 'Deepak Nararyana Rao',
+	                        image_url: 'images/speakers/deepak.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8946,7 +8955,8 @@
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Deepak Nararyana Rao'
+	                        name: 'Deepak Nararyana Rao',
+	                        image_url: 'images/speakers/deepak.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8982,11 +8992,12 @@
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Talk 1',
+	                title: 'Product For Blue - <br>Green Deployments Verification',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: "Avinash Nijampure"
+	                        name: "Srikanth Seshadri",
+	                        image_url: 'images/speakers/srikanth.png'
 	                    }
 	                ],
 	                time: {
@@ -9002,11 +9013,12 @@
 	            },
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'SQLite: Why aren\'t you using it more?',
+	                title: 'Misconceptions of cloud: Automation!',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Srimathi Harinarayanan'
+	                        name: 'Arther Antony',
+	                        image_url: 'images/speakers/arther.png'
 	                    }
 	                ],
 	                time: {
@@ -9015,11 +9027,12 @@
 	            },
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Databases as event streams',
+	                title: 'Introduction to DevOps, the pain-points and the frameworks',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Shashank Teotia'
+	                        name: 'Raghavendrra Mahesh',
+	                        image_url: 'images/speakers/mahesh.png'
 	                    }
 	                ],
 	                time: {
