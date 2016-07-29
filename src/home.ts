@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, header, h1, span, img, h2, main, article, a, i, nav, button, footer, makeDOMDriver } from '@cycle/dom';
-import { Sources, Sinks, DevdayEvent } from './definitions';
+import { div, header, h1, span, img, h2, h4, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
+import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
@@ -18,13 +18,22 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
       .filter(ev => ev.venue === BANGALORE_ADDRESS)
       .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
       .shift();
-  return [ bangaloreEvent, chennaiEvent ];
+  return [bangaloreEvent, chennaiEvent];
 }
 
 function renderTopEvent(event: DevdayEvent): VNode {
-  // TODO: design the cards
   return article('.upcoming.event.card', [
+    h4([event.event_time.start_time]),
     h1([event.title]),
+    event.abstract,
+    div('.speakers',
+      [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
+        .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url } }))
+    ),
+    div('.secondary.info', [
+      div('.location'),
+      div('.attending')
+    ]),
     a('.go.to.event.button', { props: { title: 'go to event' } }, [
       span('.hidden', 'go to event'),
       i('.material-icons', 'keyboard_arrow_right')
