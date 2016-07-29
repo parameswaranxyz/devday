@@ -42,7 +42,7 @@ function event(sources: Sources): Sinks {
   const vdom$ =
     event$
     .map(event =>
-        div('.devday.archive', [
+        div('.devday.event', [
             div('.container', [
               div('.layout', [
                 renderHeader(baseUrl),
