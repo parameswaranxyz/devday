@@ -1,23 +1,23 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, article, a, img, i, span, header, nav, main, h4, h5, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, BaseUrlProvider } from './definitions';
+import { Sources, Sinks } from './definitions';
 
 function getDisplayTime(date: Date) {
   var timeSplits = date.toString().split(' ');
   return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 }
 
-function renderHeader(baseUrl: string): VNode {
+function renderHeader(): VNode {
   return header([
     div('.container', [
       div('.content', [
-        a('.title', { props: { href: baseUrl + '/' } }, [
-          img({ props: { src: baseUrl + 'images/logo.gif' } })
+        a('.title', { props: { href: '#/' } }, [
+          img({ props: { src: 'images/logo.gif' } })
         ]),
         div('.navigation.container', [
           nav([
-            a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+            a({ props: { href: '#/archive/' } }, 'Archive')
           ])
         ])
       ])
@@ -29,7 +29,6 @@ function archive(sources: Sources): Sinks {
   const xs = Stream;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$;
-  const baseUrl = (window as BaseUrlProvider).baseUrl;
   const currentDate = new Date();
   const vdom$ =
     route$
@@ -39,7 +38,7 @@ function archive(sources: Sources): Sinks {
           div('.devday.archive', [
             div('.container', [
               div('.layout', [
-                renderHeader(baseUrl),
+                renderHeader(),
                 main([
                   div('.panel', events
                     .filter(event => event.event_time.start_time - currentDate < 0)
@@ -47,7 +46,7 @@ function archive(sources: Sources): Sinks {
                     .map(event =>
                       article('.centered', [
                         div('.event.card', [
-                          a('.go.to.event.button', { props: { href: baseUrl + event.url } }, [
+                          a('.go.to.event.button', { props: { href: '#/' + event.url } }, [
                             i('.material-icons', 'arrow_forward'),
                             span('.hidden', 'Go')
                           ]),
@@ -61,9 +60,9 @@ function archive(sources: Sources): Sinks {
                           footer([
                             i('.material-icons', 'label'),
                             ...event.tags.map(tag =>
-                              a('.tag', { props: { href: baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag)
+                              a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag)
                             ),
-                            a('.right.button', { props: { href: baseUrl + event.url } }, 'View Event')
+                            a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
                           ])
                         ])
                       ])

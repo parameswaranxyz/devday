@@ -67,7 +67,3 @@ export interface DevdayEvent {
   venue: Address;
   agenda: AgendaEntry[];
 }
-
-export interface BaseUrlProvider {
-  baseUrl: string;
-}

@@ -2098,7 +2098,7 @@
 	                            dom_1.header([
 	                                dom_1.h1([
 	                                    dom_1.span('.hidden', 'devday_'),
-	                                    dom_1.img({ props: { src: baseUrl + '/images/logo.gif' } })
+	                                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                                ]),
 	                                dom_1.h2([
 	                                    'a monthly informal event for developers to share their ',
@@ -2119,7 +2119,7 @@
 	                                ]);
 	                            }).concat([
 	                                dom_1.nav([
-	                                    dom_1.a({ props: { href: baseUrl + '/#/archive/', title: 'view all previous events' } }, [
+	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
 	                                        'More',
 	                                        dom_1.button([
 	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
@@ -8637,16 +8637,16 @@
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 	}
-	function renderHeader(baseUrl) {
+	function renderHeader() {
 	    return dom_1.header([
 	        dom_1.div('.container', [
 	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: baseUrl + '/' } }, [
-	                    dom_1.img({ props: { src: baseUrl + 'images/logo.gif' } })
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive/' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
@@ -8657,7 +8657,6 @@
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$;
-	    var baseUrl = window.baseUrl;
 	    var currentDate = new Date();
 	    var vdom$ = route$
 	        .filter(function (url) { return url === 'archive'; })
@@ -8666,7 +8665,7 @@
 	            return dom_1.div('.devday.archive', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
-	                        renderHeader(baseUrl),
+	                        renderHeader(),
 	                        dom_1.main([
 	                            dom_1.div('.panel', events
 	                                .filter(function (event) { return event.event_time.start_time - currentDate < 0; })
@@ -8674,7 +8673,7 @@
 	                                .map(function (event) {
 	                                return dom_1.article('.centered', [
 	                                    dom_1.div('.event.card', [
-	                                        dom_1.a('.go.to.event.button', { props: { href: baseUrl + event.url } }, [
+	                                        dom_1.a('.go.to.event.button', { props: { href: '#/' + event.url } }, [
 	                                            dom_1.i('.material-icons', 'arrow_forward'),
 	                                            dom_1.span('.hidden', 'Go')
 	                                        ]),
@@ -8688,9 +8687,9 @@
 	                                        dom_1.footer([
 	                                            dom_1.i('.material-icons', 'label')
 	                                        ].concat(event.tags.map(function (tag) {
-	                                            return dom_1.a('.tag', { props: { href: baseUrl + '/tags/' + tag.replace(' ', '-') } }, tag);
+	                                            return dom_1.a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag);
 	                                        }), [
-	                                            dom_1.a('.right.button', { props: { href: baseUrl + event.url } }, 'View Event')
+	                                            dom_1.a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
 	                                        ]))
 	                                    ])
 	                                ]);
@@ -8722,16 +8721,16 @@
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 	}
-	function renderHeader(baseUrl) {
+	function renderHeader() {
 	    return dom_1.header([
 	        dom_1.div('.container', [
 	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: baseUrl + '/' } }, [
-	                    dom_1.img({ props: { src: baseUrl + 'images/logo.gif' } })
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive/' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
@@ -8747,7 +8746,6 @@
 	    var route$ = sources.routes.route$;
 	    var event$ = sources.events.event$.filter(Boolean);
 	    var events$ = sources.events.events$;
-	    var baseUrl = window.baseUrl;
 	    var eventRequest$ = route$
 	        .filter(function (url) { return url !== 'archive' && url !== ''; });
 	    var currentDate = new Date();
@@ -8756,7 +8754,7 @@
 	        return dom_1.div('.devday.event', [
 	            dom_1.div('.container', [
 	                dom_1.div('.layout', [
-	                    renderHeader(baseUrl),
+	                    renderHeader(),
 	                    dom_1.main([
 	                        dom_1.div('.panel', [
 	                            dom_1.section('.centered.intro', [

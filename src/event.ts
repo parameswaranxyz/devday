@@ -8,16 +8,16 @@ function getDisplayTime(date: Date) {
   return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
 }
 
-function renderHeader(baseUrl: string): VNode {
+function renderHeader(): VNode {
   return header([
     div('.container', [
       div('.content', [
-        a('.title', { props: { href: baseUrl + '/' } }, [
-          img({ props: { src: baseUrl + 'images/logo.gif' } })
+        a('.title', { props: { href: '#/' } }, [
+          img({ props: { src: 'images/logo.gif' } })
         ]),
         div('.navigation.container', [
           nav([
-            a({ props: { href: baseUrl + '/archive/' } }, 'Archive')
+            a({ props: { href: '#/archive/' } }, 'Archive')
           ])
         ])
       ])
@@ -35,7 +35,6 @@ function event(sources: Sources): Sinks {
   const route$ = sources.routes.route$;
   const event$ = sources.events.event$.filter(Boolean);
   const events$ = sources.events.events$;
-  const baseUrl = (window as BaseUrlProvider).baseUrl;
   const eventRequest$ = route$
       .filter(url => url !== 'archive' && url !== '');
   const currentDate = new Date();
@@ -45,7 +44,7 @@ function event(sources: Sources): Sinks {
         div('.devday.event', [
             div('.container', [
               div('.layout', [
-                renderHeader(baseUrl),
+                renderHeader(),
                 main([
                   div('.panel', [
                     section('.centered.intro', [
