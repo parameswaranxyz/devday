@@ -2079,9 +2079,11 @@
 	    var baseUrl = window.baseUrl;
 	    var events$ = sources.events.events$;
 	    var noun$ = xs.periodic(1000)
+	        .startWith(0)
 	        .map(function (x) { return x % nouns.length; })
 	        .map(function (i) { return nouns[i]; });
 	    var topic$ = xs.periodic(3000)
+	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
 	    var currentDate = new Date();
