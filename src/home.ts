@@ -23,7 +23,7 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
 
 function renderTopEvent(event: DevdayEvent): VNode {
   return article('.upcoming.event.card', [
-    h4([event.event_time.start_time]),
+    h4([event.event_time.start_time.toDateString()]),
     h1([event.title]),
     event.abstract,
     div('.speakers',
