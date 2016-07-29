@@ -1,6 +1,6 @@
 import { DevdayEvent, Address, AgendaEntry, AgendaEntryType } from './../definitions';
 
-const BANGALORE_ADDRESS: Address = {
+export const BANGALORE_ADDRESS: Address = {
       line_one: '#365, 3rd Floor, Sulochana Building',
       line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
       locality: 'Koramangala',
@@ -9,7 +9,7 @@ const BANGALORE_ADDRESS: Address = {
       map_link: '',
       map_image: 'images/bangalore-map.jpg'
     };
-const CHENNAI_ADDRESS: Address = {
+export const CHENNAI_ADDRESS: Address = {
       line_one: 'Sahaj Software Solutions Pvt. Ltd.',
       line_two: 'Type 2/15, Dr.V.S.I Estate, Rajiv Gandhi Salai',
       locality: 'Thiruvanmiyur',
