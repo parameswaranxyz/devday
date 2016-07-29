@@ -195,12 +195,20 @@
                           & > .location {
                             position: relative;
                             width: 50%;
+                            float: left;
                               
                             &::before {
                               content: 'location';
                               text-transform: uppercase;
                               position: absolute;
                               color: $light-secondary-text-color;
+                            }
+
+                            & > address {
+                              position: absolute;
+                              top: 30px;
+                              color: $light-primary-text-color;
+                              font-size: inherit;
                             }
                           }
 
@@ -214,6 +222,12 @@
                               text-transform: uppercase;
                               position: absolute;
                               color: $light-secondary-text-color;
+                            }
+
+                            & > p {
+                              position: absolute;
+                              top: 30px;
+                              color: $light-primary-text-color;
                             }
 
                           }
