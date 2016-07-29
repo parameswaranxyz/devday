@@ -17,7 +17,7 @@ function renderHeader(): VNode {
         ]),
         div('.navigation.container', [
           nav([
-            a({ props: { href: '#/archive/' } }, 'Archive')
+            a({ props: { href: '#/archive' } }, 'Archive')
           ])
         ])
       ])

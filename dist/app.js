@@ -8646,7 +8646,7 @@
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
@@ -8731,7 +8731,7 @@
 	                ]),
 	                dom_1.div('.navigation.container', [
 	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive/' } }, 'Archive')
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
 	                    ])
 	                ])
 	            ])
