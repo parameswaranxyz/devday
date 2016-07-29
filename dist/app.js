@@ -48,8 +48,8 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(125);
-	var events_1 = __webpack_require__(126);
+	var router_1 = __webpack_require__(126);
+	var events_1 = __webpack_require__(127);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2044,8 +2044,8 @@
 
 	"use strict";
 	var home_1 = __webpack_require__(7);
-	var archive_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(123);
+	var archive_1 = __webpack_require__(124);
+	var event_1 = __webpack_require__(125);
 	var xstream_1 = __webpack_require__(4);
 	function main(sources) {
 	    var homeSinks = home_1.default(sources);
@@ -2071,7 +2071,7 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
-	var events_1 = __webpack_require__(127);
+	var events_1 = __webpack_require__(122);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function topEvents(events) {
@@ -8643,352 +8643,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var dom_1 = __webpack_require__(8);
-	function getDisplayTime(date) {
-	    var timeSplits = date.toString().split(' ');
-	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-	}
-	function renderHeader() {
-	    return dom_1.header([
-	        dom_1.div('.container', [
-	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: '#/' } }, [
-	                    dom_1.img({ props: { src: 'images/logo.gif' } })
-	                ]),
-	                dom_1.div('.navigation.container', [
-	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
-	                    ])
-	                ])
-	            ])
-	        ])
-	    ]);
-	}
-	function archive(sources) {
-	    var xs = xstream_1.Stream;
-	    var route$ = sources.routes.route$;
-	    var events$ = sources.events.events$;
-	    var currentDate = new Date();
-	    var vdom$ = route$
-	        .filter(function (url) { return url === 'archive'; })
-	        .map(function (route) {
-	        return events$.map(function (events) {
-	            return dom_1.div('.devday.archive', [
-	                dom_1.div('.container', [
-	                    dom_1.div('.layout', [
-	                        renderHeader(),
-	                        dom_1.main([
-	                            dom_1.div('.panel', events
-	                                .filter(function (event) { return event.event_time.start_time < currentDate; })
-	                                .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
-	                                .map(function (event) {
-	                                return dom_1.article('.centered', [
-	                                    dom_1.div('.event.card', [
-	                                        dom_1.header([
-	                                            dom_1.h4([event.title])
-	                                        ]),
-	                                        dom_1.div('.content', [
-	                                            dom_1.h5(getDisplayTime(event.event_time.start_time)),
-	                                            event.abstract
-	                                        ]),
-	                                        dom_1.footer([
-	                                            dom_1.i('.material-icons', 'label')
-	                                        ].concat(event.tags.map(function (tag) {
-	                                            return dom_1.a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag);
-	                                        }), [
-	                                            dom_1.a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
-	                                        ]))
-	                                    ])
-	                                ]);
-	                            }))
-	                        ])
-	                    ])
-	                ])
-	            ]);
-	        });
-	    }).flatten();
-	    return {
-	        dom: vdom$,
-	        routes: xs.empty(),
-	        events: xs.empty()
-	    };
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = archive;
-
-
-/***/ },
-/* 123 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var dom_1 = __webpack_require__(8);
-	var definitions_1 = __webpack_require__(124);
-	function getDisplayTime(date) {
-	    var timeSplits = date.toString().split(' ');
-	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-	}
-	function renderHeader() {
-	    return dom_1.header([
-	        dom_1.div('.container', [
-	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: '#/' } }, [
-	                    dom_1.img({ props: { src: 'images/logo.gif' } })
-	                ]),
-	                dom_1.div('.navigation.container', [
-	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
-	                    ])
-	                ])
-	            ])
-	        ])
-	    ]);
-	}
-	function pad(n, width, z) {
-	    z = z || '0';
-	    n = n + '';
-	    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-	}
-	function getHHMM(date) {
-	    var hours = date.getHours();
-	    var minutes = date.getMinutes();
-	    return (hours > 12 ? pad((hours - 12).toString(), 2) : pad(hours.toString(), 2)) + ':' + pad(minutes.toString(), 2);
-	}
-	function getMeridien(date) {
-	    return date.getHours() > 12 ? 'PM' : 'AM';
-	}
-	function renderAgendaEntry(entry) {
-	    switch (entry.type) {
-	        case definitions_1.AgendaEntryType.Talk:
-	            return [
-	                dom_1.div('.thumbnail', [
-	                    dom_1.h5([getHHMM(entry.time.start_time)]),
-	                    dom_1.h6([getMeridien(entry.time.start_time)])
-	                ]),
-	                dom_1.div('.info', [
-	                    dom_1.h5(entry.title),
-	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
-	                    entry.abstract
-	                ])
-	            ];
-	        case definitions_1.AgendaEntryType.Break:
-	            return [
-	                dom_1.div('.thumbnail.break', [
-	                    dom_1.h5([getHHMM(entry.time.start_time)]),
-	                    dom_1.h6([getMeridien(entry.time.start_time)])
-	                ]),
-	                dom_1.div('.info.break', [
-	                    dom_1.div('.centerer', [
-	                        dom_1.h5(entry.title)
-	                    ])
-	                ])
-	            ];
-	    }
-	}
-	function getAgendaNodes(agenda) {
-	    return [].concat.apply([], agenda.map(renderAgendaEntry));
-	}
-	function renderAgenda(agenda) {
-	    return dom_1.section('.centered.agenda', [
-	        dom_1.div('.twelve.column.card', [
-	            dom_1.div('.content', [
-	                dom_1.h4('.full.width', 'Agenda')
-	            ].concat(getAgendaNodes(agenda))),
-	            dom_1.footer([
-	                dom_1.a('.button', 'Register')
-	            ])
-	        ])
-	    ]);
-	}
-	function event(sources) {
-	    var xs = xstream_1.Stream;
-	    var route$ = sources.routes.route$;
-	    var event$ = sources.events.event$.filter(Boolean);
-	    var events$ = sources.events.events$;
-	    var eventRequest$ = route$
-	        .filter(function (url) { return url !== 'archive' && url !== ''; });
-	    var currentDate = new Date();
-	    var vdom$ = event$
-	        .map(function (event) {
-	        return dom_1.div('.devday.event', [
-	            dom_1.div('.container', [
-	                dom_1.div('.layout', [
-	                    renderHeader(),
-	                    dom_1.main([
-	                        dom_1.div('.panel', [
-	                            dom_1.section('.centered.intro', [
-	                                dom_1.div('.twelve.column.card', [
-	                                    dom_1.div('.content', [
-	                                        dom_1.h4([
-	                                            'Upcoming event: ',
-	                                            dom_1.span('.title', event.title),
-	                                            ' on ' + event.event_time.start_time.toDateString()
-	                                        ]),
-	                                        event.abstract
-	                                    ]),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Participate'),
-	                                        dom_1.a('.button', 'Present')
-	                                    ])
-	                                ])
-	                            ]),
-	                            renderAgenda(event.agenda),
-	                            dom_1.section('.centered.info', [
-	                                dom_1.div('.location.card', [
-	                                    dom_1.header([
-	                                        dom_1.a({ props: { href: event.venue.map_link } }, [
-	                                            dom_1.div('.filler', [
-	                                                dom_1.h4(['Location'])
-	                                            ])
-	                                        ])
-	                                    ])
-	                                ]),
-	                                dom_1.div('.event.card', [
-	                                    dom_1.header([
-	                                        dom_1.h4([event.title]),
-	                                        dom_1.h5([event.event_time.start_time.toDateString()]),
-	                                        dom_1.h6([event.event_time.start_time.toTimeString()])
-	                                    ]),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Add to calendar'),
-	                                        dom_1.div('.absolute.right', [
-	                                            dom_1.a('.button', [
-	                                                dom_1.i('.material-icons', 'event')
-	                                            ])
-	                                        ])
-	                                    ])
-	                                ])
-	                            ])
-	                        ])
-	                    ])
-	                ])
-	            ])
-	        ]);
-	    });
-	    return {
-	        dom: vdom$,
-	        routes: xs.empty(),
-	        events: eventRequest$
-	    };
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = event;
-
-
-/***/ },
-/* 124 */
-/***/ function(module, exports) {
-
-	"use strict";
-	(function (AgendaEntryType) {
-	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
-	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
-	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
-	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
-	var AgendaEntryType = exports.AgendaEntryType;
-
-
-/***/ },
-/* 125 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var HashChangeProducer = (function () {
-	    function HashChangeProducer() {
-	        var _this = this;
-	        this.start = function (listener) {
-	            _this.stream = listener;
-	            window.addEventListener('hashchange', _this.handler);
-	        };
-	        this.stop = function () {
-	            window.removeEventListener('hashchange', _this.handler);
-	            _this.stream = null;
-	        };
-	        this.stream = null;
-	        this.handler = function (event) { return _this.stream.next(event); };
-	    }
-	    return HashChangeProducer;
-	}());
-	var RoutesSource = (function () {
-	    function RoutesSource(route$) {
-	        route$.addListener({
-	            next: function (route) {
-	                window.location.hash = "/" + route;
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	        var xs = xstream_1.Stream;
-	        var hashChangeProducer = new HashChangeProducer();
-	        var hashRoute$ = xs.create(hashChangeProducer)
-	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
-	            .startWith(window.location.hash.replace('#', '') || '');
-	        this.route$ = hashRoute$;
-	    }
-	    return RoutesSource;
-	}());
-	exports.RoutesSource = RoutesSource;
-	function makeRoutesDriver() {
-	    function routesDriver(route$) {
-	        return new RoutesSource(route$);
-	    }
-	    return routesDriver;
-	}
-	exports.makeRoutesDriver = makeRoutesDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makeRoutesDriver;
-
-
-/***/ },
-/* 126 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var events_1 = __webpack_require__(127);
-	var EventsSource = (function () {
-	    function EventsSource(event$) {
-	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function () { },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	        this.event$ =
-	            event$
-	                .map(function (url) {
-	                return events_1.default
-	                    .filter(function (event) { return url === event.url; })
-	                    .shift();
-	            });
-	        this.events$ =
-	            event$
-	                .mapTo(events_1.default)
-	                .startWith(events_1.default);
-	    }
-	    return EventsSource;
-	}());
-	exports.EventsSource = EventsSource;
-	function makeEventsDriver() {
-	    function eventsDriver(event$) {
-	        return new EventsSource(event$);
-	    }
-	    return eventsDriver;
-	}
-	exports.makeEventsDriver = makeEventsDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makeEventsDriver;
-
-
-/***/ },
-/* 127 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var definitions_1 = __webpack_require__(124);
+	var definitions_1 = __webpack_require__(123);
 	exports.BANGALORE_ADDRESS = {
 	    line_one: '#365, 3rd Floor, Sulochana Building',
 	    line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
@@ -9451,6 +9106,355 @@
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = exports.events;
+
+
+/***/ },
+/* 123 */
+/***/ function(module, exports) {
+
+	"use strict";
+	(function (AgendaEntryType) {
+	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
+	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
+	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
+	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
+	var AgendaEntryType = exports.AgendaEntryType;
+
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var dom_1 = __webpack_require__(8);
+	function getDisplayTime(date) {
+	    var timeSplits = date.toString().split(' ');
+	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
+	}
+	function renderHeader() {
+	    return dom_1.header([
+	        dom_1.div('.container', [
+	            dom_1.div('.content', [
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
+	                ]),
+	                dom_1.div('.navigation.container', [
+	                    dom_1.nav([
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
+	                    ])
+	                ])
+	            ])
+	        ])
+	    ]);
+	}
+	function archive(sources) {
+	    var xs = xstream_1.Stream;
+	    var route$ = sources.routes.route$;
+	    var events$ = sources.events.events$;
+	    var currentDate = new Date();
+	    var vdom$ = route$
+	        .filter(function (url) { return url === 'archive'; })
+	        .map(function (route) {
+	        return events$.map(function (events) {
+	            return dom_1.div('.devday.archive', [
+	                dom_1.div('.container', [
+	                    dom_1.div('.layout', [
+	                        renderHeader(),
+	                        dom_1.main([
+	                            dom_1.div('.panel', events
+	                                .filter(function (event) { return event.event_time.start_time < currentDate; })
+	                                .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
+	                                .map(function (event) {
+	                                return dom_1.article('.centered', [
+	                                    dom_1.div('.event.card', [
+	                                        dom_1.header([
+	                                            dom_1.h4([event.title])
+	                                        ]),
+	                                        dom_1.div('.content', [
+	                                            dom_1.h5(getDisplayTime(event.event_time.start_time)),
+	                                            event.abstract
+	                                        ]),
+	                                        dom_1.footer([
+	                                            dom_1.i('.material-icons', 'label')
+	                                        ].concat(event.tags.map(function (tag) {
+	                                            return dom_1.a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag);
+	                                        }), [
+	                                            dom_1.a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
+	                                        ]))
+	                                    ])
+	                                ]);
+	                            }))
+	                        ])
+	                    ])
+	                ])
+	            ]);
+	        });
+	    }).flatten();
+	    return {
+	        dom: vdom$,
+	        routes: xs.empty(),
+	        events: xs.empty()
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = archive;
+
+
+/***/ },
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var dom_1 = __webpack_require__(8);
+	var definitions_1 = __webpack_require__(123);
+	function getDisplayTime(date) {
+	    var timeSplits = date.toString().split(' ');
+	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
+	}
+	function renderHeader() {
+	    return dom_1.header([
+	        dom_1.div('.container', [
+	            dom_1.div('.content', [
+	                dom_1.a('.title', { props: { href: '#/' } }, [
+	                    dom_1.img({ props: { src: 'images/logo.gif' } })
+	                ]),
+	                dom_1.div('.navigation.container', [
+	                    dom_1.nav([
+	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
+	                    ])
+	                ])
+	            ])
+	        ])
+	    ]);
+	}
+	function pad(n, width, z) {
+	    z = z || '0';
+	    n = n + '';
+	    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+	function getHHMM(date) {
+	    var hours = date.getHours();
+	    var minutes = date.getMinutes();
+	    return (hours > 12 ? pad((hours - 12).toString(), 2) : pad(hours.toString(), 2)) + ':' + pad(minutes.toString(), 2);
+	}
+	function getMeridien(date) {
+	    return date.getHours() > 12 ? 'PM' : 'AM';
+	}
+	function renderAgendaEntry(entry) {
+	    switch (entry.type) {
+	        case definitions_1.AgendaEntryType.Talk:
+	            return [
+	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
+	                    dom_1.h5(entry.title),
+	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
+	                    entry.abstract
+	                ])
+	            ];
+	        case definitions_1.AgendaEntryType.Break:
+	            return [
+	                dom_1.div('.thumbnail.break', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info.break', [
+	                    dom_1.div('.centerer', [
+	                        dom_1.h5(entry.title)
+	                    ])
+	                ])
+	            ];
+	    }
+	}
+	function getAgendaNodes(agenda) {
+	    return [].concat.apply([], agenda.map(renderAgendaEntry));
+	}
+	function renderAgenda(agenda) {
+	    return dom_1.section('.centered.agenda', [
+	        dom_1.div('.twelve.column.card', [
+	            dom_1.div('.content', [
+	                dom_1.h4('.full.width', 'Agenda')
+	            ].concat(getAgendaNodes(agenda))),
+	            dom_1.footer([
+	                dom_1.a('.button', 'Register')
+	            ])
+	        ])
+	    ]);
+	}
+	function event(sources) {
+	    var xs = xstream_1.Stream;
+	    var route$ = sources.routes.route$;
+	    var event$ = sources.events.event$.filter(Boolean);
+	    var events$ = sources.events.events$;
+	    var eventRequest$ = route$
+	        .filter(function (url) { return url !== 'archive' && url !== ''; });
+	    var currentDate = new Date();
+	    var vdom$ = event$
+	        .map(function (event) {
+	        return dom_1.div('.devday.event', [
+	            dom_1.div('.container', [
+	                dom_1.div('.layout', [
+	                    renderHeader(),
+	                    dom_1.main([
+	                        dom_1.div('.panel', [
+	                            dom_1.section('.centered.intro', [
+	                                dom_1.div('.twelve.column.card', [
+	                                    dom_1.div('.content', [
+	                                        dom_1.h4([
+	                                            'Upcoming event: ',
+	                                            dom_1.span('.title', event.title),
+	                                            ' on ' + event.event_time.start_time.toDateString()
+	                                        ]),
+	                                        event.abstract
+	                                    ]),
+	                                    dom_1.footer([
+	                                        dom_1.a('.button', 'Participate'),
+	                                        dom_1.a('.button', 'Present')
+	                                    ])
+	                                ])
+	                            ]),
+	                            renderAgenda(event.agenda),
+	                            dom_1.section('.centered.info', [
+	                                dom_1.div('.location.card', [
+	                                    dom_1.header([
+	                                        dom_1.a({ props: { href: event.venue.map_link } }, [
+	                                            dom_1.div('.filler', {
+	                                                attrs: {
+	                                                    style: "background-image: url(\"" + event.venue.map_image + "\");"
+	                                                }
+	                                            }, [
+	                                                dom_1.h4(['Location'])
+	                                            ])
+	                                        ])
+	                                    ])
+	                                ]),
+	                                dom_1.div('.event.card', [
+	                                    dom_1.header([
+	                                        dom_1.h4([event.title]),
+	                                        dom_1.h5([event.event_time.start_time.toDateString()]),
+	                                        dom_1.h6([event.event_time.start_time.toTimeString()])
+	                                    ]),
+	                                    dom_1.footer([
+	                                        dom_1.a('.button', 'Add to calendar'),
+	                                        dom_1.div('.absolute.right', [
+	                                            dom_1.a('.button', [
+	                                                dom_1.i('.material-icons', 'event')
+	                                            ])
+	                                        ])
+	                                    ])
+	                                ])
+	                            ])
+	                        ])
+	                    ])
+	                ])
+	            ])
+	        ]);
+	    });
+	    return {
+	        dom: vdom$,
+	        routes: xs.empty(),
+	        events: eventRequest$
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = event;
+
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var HashChangeProducer = (function () {
+	    function HashChangeProducer() {
+	        var _this = this;
+	        this.start = function (listener) {
+	            _this.stream = listener;
+	            window.addEventListener('hashchange', _this.handler);
+	        };
+	        this.stop = function () {
+	            window.removeEventListener('hashchange', _this.handler);
+	            _this.stream = null;
+	        };
+	        this.stream = null;
+	        this.handler = function (event) { return _this.stream.next(event); };
+	    }
+	    return HashChangeProducer;
+	}());
+	var RoutesSource = (function () {
+	    function RoutesSource(route$) {
+	        route$.addListener({
+	            next: function (route) {
+	                window.location.hash = "/" + route;
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	        var xs = xstream_1.Stream;
+	        var hashChangeProducer = new HashChangeProducer();
+	        var hashRoute$ = xs.create(hashChangeProducer)
+	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
+	            .startWith(window.location.hash.replace('#', '') || '');
+	        this.route$ = hashRoute$;
+	    }
+	    return RoutesSource;
+	}());
+	exports.RoutesSource = RoutesSource;
+	function makeRoutesDriver() {
+	    function routesDriver(route$) {
+	        return new RoutesSource(route$);
+	    }
+	    return routesDriver;
+	}
+	exports.makeRoutesDriver = makeRoutesDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makeRoutesDriver;
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var events_1 = __webpack_require__(122);
+	var EventsSource = (function () {
+	    function EventsSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function () { },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	        this.event$ =
+	            event$
+	                .map(function (url) {
+	                return events_1.default
+	                    .filter(function (event) { return url === event.url; })
+	                    .shift();
+	            });
+	        this.events$ =
+	            event$
+	                .mapTo(events_1.default)
+	                .startWith(events_1.default);
+	    }
+	    return EventsSource;
+	}());
+	exports.EventsSource = EventsSource;
+	function makeEventsDriver() {
+	    function eventsDriver(event$) {
+	        return new EventsSource(event$);
+	    }
+	    return eventsDriver;
+	}
+	exports.makeEventsDriver = makeEventsDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makeEventsDriver;
 
 
 /***/ }

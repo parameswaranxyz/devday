@@ -24250,8 +24250,7 @@ iframe {
               background-size: cover;
               background-position: center;
               height: 100%;
-              position: relative;
-              background-image: url("/images/bangalore-map.jpg"); }
+              position: relative; }
               .devday.event > .container > .layout > main > .panel > section.info .card.location > header > a > .filler > h4 {
                 background: rgba(0, 0, 0, 0.2);
                 background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));

@@ -111,14 +111,11 @@
                                             width: 100%;
 
                                             & > .filler {
-                                                // included in main scss
-                                                // background-image: url('/images/bangalore-map.jpg');
                                                 background-repeat: no-repeat;
                                                 background-size: cover;
                                                 background-position: center;
                                                 height: 100%;
                                                 position: relative;
-                                                background-image: url('/images/bangalore-map.jpg');
 
                                                 & > h4 {
                                                     background: rgba(0, 0, 0, 0.2);
