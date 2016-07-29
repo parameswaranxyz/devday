@@ -30,7 +30,7 @@ function renderTopEvent(event: DevdayEvent): VNode {
     ]),
     div('.speakers',
       [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
-        .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url } }))
+        .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
     ),
     div('.secondary.info', [
       div('.location'),
