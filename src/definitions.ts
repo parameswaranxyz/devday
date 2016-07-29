@@ -29,6 +29,7 @@ export interface Address {
   city: string;
   zip: number;
   map_link: string;
+  map_image: string;
 }
 
 export enum AgendaEntryType {

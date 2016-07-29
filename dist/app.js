@@ -8924,8 +8924,24 @@
 
 	"use strict";
 	var definitions_1 = __webpack_require__(127);
-	var BANGALORE_MAP_LINK = '';
-	var CHENNAI_MAP_LINK = '';
+	var BANGALORE_ADDRESS = {
+	    line_one: '#365, 3rd Floor, Sulochana Building',
+	    line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
+	    locality: 'Koramangala',
+	    city: 'Bangalore',
+	    zip: 560034,
+	    map_link: '',
+	    map_image: ''
+	};
+	var CHENNAI_ADDRESS = {
+	    line_one: 'Sahaj Software Solutions Pvt. Ltd.',
+	    line_two: 'Type 2/15, Dr.V.S.I Estate, Rajiv Gandhi Salai',
+	    locality: 'Thiruvanmiyur',
+	    city: 'Chennai',
+	    zip: 600041,
+	    map_link: '',
+	    map_image: ''
+	};
 	exports.events = [
 	    {
 	        title: 'DevDay Technical Meetup',
@@ -8941,9 +8957,7 @@
 	        registration_time: {
 	            start_time: new Date('2016-03-05T10:30:00+05:30')
 	        },
-	        venue: {
-	            map_link: CHENNAI_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9006,10 +9020,7 @@
 	            start_time: new Date('2016-05-07T10:30:00+05:30'),
 	            end_time: new Date('2016-05-07T13:30:00+05:30')
 	        },
-	        venue: {
-	            city: 'Bangalore',
-	            map_link: BANGALORE_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9067,14 +9078,7 @@
 	            start_time: new Date('2016-06-04T10:30:00+05:30'),
 	            end_time: new Date('2016-06-04T10:30:00+05:30')
 	        },
-	        venue: {
-	            line_one: '#365, 3rd Floor, Sulochana Building,',
-	            line_two: '1st Cross Road, 3rd Block,',
-	            locality: 'Koramangala, Sarjapura Main Road,',
-	            city: 'Bangalore',
-	            zip: 560034,
-	            map_link: BANGALORE_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9150,10 +9154,7 @@
 	            start_time: new Date('2016-04-02T10:30:00+05:30'),
 	            end_time: new Date('2016-04-02T10:30:00+05:30')
 	        },
-	        venue: {
-	            city: 'Bangalore',
-	            map_link: BANGALORE_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9239,14 +9240,7 @@
 	            start_time: new Date('2016-07-09T10:30:00+05:30'),
 	            end_time: new Date('2016-07-09T10:30:00+05:30')
 	        },
-	        venue: {
-	            line_one: '#365, 3rd Floor, Sulochana Building,',
-	            line_two: '1st Cross Road, 3rd Block,',
-	            locality: 'Koramangala, Sarjapura Main Road,',
-	            city: 'Bangalore',
-	            zip: 560034,
-	            map_link: BANGALORE_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9319,14 +9313,7 @@
 	            start_time: new Date('2016-08-09T10:30:00+05:30'),
 	            end_time: new Date('2016-08-09T10:30:00+05:30')
 	        },
-	        venue: {
-	            line_one: 'Sahaj Software Solutions Pvt. Ltd.',
-	            line_two: 'Type 2/15, Dr.V.S.I Estate,',
-	            locality: 'Rajiv Gandhi Salai, Thiruvanmiyur,',
-	            city: 'Chennai',
-	            zip: 600041,
-	            map_link: CHENNAI_MAP_LINK
-	        },
+	        venue: BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9412,14 +9399,7 @@
 	            start_time: new Date('2016-08-04T18:30:00+05:30'),
 	            end_time: new Date('2016-08-04T18:30:00+05:30')
 	        },
-	        venue: {
-	            line_one: 'Sahaj Software Solutions Pvt. Ltd.',
-	            line_two: 'Type 2/15, Dr.V.S.I Estate,',
-	            locality: 'Rajiv Gandhi Salai, Thiruvanmiyur,',
-	            city: 'Chennai',
-	            zip: 600041,
-	            map_link: CHENNAI_MAP_LINK
-	        },
+	        venue: CHENNAI_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
