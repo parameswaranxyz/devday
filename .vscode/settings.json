@@ -8,6 +8,7 @@
         "node_modules": true,
         ".sass-cache": true,
         "**/*.js.map": true,
-        "images": true
+        "images": true,
+        "dist": true
     }
 }
