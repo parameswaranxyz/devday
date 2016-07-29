@@ -8735,10 +8735,15 @@
 	        ])
 	    ]);
 	}
+	function pad(n, width, z) {
+	    z = z || '0';
+	    n = n + '';
+	    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
 	function getHHMM(date) {
 	    var hours = date.getHours();
 	    var minutes = date.getMinutes();
-	    return (hours > 12 ? (hours - 12).toString() : hours.toString()) + ':' + minutes.toString();
+	    return (hours > 12 ? pad((hours - 12).toString(), 2) : pad(hours.toString(), 2)) + ':' + pad(minutes.toString(), 2);
 	}
 	function getMeridien(date) {
 	    return date.getHours() > 12 ? 'PM' : 'AM';
@@ -8980,7 +8985,7 @@
 	    city: 'Bangalore',
 	    zip: 560034,
 	    map_link: '',
-	    map_image: ''
+	    map_image: 'images/bangalore-map.jpg'
 	};
 	var CHENNAI_ADDRESS = {
 	    line_one: 'Sahaj Software Solutions Pvt. Ltd.',
@@ -8989,7 +8994,7 @@
 	    city: 'Chennai',
 	    zip: 600041,
 	    map_link: '',
-	    map_image: ''
+	    map_image: 'images/chennai-map.jpg'
 	};
 	exports.events = [
 	    {
