@@ -2093,10 +2093,18 @@
 	            dom_1.p([event.abstract]),
 	        ]),
 	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
-	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url } }); })),
+	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })),
 	        dom_1.div('.secondary.info', [
-	            dom_1.div('.location'),
-	            dom_1.div('.attending')
+	            dom_1.div('.location', [
+	                dom_1.address([
+	                    event.venue.locality + ',',
+	                    dom_1.br(),
+	                    event.venue.city
+	                ])
+	            ]),
+	            dom_1.div('.attending', [
+	                dom_1.p('JOIN NOW')
+	            ])
 	        ]),
 	        dom_1.a('.go.to.event.button', { props: { title: 'go to event' } }, [
 	            dom_1.span('.hidden', 'go to event'),
@@ -9047,69 +9055,59 @@
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Talk 1',
+	                title: 'Creating offline/desktop applications using Electron',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: "Avinash Nijampure"
+	                        name: 'Sairam Krishnamurthy',
+	                        image_url: 'images/speakers/sairam.jpg'
 	                    }
 	                ],
 	                time: {
-	                    start_time: new Date('2016-06-04T10:30:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-06-04T11:15:00+05:30')
-	                },
-	                title: 'Tea and snacks'
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Journey of Samvid',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: 'Shashank Teotia'
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-06-04T11:30:00+05:30')
+	                    start_time: new Date('2016-08-04T18:30:00+05:30')
 	                }
 	            },
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Simple obstacle avoiding Robot using Arduino',
+	                title: 'Building native mobile applications using React Native',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Deepak Nararyana Rao'
+	                        name: 'Vagmi Mudumbai',
+	                        image_url: 'images/speakers/vagmi.jpg'
 	                    }
 	                ],
 	                time: {
-	                    start_time: new Date('2016-04-02T12:15:00+05:30')
+	                    start_time: new Date('2016-08-04T19:00:00+05:30')
 	                }
 	            },
 	            {
-	                type: definitions_1.AgendaEntryType.Workshop,
-	                title: 'Workshop on Arduino',
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Functional Reactive Programming with Cycle.js',
 	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
 	                authors: [
 	                    {
-	                        name: 'Deepak Nararyana Rao'
+	                        name: 'Sudarsan Balaji',
+	                        image_url: 'images/speakers/sudarsan.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-04T19:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Writing for IoT using Johnny-Five',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Raj Bharath Kannan',
+	                        image_url: 'images/speakers/raj.png'
 	                    }
 	                ],
 	                time: {
 	                    start_time: new Date('2016-04-02T13:00:00+05:30')
 	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-06-04T13:45:00+05:30')
-	                },
-	                title: 'Lunch Break'
 	            }
 	        ]
 	    }

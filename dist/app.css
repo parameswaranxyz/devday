@@ -12093,13 +12093,12 @@ iframe {
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info {
         width: 65%;
         padding: 20px;
-        padding-top: 0;
         overflow: hidden;
         box-sizing: border-box !important; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h4 {
           font-size: inherit;
           color: rgba(0, 0, 0, 0.54);
-          margin-bottom: 0; }
+          margin: 0; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h3 {
           margin-top: 0;
           height: 80px; }
@@ -12110,12 +12109,13 @@ iframe {
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers {
         background: #7986CB;
         position: relative;
-        padding: 50px 20px 20px 20px;
+        padding: 50px 20px 0 20px;
         box-sizing: border-box !important; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers::before {
           content: 'speakers';
           text-transform: uppercase;
           position: absolute;
+          font-weight: bold;
           top: 20px;
           left: 20px;
           color: rgba(255, 255, 255, 0.7); }
@@ -12127,13 +12127,38 @@ iframe {
           margin: 0;
           margin-right: 20px;
           margin-bottom: 20px; }
-          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers > .avatar:first-child {
-            margin-left: 20px; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info {
         height: 100px;
         width: 100%;
         background: #5C6BC0;
         box-sizing: border-box !important; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .location {
+          position: relative;
+          width: 50%;
+          float: left; }
+          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .location::before {
+            content: 'location';
+            text-transform: uppercase;
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7); }
+          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .location > address {
+            position: absolute;
+            top: 30px;
+            color: white;
+            font-size: inherit; }
+        .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .attending {
+          position: relative;
+          float: right;
+          width: 50%; }
+          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .attending::before {
+            content: 'attending';
+            text-transform: uppercase;
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7); }
+          .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .attending > p {
+            position: absolute;
+            top: 30px;
+            color: white; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .go.to.event.button {
         color: white !important;
         position: absolute !important;
