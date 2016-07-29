@@ -48,8 +48,8 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(124);
-	var events_1 = __webpack_require__(125);
+	var router_1 = __webpack_require__(125);
+	var events_1 = __webpack_require__(126);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -8713,7 +8713,7 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
-	var definitions_1 = __webpack_require__(127);
+	var definitions_1 = __webpack_require__(124);
 	function getDisplayTime(date) {
 	    var timeSplits = date.toString().split(' ');
 	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
@@ -8862,6 +8862,19 @@
 
 /***/ },
 /* 124 */
+/***/ function(module, exports) {
+
+	"use strict";
+	(function (AgendaEntryType) {
+	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
+	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
+	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
+	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
+	var AgendaEntryType = exports.AgendaEntryType;
+
+
+/***/ },
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8913,12 +8926,12 @@
 
 
 /***/ },
-/* 125 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
-	var events_1 = __webpack_require__(126);
+	var events_1 = __webpack_require__(127);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
@@ -8954,11 +8967,11 @@
 
 
 /***/ },
-/* 126 */
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var definitions_1 = __webpack_require__(127);
+	var definitions_1 = __webpack_require__(124);
 	var BANGALORE_ADDRESS = {
 	    line_one: '#365, 3rd Floor, Sulochana Building',
 	    line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
@@ -9507,19 +9520,6 @@
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = exports.events;
-
-
-/***/ },
-/* 127 */
-/***/ function(module, exports) {
-
-	"use strict";
-	(function (AgendaEntryType) {
-	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
-	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
-	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
-	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
-	var AgendaEntryType = exports.AgendaEntryType;
 
 
 /***/ }
