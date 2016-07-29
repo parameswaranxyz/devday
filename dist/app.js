@@ -2076,7 +2076,6 @@
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
-	    var baseUrl = window.baseUrl;
 	    var events$ = sources.events.events$;
 	    var noun$ = xs.periodic(1000)
 	        .startWith(0)

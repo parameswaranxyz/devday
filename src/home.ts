@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, main, article, a, i, nav, button, footer, makeDOMDriver } from '@cycle/dom';
-import { Sources, Sinks, BaseUrlProvider } from './definitions';
+import { Sources, Sinks } from './definitions';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
@@ -9,7 +9,6 @@ const topics = ['technology', 'internet of things', 'cloud computing', 'arduino'
 function home(sources: Sources): Sinks {
   const xs = Stream;
   const route$ = sources.routes.route$;
-  const baseUrl = (window as BaseUrlProvider).baseUrl;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)
     .startWith(0)
