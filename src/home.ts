@@ -1,6 +1,6 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, header, h1, span, img, h2, h4, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
+import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
 
@@ -23,9 +23,11 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
 
 function renderTopEvent(event: DevdayEvent): VNode {
   return article('.upcoming.event.card', [
-    h4([event.event_time.start_time.toDateString()]),
-    h1([event.title]),
-    event.abstract,
+    div('.info', [
+      h4([event.event_time.start_time.toDateString()]),
+      h3([event.title]),
+      p([event.abstract]),
+    ]),
     div('.speakers',
       [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
         .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url } }))
