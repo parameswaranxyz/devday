@@ -8673,10 +8673,6 @@
 	                                .map(function (event) {
 	                                return dom_1.article('.centered', [
 	                                    dom_1.div('.event.card', [
-	                                        dom_1.a('.go.to.event.button', { props: { href: '#/' + event.url } }, [
-	                                            dom_1.i('.material-icons', 'arrow_forward'),
-	                                            dom_1.span('.hidden', 'Go')
-	                                        ]),
 	                                        dom_1.header([
 	                                            dom_1.h4([event.title])
 	                                        ]),

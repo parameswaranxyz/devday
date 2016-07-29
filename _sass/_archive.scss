@@ -23,110 +23,104 @@
                         @extend .mdl-shadow--2dp;
                         @extend .mdl-grid;
                         @extend .mdl-grid--no-spacing;
-                        max-width: 860px;
-                        position: relative;
-                        margin-bottom: 48px;
-                        padding: 0;
 
-                        .card {
-                            @extend .mdl-card;
-                            @extend .mdl-cell;
-                            height: auto;
-                            display: -webkit-flex;
-                            display: -ms-flexbox;
-                            display: flex;
-                            -webkit-flex-direction: column;
-                            -ms-flex-direction: column;
-                            flex-direction: column;
-                            margin: 0;
+                        &.centered {
+                          margin-bottom: 48px;
+                          padding: 0;
+                          max-width: 860px;
+                          position: relative;
 
-                            &.event {
-                                @extend .mdl-cell--12-col;
-                                overflow: visible !important;
-                                z-index: 10;
-                            }
+                            & > .event.card {
+                              @extend .mdl-card;
+                              @extend .mdl-cell;
+                              @extend .mdl-cell--12-col;
+                              height: auto;
+                              display: -webkit-flex;
+                              display: -ms-flexbox;
+                              display: flex;
+                              -webkit-flex-direction: column;
+                              -ms-flex-direction: column;
+                              flex-direction: column;
+                              overflow: visible !important;
+                              z-index: 10;
+                              margin: 0 !important;
 
-                            & > header {
-                                @extend .mdl-card__title;
-                                padding: 40px 40px 10px;
-                                background: $primary-color;
+                              & > header {
+                                  @extend .mdl-card__title;
+                                  padding: 40px 40px 10px !important;
+                                  background: $primary-color;
 
-                                h4 {
-                                    @extend .mdl-card__title-text;
-                                    color: white;
-                                    text-transform: capitalize;
-                                }
-                            }
+                                  h4 {
+                                      @extend .mdl-card__title-text;
+                                      color: white !important;
+                                      text-transform: capitalize;
+                                  }
+                              }
 
-                            & > .go.to.event.button {
-                                @extend .mdl-button;
-                                @extend .mdl-button--fab;
-                                @extend .mdl-shadow--4dp;
-                                @extend .mdl-color--accent;
-                                color: white;
-                                position: absolute;
-                                right: 28px;
-                                top: -28px;
-                                width: 56px;
-                                height: 56px;
-                                
-                                //TODO: Check
-                                display:none;
-                            }
+                              & > .go.to.event.button {
+                                  @extend .mdl-button;
+                                  @extend .mdl-button--fab;
+                                  @extend .mdl-shadow--4dp;
+                                  @extend .mdl-color--accent;
+                                  color: white;
+                                  position: absolute;
+                                  right: 28px;
+                                  top: -28px;
+                                  width: 56px;
+                                  height: 56px;
+                                  
+                                  //TODO: Check
+                                  display: none;
+                              }
 
-                            & > .content {
-                                @extend .mdl-card__supporting-text;
-                                height: auto;
-                                margin: 10px 40px 40px;
-                                -webkit-flex-grow: 1;
-                                -ms-flex-positive: 1;
-                                flex-grow: 1;
-                                padding: 0;
-                                color: inherit;
-                                width: calc(100% - 80px);
-                                
-                                & > h5 {
-                                    color: $primary-color !important;
-                                    font-size: inherit;
-                                    font-weight: bold;
-                                    margin-top: 0;
-                                }
-                            }
+                              & > .content {
+                                  @extend .mdl-card__supporting-text;
+                                  height: auto !important;
+                                  margin: 10px 40px 40px !important;
+                                  -webkit-flex-grow: 1;
+                                  -ms-flex-positive: 1;
+                                  flex-grow: 1;
+                                  padding: 0 !important;
+                                  color: inherit;
+                                  width: calc(100% - 80px) !important;
+                                  
+                                  & > h5 {
+                                      color: $primary-color !important;
+                                      font-size: inherit;
+                                      font-weight: bold;
+                                      margin-top: 0 !important;
+                                  }
+                              }
 
-                            & > footer {
-                                @extend .mdl-card__actions;
-                                margin: 0;
-                                padding: 4px 40px;
-                                color: inherit;
-                                height: auto;
-                                border-top: 1px solid rgba(0, 0, 0, 0.12);
+                              & > footer {
+                                  @extend .mdl-card__actions;
+                                  margin: 0;
+                                  padding: 4px 40px;
+                                  color: inherit;
+                                  height: auto;
+                                  border-top: 1px solid rgba(0, 0, 0, 0.12);
 
-                                & > a {
-                                    @extend .mdl-button;
-                                    @extend .mdl-button--accent;
+                                  & > a {
+                                      @extend .mdl-button;
+                                      @extend .mdl-button--accent;
 
-                                    &.right {
+                                      &.tag {
+                                          text-transform: none;
+                                          padding: 0;
+                                      }
 
-                                        //TODO: Check
-                                        // display: none;
-                                    }
+                                      &:hover {
+                                          background: transparent !important;
+                                          color: black;
+                                      }
+                                  }
 
-                                    &.tag {
-                                        text-transform: none;
-                                        padding: 0;
-                                    }
-
-                                    &:hover {
-                                        background: transparent;
-                                        color: black;
-                                    }
-                                }
-
-                                i {
-                                    vertical-align: middle;
-                                    margin-right: 10px;
-                                }
-                            }
+                                  i {
+                                      vertical-align: middle;
+                                      margin-right: 10px;
+                                  }
+                              }
+                          }
                         }
                     }
                 }

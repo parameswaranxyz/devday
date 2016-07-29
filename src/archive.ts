@@ -46,10 +46,6 @@ function archive(sources: Sources): Sinks {
                     .map(event =>
                       article('.centered', [
                         div('.event.card', [
-                          a('.go.to.event.button', { props: { href: '#/' + event.url } }, [
-                            i('.material-icons', 'arrow_forward'),
-                            span('.hidden', 'Go')
-                          ]),
                           header([
                             h4([event.title])
                           ]),
