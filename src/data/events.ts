@@ -7,7 +7,7 @@ const BANGALORE_ADDRESS: Address = {
       city: 'Bangalore',
       zip: 560034,
       map_link: '',
-      map_image: ''
+      map_image: 'images/bangalore-map.jpg'
     };
 const CHENNAI_ADDRESS: Address = {
       line_one: 'Sahaj Software Solutions Pvt. Ltd.',
@@ -16,7 +16,7 @@ const CHENNAI_ADDRESS: Address = {
       city: 'Chennai',
       zip: 600041,
       map_link: '',
-      map_image: ''
+      map_image: 'images/chennai-map.jpg'
     };
 
 export const events: DevdayEvent[] = [
