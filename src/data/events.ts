@@ -1,6 +1,8 @@
 import { DevdayEvent, Address, AgendaEntry, AgendaEntryType } from './../definitions';
+
 const BANGALORE_MAP_LINK = '';
 const CHENNAI_MAP_LINK = '';
+
 export const events: DevdayEvent[] = [
   {
     title: 'DevDay Technical Meetup',
@@ -216,7 +218,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['arduino-genuino-iot'],
     author: 'devday_ team',
-    abstract: 'Arduino Day is a worldwide birthday celebration of Arduino and Genuino. It''s a one day event –organized directly by the community, or by the Arduino founders– where people interested in Arduino and Genuino get together, share their experiences, and learn more.',
+    abstract: 'Arduino Day is a worldwide birthday celebration of Arduino and Genuino. It\'s a one day event –organized directly by the community, or by the Arduino founders– where people interested in Arduino and Genuino get together, share their experiences, and learn more.',
     event_time: {
       start_time: new Date('2016-04-02T10:30:00+05:30'),
       end_time: new Date('2016-04-02T14:30:00+05:30'),
