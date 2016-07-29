@@ -41,8 +41,8 @@ function archive(sources: Sources): Sinks {
                 renderHeader(),
                 main([
                   div('.panel', events
-                    .filter(event => event.event_time.start_time - currentDate < 0)
-                    .sort((a, b) => b.event_time.start_time - a.event_time.start_time)
+                    .filter(event => event.event_time.start_time < currentDate)
+                    .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
                     .map(event =>
                       article('.centered', [
                         div('.event.card', [
