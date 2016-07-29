@@ -1,10 +1,25 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, main, article, a, i, nav, button, footer, makeDOMDriver } from '@cycle/dom';
-import { Sources, Sinks } from './definitions';
+import { Sources, Sinks, DevdayEvent } from './definitions';
+import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
+
+function topEvents(events: DevdayEvent[]): DevdayEvent[] {
+  const chennaiEvent =
+    events
+      .filter(ev => ev.venue === CHENNAI_ADDRESS)
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
+      .shift();
+  const bangaloreEvent =
+    events
+      .filter(ev => ev.venue === BANGALORE_ADDRESS)
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
+      .shift();
+  return [ bangaloreEvent, chennaiEvent ];
+}
 
 function home(sources: Sources): Sinks {
   const xs = Stream;
