@@ -126,7 +126,11 @@ function event(sources: Sources): Sinks {
                     div('.location.card', [
                       header([
                         a({ props: { href: event.venue.map_link } }, [
-                          div('.filler', [
+                          div('.filler', {
+                            attrs: {
+                              style: `background-image: url("${event.venue.map_image}");`
+                            }
+                          }, [
                             h4(['Location'])
                           ])
                         ])
