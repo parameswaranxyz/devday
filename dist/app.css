@@ -6077,14 +6077,11 @@ iframe {
         .devday.home > .container > .layout > .content > header > h2 > span.topic {
           width: 210px; }
   .devday.home > .container > .layout > .content > main {
-    display: -webkit-flex !important;
-    display: -ms-flexbox !important;
-    display: flex !important;
-    max-width: 900px;
-    padding: 0;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+    max-width: 900px;
+    padding: 0;
     width: 100%;
     margin: 0 auto;
     -webkit-flex-shrink: 0;
@@ -6093,12 +6090,12 @@ iframe {
     .devday.home > .container > .layout > .content > main > .upcoming.event.card {
       overflow: visible !important;
       z-index: 10;
-      box-sizing: border-box !important; }
+      box-sizing: border-box; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info {
         width: 65%;
         padding: 20px;
         overflow: hidden;
-        box-sizing: border-box !important; }
+        box-sizing: border-box; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h4 {
           font-size: inherit;
           color: rgba(0, 0, 0, 0.54);
@@ -6114,7 +6111,7 @@ iframe {
         background: #7986CB;
         position: relative;
         padding: 50px 20px 0 20px;
-        box-sizing: border-box !important; }
+        box-sizing: border-box; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers::before {
           content: 'speakers';
           text-transform: uppercase;
@@ -6135,7 +6132,7 @@ iframe {
         height: 100px;
         width: 100%;
         background: #5C6BC0;
-        box-sizing: border-box !important; }
+        box-sizing: border-box; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .location {
           position: relative;
           width: 50%;
@@ -6164,12 +6161,12 @@ iframe {
             top: 30px;
             color: white; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .go.to.event.button {
-        color: white !important;
-        position: absolute !important;
+        color: white;
+        position: absolute;
         top: -28px;
         right: 28px;
-        height: 56px !important;
-        width: 56px !important; }
+        height: 56px;
+        width: 56px; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;
@@ -6193,12 +6190,12 @@ iframe {
   .devday.home > .container > .layout > .content > footer {
     margin-top: 80px;
     height: 120px;
-    padding: 40px !important;
-    -webkit-align-items: center !important;
-    -ms-flex-align: center !important;
-    -ms-grid-row-align: center !important;
-    align-items: center !important;
-    background-color: white !important;
+    padding: 40px;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+    background-color: white;
     box-sizing: border-box; }
     .devday.home > .container > .layout > .content > footer > .section.right {
       margin-left: auto !important;
@@ -6207,10 +6204,10 @@ iframe {
       background-position: center;
       background-size: contain;
       background-repeat: no-repeat;
-      background-color: transparent !important;
-      margin: 0 16px !important;
-      width: 24px !important;
-      height: 24px !important;
+      background-color: transparent;
+      margin: 0 16px;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
       opacity: 0.46;
       border-radius: 2px; }
@@ -6240,7 +6237,6 @@ iframe {
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
         flex-direction: column;
-        overflow: visible !important;
         z-index: 10;
         margin: 0; }
         .devday.archive > .container > .layout > main > .panel > article.centered > .event.card > header {
@@ -6373,7 +6369,7 @@ iframe {
         margin: 0; }
         .devday.event > .container > .layout > main > .panel > section .card > .content .thumbnail h5, .devday.event > .container > .layout > main > .panel > section .card > .content .thumbnail h6 {
           text-align: center;
-          color: #3f51b5 !important; }
+          color: #3f51b5; }
         .devday.event > .container > .layout > main > .panel > section .card > .content .thumbnail h5 {
           margin-bottom: 0; }
         .devday.event > .container > .layout > main > .panel > section .card > .content .thumbnail h6 {
@@ -6427,7 +6423,7 @@ iframe {
       height: auto;
       border-top: 1px solid rgba(0, 0, 0, 0.12); }
       .devday.event > .container > .layout > main > .panel > section .card > footer .button:hover {
-        background: transparent !important;
+        background: transparent;
         color: black; }
   .devday.event > .container > .layout > main > .panel > section .info:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.13); }
