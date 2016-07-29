@@ -2071,8 +2071,20 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
+	var events_1 = __webpack_require__(127);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
+	function topEvents(events) {
+	    var chennaiEvent = events
+	        .filter(function (ev) { return ev.venue === events_1.CHENNAI_ADDRESS; })
+	        .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
+	        .shift();
+	    var bangaloreEvent = events
+	        .filter(function (ev) { return ev.venue === events_1.BANGALORE_ADDRESS; })
+	        .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
+	        .shift();
+	    return [bangaloreEvent, chennaiEvent];
+	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
@@ -2108,11 +2120,10 @@
 	                                    dom_1.span('.topic', topic)
 	                                ])
 	                            ]),
-	                            dom_1.main(events
-	                                .filter(function (event) { return event.event_time.start_time - currentDate >= 0; })
-	                                .slice(0, 2)
+	                            dom_1.main(topEvents(events)
 	                                .map(function (event) {
 	                                return dom_1.article('.upcoming.event.card', [
+	                                    dom_1.h1([event.title]),
 	                                    dom_1.a('.go.to.event.button', { props: { title: 'go to event' } }, [
 	                                        dom_1.span('.hidden', 'go to event'),
 	                                        dom_1.i('.material-icons', 'keyboard_arrow_right')
@@ -8669,8 +8680,8 @@
 	                        renderHeader(),
 	                        dom_1.main([
 	                            dom_1.div('.panel', events
-	                                .filter(function (event) { return event.event_time.start_time - currentDate < 0; })
-	                                .sort(function (a, b) { return b.event_time.start_time - a.event_time.start_time; })
+	                                .filter(function (event) { return event.event_time.start_time < currentDate; })
+	                                .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
 	                                .map(function (event) {
 	                                return dom_1.article('.centered', [
 	                                    dom_1.div('.event.card', [
@@ -8978,7 +8989,7 @@
 
 	"use strict";
 	var definitions_1 = __webpack_require__(124);
-	var BANGALORE_ADDRESS = {
+	exports.BANGALORE_ADDRESS = {
 	    line_one: '#365, 3rd Floor, Sulochana Building',
 	    line_two: '1st Cross Road, 3rd Block, Sarjapura Main Road',
 	    locality: 'Koramangala',
@@ -8987,7 +8998,7 @@
 	    map_link: '',
 	    map_image: 'images/bangalore-map.jpg'
 	};
-	var CHENNAI_ADDRESS = {
+	exports.CHENNAI_ADDRESS = {
 	    line_one: 'Sahaj Software Solutions Pvt. Ltd.',
 	    line_two: 'Type 2/15, Dr.V.S.I Estate, Rajiv Gandhi Salai',
 	    locality: 'Thiruvanmiyur',
@@ -9011,7 +9022,7 @@
 	        registration_time: {
 	            start_time: new Date('2016-03-05T10:30:00+05:30')
 	        },
-	        venue: BANGALORE_ADDRESS,
+	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9074,7 +9085,7 @@
 	            start_time: new Date('2016-05-07T10:30:00+05:30'),
 	            end_time: new Date('2016-05-07T13:30:00+05:30')
 	        },
-	        venue: BANGALORE_ADDRESS,
+	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9132,7 +9143,7 @@
 	            start_time: new Date('2016-06-04T10:30:00+05:30'),
 	            end_time: new Date('2016-06-04T10:30:00+05:30')
 	        },
-	        venue: BANGALORE_ADDRESS,
+	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9208,7 +9219,7 @@
 	            start_time: new Date('2016-04-02T10:30:00+05:30'),
 	            end_time: new Date('2016-04-02T10:30:00+05:30')
 	        },
-	        venue: BANGALORE_ADDRESS,
+	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9294,7 +9305,7 @@
 	            start_time: new Date('2016-07-09T10:30:00+05:30'),
 	            end_time: new Date('2016-07-09T10:30:00+05:30')
 	        },
-	        venue: BANGALORE_ADDRESS,
+	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
@@ -9352,92 +9363,6 @@
 	        ]
 	    },
 	    {
-	        title: 'Internet of Things',
-	        url: 'internet-of-things',
-	        categories: ['events'],
-	        tags: ['iot', 'robotics', 'hardware'],
-	        author: 'devday_ team',
-	        abstract: 'Blinky lights. Home automation. Arduino. Intel Edison. Philips 8055. ATmega16. If these ring a bell (or don\'t), you\'ve come to the right place. Let the fun begin!',
-	        event_time: {
-	            start_time: new Date('2016-08-09T10:30:00+05:30'),
-	            end_time: new Date('2016-08-09T13:30:00+05:30'),
-	        },
-	        publish_time: new Date('2016-08-09T10:30:00+05:30'),
-	        registration_time: {
-	            start_time: new Date('2016-08-09T10:30:00+05:30'),
-	            end_time: new Date('2016-08-09T10:30:00+05:30')
-	        },
-	        venue: BANGALORE_ADDRESS,
-	        agenda: [
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Talk 1',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: "Avinash Nijampure"
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-06-04T10:30:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-06-04T11:15:00+05:30')
-	                },
-	                title: 'Tea and snacks'
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Journey of Samvid',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: 'Shashank Teotia'
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-06-04T11:30:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Simple obstacle avoiding Robot using Arduino',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: 'Deepak Nararyana Rao'
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-04-02T12:15:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Workshop,
-	                title: 'Workshop on Arduino',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: 'Deepak Nararyana Rao'
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-04-02T13:00:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-06-04T13:45:00+05:30')
-	                },
-	                title: 'Lunch Break'
-	            }
-	        ]
-	    },
-	    {
 	        title: 'JS Everywhere',
 	        url: 'js-everywhere',
 	        categories: ['events'],
@@ -9453,7 +9378,7 @@
 	            start_time: new Date('2016-08-04T18:30:00+05:30'),
 	            end_time: new Date('2016-08-04T18:30:00+05:30')
 	        },
-	        venue: CHENNAI_ADDRESS,
+	        venue: exports.CHENNAI_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
