@@ -21,6 +21,17 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
   return [ bangaloreEvent, chennaiEvent ];
 }
 
+function renderTopEvent(event: DevdayEvent): VNode {
+  // TODO: design the cards
+  return article('.upcoming.event.card', [
+    h1([event.title]),
+    a('.go.to.event.button', { props: { title: 'go to event' } }, [
+      span('.hidden', 'go to event'),
+      i('.material-icons', 'keyboard_arrow_right')
+    ])
+  ]);
+}
+
 function home(sources: Sources): Sinks {
   const xs = Stream;
   const route$ = sources.routes.route$;
@@ -57,16 +68,7 @@ function home(sources: Sources): Sinks {
                       ])
                     ]),
                     main([
-                      // TODO: design the cards
-                      ...topEvents(events)
-                        .map(event =>
-                          article('.upcoming.event.card', [
-                            h1([event.title]),
-                            a('.go.to.event.button', { props: { title: 'go to event' } }, [
-                              span('.hidden', 'go to event'),
-                              i('.material-icons', 'keyboard_arrow_right')
-                            ])
-                          ])),
+                      ...topEvents(events).map(renderTopEvent),
                       nav([
                         a({ props: { href: '#/archive', title: 'view all previous events' } }, [
                           'More',
