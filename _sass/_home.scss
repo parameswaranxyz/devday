@@ -138,14 +138,13 @@
                         & > .info {
                           width: 65%;
                           padding: 20px;
-                          padding-top: 0;
                           overflow: hidden;
                           box-sizing: border-box !important;
 
                           & > h4 {
                             font-size: inherit;
                             color: $dark-secondary-text-color;
-                            margin-bottom: 0;
+                            margin: 0;
                           }
 
                           & > h3 {
@@ -170,6 +169,7 @@
                             content: 'speakers';
                             text-transform: uppercase;
                             position: absolute;
+                            font-weight: bold;
                             top: 20px;
                             left: 20px;
                             color: $light-secondary-text-color;
@@ -191,6 +191,32 @@
                           width: 100%;
                           background: #5C6BC0;
                           box-sizing: border-box !important;
+
+                          & > .location {
+                            position: relative;
+                            width: 50%;
+                              
+                            &::before {
+                              content: 'location';
+                              text-transform: uppercase;
+                              position: absolute;
+                              color: $light-secondary-text-color;
+                            }
+                          }
+
+                          & > .attending {
+                            position: relative;
+                            float: right;
+                            width: 50%;
+
+                            &::before {
+                              content: 'attending';
+                              text-transform: uppercase;
+                              position: absolute;
+                              color: $light-secondary-text-color;
+                            }
+
+                          }
                         }
                         
                         & > .go.to.event.button {
