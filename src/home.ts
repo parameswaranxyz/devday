@@ -12,9 +12,11 @@ function home(sources: Sources): Sinks {
   const baseUrl = (window as BaseUrlProvider).baseUrl;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)
+    .startWith(0)
     .map(x => x % nouns.length)
     .map(i => nouns[i]);
   const topic$ = xs.periodic(3000)
+    .startWith(0)
     .map(x => x % topics.length)
     .map(i => topics[i]);
   const currentDate = new Date();
