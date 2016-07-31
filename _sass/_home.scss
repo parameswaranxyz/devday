@@ -196,14 +196,15 @@
                               content: 'location';
                               text-transform: uppercase;
                               position: absolute;
-                              color: $light-secondary-text-color;
+                              color: $light-hint-text-color;
                             }
 
                             & > address {
                               position: absolute;
                               top: 30px;
                               color: $light-primary-text-color;
-                              font-size: inherit;
+                              font-size: 0.875em;
+                              line-height: 1em;
                             }
                           }
 
@@ -216,7 +217,7 @@
                               content: 'attending';
                               text-transform: uppercase;
                               position: absolute;
-                              color: $light-secondary-text-color;
+                              color: $light-hint-text-color;
                             }
 
                             & > p {

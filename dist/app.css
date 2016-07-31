@@ -6141,12 +6141,13 @@ iframe {
             content: 'location';
             text-transform: uppercase;
             position: absolute;
-            color: rgba(255, 255, 255, 0.7); }
+            color: rgba(255, 255, 255, 0.5); }
           .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .location > address {
             position: absolute;
             top: 30px;
             color: white;
-            font-size: inherit; }
+            font-size: 0.875em;
+            line-height: 1em; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .attending {
           position: relative;
           float: right;
@@ -6155,7 +6156,7 @@ iframe {
             content: 'attending';
             text-transform: uppercase;
             position: absolute;
-            color: rgba(255, 255, 255, 0.7); }
+            color: rgba(255, 255, 255, 0.5); }
           .devday.home > .container > .layout > .content > main > .upcoming.event.card > .secondary.info > .attending > p {
             position: absolute;
             top: 30px;
