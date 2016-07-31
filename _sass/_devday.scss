@@ -1,5 +1,9 @@
 @import "mdl";
 
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 $primary-color: #3f51b5;
 $secondary-color: #303f9f;
 $tertiary-color: #283593;
