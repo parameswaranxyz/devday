@@ -2112,16 +2112,21 @@
 	                    var element = node.elm;
 	                    element.classList.add('show');
 	                    setTimeout(function () {
-	                        element.querySelector('.secondary.info').classList.add('loaded');
-	                    }, (index + 1) * 50);
+	                        element.querySelector('.primary.info').classList.add('loaded');
+	                        setTimeout(function () {
+	                            element.querySelector('.secondary.info').classList.add('loaded');
+	                        }, 50);
+	                    }, 50);
 	                }, index * 200);
 	            }
 	        }
 	    }, [
-	        dom_1.div('.info', [
-	            dom_1.h4([event.event_time.start_time.toDateString()]),
-	            dom_1.h3([event.title]),
-	            dom_1.p([event.abstract]),
+	        dom_1.div('.primary.info', [
+	            dom_1.div('.content', [
+	                dom_1.h4([event.event_time.start_time.toDateString()]),
+	                dom_1.h3([event.title]),
+	                dom_1.p([event.abstract]),
+	            ])
 	        ]),
 	        renderBackground(event),
 	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))

@@ -6108,27 +6108,35 @@ iframe {
         -webkit-transform: scale(1);
         transform: scale(1);
         opacity: 1; }
-      .devday.home > .container > .layout > .content > main > .event.card > .info {
-        padding: 20px;
-        overflow: hidden;
-        box-sizing: border-box;
-        background: white;
+      .devday.home > .container > .layout > .content > main > .event.card > .primary.info {
         position: absolute;
         top: 0;
         left: 0;
-        right: 35%;
-        bottom: 0; }
-        .devday.home > .container > .layout > .content > main > .event.card > .info > h4 {
-          font-size: inherit;
-          color: rgba(0, 0, 0, 0.54);
-          margin: 0; }
-        .devday.home > .container > .layout > .content > main > .event.card > .info > h3 {
-          margin-top: 0;
-          height: 80px; }
-        .devday.home > .container > .layout > .content > main > .event.card > .info > p {
-          text-overflow: ellipsis;
+        right: 100%;
+        bottom: 0;
+        -webkit-transition-property: right;
+        transition-property: right;
+        -moz-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+        .devday.home > .container > .layout > .content > main > .event.card > .primary.info.loaded {
+          right: 35%; }
+        .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content {
+          padding: 20px;
           overflow: hidden;
-          height: 120px; }
+          box-sizing: border-box;
+          background: white; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h4 {
+            font-size: inherit;
+            color: rgba(0, 0, 0, 0.54);
+            margin: 0; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h3 {
+            margin-top: 0;
+            height: 80px; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            height: 120px; }
       .devday.home > .container > .layout > .content > main > .event.card > .background {
         position: absolute;
         top: 0;
@@ -6137,7 +6145,6 @@ iframe {
         bottom: 228px;
         background-color: #283593;
         z-index: -1;
-        /* background-size: contain; */
         background-repeat: no-repeat;
         background-position: bottom right;
         background-size: contain; }
