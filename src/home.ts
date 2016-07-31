@@ -45,9 +45,14 @@ function renderEvent(event: DevdayEvent): VNode {
   return article('.event.card', {
     hook: {
       insert: (node: VNode) => {
+        const index = findChildIndex(node);
         setTimeout(() => {
-          (node.elm as HTMLElement).classList.add('show');
-        }, findChildIndex(node) * 200);
+          const element = (node.elm as HTMLElement); 
+          element.classList.add('show');
+          setTimeout(() => {
+            element.querySelector('.secondary.info').classList.add('loaded');
+          }, (index + 1) * 50);
+        }, index * 200);
       }
     }
   }, [
