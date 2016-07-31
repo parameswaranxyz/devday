@@ -2107,30 +2107,46 @@
 	    return dom_1.article('.event.card', {
 	        hook: {
 	            insert: function (node) {
+	                var index = findChildIndex(node);
 	                setTimeout(function () {
-	                    node.elm.classList.add('show');
-	                }, findChildIndex(node) * 200);
+	                    var element = node.elm;
+	                    element.classList.add('show');
+	                    setTimeout(function () {
+	                        element.querySelector('.primary.info').classList.add('loaded');
+	                        setTimeout(function () {
+	                            element.querySelector('.speakers').classList.add('loaded');
+	                            element.querySelector('.primary.info > .content').classList.add('loaded');
+	                            setTimeout(function () {
+	                                element.querySelector('.secondary.info').classList.add('loaded');
+	                            }, 300);
+	                        }, 300);
+	                    }, 300);
+	                }, index * 150);
 	            }
 	        }
 	    }, [
-	        dom_1.div('.info', [
-	            dom_1.h4([event.event_time.start_time.toDateString()]),
-	            dom_1.h3([event.title]),
-	            dom_1.p([event.abstract]),
+	        dom_1.div('.primary.info', [
+	            dom_1.div('.content', [
+	                dom_1.h4([event.event_time.start_time.toDateString()]),
+	                dom_1.h3([event.title]),
+	                dom_1.p([event.abstract]),
+	            ])
 	        ]),
 	        renderBackground(event),
 	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
 	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })),
 	        dom_1.div('.secondary.info', [
-	            dom_1.div('.location', [
-	                dom_1.address([
-	                    event.venue.locality + ',',
-	                    dom_1.br(),
-	                    event.venue.city
+	            dom_1.div('.content', [
+	                dom_1.div('.location', [
+	                    dom_1.address([
+	                        event.venue.locality + ',',
+	                        dom_1.br(),
+	                        event.venue.city
+	                    ])
+	                ]),
+	                dom_1.div('.attending', [
+	                    dom_1.p('JOIN NOW')
 	                ])
-	            ]),
-	            dom_1.div('.attending', [
-	                dom_1.p('JOIN NOW')
 	            ])
 	        ]),
 	        dom_1.a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [

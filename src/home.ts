@@ -45,16 +45,30 @@ function renderEvent(event: DevdayEvent): VNode {
   return article('.event.card', {
     hook: {
       insert: (node: VNode) => {
+        const index = findChildIndex(node);
         setTimeout(() => {
-          (node.elm as HTMLElement).classList.add('show');
-        }, findChildIndex(node) * 200);
+          const element = (node.elm as HTMLElement);
+          element.classList.add('show');
+          setTimeout(() => {
+            element.querySelector('.primary.info').classList.add('loaded');
+            setTimeout(() => {
+              element.querySelector('.speakers').classList.add('loaded');
+              element.querySelector('.primary.info > .content').classList.add('loaded');
+              setTimeout(() => {
+                element.querySelector('.secondary.info').classList.add('loaded');
+              }, 300);
+            }, 300);
+          }, 300);
+        }, index * 150);
       }
     }
   }, [
-      div('.info', [
-        h4([event.event_time.start_time.toDateString()]),
-        h3([event.title]),
-        p([event.abstract]),
+      div('.primary.info', [
+        div('.content', [
+          h4([event.event_time.start_time.toDateString()]),
+          h3([event.title]),
+          p([event.abstract]),
+        ])
       ]),
       renderBackground(event),
       div('.speakers',
@@ -62,15 +76,17 @@ function renderEvent(event: DevdayEvent): VNode {
           .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
       ),
       div('.secondary.info', [
-        div('.location', [
-          address([
-            event.venue.locality + ',',
-            br(),
-            event.venue.city
+        div('.content', [
+          div('.location', [
+            address([
+              event.venue.locality + ',',
+              br(),
+              event.venue.city
+            ])
+          ]),
+          div('.attending', [
+            p('JOIN NOW')
           ])
-        ]),
-        div('.attending', [
-          p('JOIN NOW')
         ])
       ]),
       a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [

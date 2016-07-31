@@ -64,7 +64,6 @@
 
             & > .content {
                 @extend .mdl-layout__content;
-                padding-top: 70px;
                 position: relative;
 
                 & > header {
@@ -126,9 +125,9 @@
                         @extend .mdl-cell--4-col-tablet;
                         @extend .mdl-cell--6-col-desktop;
 
-                        overflow: visible !important;
                         z-index: 10;
-                        box-sizing: border-box;
+                        height: 540px;
+                        background: white;
 
                         -moz-transform: scale(0);
                         -webkit-transform: scale(0);
@@ -150,28 +149,51 @@
                         }
 
 
-                        & > .info {
-                          width: 65%;
-                          padding: 20px;
-                          overflow: hidden;
-                          box-sizing: border-box;
+                        & > .primary.info {
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          right: 100%;
+                          bottom: 0;
+                          -webkit-transition-property: right;
+                          transition-property: right;
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
                           background: white;
 
-                          & > h4 {
-                            font-size: inherit;
-                            color: $dark-secondary-text-color;
-                            margin: 0;
+                          &.loaded {
+                            right: 35%;
                           }
 
-                          & > h3 {
-                            margin-top: 0;
-                            height: 80px;
-                          }
-
-                          & > p {
-                            text-overflow: ellipsis;
+                          & > .content { 
+                            padding: 20px;
                             overflow: hidden;
-                            height: 120px;
+                            opacity: 0;
+                            -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                            &.loaded {
+                              opacity: 1;
+                            }
+
+                            & > h4 {
+                              font-size: inherit;
+                              color: $dark-secondary-text-color;
+                              margin: 0;
+                            }
+
+                            & > h3 {
+                              margin-top: 0;
+                              height: 80px;
+                            }
+
+                            & > p {
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              height: 120px;
+                            }
                           }
                         }
 
@@ -183,7 +205,6 @@
                           bottom: 228px;
                           background-color: $tertiary-color;
                           z-index: -1;
-                          /* background-size: contain; */
                           background-repeat: no-repeat;
                           background-position: bottom right;
                           background-size: contain;
@@ -191,9 +212,21 @@
 
                         & > .speakers {
                           background: #7986CB;
-                          position: relative;
+                          position: absolute;
                           padding: 50px 20px 0 20px;
-                          box-sizing: border-box;
+                          top: 540px;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
+                          -webkit-transition-property: top;
+                          transition-property: top;
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                          &.loaded {
+                            top: 312px;
+                          }
 
                           &::before {
                             content: 'speakers';
@@ -217,50 +250,68 @@
                         }
 
                         & > .secondary.info {
-                          height: 100px;
-                          width: 100%;
+                          position: absolute;
+                          top: 540px;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
                           background: #5C6BC0;
-                          box-sizing: border-box;
+                          -webkit-transition-property: top;
+                          transition-property: top;
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
-                          & > .location {
-                            position: relative;
-                            width: 50%;
-                            float: left;
-                              
-                            &::before {
-                              content: 'location';
-                              text-transform: uppercase;
-                              position: absolute;
-                              color: $light-hint-text-color;
-                            }
-
-                            & > address {
-                              position: absolute;
-                              top: 30px;
-                              color: $light-primary-text-color;
-                              font-size: 0.875em;
-                              line-height: 1em;
-                            }
+                          &.loaded {
+                            top: 440px;
                           }
 
-                          & > .attending {
+                          & > .content {
+                            padding: 20px;
                             position: relative;
-                            float: right;
-                            width: 50%;
+                            width: 100%;
+                            height: 100%;
 
-                            &::before {
-                              content: 'attending';
-                              text-transform: uppercase;
-                              position: absolute;
-                              color: $light-hint-text-color;
+                            & > .location {
+                              position: relative;
+                              width: 50%;
+                              float: left;
+                                
+                              &::before {
+                                content: 'location';
+                                text-transform: uppercase;
+                                position: absolute;
+                                color: $light-hint-text-color;
+                              }
+
+                              & > address {
+                                position: absolute;
+                                top: 30px;
+                                color: $light-primary-text-color;
+                                font-size: 0.875em;
+                                line-height: 1em;
+                              }
                             }
 
-                            & > p {
-                              position: absolute;
-                              top: 30px;
-                              color: $light-primary-text-color;
-                            }
+                            & > .attending {
+                              position: relative;
+                              float: right;
+                              width: 50%;
 
+                              &::before {
+                                content: 'attending';
+                                text-transform: uppercase;
+                                position: absolute;
+                                color: $light-hint-text-color;
+                              }
+
+                              & > p {
+                                position: absolute;
+                                top: 30px;
+                                color: $light-primary-text-color;
+                              }
+
+                            }
                           }
                         }
                         
@@ -274,6 +325,7 @@
                             right: 28px;
                             height: 56px;
                             width: 56px;
+                            display: none;
                         }
                     }
 
@@ -323,7 +375,6 @@
                     -ms-grid-row-align: center;
                     align-items: center;
                     background-color: white;
-                    box-sizing: border-box;
 
                     & > .section {
 
