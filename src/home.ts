@@ -56,7 +56,7 @@ function renderTopEvent(event: DevdayEvent): VNode {
         p('JOIN NOW')
       ])
     ]),
-    a('.go.to.event.button', { props: { title: 'go to event' } }, [
+    a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
       span('.hidden', 'go to event'),
       i('.material-icons', 'keyboard_arrow_right')
     ])

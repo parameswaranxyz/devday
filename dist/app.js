@@ -2117,7 +2117,7 @@
 	                dom_1.p('JOIN NOW')
 	            ])
 	        ]),
-	        dom_1.a('.go.to.event.button', { props: { title: 'go to event' } }, [
+	        dom_1.a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
 	            dom_1.span('.hidden', 'go to event'),
 	            dom_1.i('.material-icons', 'keyboard_arrow_right')
 	        ])
