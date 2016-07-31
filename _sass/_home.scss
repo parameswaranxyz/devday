@@ -151,33 +151,45 @@
                         }
 
 
-                        & > .info {
-                          padding: 20px;
-                          overflow: hidden;
-                          box-sizing: border-box;
-                          background: white;
+                        & > .primary.info {
                           position: absolute;
                           top: 0;
                           left: 0;
-                          right: 35%;
+                          right: 100%;
                           bottom: 0;
+                          -webkit-transition-property: right;
+                          transition-property: right;
+                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
 
-
-                          & > h4 {
-                            font-size: inherit;
-                            color: $dark-secondary-text-color;
-                            margin: 0;
+                          &.loaded {
+                            right: 35%;
                           }
 
-                          & > h3 {
-                            margin-top: 0;
-                            height: 80px;
-                          }
-
-                          & > p {
-                            text-overflow: ellipsis;
+                          & > .content { 
+                            padding: 20px;
                             overflow: hidden;
-                            height: 120px;
+                            box-sizing: border-box;
+                            background: white;
+
+
+                            & > h4 {
+                              font-size: inherit;
+                              color: $dark-secondary-text-color;
+                              margin: 0;
+                            }
+
+                            & > h3 {
+                              margin-top: 0;
+                              height: 80px;
+                            }
+
+                            & > p {
+                              text-overflow: ellipsis;
+                              overflow: hidden;
+                              height: 120px;
+                            }
                           }
                         }
 
@@ -189,7 +201,6 @@
                           bottom: 228px;
                           background-color: $tertiary-color;
                           z-index: -1;
-                          /* background-size: contain; */
                           background-repeat: no-repeat;
                           background-position: bottom right;
                           background-size: contain;
