@@ -135,6 +135,7 @@
                           padding: 20px;
                           overflow: hidden;
                           box-sizing: border-box;
+                          background: white;
 
                           & > h4 {
                             font-size: inherit;
@@ -152,6 +153,20 @@
                             overflow: hidden;
                             height: 120px;
                           }
+                        }
+
+                        & > .background {
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          right: 0;
+                          bottom: 228px;
+                          background-color: $tertiary-color;
+                          z-index: -1;
+                          /* background-size: contain; */
+                          background-repeat: no-repeat;
+                          background-position: bottom right;
+                          background-size: contain;
                         }
 
                         & > .speakers {
