@@ -67,4 +67,7 @@ export interface DevdayEvent {
   registration_time: EventTime;
   venue: Address;
   agenda: AgendaEntry[];
+  image_url?: string;
+  background_size?: string;
+  color?: string;
 }

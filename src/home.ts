@@ -21,6 +21,17 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
   return [bangaloreEvent, chennaiEvent];
 }
 
+function renderBackground(event: DevdayEvent): VNode {
+  var style = '';
+  if(event.color)
+    style += `background-color: ${event.color};`;
+  if(event.image_url != undefined)
+    style += `background-image: url("${event.image_url}");`;
+  if(event.background_size != undefined)
+    style += `background-size: ${event.background_size};`;
+  return div('.background', { attrs: { style } });
+}
+
 function renderTopEvent(event: DevdayEvent): VNode {
   return article('.upcoming.event.card', [
     div('.info', [
@@ -28,6 +39,7 @@ function renderTopEvent(event: DevdayEvent): VNode {
       h3([event.title]),
       p([event.abstract]),
     ]),
+    renderBackground(event),
     div('.speakers',
       [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
         .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
@@ -44,7 +56,7 @@ function renderTopEvent(event: DevdayEvent): VNode {
         p('JOIN NOW')
       ])
     ]),
-    a('.go.to.event.button', { props: { title: 'go to event' } }, [
+    a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
       span('.hidden', 'go to event'),
       i('.material-icons', 'keyboard_arrow_right')
     ])
