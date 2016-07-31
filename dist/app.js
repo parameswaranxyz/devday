@@ -2085,6 +2085,16 @@
 	        .shift();
 	    return [bangaloreEvent, chennaiEvent];
 	}
+	function renderBackground(event) {
+	    var style = '';
+	    if (event.color)
+	        style += "background-color: " + event.color + ";";
+	    if (event.image_url != undefined)
+	        style += "background-image: url(\"" + event.image_url + "\");";
+	    if (event.background_size != undefined)
+	        style += "background-size: " + event.background_size + ";";
+	    return dom_1.div('.background', { attrs: { style: style } });
+	}
 	function renderTopEvent(event) {
 	    return dom_1.article('.upcoming.event.card', [
 	        dom_1.div('.info', [
@@ -2092,6 +2102,7 @@
 	            dom_1.h3([event.title]),
 	            dom_1.p([event.abstract]),
 	        ]),
+	        renderBackground(event),
 	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
 	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })),
 	        dom_1.div('.secondary.info', [
@@ -9046,7 +9057,9 @@
 	                },
 	                title: 'Lunch Break'
 	            }
-	        ]
+	        ],
+	        color: 'black',
+	        image_url: 'http://www.sudhanshu-seo.com/wp-content/uploads/2016/03/cloud-users-lists.jpg'
 	    },
 	    {
 	        title: 'JS Everywhere',
@@ -9122,7 +9135,10 @@
 	                    start_time: new Date('2016-04-02T13:00:00+05:30')
 	                }
 	            }
-	        ]
+	        ],
+	        color: '#f7df1e',
+	        background_size: '200px',
+	        image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/768px-Unofficial_JavaScript_logo_2.svg.png'
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });

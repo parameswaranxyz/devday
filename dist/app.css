@@ -6095,7 +6095,8 @@ iframe {
         width: 65%;
         padding: 20px;
         overflow: hidden;
-        box-sizing: border-box; }
+        box-sizing: border-box;
+        background: white; }
         .devday.home > .container > .layout > .content > main > .upcoming.event.card > .info > h4 {
           font-size: inherit;
           color: rgba(0, 0, 0, 0.54);
@@ -6107,6 +6108,18 @@ iframe {
           text-overflow: ellipsis;
           overflow: hidden;
           height: 120px; }
+      .devday.home > .container > .layout > .content > main > .upcoming.event.card > .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 228px;
+        background-color: #283593;
+        z-index: -1;
+        /* background-size: contain; */
+        background-repeat: no-repeat;
+        background-position: bottom right;
+        background-size: contain; }
       .devday.home > .container > .layout > .content > main > .upcoming.event.card > .speakers {
         background: #7986CB;
         position: relative;
