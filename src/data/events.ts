@@ -385,7 +385,9 @@ export const events: DevdayEvent[] = [
         },
         title: 'Lunch Break'
       } as AgendaEntry
-    ]
+    ],
+    color: 'black',
+    image_url: 'http://www.sudhanshu-seo.com/wp-content/uploads/2016/03/cloud-users-lists.jpg'
   },
   {
     title: 'JS Everywhere',
@@ -461,7 +463,10 @@ export const events: DevdayEvent[] = [
           start_time: new Date('2016-04-02T13:00:00+05:30')
         }
       } as AgendaEntry
-    ]
+    ],
+    color: '#f7df1e',
+    background_size: '200px',
+    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/768px-Unofficial_JavaScript_logo_2.svg.png'
   }
 ];
 export default events;
