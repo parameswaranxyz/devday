@@ -10,3 +10,4 @@ _site
 Gemfile.lock
 .vscode/.browse.VC.db-wal
 .vscode/.browse.VC.db
+.vscode/.BROWSE.VC.DB-shm
