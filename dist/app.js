@@ -2109,7 +2109,7 @@
 	            insert: function (node) {
 	                setTimeout(function () {
 	                    node.elm.classList.add('show');
-	                }, findChildIndex(node) * 450);
+	                }, findChildIndex(node) * 200);
 	            }
 	        }
 	    }, [

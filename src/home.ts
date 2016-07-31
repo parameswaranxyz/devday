@@ -47,7 +47,7 @@ function renderEvent(event: DevdayEvent): VNode {
       insert: (node: VNode) => {
         setTimeout(() => {
           (node.elm as HTMLElement).classList.add('show');
-        }, findChildIndex(node) * 450);
+        }, findChildIndex(node) * 200);
       }
     }
   }, [
