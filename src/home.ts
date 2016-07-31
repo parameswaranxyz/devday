@@ -52,9 +52,12 @@ function renderEvent(event: DevdayEvent): VNode {
           setTimeout(() => {
             element.querySelector('.primary.info').classList.add('loaded');
             setTimeout(() => {
-              element.querySelector('.secondary.info').classList.add('loaded');
-            }, 50);
-          }, 50);
+              element.querySelector('.speakers').classList.add('loaded');
+              setTimeout(() => {
+                element.querySelector('.secondary.info').classList.add('loaded');
+              }, 300);
+            }, 300);
+          }, 300);
         }, index * 200);
       }
     }
@@ -72,15 +75,17 @@ function renderEvent(event: DevdayEvent): VNode {
           .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
       ),
       div('.secondary.info', [
-        div('.location', [
-          address([
-            event.venue.locality + ',',
-            br(),
-            event.venue.city
+        div('.content', [
+          div('.location', [
+            address([
+              event.venue.locality + ',',
+              br(),
+              event.venue.city
+            ])
+          ]),
+          div('.attending', [
+            p('JOIN NOW')
           ])
-        ]),
-        div('.attending', [
-          p('JOIN NOW')
         ])
       ]),
       a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [

@@ -211,10 +211,19 @@
                           position: absolute;
                           padding: 50px 20px 0 20px;
                           box-sizing: border-box;
-                          top: 312px;
+                          top: 540px;
                           left: 0;
                           right: 0;
                           bottom: 0;
+                          -webkit-transition-property: top;
+                          transition-property: top;
+                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                          &.loaded {
+                            top: 312px;
+                          }
 
                           &::before {
                             content: 'speakers';
@@ -238,7 +247,6 @@
                         }
 
                         & > .secondary.info {
-                          height: 100px;
                           position: absolute;
                           top: 540px;
                           left: 0;
@@ -256,45 +264,52 @@
                             top: 440px;
                           }
 
-                          & > .location {
+                          & > .content {
+                            padding: 20px;
                             position: relative;
-                            width: 50%;
-                            float: left;
-                              
-                            &::before {
-                              content: 'location';
-                              text-transform: uppercase;
-                              position: absolute;
-                              color: $light-hint-text-color;
+                            width: 100%;
+                            height: 100%;
+
+                            & > .location {
+                              position: relative;
+                              width: 50%;
+                              float: left;
+                                
+                              &::before {
+                                content: 'location';
+                                text-transform: uppercase;
+                                position: absolute;
+                                color: $light-hint-text-color;
+                              }
+
+                              & > address {
+                                position: absolute;
+                                top: 30px;
+                                color: $light-primary-text-color;
+                                font-size: 0.875em;
+                                line-height: 1em;
+                              }
                             }
 
-                            & > address {
-                              position: absolute;
-                              top: 30px;
-                              color: $light-primary-text-color;
-                              font-size: 0.875em;
-                              line-height: 1em;
+                            & > .attending {
+                              position: relative;
+                              float: right;
+                              width: 50%;
+
+                              &::before {
+                                content: 'attending';
+                                text-transform: uppercase;
+                                position: absolute;
+                                color: $light-hint-text-color;
+                              }
+
+                              & > p {
+                                position: absolute;
+                                top: 30px;
+                                color: $light-primary-text-color;
+                              }
+
                             }
-                          }
-
-                          & > .attending {
-                            position: relative;
-                            float: right;
-                            width: 50%;
-
-                            &::before {
-                              content: 'attending';
-                              text-transform: uppercase;
-                              position: absolute;
-                              color: $light-hint-text-color;
-                            }
-
-                            & > p {
-                              position: absolute;
-                              top: 30px;
-                              color: $light-primary-text-color;
-                            }
-
                           }
                         }
                         
