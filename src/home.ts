@@ -23,42 +23,96 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
 
 function renderBackground(event: DevdayEvent): VNode {
   var style = '';
-  if(event.color)
+  if (event.color)
     style += `background-color: ${event.color};`;
-  if(event.image_url != undefined)
+  if (event.image_url != undefined)
     style += `background-image: url("${event.image_url}");`;
-  if(event.background_size != undefined)
+  if (event.background_size != undefined)
     style += `background-size: ${event.background_size};`;
   return div('.background', { attrs: { style } });
 }
 
-function renderTopEvent(event: DevdayEvent): VNode {
-  return article('.upcoming.event.card', [
-    div('.info', [
-      h4([event.event_time.start_time.toDateString()]),
-      h3([event.title]),
-      p([event.abstract]),
-    ]),
-    renderBackground(event),
-    div('.speakers',
-      [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
-        .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
-    ),
-    div('.secondary.info', [
-      div('.location', [
-        address([
-          event.venue.locality + ',',
-          br(),
-          event.venue.city
+function findChildIndex(node: VNode): number {
+  const element = node.elm as HTMLElement;
+  const childNodes = element.parentElement.childNodes;
+  for (var i = 0; i < childNodes.length; i++)
+    if (childNodes[i] === element)
+      return i;
+  return -1;
+}
+
+function renderEvent(event: DevdayEvent): VNode {
+  return article('.event.card', {
+    hook: {
+      insert: (node: VNode) => {
+        setTimeout(() => {
+          (node.elm as HTMLElement).classList.add('show');
+        }, findChildIndex(node) * 450);
+      }
+    }
+  }, [
+      div('.info', [
+        h4([event.event_time.start_time.toDateString()]),
+        h3([event.title]),
+        p([event.abstract]),
+      ]),
+      renderBackground(event),
+      div('.speakers',
+        [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
+          .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
+      ),
+      div('.secondary.info', [
+        div('.location', [
+          address([
+            event.venue.locality + ',',
+            br(),
+            event.venue.city
+          ])
+        ]),
+        div('.attending', [
+          p('JOIN NOW')
         ])
       ]),
-      div('.attending', [
-        p('JOIN NOW')
+      a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
+        span('.hidden', 'go to event'),
+        i('.material-icons', 'keyboard_arrow_right')
+      ])
+    ]);
+}
+
+function renderHeader(noun: string, topic: string): VNode {
+  return header([
+    h1([
+      span('.hidden', 'devday_'),
+      img({ props: { src: 'images/logo.gif' } })
+    ]),
+    h2([
+      'a monthly informal event for developers to share their ',
+      span('.noun', noun),
+      ' about ',
+      span('.topic', topic)
+    ])
+  ]);
+}
+
+function renderFooter(): VNode {
+  return footer([
+    div('.left.section', [
+      button('.twitter.social.button', [
+        span('.hidden', 'twitter')
+      ]),
+      button('.facebook.social.button', [
+        span('.hidden', 'facebook')
+      ]),
+      button('.google.plus.social.button', [
+        span('.hidden', 'google plus')
       ])
     ]),
-    a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
-      span('.hidden', 'go to event'),
-      i('.material-icons', 'keyboard_arrow_right')
+    div('.right.section', [
+      button('.share.social.button', [
+        i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+        span('.hidden', 'share')
+      ])
     ])
   ]);
 }
@@ -86,20 +140,9 @@ function home(sources: Sources): Sinks {
               div('.container', [
                 div('.layout', [
                   div('.content', [
-                    header([
-                      h1([
-                        span('.hidden', 'devday_'),
-                        img({ props: { src: 'images/logo.gif' } })
-                      ]),
-                      h2([
-                        'a monthly informal event for developers to share their ',
-                        span('.noun', noun),
-                        ' about ',
-                        span('.topic', topic)
-                      ])
-                    ]),
+                    renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(renderTopEvent),
+                      ...topEvents(events).map(renderEvent),
                       nav([
                         a({ props: { href: '#/archive', title: 'view all previous events' } }, [
                           'More',
@@ -109,25 +152,7 @@ function home(sources: Sources): Sinks {
                         ])
                       ])
                     ]),
-                    footer([
-                      div('.left.section', [
-                        button('.twitter.social.button', [
-                          span('.hidden', 'twitter')
-                        ]),
-                        button('.facebook.social.button', [
-                          span('.hidden', 'facebook')
-                        ]),
-                        button('.google.plus.social.button', [
-                          span('.hidden', 'google plus')
-                        ])
-                      ]),
-                      div('.right.section', [
-                        button('.share.social.button', [
-                          i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-                          span('.hidden', 'share')
-                        ])
-                      ])
-                    ])
+                    renderFooter()
                   ])
                 ])
               ])
