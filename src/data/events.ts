@@ -387,7 +387,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: 'black',
-    image_url: 'http://www.sudhanshu-seo.com/wp-content/uploads/2016/03/cloud-users-lists.jpg'
+    image_url: 'images/events/cloud_computing.jpg'
   },
   {
     title: 'JS Everywhere',
@@ -466,7 +466,7 @@ export const events: DevdayEvent[] = [
     ],
     color: '#f7df1e',
     background_size: '200px',
-    image_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/768px-Unofficial_JavaScript_logo_2.svg.png'
+    image_url: 'images/events/js_everywhere.png'
   }
 ];
 export default events;
