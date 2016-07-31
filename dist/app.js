@@ -2095,8 +2095,24 @@
 	        style += "background-size: " + event.background_size + ";";
 	    return dom_1.div('.background', { attrs: { style: style } });
 	}
-	function renderTopEvent(event) {
-	    return dom_1.article('.upcoming.event.card', [
+	function findChildIndex(node) {
+	    var element = node.elm;
+	    var childNodes = element.parentElement.childNodes;
+	    for (var i = 0; i < childNodes.length; i++)
+	        if (childNodes[i] === element)
+	            return i;
+	    return -1;
+	}
+	function renderEvent(event) {
+	    return dom_1.article('.event.card', {
+	        hook: {
+	            insert: function (node) {
+	                setTimeout(function () {
+	                    node.elm.classList.add('show');
+	                }, findChildIndex(node) * 450);
+	            }
+	        }
+	    }, [
 	        dom_1.div('.info', [
 	            dom_1.h4([event.event_time.start_time.toDateString()]),
 	            dom_1.h3([event.title]),
@@ -2123,6 +2139,41 @@
 	        ])
 	    ]);
 	}
+	function renderHeader(noun, topic) {
+	    return dom_1.header([
+	        dom_1.h1([
+	            dom_1.span('.hidden', 'devday_'),
+	            dom_1.img({ props: { src: 'images/logo.gif' } })
+	        ]),
+	        dom_1.h2([
+	            'a monthly informal event for developers to share their ',
+	            dom_1.span('.noun', noun),
+	            ' about ',
+	            dom_1.span('.topic', topic)
+	        ])
+	    ]);
+	}
+	function renderFooter() {
+	    return dom_1.footer([
+	        dom_1.div('.left.section', [
+	            dom_1.button('.twitter.social.button', [
+	                dom_1.span('.hidden', 'twitter')
+	            ]),
+	            dom_1.button('.facebook.social.button', [
+	                dom_1.span('.hidden', 'facebook')
+	            ]),
+	            dom_1.button('.google.plus.social.button', [
+	                dom_1.span('.hidden', 'google plus')
+	            ])
+	        ]),
+	        dom_1.div('.right.section', [
+	            dom_1.button('.share.social.button', [
+	                dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+	                dom_1.span('.hidden', 'share')
+	            ])
+	        ])
+	    ]);
+	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var route$ = sources.routes.route$;
@@ -2146,19 +2197,8 @@
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
-	                            dom_1.header([
-	                                dom_1.h1([
-	                                    dom_1.span('.hidden', 'devday_'),
-	                                    dom_1.img({ props: { src: 'images/logo.gif' } })
-	                                ]),
-	                                dom_1.h2([
-	                                    'a monthly informal event for developers to share their ',
-	                                    dom_1.span('.noun', noun),
-	                                    ' about ',
-	                                    dom_1.span('.topic', topic)
-	                                ])
-	                            ]),
-	                            dom_1.main(topEvents(events).map(renderTopEvent).concat([
+	                            renderHeader(noun, topic),
+	                            dom_1.main(topEvents(events).map(renderEvent).concat([
 	                                dom_1.nav([
 	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
 	                                        'More',
@@ -2168,25 +2208,7 @@
 	                                    ])
 	                                ])
 	                            ])),
-	                            dom_1.footer([
-	                                dom_1.div('.left.section', [
-	                                    dom_1.button('.twitter.social.button', [
-	                                        dom_1.span('.hidden', 'twitter')
-	                                    ]),
-	                                    dom_1.button('.facebook.social.button', [
-	                                        dom_1.span('.hidden', 'facebook')
-	                                    ]),
-	                                    dom_1.button('.google.plus.social.button', [
-	                                        dom_1.span('.hidden', 'google plus')
-	                                    ])
-	                                ]),
-	                                dom_1.div('.right.section', [
-	                                    dom_1.button('.share.social.button', [
-	                                        dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-	                                        dom_1.span('.hidden', 'share')
-	                                    ])
-	                                ])
-	                            ])
+	                            renderFooter()
 	                        ])
 	                    ])
 	                ])
