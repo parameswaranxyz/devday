@@ -126,9 +126,10 @@
                         @extend .mdl-cell--4-col-tablet;
                         @extend .mdl-cell--6-col-desktop;
 
-                        overflow: visible !important;
                         z-index: 10;
                         box-sizing: border-box;
+                        height: 540px;
+                        background: white;
 
                         -moz-transform: scale(0);
                         -webkit-transform: scale(0);
@@ -151,11 +152,16 @@
 
 
                         & > .info {
-                          width: 65%;
                           padding: 20px;
                           overflow: hidden;
                           box-sizing: border-box;
                           background: white;
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          right: 35%;
+                          bottom: 0;
+
 
                           & > h4 {
                             font-size: inherit;
@@ -191,9 +197,13 @@
 
                         & > .speakers {
                           background: #7986CB;
-                          position: relative;
+                          position: absolute;
                           padding: 50px 20px 0 20px;
                           box-sizing: border-box;
+                          top: 312px;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
 
                           &::before {
                             content: 'speakers';
@@ -218,9 +228,22 @@
 
                         & > .secondary.info {
                           height: 100px;
-                          width: 100%;
+                          position: absolute;
+                          top: 540px;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
                           background: #5C6BC0;
                           box-sizing: border-box;
+                          -webkit-transition-property: top;
+                          transition-property: top;
+                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                          &.loaded {
+                            top: 440px;
+                          }
 
                           & > .location {
                             position: relative;
@@ -274,6 +297,7 @@
                             right: 28px;
                             height: 56px;
                             width: 56px;
+                            display: none;
                         }
                     }
 
