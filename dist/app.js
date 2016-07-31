@@ -2107,9 +2107,14 @@
 	    return dom_1.article('.event.card', {
 	        hook: {
 	            insert: function (node) {
+	                var index = findChildIndex(node);
 	                setTimeout(function () {
-	                    node.elm.classList.add('show');
-	                }, findChildIndex(node) * 200);
+	                    var element = node.elm;
+	                    element.classList.add('show');
+	                    setTimeout(function () {
+	                        element.querySelector('.secondary.info').classList.add('loaded');
+	                    }, (index + 1) * 50);
+	                }, index * 200);
 	            }
 	        }
 	    }, [
