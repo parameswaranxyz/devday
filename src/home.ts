@@ -53,12 +53,13 @@ function renderEvent(event: DevdayEvent): VNode {
             element.querySelector('.primary.info').classList.add('loaded');
             setTimeout(() => {
               element.querySelector('.speakers').classList.add('loaded');
+              element.querySelector('.primary.info > .content').classList.add('loaded');
               setTimeout(() => {
                 element.querySelector('.secondary.info').classList.add('loaded');
               }, 300);
             }, 300);
           }, 300);
-        }, index * 200);
+        }, index * 150);
       }
     }
   }, [

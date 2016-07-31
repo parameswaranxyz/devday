@@ -6116,16 +6116,22 @@ iframe {
         bottom: 0;
         -webkit-transition-property: right;
         transition-property: right;
-        -moz-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        background: white; }
         .devday.home > .container > .layout > .content > main > .event.card > .primary.info.loaded {
           right: 35%; }
         .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content {
           padding: 20px;
           overflow: hidden;
           box-sizing: border-box;
-          background: white; }
+          opacity: 0;
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content.loaded {
+            opacity: 1; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h4 {
             font-size: inherit;
             color: rgba(0, 0, 0, 0.54);
@@ -6159,9 +6165,9 @@ iframe {
         bottom: 0;
         -webkit-transition-property: top;
         transition-property: top;
-        -moz-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .devday.home > .container > .layout > .content > main > .event.card > .speakers.loaded {
           top: 312px; }
         .devday.home > .container > .layout > .content > main > .event.card > .speakers::before {
@@ -6190,9 +6196,9 @@ iframe {
         box-sizing: border-box;
         -webkit-transition-property: top;
         transition-property: top;
-        -moz-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        -webkit-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1); }
+        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .devday.home > .container > .layout > .content > main > .event.card > .secondary.info.loaded {
           top: 440px; }
         .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content {

@@ -159,9 +159,10 @@
                           bottom: 0;
                           -webkit-transition-property: right;
                           transition-property: right;
-                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          background: white;
 
                           &.loaded {
                             right: 35%;
@@ -171,8 +172,14 @@
                             padding: 20px;
                             overflow: hidden;
                             box-sizing: border-box;
-                            background: white;
+                            opacity: 0;
+                            -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
+                            &.loaded {
+                              opacity: 1;
+                            }
 
                             & > h4 {
                               font-size: inherit;
@@ -217,9 +224,9 @@
                           bottom: 0;
                           -webkit-transition-property: top;
                           transition-property: top;
-                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
                           &.loaded {
                             top: 312px;
@@ -256,9 +263,9 @@
                           box-sizing: border-box;
                           -webkit-transition-property: top;
                           transition-property: top;
-                          -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
                           &.loaded {
                             top: 440px;
