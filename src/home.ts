@@ -47,19 +47,24 @@ function renderEvent(event: DevdayEvent): VNode {
       insert: (node: VNode) => {
         const index = findChildIndex(node);
         setTimeout(() => {
-          const element = (node.elm as HTMLElement); 
+          const element = (node.elm as HTMLElement);
           element.classList.add('show');
           setTimeout(() => {
-            element.querySelector('.secondary.info').classList.add('loaded');
-          }, (index + 1) * 50);
+            element.querySelector('.primary.info').classList.add('loaded');
+            setTimeout(() => {
+              element.querySelector('.secondary.info').classList.add('loaded');
+            }, 50);
+          }, 50);
         }, index * 200);
       }
     }
   }, [
-      div('.info', [
-        h4([event.event_time.start_time.toDateString()]),
-        h3([event.title]),
-        p([event.abstract]),
+      div('.primary.info', [
+        div('.content', [
+          h4([event.event_time.start_time.toDateString()]),
+          h3([event.title]),
+          p([event.abstract]),
+        ])
       ]),
       renderBackground(event),
       div('.speakers',
