@@ -8751,8 +8751,8 @@
 	};
 	exports.events = [
 	    {
-	        title: 'DevDay Technical Meetup',
-	        url: 'devday-technical-meetup',
+	        title: 'Technical Meetup',
+	        url: 'technical-meetup',
 	        categories: ['events'],
 	        tags: ['technology'],
 	        author: 'devday_ team',
