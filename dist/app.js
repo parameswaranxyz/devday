@@ -2044,16 +2044,14 @@
 
 	"use strict";
 	var home_1 = __webpack_require__(7);
-	var archive_1 = __webpack_require__(124);
 	var event_1 = __webpack_require__(125);
 	var xstream_1 = __webpack_require__(4);
 	function main(sources) {
 	    var homeSinks = home_1.default(sources);
-	    var archiveSinks = archive_1.default(sources);
 	    var eventSinks = event_1.default(sources);
-	    var vdom$ = xstream_1.default.merge(homeSinks.dom, archiveSinks.dom, eventSinks.dom);
-	    var route$ = xstream_1.default.merge(homeSinks.routes, archiveSinks.routes, eventSinks.routes);
-	    var event$ = xstream_1.default.merge(homeSinks.events, archiveSinks.events, eventSinks.events);
+	    var vdom$ = xstream_1.default.merge(homeSinks.dom, eventSinks.dom);
+	    var route$ = xstream_1.default.merge(homeSinks.routes, eventSinks.routes);
+	    var event$ = xstream_1.default.merge(homeSinks.events, eventSinks.events);
 	    return {
 	        dom: vdom$,
 	        routes: route$,
@@ -2084,6 +2082,14 @@
 	        .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
 	        .shift();
 	    return [bangaloreEvent, chennaiEvent];
+	}
+	function moreEvents(events, more) {
+	    if (!more)
+	        return [];
+	    var topEventsResult = topEvents(events);
+	    var sortedEvents = events
+	        .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); });
+	    return sortedEvents.filter(function (event) { return topEventsResult.indexOf(event) === -1; });
 	}
 	function renderBackground(event) {
 	    var style = '';
@@ -2202,21 +2208,33 @@
 	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
+	    var more$ = sources.dom
+	        .select('.more')
+	        .events('click')
+	        .map(function (ev) {
+	        ev.preventDefault();
+	        ev.stopPropagation();
+	        return true;
+	    })
+	        .startWith(false);
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$)
+	        return xs.combine(noun$, topic$, events$, more$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(renderEvent).concat([
+	                            dom_1.main(topEvents(events).map(renderEvent).concat(moreEvents(events, more).map(renderEvent), [
 	                                dom_1.nav([
-	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
+	                                    dom_1.a('.more', {
+	                                        props: { href: '#/archive', title: 'view all previous events' },
+	                                        attrs: { style: more ? 'display: none;' : '' }
+	                                    }, [
 	                                        'More',
 	                                        dom_1.button([
 	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
@@ -8731,8 +8749,8 @@
 	};
 	exports.events = [
 	    {
-	        title: 'DevDay Technical Meetup',
-	        url: 'devday-technical-meetup',
+	        title: 'Technical Meetup',
+	        url: 'technical-meetup',
 	        categories: ['events'],
 	        tags: ['technology'],
 	        author: 'devday_ team',
@@ -9197,86 +9215,7 @@
 
 
 /***/ },
-/* 124 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var dom_1 = __webpack_require__(8);
-	function getDisplayTime(date) {
-	    var timeSplits = date.toString().split(' ');
-	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-	}
-	function renderHeader() {
-	    return dom_1.header([
-	        dom_1.div('.container', [
-	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: '#/' } }, [
-	                    dom_1.img({ props: { src: 'images/logo.gif' } })
-	                ]),
-	                dom_1.div('.navigation.container', [
-	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
-	                    ])
-	                ])
-	            ])
-	        ])
-	    ]);
-	}
-	function archive(sources) {
-	    var xs = xstream_1.Stream;
-	    var route$ = sources.routes.route$;
-	    var events$ = sources.events.events$;
-	    var currentDate = new Date();
-	    var vdom$ = route$
-	        .filter(function (url) { return url === 'archive'; })
-	        .map(function (route) {
-	        return events$.map(function (events) {
-	            return dom_1.div('.devday.archive', [
-	                dom_1.div('.container', [
-	                    dom_1.div('.layout', [
-	                        renderHeader(),
-	                        dom_1.main([
-	                            dom_1.div('.panel', events
-	                                .filter(function (event) { return event.event_time.start_time < currentDate; })
-	                                .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); })
-	                                .map(function (event) {
-	                                return dom_1.article('.centered', [
-	                                    dom_1.div('.event.card', [
-	                                        dom_1.header([
-	                                            dom_1.h4([event.title])
-	                                        ]),
-	                                        dom_1.div('.content', [
-	                                            dom_1.h5(getDisplayTime(event.event_time.start_time)),
-	                                            event.abstract
-	                                        ]),
-	                                        dom_1.footer([
-	                                            dom_1.i('.material-icons', 'label')
-	                                        ].concat(event.tags.map(function (tag) {
-	                                            return dom_1.a('.tag', { props: { href: '#/tags/' + tag.replace(' ', '-') } }, tag);
-	                                        }), [
-	                                            dom_1.a('.right.button', { props: { href: '#/' + event.url } }, 'View Event')
-	                                        ]))
-	                                    ])
-	                                ]);
-	                            }))
-	                        ])
-	                    ])
-	                ])
-	            ]);
-	        });
-	    }).flatten();
-	    return {
-	        dom: vdom$,
-	        routes: xs.empty(),
-	        events: xs.empty()
-	    };
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = archive;
-
-
-/***/ },
+/* 124 */,
 /* 125 */
 /***/ function(module, exports, __webpack_require__) {
 

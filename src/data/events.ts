@@ -21,8 +21,8 @@ export const CHENNAI_ADDRESS: Address = {
 
 export const events: DevdayEvent[] = [
   {
-    title: 'DevDay Technical Meetup',
-    url: 'devday-technical-meetup',
+    title: 'Technical Meetup',
+    url: 'technical-meetup',
     categories: ['events'],
     tags: ['technology'],
     author: 'devday_ team',
