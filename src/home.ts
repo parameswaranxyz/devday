@@ -21,6 +21,16 @@ function topEvents(events: DevdayEvent[]): DevdayEvent[] {
   return [bangaloreEvent, chennaiEvent];
 }
 
+function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
+  if (!more)
+    return [];
+  const topEventsResult = topEvents(events);
+  const sortedEvents =
+    events
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
+  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
+}
+
 function renderBackground(event: DevdayEvent): VNode {
   var style = '';
   if (event.color)

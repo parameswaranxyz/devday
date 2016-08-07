@@ -2085,6 +2085,14 @@
 	        .shift();
 	    return [bangaloreEvent, chennaiEvent];
 	}
+	function moreEvents(events, more) {
+	    if (!more)
+	        return [];
+	    var topEventsResult = topEvents(events);
+	    var sortedEvents = events
+	        .sort(function (a, b) { return b.event_time.start_time.getTime() - a.event_time.start_time.getTime(); });
+	    return sortedEvents.filter(function (event) { return topEventsResult.indexOf(event) === -1; });
+	}
 	function renderBackground(event) {
 	    var style = '';
 	    if (event.color)
