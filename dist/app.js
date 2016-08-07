@@ -2210,21 +2210,33 @@
 	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
+	    var more$ = sources.dom
+	        .select('.more')
+	        .events('click')
+	        .map(function (ev) {
+	        ev.preventDefault();
+	        ev.stopPropagation();
+	        return true;
+	    })
+	        .startWith(false);
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$)
+	        return xs.combine(noun$, topic$, events$, more$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(renderEvent).concat([
+	                            dom_1.main(topEvents(events).map(renderEvent).concat(moreEvents(events, more).map(renderEvent), [
 	                                dom_1.nav([
-	                                    dom_1.a({ props: { href: '#/archive', title: 'view all previous events' } }, [
+	                                    dom_1.a('.more', {
+	                                        props: { href: '#/archive', title: 'view all previous events' },
+	                                        attrs: { style: more ? 'display: none;' : '' }
+	                                    }, [
 	                                        'More',
 	                                        dom_1.button([
 	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')

@@ -155,13 +155,23 @@ function home(sources: Sources): Sinks {
     .startWith(0)
     .map(x => x % topics.length)
     .map(i => topics[i]);
+  const more$ =
+    sources.dom
+      .select('.more')
+      .events('click')
+      .map(ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        return true;
+      })
+      .startWith(false);
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$)
+        xs.combine(noun$, topic$, events$, more$)
           .filter(() => url === '')
-          .map(([noun, topic, events]) =>
+          .map(([noun, topic, events, more]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
@@ -169,13 +179,17 @@ function home(sources: Sources): Sinks {
                     renderHeader(noun, topic),
                     main([
                       ...topEvents(events).map(renderEvent),
+                      ...moreEvents(events, more).map(renderEvent),
                       nav([
-                        a({ props: { href: '#/archive', title: 'view all previous events' } }, [
-                          'More',
-                          button([
-                            i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                        a('.more', {
+                          props: { href: '#/archive', title: 'view all previous events' },
+                          attrs: { style: more ? 'display: none;' : '' }
+                        }, [
+                            'More',
+                            button([
+                              i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                            ])
                           ])
-                        ])
                       ])
                     ]),
                     renderFooter()
