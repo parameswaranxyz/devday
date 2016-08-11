@@ -2238,10 +2238,10 @@
 	                            dom_1.main(topEvents(events).map(renderEvent).concat(moreEvents(events, more).map(renderEvent), [
 	                                dom_1.nav([
 	                                    dom_1.a('.more', {
-	                                        props: { href: '#/archive', title: 'view all previous events' },
+	                                        props: { href: '#', title: 'view all previous events' },
 	                                        attrs: { style: more ? 'display: none;' : '' }
 	                                    }, [
-	                                        'More',
+	                                        'Past events',
 	                                        dom_1.button([
 	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
 	                                        ])

@@ -187,10 +187,10 @@ function home(sources: Sources): Sinks {
                       ...moreEvents(events, more).map(renderEvent),
                       nav([
                         a('.more', {
-                          props: { href: '#/archive', title: 'view all previous events' },
+                          props: { href: '#', title: 'view all previous events' },
                           attrs: { style: more ? 'display: none;' : '' }
                         }, [
-                            'More',
+                            'Past events',
                             button([
                               i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
                             ])
