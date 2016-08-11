@@ -66,10 +66,14 @@ function renderEvent(event: DevdayEvent): VNode {
               element.querySelector('.primary.info > .content').classList.add('loaded');
               setTimeout(() => {
                 element.querySelector('.secondary.info').classList.add('loaded');
-              }, 300);
+                element.querySelector('.speakers > .content').classList.add('loaded');
+                setTimeout(() => {
+                  element.querySelector('.secondary.info > .content').classList.add('loaded');
+                }, 150);
+              }, 150);
             }, 300);
-          }, 300);
-        }, index * 150);
+          }, 150);
+        }, index * 300);
       }
     }
   }, [
@@ -81,10 +85,11 @@ function renderEvent(event: DevdayEvent): VNode {
         ])
       ]),
       renderBackground(event),
-      div('.speakers',
-        [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
-          .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
-      ),
+      div('.speakers', [
+        div('.content',
+          [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
+            .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+      ]),
       div('.secondary.info', [
         div('.content', [
           div('.location', [
@@ -182,10 +187,10 @@ function home(sources: Sources): Sinks {
                       ...moreEvents(events, more).map(renderEvent),
                       nav([
                         a('.more', {
-                          props: { href: '#/archive', title: 'view all previous events' },
+                          props: { href: '#', title: 'view all previous events' },
                           attrs: { style: more ? 'display: none;' : '' }
                         }, [
-                            'More',
+                            'Past events',
                             button([
                               i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
                             ])

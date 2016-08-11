@@ -6111,6 +6111,7 @@ iframe {
         opacity: 1; }
       .devday.home > .container > .layout > .content > main > .event.card > .primary.info {
         position: absolute;
+        z-index: 0;
         top: 0;
         left: 0;
         right: 100%;
@@ -6156,8 +6157,8 @@ iframe {
         background-size: contain; }
       .devday.home > .container > .layout > .content > main > .event.card > .speakers {
         background: #7986CB;
+        z-index: 1;
         position: absolute;
-        padding: 50px 20px 0 20px;
         top: 540px;
         left: 0;
         right: 0;
@@ -6169,24 +6170,35 @@ iframe {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         .devday.home > .container > .layout > .content > main > .event.card > .speakers.loaded {
           top: 312px; }
-        .devday.home > .container > .layout > .content > main > .event.card > .speakers::before {
-          content: 'speakers';
-          text-transform: uppercase;
-          position: absolute;
-          font-weight: bold;
-          top: 20px;
-          left: 20px;
-          color: rgba(255, 255, 255, 0.7); }
-        .devday.home > .container > .layout > .content > main > .event.card > .speakers > .avatar {
-          width: 56px;
-          height: 56px;
-          border-radius: 50%;
-          border: 1px solid rgba(255, 255, 255, 0.5);
-          margin: 0;
-          margin-right: 20px;
-          margin-bottom: 20px; }
+        .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content {
+          padding: 50px 20px 0 20px;
+          opacity: 0;
+          -webkit-transition-property: opacity;
+          transition-property: opacity;
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content.loaded {
+            opacity: 1; }
+          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content::before {
+            content: 'speakers';
+            text-transform: uppercase;
+            position: absolute;
+            font-weight: bold;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.7); }
+          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content > .avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin: 0;
+            margin-right: 20px;
+            margin-bottom: 20px; }
       .devday.home > .container > .layout > .content > main > .event.card > .secondary.info {
         position: absolute;
+        z-index: 2;
         top: 540px;
         left: 0;
         right: 0;
@@ -6203,7 +6215,15 @@ iframe {
           padding: 20px;
           position: relative;
           width: 100%;
-          height: 100%; }
+          height: 100%;
+          opacity: 0;
+          -webkit-transition-property: opacity;
+          transition-property: opacity;
+          -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+          .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content.loaded {
+            opacity: 1; }
           .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .location {
             position: relative;
             width: 50%;
