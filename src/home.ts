@@ -73,7 +73,7 @@ function renderEvent(event: DevdayEvent): VNode {
               }, 150);
             }, 300);
           }, 150);
-        }, index * 150);
+        }, index * 300);
       }
     }
   }, [
