@@ -71,7 +71,7 @@ function renderEvent(event: DevdayEvent): VNode {
                   element.querySelector('.secondary.info > .content').classList.add('loaded');
                 }, 150);
               }, 150);
-            }, 150);
+            }, 300);
           }, 150);
         }, index * 150);
       }
