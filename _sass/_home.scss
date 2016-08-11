@@ -151,6 +151,7 @@
 
                         & > .primary.info {
                           position: absolute;
+                          z-index: 0;
                           top: 0;
                           left: 0;
                           right: 100%;
@@ -212,8 +213,8 @@
 
                         & > .speakers {
                           background: #7986CB;
+                          z-index: 1;
                           position: absolute;
-                          padding: 50px 20px 0 20px;
                           top: 540px;
                           left: 0;
                           right: 0;
@@ -228,29 +229,44 @@
                             top: 312px;
                           }
 
-                          &::before {
-                            content: 'speakers';
-                            text-transform: uppercase;
-                            position: absolute;
-                            font-weight: bold;
-                            top: 20px;
-                            left: 20px;
-                            color: $light-secondary-text-color;
-                          }
+                          & > .content {
+                            padding: 50px 20px 0 20px;
+                            opacity: 0;
+                            -webkit-transition-property: opacity;
+                            transition-property: opacity;
+                            -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
 
-                          & > .avatar {
-                            width: 56px;
-                            height: 56px;
-                            border-radius: 50%;
-                            border: 1px solid $light-icon-text-color;
-                            margin: 0;
-                            margin-right: 20px;
-                            margin-bottom: 20px;
+                            &.loaded {
+                              opacity: 1;
+                            }
+
+                            &::before {
+                              content: 'speakers';
+                              text-transform: uppercase;
+                              position: absolute;
+                              font-weight: bold;
+                              top: 20px;
+                              left: 20px;
+                              color: $light-secondary-text-color;
+                            }
+
+                            & > .avatar {
+                              width: 56px;
+                              height: 56px;
+                              border-radius: 50%;
+                              border: 1px solid $light-icon-text-color;
+                              margin: 0;
+                              margin-right: 20px;
+                              margin-bottom: 20px;
+                            }
                           }
                         }
 
                         & > .secondary.info {
                           position: absolute;
+                          z-index: 2;
                           top: 540px;
                           left: 0;
                           right: 0;
@@ -271,6 +287,18 @@
                             position: relative;
                             width: 100%;
                             height: 100%;
+                            opacity: 0;
+                            -webkit-transition-property: opacity;
+                            transition-property: opacity;
+                            -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                            &.loaded {
+                              opacity: 1;
+                            }
+
+
 
                             & > .location {
                               position: relative;

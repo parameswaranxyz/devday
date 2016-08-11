@@ -48,8 +48,8 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(126);
-	var events_1 = __webpack_require__(127);
+	var router_1 = __webpack_require__(125);
+	var events_1 = __webpack_require__(126);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2044,7 +2044,7 @@
 
 	"use strict";
 	var home_1 = __webpack_require__(7);
-	var event_1 = __webpack_require__(125);
+	var event_1 = __webpack_require__(124);
 	var xstream_1 = __webpack_require__(4);
 	function main(sources) {
 	    var homeSinks = home_1.default(sources);
@@ -2124,9 +2124,13 @@
 	                            element.querySelector('.primary.info > .content').classList.add('loaded');
 	                            setTimeout(function () {
 	                                element.querySelector('.secondary.info').classList.add('loaded');
-	                            }, 300);
-	                        }, 300);
-	                    }, 300);
+	                                element.querySelector('.speakers > .content').classList.add('loaded');
+	                                setTimeout(function () {
+	                                    element.querySelector('.secondary.info > .content').classList.add('loaded');
+	                                }, 150);
+	                            }, 150);
+	                        }, 150);
+	                    }, 150);
 	                }, index * 150);
 	            }
 	        }
@@ -2139,8 +2143,10 @@
 	            ])
 	        ]),
 	        renderBackground(event),
-	        dom_1.div('.speakers', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
-	            .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })),
+	        dom_1.div('.speakers', [
+	            dom_1.div('.content', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
+	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
+	        ]),
 	        dom_1.div('.secondary.info', [
 	            dom_1.div('.content', [
 	                dom_1.div('.location', [
@@ -9215,8 +9221,7 @@
 
 
 /***/ },
-/* 124 */,
-/* 125 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9379,7 +9384,7 @@
 
 
 /***/ },
-/* 126 */
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9431,7 +9436,7 @@
 
 
 /***/ },
-/* 127 */
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
