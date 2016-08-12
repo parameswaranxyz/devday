@@ -6073,7 +6073,8 @@ iframe {
       margin: 0 auto;
       height: 130px; }
       .devday.home > .container > .layout > .content > header > h2 > span {
-        border-bottom: 1px rgba(255, 255, 255, 0.87) solid; }
+        border-bottom: 1px rgba(255, 255, 255, 0.87) solid;
+        display: inline-block; }
         .devday.home > .container > .layout > .content > header > h2 > span.noun {
           width: 160px; }
         .devday.home > .container > .layout > .content > header > h2 > span.topic {
