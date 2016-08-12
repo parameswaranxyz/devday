@@ -53,6 +53,9 @@ function findChildIndex(node: VNode): number {
 
 function renderEvent(event: DevdayEvent): VNode {
   return article('.event.card', {
+    attrs: {
+      'data-url': event.url
+    },
     hook: {
       insert: (node: VNode) => {
         const index = findChildIndex(node);

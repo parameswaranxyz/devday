@@ -135,6 +135,8 @@
                         -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
                         -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
                         transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                        -webkit-transition-property: left, top, right, bottom, position, height, width;
+                        transition-property: left, top, right, bottom, position, height, width;
                         -ms-transform-origin: 0% 0%;
                         -moz-transform-origin: 0% 0%;
                         -webkit-transform-origin: 0% 0%;
@@ -353,6 +355,17 @@
                             height: 56px;
                             width: 56px;
                             display: none;
+                        }
+
+                        &.expanded {
+                          position: absolute;
+                          left: 20px;
+                          right: 20px;
+                          bottom: 20px;
+                          top: 20px;
+                          z-index: 11;
+                          height: auto;
+                          width: auto;
                         }
                     }
 

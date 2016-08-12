@@ -6101,6 +6101,8 @@ iframe {
       -moz-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       -webkit-transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
       transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      -webkit-transition-property: left, top, right, bottom, position, height, width;
+      transition-property: left, top, right, bottom, position, height, width;
       -ms-transform-origin: 0% 0%;
       -moz-transform-origin: 0% 0%;
       -webkit-transform-origin: 0% 0%;
@@ -6261,6 +6263,15 @@ iframe {
         height: 56px;
         width: 56px;
         display: none; }
+      .devday.home > .container > .layout > .content > main > .event.card.expanded {
+        position: absolute;
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        top: 20px;
+        z-index: 11;
+        height: auto;
+        width: auto; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;

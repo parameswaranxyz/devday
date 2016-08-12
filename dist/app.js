@@ -2111,6 +2111,9 @@
 	}
 	function renderEvent(event) {
 	    return dom_1.article('.event.card', {
+	        attrs: {
+	            'data-url': event.url
+	        },
 	        hook: {
 	            insert: function (node) {
 	                var index = findChildIndex(node);
