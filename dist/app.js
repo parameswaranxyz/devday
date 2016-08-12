@@ -2230,6 +2230,8 @@
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();
+	        var classes = ev.currentTarget.classList;
+	        classes.toggle('expanded');
 	        console.log('event card clicked');
 	        return true;
 	    })

@@ -178,6 +178,8 @@ function home(sources: Sources): Sinks {
       .map(ev => {
         ev.preventDefault();
         ev.stopPropagation();
+        const classes = (ev.currentTarget as HTMLElement).classList;
+        classes.toggle('expanded');
         console.log('event card clicked');
         return true;
       })
