@@ -2204,6 +2204,7 @@
 	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
+	    var dom = sources.dom;
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$;
 	    var noun$ = xs.periodic(1000)
@@ -2214,7 +2215,7 @@
 	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
-	    var more$ = sources.dom
+	    var more$ = dom
 	        .select('.more')
 	        .events('click')
 	        .map(function (ev) {
@@ -2223,13 +2224,23 @@
 	        return true;
 	    })
 	        .startWith(false);
+	    var expand$ = dom
+	        .select('.event.card')
+	        .events('click')
+	        .map(function (ev) {
+	        ev.preventDefault();
+	        ev.stopPropagation();
+	        console.log('event card clicked');
+	        return true;
+	    })
+	        .startWith(false);
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [

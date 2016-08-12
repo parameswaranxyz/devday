@@ -150,6 +150,7 @@ function renderFooter(): VNode {
 
 function home(sources: Sources): Sinks {
   const xs = Stream;
+  const dom = sources.dom;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)
@@ -161,7 +162,7 @@ function home(sources: Sources): Sinks {
     .map(x => x % topics.length)
     .map(i => topics[i]);
   const more$ =
-    sources.dom
+    dom
       .select('.more')
       .events('click')
       .map(ev => {
@@ -170,13 +171,24 @@ function home(sources: Sources): Sinks {
         return true;
       })
       .startWith(false);
+  const expand$ =
+    dom
+      .select('.event.card')
+      .events('click')
+      .map(ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        console.log('event card clicked');
+        return true;
+      })
+      .startWith(false);
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$)
+        xs.combine(noun$, topic$, events$, more$, expand$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more]) =>
+          .map(([noun, topic, events, more, expand]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
