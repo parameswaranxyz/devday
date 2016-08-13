@@ -186,15 +186,20 @@ function home(sources: Sources): Sinks {
       })
       .startWith('');
   const shorten$ =
-    dom
-      .select('.event.card.expanded')
-      .events('click')
-      .map(ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        return true;
-      })
-      .startWith(false);
+    xs.merge(
+      expand$
+        .filter(e => e !== '')
+        .map(() => xs.of(false)),
+      dom
+        .select('.event.card.expanded')
+        .events('click')
+        .map(ev => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          return xs.of(true);
+        })
+        .startWith(xs.of(false))
+    ).flatten();
   const currentDate = new Date();
   const vtree$ =
     route$

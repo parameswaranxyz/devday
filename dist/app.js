@@ -2237,15 +2237,17 @@
 	        return element.attributes['data-url'].value;
 	    })
 	        .startWith('');
-	    var shorten$ = dom
+	    var shorten$ = xs.merge(expand$
+	        .filter(function (e) { return e !== ''; })
+	        .map(function () { return xs.of(false); }), dom
 	        .select('.event.card.expanded')
 	        .events('click')
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();
-	        return true;
+	        return xs.of(true);
 	    })
-	        .startWith(false);
+	        .startWith(xs.of(false))).flatten();
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
