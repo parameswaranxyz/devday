@@ -50,10 +50,12 @@
 	var dom_1 = __webpack_require__(8);
 	var router_1 = __webpack_require__(125);
 	var events_1 = __webpack_require__(126);
+	var prevent_1 = __webpack_require__(127);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
-	    events: events_1.makeEventsDriver()
+	    events: events_1.makeEventsDriver(),
+	    prevent: prevent_1.makePreventDriver()
 	});
 
 
@@ -2052,10 +2054,12 @@
 	    var vdom$ = xstream_1.default.merge(homeSinks.dom, eventSinks.dom);
 	    var route$ = xstream_1.default.merge(homeSinks.routes, eventSinks.routes);
 	    var event$ = xstream_1.default.merge(homeSinks.events, eventSinks.events);
+	    var prevent$ = xstream_1.default.merge(homeSinks.prevent, eventSinks.prevent);
 	    return {
 	        dom: vdom$,
 	        routes: route$,
-	        events: event$
+	        events: event$,
+	        prevent: prevent$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2109,8 +2113,11 @@
 	            return i;
 	    return -1;
 	}
-	function renderEvent(event) {
-	    return dom_1.article('.event.card', {
+	function renderEvent(event, expand, shorten) {
+	    return dom_1.article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
+	        attrs: {
+	            'data-url': event.url
+	        },
 	        hook: {
 	            insert: function (node) {
 	                var index = findChildIndex(node);
@@ -2184,26 +2191,35 @@
 	function renderFooter() {
 	    return dom_1.footer([
 	        dom_1.div('.left.section', [
-	            dom_1.button('.twitter.social.button', [
+	            dom_1.a('.twitter.social.button', {
+	                props: {
+	                    href: 'https://twitter.com/devday_',
+	                    target: '_blank'
+	                }
+	            }, [
 	                dom_1.span('.hidden', 'twitter')
 	            ]),
-	            dom_1.button('.facebook.social.button', [
+	            dom_1.a('.facebook.social.button', {
+	                props: {
+	                    href: 'https://facebook.com/d3vday',
+	                    target: '_blank'
+	                }
+	            }, [
 	                dom_1.span('.hidden', 'facebook')
 	            ]),
-	            dom_1.button('.google.plus.social.button', [
-	                dom_1.span('.hidden', 'google plus')
-	            ])
 	        ]),
 	        dom_1.div('.right.section', [
-	            dom_1.button('.share.social.button', [
-	                dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-	                dom_1.span('.hidden', 'share')
-	            ])
+	            // button('.share.social.button', [
+	            //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+	            //   span('.hidden', 'share')
+	            // ]),
+	            dom_1.p(['© Copyright 2016, Sahaj Software Solutions Pvt. Ltd.'])
 	        ])
 	    ]);
 	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
+	    var dom = sources.dom;
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$;
 	    var noun$ = xs.periodic(1000)
@@ -2214,28 +2230,39 @@
 	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
-	    var more$ = sources.dom
+	    var moreClick$ = dom
 	        .select('.more')
-	        .events('click')
-	        .map(function (ev) {
-	        ev.preventDefault();
-	        ev.stopPropagation();
-	        return true;
-	    })
+	        .events('click');
+	    var more$ = moreClick$
+	        .map(function (ev) { return true; })
 	        .startWith(false);
+	    var eventClick$ = dom
+	        .select('.event.card:not(.expanded)')
+	        .events('click');
+	    var expand$ = eventClick$
+	        .map(function (ev) { return ev.currentTarget.attributes['data-url'].value; })
+	        .startWith('');
+	    var expandedEventClick$ = dom
+	        .select('.event.card.expanded')
+	        .events('click');
+	    var shorten$ = xs.merge(expand$
+	        .filter(function (e) { return e !== ''; })
+	        .map(function () { return xs.of(false); }), expandedEventClick$
+	        .map(function (ev) { return xs.of(true); })
+	        .startWith(xs.of(false))).flatten();
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(renderEvent).concat(moreEvents(events, more).map(renderEvent), [
+	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand, shorten); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten); }), [
 	                                dom_1.nav([
 	                                    dom_1.a('.more', {
 	                                        props: { href: '#', title: 'view all previous events' },
@@ -2255,10 +2282,12 @@
 	            ]);
 	        });
 	    }).flatten();
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$);
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),
-	        routes: xs.empty()
+	        routes: xs.empty(),
+	        prevent: prevent$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9376,7 +9405,8 @@
 	    return {
 	        dom: vdom$,
 	        routes: xs.empty(),
-	        events: eventRequest$
+	        events: eventRequest$,
+	        prevent: xs.empty()
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9474,6 +9504,38 @@
 	exports.makeEventsDriver = makeEventsDriver;
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = makeEventsDriver;
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var PreventSource = (function () {
+	    function PreventSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function (ev) {
+	                ev.preventDefault();
+	                ev.stopPropagation();
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	    }
+	    return PreventSource;
+	}());
+	exports.PreventSource = PreventSource;
+	function makePreventDriver() {
+	    function preventDriver(event$) {
+	        return new PreventSource(event$);
+	    }
+	    return preventDriver;
+	}
+	exports.makePreventDriver = makePreventDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makePreventDriver;
 
 
 /***/ }

@@ -51,8 +51,11 @@ function findChildIndex(node: VNode): number {
   return -1;
 }
 
-function renderEvent(event: DevdayEvent): VNode {
-  return article('.event.card', {
+function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNode {
+  return article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
+    attrs: {
+      'data-url': event.url
+    },
     hook: {
       insert: (node: VNode) => {
         const index = findChildIndex(node);
@@ -129,27 +132,39 @@ function renderHeader(noun: string, topic: string): VNode {
 function renderFooter(): VNode {
   return footer([
     div('.left.section', [
-      button('.twitter.social.button', [
+      a('.twitter.social.button', {
+        props: {
+          href: 'https://twitter.com/devday_',
+          target: '_blank'
+        }
+      }, [
         span('.hidden', 'twitter')
       ]),
-      button('.facebook.social.button', [
+      a('.facebook.social.button', {
+        props: {
+          href: 'https://facebook.com/d3vday',
+          target: '_blank'
+        }
+      }, [
         span('.hidden', 'facebook')
       ]),
-      button('.google.plus.social.button', [
-        span('.hidden', 'google plus')
-      ])
+      // button('.google.plus.social.button', [
+      //   span('.hidden', 'google plus')
+      // ])
     ]),
     div('.right.section', [
-      button('.share.social.button', [
-        i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-        span('.hidden', 'share')
-      ])
+      // button('.share.social.button', [
+      //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+      //   span('.hidden', 'share')
+      // ]),
+      p(['© Copyright 2016, Sahaj Software Solutions Pvt. Ltd.'])
     ])
   ]);
 }
 
 function home(sources: Sources): Sinks {
   const xs = Stream;
+  const dom = sources.dom;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$;
   const noun$ = xs.periodic(1000)
@@ -160,31 +175,50 @@ function home(sources: Sources): Sinks {
     .startWith(0)
     .map(x => x % topics.length)
     .map(i => topics[i]);
-  const more$ =
-    sources.dom
+  const moreClick$ =
+    dom
       .select('.more')
-      .events('click')
-      .map(ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        return true;
-      })
+      .events('click');
+  const more$ =
+    moreClick$
+      .map(ev => true)
       .startWith(false);
+  const eventClick$ =
+    dom
+      .select('.event.card:not(.expanded)')
+      .events('click');
+  const expand$ =
+    eventClick$
+      .map(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
+      .startWith('');
+  const expandedEventClick$ =
+    dom
+      .select('.event.card.expanded')
+      .events('click');
+  const shorten$ =
+    xs.merge(
+      expand$
+        .filter(e => e !== '')
+        .map(() => xs.of(false)),
+      expandedEventClick$
+        .map(ev => xs.of(true))
+        .startWith(xs.of(false))
+    ).flatten();
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more]) =>
+          .map(([noun, topic, events, more, expand, shorten]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
                   div('.content', [
                     renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(renderEvent),
-                      ...moreEvents(events, more).map(renderEvent),
+                      ...topEvents(events).map(event => renderEvent(event, expand, shorten)),
+                      ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten)),
                       nav([
                         a('.more', {
                           props: { href: '#', title: 'view all previous events' },
@@ -204,11 +238,17 @@ function home(sources: Sources): Sinks {
             ])
           )
       ).flatten();
-
+  const prevent$ =
+    xs.merge(
+      moreClick$,
+      eventClick$,
+      expandedEventClick$
+    );
   return {
     dom: vtree$,
     events: xs.empty(),
-    routes: xs.empty()
+    routes: xs.empty(),
+    prevent: prevent$
   };
 }
 

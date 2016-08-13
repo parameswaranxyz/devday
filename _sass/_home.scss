@@ -91,8 +91,7 @@
 
                         & > span {
                             border-bottom: 1px rgba(255,255,255,0.87) solid;
-                            // TODO: Check if needed
-                            // display: inline-block;
+                            display: inline-block;
 
                             &.noun {
                                 width: 160px;
@@ -136,6 +135,8 @@
                         -moz-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
                         -webkit-transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
                         transition: all .15s cubic-bezier(0.4, 0.0, 0.2, 1);
+                        -webkit-transition-property: left, top, right, bottom, position, height, width;
+                        transition-property: left, top, right, bottom, position, height, width;
                         -ms-transform-origin: 0% 0%;
                         -moz-transform-origin: 0% 0%;
                         -webkit-transform-origin: 0% 0%;
@@ -355,6 +356,17 @@
                             width: 56px;
                             display: none;
                         }
+
+                        &.expanded {
+                          position: absolute;
+                          left: 20px;
+                          right: 20px;
+                          bottom: 20px;
+                          top: 20px;
+                          z-index: 11;
+                          height: auto;
+                          width: auto;
+                        }
                     }
 
                     & > nav {
@@ -423,6 +435,7 @@
                         cursor: pointer;
                         opacity: 0.46;
                         border-radius: 2px;
+                        display: inline-block;
 
                         &.twitter {
                             background-image: url('https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png');

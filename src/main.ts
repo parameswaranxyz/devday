@@ -9,10 +9,12 @@ function main(sources: Sources): Sinks {
   const vdom$ = xs.merge(homeSinks.dom, eventSinks.dom);
   const route$ = xs.merge(homeSinks.routes, eventSinks.routes);
   const event$ = xs.merge(homeSinks.events, eventSinks.events);
+  const prevent$ = xs.merge(homeSinks.prevent, eventSinks.prevent);
   return {
     dom: vdom$,
     routes: route$,
-    events: event$ 
+    events: event$,
+    prevent: prevent$
   };
 }
 
