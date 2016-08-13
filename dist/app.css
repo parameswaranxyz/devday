@@ -6314,7 +6314,8 @@ iframe {
       height: 24px;
       cursor: pointer;
       opacity: 0.46;
-      border-radius: 2px; }
+      border-radius: 2px;
+      display: inline-block; }
       .devday.home > .container > .layout > .content > footer > .section > .social.button.twitter {
         background-image: url("https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png"); }
       .devday.home > .container > .layout > .content > footer > .section > .social.button.facebook {

@@ -132,21 +132,32 @@ function renderHeader(noun: string, topic: string): VNode {
 function renderFooter(): VNode {
   return footer([
     div('.left.section', [
-      button('.twitter.social.button', [
+      a('.twitter.social.button', {
+        props: {
+          href: 'https://twitter.com/devday_',
+          target: '_blank'
+        }
+      }, [
         span('.hidden', 'twitter')
       ]),
-      button('.facebook.social.button', [
+      a('.facebook.social.button', {
+        props: {
+          href: 'https://facebook.com/d3vday',
+          target: '_blank'
+        }
+      }, [
         span('.hidden', 'facebook')
       ]),
-      button('.google.plus.social.button', [
-        span('.hidden', 'google plus')
-      ])
+      // button('.google.plus.social.button', [
+      //   span('.hidden', 'google plus')
+      // ])
     ]),
     div('.right.section', [
-      button('.share.social.button', [
-        i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-        span('.hidden', 'share')
-      ])
+      // button('.share.social.button', [
+      //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+      //   span('.hidden', 'share')
+      // ]),
+      p(['© Copyright 2016, Sahaj Software Solutions Pvt. Ltd.'])
     ])
   ]);
 }

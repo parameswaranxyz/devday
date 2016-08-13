@@ -1,6 +1,7 @@
 import { DOMSource } from '@cycle/dom/xstream-typings';
 import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
+import { PreventSource } from './drivers/prevent';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
 
@@ -8,6 +9,7 @@ export interface Sources {
   dom: DOMSource;
   routes: RoutesSource;
   events: EventsSource;
+  prevent: PreventSource;
 }
 
 export interface Sinks {

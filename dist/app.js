@@ -2191,21 +2191,29 @@
 	function renderFooter() {
 	    return dom_1.footer([
 	        dom_1.div('.left.section', [
-	            dom_1.button('.twitter.social.button', [
+	            dom_1.a('.twitter.social.button', {
+	                props: {
+	                    href: 'https://twitter.com/devday_',
+	                    target: '_blank'
+	                }
+	            }, [
 	                dom_1.span('.hidden', 'twitter')
 	            ]),
-	            dom_1.button('.facebook.social.button', [
+	            dom_1.a('.facebook.social.button', {
+	                props: {
+	                    href: 'https://facebook.com/d3vday',
+	                    target: '_blank'
+	                }
+	            }, [
 	                dom_1.span('.hidden', 'facebook')
 	            ]),
-	            dom_1.button('.google.plus.social.button', [
-	                dom_1.span('.hidden', 'google plus')
-	            ])
 	        ]),
 	        dom_1.div('.right.section', [
-	            dom_1.button('.share.social.button', [
-	                dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-	                dom_1.span('.hidden', 'share')
-	            ])
+	            // button('.share.social.button', [
+	            //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
+	            //   span('.hidden', 'share')
+	            // ]),
+	            dom_1.p(['© Copyright 2016, Sahaj Software Solutions Pvt. Ltd.'])
 	        ])
 	    ]);
 	}
