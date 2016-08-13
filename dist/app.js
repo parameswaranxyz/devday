@@ -2109,8 +2109,8 @@
 	            return i;
 	    return -1;
 	}
-	function renderEvent(event, expand) {
-	    return dom_1.article('.event.card' + (event.url == expand ? '.expanded' : ''), {
+	function renderEvent(event, expand, shorten) {
+	    return dom_1.article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
 	        attrs: {
 	            'data-url': event.url
 	        },
@@ -2237,19 +2237,28 @@
 	        return element.attributes['data-url'].value;
 	    })
 	        .startWith('');
+	    var shorten$ = dom
+	        .select('.event.card.expanded')
+	        .events('click')
+	        .map(function (ev) {
+	        ev.preventDefault();
+	        ev.stopPropagation();
+	        return true;
+	    })
+	        .startWith(false);
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand); }), [
+	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand, shorten); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten); }), [
 	                                dom_1.nav([
 	                                    dom_1.a('.more', {
 	                                        props: { href: '#', title: 'view all previous events' },

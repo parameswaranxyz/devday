@@ -51,8 +51,8 @@ function findChildIndex(node: VNode): number {
   return -1;
 }
 
-function renderEvent(event: DevdayEvent, expand: string): VNode {
-  return article('.event.card' + (event.url == expand ? '.expanded' : ''), {
+function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNode {
+  return article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
     attrs: {
       'data-url': event.url
     },
@@ -185,21 +185,31 @@ function home(sources: Sources): Sinks {
         return element.attributes['data-url'].value;
       })
       .startWith('');
+  const shorten$ =
+    dom
+      .select('.event.card.expanded')
+      .events('click')
+      .map(ev => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        return true;
+      })
+      .startWith(false);
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand]) =>
+          .map(([noun, topic, events, more, expand, shorten]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
                   div('.content', [
                     renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(event => renderEvent(event, expand)),
-                      ...moreEvents(events, more).map(event => renderEvent(event, expand)),
+                      ...topEvents(events).map(event => renderEvent(event, expand, shorten)),
+                      ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten)),
                       nav([
                         a('.more', {
                           props: { href: '#', title: 'view all previous events' },
