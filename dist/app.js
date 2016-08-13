@@ -2226,22 +2226,13 @@
 	        .select('.more')
 	        .events('click');
 	    var more$ = moreClick$
-	        .map(function (ev) {
-	        ev.preventDefault();
-	        ev.stopPropagation();
-	        return true;
-	    })
+	        .map(function (ev) { return true; })
 	        .startWith(false);
 	    var eventClick$ = dom
 	        .select('.event.card:not(.expanded)')
 	        .events('click');
 	    var expand$ = eventClick$
-	        .map(function (ev) {
-	        ev.preventDefault();
-	        ev.stopPropagation();
-	        var element = ev.currentTarget;
-	        return element.attributes['data-url'].value;
-	    })
+	        .map(function (ev) { return ev.currentTarget.attributes['data-url'].value; })
 	        .startWith('');
 	    var expandedEventClick$ = dom
 	        .select('.event.card.expanded')
@@ -2249,11 +2240,7 @@
 	    var shorten$ = xs.merge(expand$
 	        .filter(function (e) { return e !== ''; })
 	        .map(function () { return xs.of(false); }), expandedEventClick$
-	        .map(function (ev) {
-	        ev.preventDefault();
-	        ev.stopPropagation();
-	        return xs.of(true);
-	    })
+	        .map(function (ev) { return xs.of(true); })
 	        .startWith(xs.of(false))).flatten();
 	    var currentDate = new Date();
 	    var vtree$ = route$
@@ -2287,11 +2274,12 @@
 	            ]);
 	        });
 	    }).flatten();
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$);
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),
 	        routes: xs.empty(),
-	        prevent: xs.empty()
+	        prevent: prevent$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });

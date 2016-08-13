@@ -164,46 +164,33 @@ function home(sources: Sources): Sinks {
     .startWith(0)
     .map(x => x % topics.length)
     .map(i => topics[i]);
-  const moreClick$ = 
-  dom
+  const moreClick$ =
+    dom
       .select('.more')
       .events('click');
   const more$ =
     moreClick$
-      .map(ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        return true;
-      })
+      .map(ev => true)
       .startWith(false);
   const eventClick$ =
     dom
       .select('.event.card:not(.expanded)')
-      .events('click'); 
+      .events('click');
   const expand$ =
-  eventClick$
-      .map(ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        const element = ev.currentTarget as HTMLElement;
-        return element.attributes['data-url'].value;
-      })
+    eventClick$
+      .map(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
       .startWith('');
-      const expandedEventClick$ =
-      dom
-        .select('.event.card.expanded')
-        .events('click');
+  const expandedEventClick$ =
+    dom
+      .select('.event.card.expanded')
+      .events('click');
   const shorten$ =
     xs.merge(
       expand$
         .filter(e => e !== '')
         .map(() => xs.of(false)),
       expandedEventClick$
-        .map(ev => {
-          ev.preventDefault();
-          ev.stopPropagation();
-          return xs.of(true);
-        })
+        .map(ev => xs.of(true))
         .startWith(xs.of(false))
     ).flatten();
   const currentDate = new Date();
@@ -240,12 +227,17 @@ function home(sources: Sources): Sinks {
             ])
           )
       ).flatten();
-
+  const prevent$ =
+    xs.merge(
+      moreClick$,
+      eventClick$,
+      expandedEventClick$
+    );
   return {
     dom: vtree$,
     events: xs.empty(),
     routes: xs.empty(),
-    prevent: xs.empty()
+    prevent: prevent$
   };
 }
 
