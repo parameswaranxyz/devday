@@ -2054,11 +2054,12 @@
 	    var vdom$ = xstream_1.default.merge(homeSinks.dom, eventSinks.dom);
 	    var route$ = xstream_1.default.merge(homeSinks.routes, eventSinks.routes);
 	    var event$ = xstream_1.default.merge(homeSinks.events, eventSinks.events);
+	    var prevent$ = xstream_1.default.merge(homeSinks.prevent, eventSinks.prevent);
 	    return {
 	        dom: vdom$,
 	        routes: route$,
 	        events: event$,
-	        prevent: xstream_1.default.empty()
+	        prevent: prevent$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -2286,7 +2287,8 @@
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),
-	        routes: xs.empty()
+	        routes: xs.empty(),
+	        prevent: xs.empty()
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9404,7 +9406,8 @@
 	    return {
 	        dom: vdom$,
 	        routes: xs.empty(),
-	        events: eventRequest$
+	        events: eventRequest$,
+	        prevent: xs.empty()
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });

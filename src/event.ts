@@ -162,7 +162,8 @@ function event(sources: Sources): Sinks {
   return {
     dom: vdom$,
     routes: xs.empty(),
-    events: eventRequest$
+    events: eventRequest$,
+    prevent: xs.empty()
   };
 }
 

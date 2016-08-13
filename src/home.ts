@@ -238,7 +238,8 @@ function home(sources: Sources): Sinks {
   return {
     dom: vtree$,
     events: xs.empty(),
-    routes: xs.empty()
+    routes: xs.empty(),
+    prevent: xs.empty()
   };
 }
 
