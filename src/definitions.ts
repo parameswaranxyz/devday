@@ -14,6 +14,7 @@ export interface Sinks {
   dom: Stream<VNode>;
   routes: Stream<string>;
   events: Stream<string>;
+  prevent: Stream<Event>;
 }
 
 export interface EventTime {

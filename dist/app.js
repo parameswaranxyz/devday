@@ -50,10 +50,12 @@
 	var dom_1 = __webpack_require__(8);
 	var router_1 = __webpack_require__(125);
 	var events_1 = __webpack_require__(126);
+	var prevent_1 = __webpack_require__(127);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
-	    events: events_1.makeEventsDriver()
+	    events: events_1.makeEventsDriver(),
+	    prevent: prevent_1.makePreventDriver()
 	});
 
 
@@ -2055,7 +2057,8 @@
 	    return {
 	        dom: vdom$,
 	        routes: route$,
-	        events: event$
+	        events: event$,
+	        prevent: xstream_1.default.empty()
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9499,6 +9502,38 @@
 	exports.makeEventsDriver = makeEventsDriver;
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = makeEventsDriver;
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var PreventSource = (function () {
+	    function PreventSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function (ev) {
+	                ev.preventDefault();
+	                ev.stopPropagation();
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	    }
+	    return PreventSource;
+	}());
+	exports.PreventSource = PreventSource;
+	function makePreventDriver() {
+	    function preventDriver(event$) {
+	        return new PreventSource(event$);
+	    }
+	    return preventDriver;
+	}
+	exports.makePreventDriver = makePreventDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makePreventDriver;
 
 
 /***/ }
