@@ -2222,18 +2222,20 @@
 	        .startWith(0)
 	        .map(function (x) { return x % topics.length; })
 	        .map(function (i) { return topics[i]; });
-	    var more$ = dom
+	    var moreClick$ = dom
 	        .select('.more')
-	        .events('click')
+	        .events('click');
+	    var more$ = moreClick$
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();
 	        return true;
 	    })
 	        .startWith(false);
-	    var expand$ = dom
+	    var eventClick$ = dom
 	        .select('.event.card:not(.expanded)')
-	        .events('click')
+	        .events('click');
+	    var expand$ = eventClick$
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();
@@ -2241,11 +2243,12 @@
 	        return element.attributes['data-url'].value;
 	    })
 	        .startWith('');
+	    var expandedEventClick$ = dom
+	        .select('.event.card.expanded')
+	        .events('click');
 	    var shorten$ = xs.merge(expand$
 	        .filter(function (e) { return e !== ''; })
-	        .map(function () { return xs.of(false); }), dom
-	        .select('.event.card.expanded')
-	        .events('click')
+	        .map(function () { return xs.of(false); }), expandedEventClick$
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();

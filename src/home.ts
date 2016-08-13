@@ -164,20 +164,24 @@ function home(sources: Sources): Sinks {
     .startWith(0)
     .map(x => x % topics.length)
     .map(i => topics[i]);
-  const more$ =
-    dom
+  const moreClick$ = 
+  dom
       .select('.more')
-      .events('click')
+      .events('click');
+  const more$ =
+    moreClick$
       .map(ev => {
         ev.preventDefault();
         ev.stopPropagation();
         return true;
       })
       .startWith(false);
-  const expand$ =
+  const eventClick$ =
     dom
       .select('.event.card:not(.expanded)')
-      .events('click')
+      .events('click'); 
+  const expand$ =
+  eventClick$
       .map(ev => {
         ev.preventDefault();
         ev.stopPropagation();
@@ -185,14 +189,16 @@ function home(sources: Sources): Sinks {
         return element.attributes['data-url'].value;
       })
       .startWith('');
+      const expandedEventClick$ =
+      dom
+        .select('.event.card.expanded')
+        .events('click');
   const shorten$ =
     xs.merge(
       expand$
         .filter(e => e !== '')
         .map(() => xs.of(false)),
-      dom
-        .select('.event.card.expanded')
-        .events('click')
+      expandedEventClick$
         .map(ev => {
           ev.preventDefault();
           ev.stopPropagation();
