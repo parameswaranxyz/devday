@@ -138,16 +138,16 @@ function renderFooter(): VNode {
           target: '_blank'
         }
       }, [
-        span('.hidden', 'twitter')
-      ]),
+          span('.hidden', 'twitter')
+        ]),
       a('.facebook.social.button', {
         props: {
           href: 'https://facebook.com/d3vday',
           target: '_blank'
         }
       }, [
-        span('.hidden', 'facebook')
-      ]),
+          span('.hidden', 'facebook')
+        ]),
       // button('.google.plus.social.button', [
       //   span('.hidden', 'google plus')
       // ])
