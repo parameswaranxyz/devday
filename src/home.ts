@@ -51,8 +51,8 @@ function findChildIndex(node: VNode): number {
   return -1;
 }
 
-function renderEvent(event: DevdayEvent): VNode {
-  return article('.event.card', {
+function renderEvent(event: DevdayEvent, expand: string): VNode {
+  return article('.event.card' + (event.url == expand ? '.expanded' : ''), {
     attrs: {
       'data-url': event.url
     },
@@ -176,17 +176,15 @@ function home(sources: Sources): Sinks {
       .startWith(false);
   const expand$ =
     dom
-      .select('.event.card')
+      .select('.event.card:not(.expanded)')
       .events('click')
       .map(ev => {
         ev.preventDefault();
         ev.stopPropagation();
-        const classes = (ev.currentTarget as HTMLElement).classList;
-        classes.toggle('expanded');
-        console.log('event card clicked');
-        return true;
+        const element = ev.currentTarget as HTMLElement;
+        return element.attributes['data-url'].value;
       })
-      .startWith(false);
+      .startWith('');
   const currentDate = new Date();
   const vtree$ =
     route$
@@ -200,8 +198,8 @@ function home(sources: Sources): Sinks {
                   div('.content', [
                     renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(renderEvent),
-                      ...moreEvents(events, more).map(renderEvent),
+                      ...topEvents(events).map(event => renderEvent(event, expand)),
+                      ...moreEvents(events, more).map(event => renderEvent(event, expand)),
                       nav([
                         a('.more', {
                           props: { href: '#', title: 'view all previous events' },

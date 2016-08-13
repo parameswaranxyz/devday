@@ -2109,8 +2109,8 @@
 	            return i;
 	    return -1;
 	}
-	function renderEvent(event) {
-	    return dom_1.article('.event.card', {
+	function renderEvent(event, expand) {
+	    return dom_1.article('.event.card' + (event.url == expand ? '.expanded' : ''), {
 	        attrs: {
 	            'data-url': event.url
 	        },
@@ -2228,17 +2228,15 @@
 	    })
 	        .startWith(false);
 	    var expand$ = dom
-	        .select('.event.card')
+	        .select('.event.card:not(.expanded)')
 	        .events('click')
 	        .map(function (ev) {
 	        ev.preventDefault();
 	        ev.stopPropagation();
-	        var classes = ev.currentTarget.classList;
-	        classes.toggle('expanded');
-	        console.log('event card clicked');
-	        return true;
+	        var element = ev.currentTarget;
+	        return element.attributes['data-url'].value;
 	    })
-	        .startWith(false);
+	        .startWith('');
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
@@ -2251,7 +2249,7 @@
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(renderEvent).concat(moreEvents(events, more).map(renderEvent), [
+	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand); }), [
 	                                dom_1.nav([
 	                                    dom_1.a('.more', {
 	                                        props: { href: '#', title: 'view all previous events' },
