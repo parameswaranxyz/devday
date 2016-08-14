@@ -3,6 +3,7 @@ import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
+import { getAgendaNodes } from './event';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
@@ -92,6 +93,9 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
         div('.content',
           [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
             .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+      ]),
+      div('.agenda', [
+        div('.content', getAgendaNodes(event.agenda))
       ]),
       div('.secondary.info', [
         div('.content', [

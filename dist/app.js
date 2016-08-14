@@ -2074,6 +2074,7 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
+	var event_1 = __webpack_require__(124);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function topEvents(events) {
@@ -2153,6 +2154,9 @@
 	        dom_1.div('.speakers', [
 	            dom_1.div('.content', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
 	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
+	        ]),
+	        dom_1.div('.agenda', [
+	            dom_1.div('.content', event_1.getAgendaNodes(event.agenda))
 	        ]),
 	        dom_1.div('.secondary.info', [
 	            dom_1.div('.content', [
@@ -9295,6 +9299,13 @@
 	        case definitions_1.AgendaEntryType.Talk:
 	            return [
 	                dom_1.div('.thumbnail', [
+	                    dom_1.img('.avatar', {
+	                        props: {
+	                            src: entry.authors[0] != undefined
+	                                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+	                                : 'images/speakers/devday-speaker.png'
+	                        }
+	                    }),
 	                    dom_1.h5([getHHMM(entry.time.start_time)]),
 	                    dom_1.h6([getMeridien(entry.time.start_time)])
 	                ]),
@@ -9321,6 +9332,7 @@
 	function getAgendaNodes(agenda) {
 	    return [].concat.apply([], agenda.map(renderAgendaEntry));
 	}
+	exports.getAgendaNodes = getAgendaNodes;
 	function renderAgenda(agenda) {
 	    return dom_1.section('.centered.agenda', [
 	        dom_1.div('.twelve.column.card', [
