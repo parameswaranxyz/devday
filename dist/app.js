@@ -2133,6 +2133,7 @@
 	                            setTimeout(function () {
 	                                element.querySelector('.secondary.info').classList.add('loaded');
 	                                element.querySelector('.speakers > .content').classList.add('loaded');
+	                                element.querySelector('.agenda > .content').classList.add('loaded');
 	                                setTimeout(function () {
 	                                    element.querySelector('.secondary.info > .content').classList.add('loaded');
 	                                }, 150);
@@ -9299,6 +9300,10 @@
 	        case definitions_1.AgendaEntryType.Talk:
 	            return [
 	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
 	                    dom_1.img('.avatar', {
 	                        props: {
 	                            src: entry.authors[0] != undefined
@@ -9306,10 +9311,6 @@
 	                                : 'images/speakers/devday-speaker.png'
 	                        }
 	                    }),
-	                    dom_1.h5([getHHMM(entry.time.start_time)]),
-	                    dom_1.h6([getMeridien(entry.time.start_time)])
-	                ]),
-	                dom_1.div('.info', [
 	                    dom_1.h5(entry.title),
 	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
 	                    entry.abstract

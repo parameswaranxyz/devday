@@ -46,6 +46,10 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
     case AgendaEntryType.Talk:
       return [
         div('.thumbnail', [
+          h5([getHHMM(entry.time.start_time)]),
+          h6([getMeridien(entry.time.start_time)])
+        ]),
+        div('.info', [
           img('.avatar', {
             props: {
               src:
@@ -54,10 +58,6 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
                 : 'images/speakers/devday-speaker.png'
             }
           }),
-          h5([getHHMM(entry.time.start_time)]),
-          h6([getMeridien(entry.time.start_time)])
-        ]),
-        div('.info', [
           h5(entry.title),
           h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
           entry.abstract

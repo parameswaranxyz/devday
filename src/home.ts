@@ -71,6 +71,7 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
               setTimeout(() => {
                 element.querySelector('.secondary.info').classList.add('loaded');
                 element.querySelector('.speakers > .content').classList.add('loaded');
+                element.querySelector('.agenda > .content').classList.add('loaded');
                 setTimeout(() => {
                   element.querySelector('.secondary.info > .content').classList.add('loaded');
                 }, 150);
