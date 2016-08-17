@@ -3,6 +3,7 @@ import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
+import { getAgendaNodes } from './event';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
@@ -70,6 +71,7 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
               setTimeout(() => {
                 element.querySelector('.secondary.info').classList.add('loaded');
                 element.querySelector('.speakers > .content').classList.add('loaded');
+                element.querySelector('.agenda > .content').classList.add('loaded');
                 setTimeout(() => {
                   element.querySelector('.secondary.info > .content').classList.add('loaded');
                 }, 150);
@@ -93,6 +95,9 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
           [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
             .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
       ]),
+      div('.agenda', [
+        div('.content', getAgendaNodes(event.agenda))
+      ]),
       div('.secondary.info', [
         div('.content', [
           div('.location', [
@@ -100,6 +105,13 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
               event.venue.locality + ',',
               br(),
               event.venue.city
+            ]),
+            a({ props: { href: event.venue.map_link } }, [
+              div('.filler', {
+                attrs: {
+                  style: `background-image: url("${event.venue.map_image}");`
+                }
+              })
             ])
           ]),
           div('.attending', [

@@ -149,7 +149,6 @@
                           opacity: 1;
                         }
 
-
                         & > .primary.info {
                           position: absolute;
                           z-index: 0;
@@ -265,6 +264,128 @@
                           }
                         }
 
+                        & > .agenda {
+                          display: none;
+                          z-index: 1;
+                          background: #7986CB;
+                          @extend .mdl-grid;
+                          @extend .mdl-grid--no-spacing;
+                          padding: 0;
+
+                          & > .content {
+                            @extend .mdl-grid;
+                            padding: 60px 0 20px;
+                            opacity: 0;
+                            -webkit-transition-property: opacity;
+                            transition-property: opacity;
+                            -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                            position: relative;
+
+                            &.loaded {
+                              opacity: 1;
+                            }
+
+                            &::before {
+                              content: 'agenda';
+                              text-transform: uppercase;
+                              font-weight: bold;
+                              position: absolute;
+                              top: 20px;
+                              left: 20px;
+                              color: $light-primary-text-color;
+                            }
+
+                            & > .thumbnail {
+                              @extend .mdl-cell;
+                              @extend .mdl-cell--2-col-desktop;
+                              @extend .mdl-cell--2-col-tablet;
+                              @extend .mdl-cell--1-col-phone;
+                              margin: 0;
+                              text-align: center;
+                              color: $light-primary-text-color;
+
+                              h5, h6 {
+                                color: $light-primary-text-color;
+                                margin: 0;
+                              }
+
+                              &.break {
+                                h5 {
+                                  font-size: inherit;
+                                  margin: 0;
+                                }
+                              }
+                            }
+
+                            & > .info {
+                              @extend .mdl-cell;
+                              @extend .mdl-cell--10-col-desktop;
+                              @extend .mdl-cell--6-col-tablet;
+                              @extend .mdl-cell--3-col-phone;
+                              -webkit-flex-grow: 1;
+                              -ms-flex-positive: 1;
+                              flex-grow: 1;
+                              -webkit-flex-shrink: 0;
+                              -ms-flex-negative: 0;
+                              flex-shrink: 0;
+                              padding: 0 20px 20px 0;
+                              margin: 0;
+                              color: $light-disabled-text-color;
+
+                              .avatar {
+                                float: left;
+                                width: 40px;
+                                border-radius: 50%;
+                                margin-right: 20px;
+                              }
+
+                              h6 {
+                                margin: -10px 0 8px;
+                                text-transform: capitalize;
+                                font-size: small;
+                                color: $light-disabled-text-color;
+                              }
+
+                              h5 {
+                                margin: 0;
+                                text-transform: capitalize;
+                                margin-bottom: 0.5em;
+                                font-size: inherit;
+                                color: $light-primary-text-color;
+                              }
+
+                              p {
+                                color: $light-secondary-text-color;
+                              }
+
+                              &.break {
+
+                                .centerer {
+                                  white-space: nowrap;
+                                  height: 100%;
+
+                                  &:before {
+                                    content: '';
+                                    display: inline-block;
+                                    height: 100%;
+                                    vertical-align: middle;
+                                    margin-right: -0.25em;
+                                  }
+
+                                  h5 {
+                                    text-transform: uppercase;
+                                    display: inline-block;
+                                    vertical-align: middle;
+                                    width: 300px;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+
                         & > .secondary.info {
                           position: absolute;
                           z-index: 2;
@@ -320,6 +441,15 @@
                                 font-size: 0.875em;
                                 line-height: 1em;
                               }
+
+                              .filler {
+                                background-repeat: no-repeat;
+                                background-size: cover;
+                                background-position: center;
+                                height: 200px;
+                                position: relative;
+                                display: none;
+                              }
                             }
 
                             & > .attending {
@@ -366,6 +496,54 @@
                           z-index: 11;
                           height: auto;
                           width: auto;
+
+                          & > .primary.info {
+                            position: initial;
+                            height: 312px;
+                            float: left;
+                            width: 65%;
+                          }
+
+                          & > .background {
+                            height: 312px;
+                            float: right;
+                          }
+
+                          & > .speakers {
+                            display: none;
+                          }
+                          & > .agenda {
+                            display: block;
+                          }
+
+                          & > .secondary.info {
+                            position: initial;
+                            top: 0;
+                            height: auto;
+
+                            & > .content {
+                              width: auto;
+                              height: auto;
+
+                              & > .location {
+                              padding: 30px 0 20px;
+                                
+                                &::before {
+                                  top: 0;
+                                }
+
+                                & > address {
+                                  position: initial;
+                                  top: 0;
+                                  margin-bottom: 10px;
+                                }
+                                
+                                .filler {
+                                  display: block;
+                                }
+                              }
+                            }
+                          }
                         }
                     }
 

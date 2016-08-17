@@ -50,6 +50,14 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
           h6([getMeridien(entry.time.start_time)])
         ]),
         div('.info', [
+          img('.avatar', {
+            props: {
+              src:
+              entry.authors[0] != undefined
+                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+                : 'images/speakers/devday-speaker.png'
+            }
+          }),
           h5(entry.title),
           h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
           entry.abstract
@@ -70,7 +78,7 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   }
 }
 
-function getAgendaNodes(agenda: AgendaEntry[]): VNode[] {
+export function getAgendaNodes(agenda: AgendaEntry[]): VNode[] {
   return [].concat.apply([], agenda.map(renderAgendaEntry));
 }
 
@@ -131,8 +139,8 @@ function event(sources: Sources): Sinks {
                               style: `background-image: url("${event.venue.map_image}");`
                             }
                           }, [
-                            h4(['Location'])
-                          ])
+                              h4(['Location'])
+                            ])
                         ])
                       ])
                     ]),
