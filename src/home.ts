@@ -105,6 +105,13 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
               event.venue.locality + ',',
               br(),
               event.venue.city
+            ]),
+            a({ props: { href: event.venue.map_link } }, [
+              div('.filler', {
+                attrs: {
+                  style: `background-image: url("${event.venue.map_image}");`
+                }
+              })
             ])
           ]),
           div('.attending', [

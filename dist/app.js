@@ -2166,6 +2166,13 @@
 	                        event.venue.locality + ',',
 	                        dom_1.br(),
 	                        event.venue.city
+	                    ]),
+	                    dom_1.a({ props: { href: event.venue.map_link } }, [
+	                        dom_1.div('.filler', {
+	                            attrs: {
+	                                style: "background-image: url(\"" + event.venue.map_image + "\");"
+	                            }
+	                        })
 	                    ])
 	                ]),
 	                dom_1.div('.attending', [

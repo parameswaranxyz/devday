@@ -6318,6 +6318,13 @@ iframe {
               color: white;
               font-size: 0.875em;
               line-height: 1em; }
+            .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .location .filler {
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-position: center;
+              height: 200px;
+              position: relative;
+              display: none; }
           .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .attending {
             position: relative;
             float: right;
@@ -6362,7 +6369,21 @@ iframe {
           display: block; }
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info {
           position: initial;
-          top: 0; }
+          top: 0;
+          height: auto; }
+          .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content {
+            width: auto;
+            height: auto; }
+            .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location {
+              padding: 30px 0 20px; }
+              .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location::before {
+                top: 0; }
+              .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location > address {
+                position: initial;
+                top: 0;
+                margin-bottom: 10px; }
+              .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location .filler {
+                display: block; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;
