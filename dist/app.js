@@ -9469,6 +9469,7 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var events_1 = __webpack_require__(122);
+	var meetups_1 = __webpack_require__(128);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
@@ -9484,8 +9485,20 @@
 	                    .filter(function (event) { return url === event.url; })
 	                    .shift();
 	            });
+	        var meetupsEvent$ = xs.fromArray(events_1.default.filter(function (event) {
+	            return event.meetup_event_id != undefined
+	                && event.meetup_urlname != undefined;
+	        }));
+	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
+	        var meetups$ = meetups.event$;
+	        meetups$.map(function (meetup) {
+	            var index = events_1.default.findIndex(function (event) { return event.meetup_event_id === meetup.id; });
+	            if (index === -1)
+	                return;
+	            events_1.default[index].attending = meetup.yes_rsvp_count;
+	        });
 	        this.events$ =
-	            event$
+	            xs.merge(event$, meetups$)
 	                .mapTo(events_1.default)
 	                .startWith(events_1.default);
 	    }
