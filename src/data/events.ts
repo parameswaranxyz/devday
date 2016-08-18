@@ -466,7 +466,9 @@ export const events: DevdayEvent[] = [
     ],
     color: '#f7df1e',
     background_size: '200px',
-    image_url: 'images/events/js_everywhere.png'
+    image_url: 'images/events/js_everywhere.png',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '232886624'
   }
 ];
 export default events;
