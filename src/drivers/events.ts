@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import events from './../data/events';
 import { DevdayEvent } from './../definitions';
-import { makeMeetupsDriver, MeetupsSource } from './../drivers/meetups';
+import { makeMeetupsDriver } from './meetups';
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
@@ -26,7 +26,7 @@ export class EventsSource {
           && event.meetup_urlname != undefined
         )
       );
-    const meetups: MeetupsSource = makeMeetupsDriver()(meetupsEvent$);
+    const meetups = makeMeetupsDriver()(meetupsEvent$);
     const meetups$ = meetups.event$;
     meetups$.map(meetup => {
       const index = events.findIndex(event => event.meetup_event_id === meetup.id);
