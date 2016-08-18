@@ -14,7 +14,7 @@ export class MeetupsSource {
           const requestOptions: RequestOptions = {
             url: MEETUP_EVENT_URL
               .replace(':urlname', event.meetup_urlname)
-              .replace(':id', event.meetup_event_id.toString()),
+              .replace(':id', event.meetup_event_id),
             category: 'meetups',
           };
           return requestOptions;

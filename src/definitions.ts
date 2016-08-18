@@ -77,10 +77,11 @@ export interface DevdayEvent {
   background_size?: string;
   color?: string;
   meetup_urlname: string;
-  meetup_event_id: number;
+  meetup_event_id: string;
 }
 
 export interface MeetupEvent {
+  id: string;
   name: string;
   yes_rsvp_count: number;
 }
