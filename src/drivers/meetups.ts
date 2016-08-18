@@ -1,20 +1,13 @@
 import { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
-import { StreamAdapter } from '@cycle/base';
 import XStreamAdapter from '@cycle/xstream-adapter';
-import { DevdayEvent } from './../definitions';
-
-export interface MeetupEvent {
-  name: string;
-  yes_rsvp_count: number;
-}
+import { DevdayEvent, MeetupEvent } from './../definitions';
 
 const MEETUP_EVENT_URL = 'https://api.meetup.com/:urlname/events/:id?&sign=true&photo-host=public';
 
 export class MeetupsSource {
   event$: Stream<MeetupEvent>;
   constructor(meetupRequest$: Stream<DevdayEvent>) {
-    const xs = Stream;
     const request$ =
       meetupRequest$
         .map(event => {

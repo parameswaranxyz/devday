@@ -4,10 +4,12 @@ import { makeDOMDriver } from '@cycle/dom';
 import { makeRoutesDriver } from './drivers/router';
 import { makeEventsDriver } from './drivers/events';
 import { makePreventDriver } from './drivers/prevent';
+import { makeMeetupsDriver } from './drivers/meetups';
 
 run(main, {
   dom: makeDOMDriver('#app'),
   routes: makeRoutesDriver(),
   events: makeEventsDriver(),
-  prevent: makePreventDriver()
+  prevent: makePreventDriver(),
+  meetups: makeMeetupsDriver()
 });
