@@ -159,10 +159,7 @@ function renderFooter(): VNode {
         }
       }, [
           span('.hidden', 'facebook')
-        ]),
-      // button('.google.plus.social.button', [
-      //   span('.hidden', 'google plus')
-      // ])
+        ])
     ]),
     div('.right.section', [
       // button('.share.social.button', [
