@@ -2274,19 +2274,7 @@
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand, shorten); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten); }), [
-	                                dom_1.nav([
-	                                    dom_1.a('.more', {
-	                                        props: { href: '#', title: 'view all previous events' },
-	                                        attrs: { style: more ? 'display: none;' : '' }
-	                                    }, [
-	                                        'Past events',
-	                                        dom_1.button([
-	                                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-	                                        ])
-	                                    ])
-	                                ])
-	                            ])),
+	                            dom_1.main(topEvents(events).map(function (event) { return renderEvent(event, expand, shorten); }).concat(moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten); }))),
 	                            renderFooter()
 	                        ])
 	                    ])
