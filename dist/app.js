@@ -2218,7 +2218,7 @@
 	                }
 	            }, [
 	                dom_1.span('.hidden', 'facebook')
-	            ]),
+	            ])
 	        ]),
 	        dom_1.div('.right.section', [
 	            // button('.share.social.button', [

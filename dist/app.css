@@ -6429,11 +6429,9 @@ iframe {
       border-radius: 2px;
       display: inline-block; }
       .devday.home > .container > .layout > .content > footer > .section > .social.button.twitter {
-        background-image: url("https://www.gstatic.com/images/icons/material/system/2x/post_twitter_black_24dp.png"); }
+        background-image: url("../images/logos/twitter.png"); }
       .devday.home > .container > .layout > .content > footer > .section > .social.button.facebook {
-        background-image: url("https://www.gstatic.com/images/icons/material/system/2x/post_facebook_black_24dp.png"); }
-      .devday.home > .container > .layout > .content > footer > .section > .social.button.google.plus {
-        background-image: url("https://www.gstatic.com/images/icons/material/system/2x/post_gplus_black_24dp.png"); }
+        background-image: url("../images/logos/facebook.png"); }
 
 .devday.event > .container > .layout > main > .panel {
   padding: 8px;
