@@ -76,3 +76,8 @@ export interface DevdayEvent {
   meetup_urlname: string;
   meetup_event_id: number;
 }
+
+export interface MeetupEvent {
+  name: string;
+  yes_rsvp_count: number;
+}
