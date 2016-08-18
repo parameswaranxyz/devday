@@ -9492,15 +9492,15 @@
 	                && event.meetup_urlname != undefined;
 	        }));
 	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
-	        var meetups$ = meetups.event$;
-	        meetups$.map(function (meetup) {
+	        var meetup$ = meetups.event$;
+	        meetup$.map(function (meetup) {
 	            var index = events_1.default.findIndex(function (event) { return event.meetup_event_id === meetup.id; });
 	            if (index === -1)
 	                return;
 	            events_1.default[index].attending = meetup.yes_rsvp_count;
 	        });
 	        this.events$ =
-	            xs.merge(event$, meetups$)
+	            xs.merge(event$, meetup$)
 	                .mapTo(events_1.default)
 	                .startWith(events_1.default);
 	    }
