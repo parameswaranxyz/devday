@@ -18,6 +18,8 @@
   "homepage": "https://github.com/artfuldev/devday",
   "dependencies": {
     "@cycle/dom": "^10.1.0",
+    "@cycle/http": "^10.1.0",
+    "@cycle/xstream-adapter": "^3.0.3",
     "@cycle/xstream-run": "^3.0.3",
     "xstream": "^5.2.1"
   },

@@ -2,6 +2,7 @@ import { DOMSource } from '@cycle/dom/xstream-typings';
 import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
+import { MeetupsSource } from './drivers/meetups';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
 
@@ -10,6 +11,7 @@ export interface Sources {
   routes: RoutesSource;
   events: EventsSource;
   prevent: PreventSource;
+  meetups: MeetupsSource;
 }
 
 export interface Sinks {
@@ -17,6 +19,7 @@ export interface Sinks {
   routes: Stream<string>;
   events: Stream<string>;
   prevent: Stream<Event>;
+  meetups: Stream<DevdayEvent>;
 }
 
 export interface EventTime {
@@ -73,4 +76,13 @@ export interface DevdayEvent {
   image_url?: string;
   background_size?: string;
   color?: string;
+  meetup_urlname?: string;
+  meetup_event_id?: string;
+  attending?: number;
+}
+
+export interface MeetupEvent {
+  id: string;
+  name: string;
+  yes_rsvp_count: number;
 }
