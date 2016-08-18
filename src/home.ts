@@ -231,17 +231,17 @@ function home(sources: Sources): Sinks {
                     main([
                       ...topEvents(events).map(event => renderEvent(event, expand, shorten)),
                       ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten)),
-                      nav([
-                        a('.more', {
-                          props: { href: '#', title: 'view all previous events' },
-                          attrs: { style: more ? 'display: none;' : '' }
-                        }, [
-                            'Past events',
-                            button([
-                              i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                            ])
-                          ])
-                      ])
+                      // nav([
+                      //   a('.more', {
+                      //     props: { href: '#', title: 'view all previous events' },
+                      //     attrs: { style: more ? 'display: none;' : '' }
+                      //   }, [
+                      //       'Past events',
+                      //       button([
+                      //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                      //       ])
+                      //     ])
+                      // ])
                     ]),
                     renderFooter()
                   ])
