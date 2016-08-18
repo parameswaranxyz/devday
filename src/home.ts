@@ -115,7 +115,7 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
             ])
           ]),
           div('.attending', [
-            p('JOIN NOW')
+            p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
           ])
         ])
       ]),

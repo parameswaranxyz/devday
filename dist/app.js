@@ -2165,7 +2165,7 @@
 	                    ])
 	                ]),
 	                dom_1.div('.attending', [
-	                    dom_1.p('JOIN NOW')
+	                    dom_1.p([event.attending != undefined ? event.attending + " attending" : 'JOIN NOW'])
 	                ])
 	            ])
 	        ]),
