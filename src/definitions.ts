@@ -73,4 +73,6 @@ export interface DevdayEvent {
   image_url?: string;
   background_size?: string;
   color?: string;
+  meetup_urlname: string;
+  meetup_event_id: number;
 }
