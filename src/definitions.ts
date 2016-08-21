@@ -11,7 +11,6 @@ export interface Sources {
   routes: RoutesSource;
   events: EventsSource;
   prevent: PreventSource;
-  meetups: MeetupsSource;
 }
 
 export interface Sinks {
@@ -19,7 +18,6 @@ export interface Sinks {
   routes: Stream<string>;
   events: Stream<string>;
   prevent: Stream<Event>;
-  meetups: Stream<DevdayEvent>;
 }
 
 export interface EventTime {

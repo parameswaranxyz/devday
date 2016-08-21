@@ -1,4 +1,4 @@
-import { Stream, Producer, Listener } from 'xstream';
+import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
 import XStreamAdapter from '@cycle/xstream-adapter';
 import { DevdayEvent, MeetupEvent } from './../definitions';
@@ -9,16 +9,17 @@ export class MeetupsSource {
   event$: Stream<MeetupEvent>;
   constructor(meetupRequest$: Stream<DevdayEvent>) {
     const request$ =
-      meetupRequest$
-        .map(event => {
-          const requestOptions: RequestOptions = {
-            url: MEETUP_EVENT_URL
-              .replace(':urlname', event.meetup_urlname)
-              .replace(':id', event.meetup_event_id),
-            category: 'meetups',
-          };
-          return requestOptions;
-        });
+      xs.empty();
+      // meetupRequest$
+      //   .map(event => {
+      //     const requestOptions: RequestOptions = {
+      //       url: MEETUP_EVENT_URL
+      //         .replace(':urlname', event.meetup_urlname)
+      //         .replace(':id', event.meetup_event_id),
+      //       category: 'meetups'
+      //     };
+      //     return requestOptions;
+      //   });
     const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
     const response$$: Stream<Stream<Response>> = http.select('meetups');
     this.event$ =
