@@ -27,8 +27,8 @@ export class EventsSource {
         )
       );
     const meetups = makeMeetupsDriver()(meetupsEvent$);
-    const meetups$ = meetups.event$;
-    meetups$.map(meetup => {
+    const meetup$ = meetups.event$;
+    meetup$.map(meetup => {
       const index = events.findIndex(event => event.meetup_event_id === meetup.id);
       if (index === -1)
         return;
@@ -37,7 +37,7 @@ export class EventsSource {
     this.events$ =
       xs.merge(
         event$,
-        meetups$
+        meetup$
       )
         .mapTo(events)
         .startWith(events);

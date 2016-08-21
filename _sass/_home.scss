@@ -474,17 +474,39 @@
                           }
                         }
                         
-                        & > .go.to.event.button {
+                        & > .join.event.button {
                             @extend .mdl-button;
                             @extend .mdl-button--fab;
                             @extend .mdl-color--accent;
+                            
                             color: white;
                             position: absolute;
-                            top: -28px;
+                            bottom: 72px;
                             right: 28px;
                             height: 56px;
                             width: 56px;
-                            display: none;
+                            z-index: 20;
+                            transform: scale3d(0, 0, 1);
+
+                            border-radius: 50%;
+                            cursor: pointer;
+                            transition: .6s cubic-bezier(.65,-0.40,.49,1.40);
+                            transition-delay: .2s;
+
+                            &.expand {
+                              cursor: default;
+                              transform: scale3d(21, 21, 1);
+                              transition:.6s cubic-bezier(.65,-0.68,.49,1.94);
+                              transition-delay: .1s;
+
+                              i {
+                                display: none;
+                              }
+                            }
+
+                            &.loaded {
+                              transform: scale3d(1, 1, 1);
+                            }
                         }
 
                         &.expanded {
