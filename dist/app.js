@@ -50,8 +50,8 @@
 	var dom_1 = __webpack_require__(8);
 	var router_1 = __webpack_require__(125);
 	var events_1 = __webpack_require__(126);
-	var prevent_1 = __webpack_require__(127);
-	var meetups_1 = __webpack_require__(128);
+	var prevent_1 = __webpack_require__(137);
+	var meetups_1 = __webpack_require__(127);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2104,7 +2104,8 @@
 	    return -1;
 	}
 	function renderEvent(event, expand, shorten) {
-	    return dom_1.article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
+	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	    return dom_1.article('.event.card' + expanded, {
 	        attrs: {
 	            'data-url': event.url
 	        },
@@ -2169,9 +2170,9 @@
 	                ])
 	            ])
 	        ]),
-	        dom_1.a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
-	            dom_1.span('.hidden', 'go to event'),
-	            dom_1.i('.material-icons', 'keyboard_arrow_right')
+	        dom_1.a('.join.event.button', { props: { title: 'join event', href: '#' }, attrs: { 'data-url': event.url } }, [
+	            dom_1.span('.hidden', 'join event'),
+	            dom_1.i('.material-icons', 'add')
 	        ])
 	    ]);
 	}
@@ -2218,6 +2219,17 @@
 	        ])
 	    ]);
 	}
+	function closest(el, selector) {
+	    var retval = undefined;
+	    while (el) {
+	        if (el.matches(selector)) {
+	            retval = el;
+	            break;
+	        }
+	        el = el.parentElement;
+	    }
+	    return retval;
+	}
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var dom = sources.dom;
@@ -2251,13 +2263,24 @@
 	        .map(function () { return xs.of(false); }), expandedEventClick$
 	        .map(function (ev) { return xs.of(true); })
 	        .startWith(xs.of(false))).flatten();
+	    var joinEventClick$ = dom
+	        .select('.join.event')
+	        .events('click');
+	    var join$ = joinEventClick$
+	        .map(function (ev) {
+	        var anchor = ev.currentTarget;
+	        var card = closest(anchor, '.event.card');
+	        anchor.classList.add('expand');
+	        return card.attributes['data-url'].value;
+	    })
+	        .startWith('');
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
@@ -2271,12 +2294,12 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$);
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),
 	        routes: xs.empty(),
-	        prevent: prevent$
+	        prevent: prevent$,
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9471,7 +9494,7 @@
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
 	var events_1 = __webpack_require__(122);
-	var meetups_1 = __webpack_require__(128);
+	var meetups_1 = __webpack_require__(127);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
@@ -9524,52 +9547,22 @@
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
-	var PreventSource = (function () {
-	    function PreventSource(event$) {
-	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function (ev) {
-	                ev.preventDefault();
-	                ev.stopPropagation();
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	    }
-	    return PreventSource;
-	}());
-	exports.PreventSource = PreventSource;
-	function makePreventDriver() {
-	    function preventDriver(event$) {
-	        return new PreventSource(event$);
-	    }
-	    return preventDriver;
-	}
-	exports.makePreventDriver = makePreventDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makePreventDriver;
-
-
-/***/ },
-/* 128 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var http_1 = __webpack_require__(129);
+	var http_1 = __webpack_require__(128);
 	var xstream_adapter_1 = __webpack_require__(3);
 	var MEETUP_EVENT_URL = 'https://api.meetup.com/:urlname/events/:id?&sign=true&photo-host=public';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
-	        var request$ = meetupRequest$
-	            .map(function (event) {
-	            var requestOptions = {
-	                url: MEETUP_EVENT_URL
-	                    .replace(':urlname', event.meetup_urlname)
-	                    .replace(':id', event.meetup_event_id),
-	                category: 'meetups',
-	            };
-	            return requestOptions;
-	        });
+	        var request$ = xstream_1.default.empty();
+	        // meetupRequest$
+	        //   .map(event => {
+	        //     const requestOptions: RequestOptions = {
+	        //       url: MEETUP_EVENT_URL
+	        //         .replace(':urlname', event.meetup_urlname)
+	        //         .replace(':id', event.meetup_event_id),
+	        //       category: 'meetups'
+	        //     };
+	        //     return requestOptions;
+	        //   });
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('meetups');
 	        this.event$ =
@@ -9592,7 +9585,7 @@
 
 
 /***/ },
-/* 129 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9652,19 +9645,19 @@
 	 * @return {Function} the HTTP Driver function
 	 * @function makeHTTPDriver
 	 */
-	var http_driver_1 = __webpack_require__(130);
+	var http_driver_1 = __webpack_require__(129);
 	exports.makeHTTPDriver = http_driver_1.makeHTTPDriver;
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 130 */
+/* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var xstream_1 = __webpack_require__(4);
-	var MainHTTPSource_1 = __webpack_require__(131);
+	var MainHTTPSource_1 = __webpack_require__(130);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var superagent = __webpack_require__(133);
+	var superagent = __webpack_require__(132);
 	function preprocessReqOptions(reqOptions) {
 	    reqOptions.withCredentials = reqOptions.withCredentials || false;
 	    reqOptions.redirects = typeof reqOptions.redirects === 'number' ? reqOptions.redirects : 5;
@@ -9816,11 +9809,11 @@
 	//# sourceMappingURL=http-driver.js.map
 
 /***/ },
-/* 131 */
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var isolate_1 = __webpack_require__(132);
+	var isolate_1 = __webpack_require__(131);
 	var xstream_adapter_1 = __webpack_require__(3);
 	var MainHTTPSource = (function () {
 	    function MainHTTPSource(_res$$, runStreamAdapter, _namespace) {
@@ -9855,7 +9848,7 @@
 	//# sourceMappingURL=MainHTTPSource.js.map
 
 /***/ },
-/* 132 */
+/* 131 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9881,7 +9874,7 @@
 	//# sourceMappingURL=isolate.js.map
 
 /***/ },
-/* 133 */
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -9898,9 +9891,9 @@
 	  root = this;
 	}
 	
-	var Emitter = __webpack_require__(134);
-	var requestBase = __webpack_require__(135);
-	var isObject = __webpack_require__(136);
+	var Emitter = __webpack_require__(133);
+	var requestBase = __webpack_require__(134);
+	var isObject = __webpack_require__(135);
 	
 	/**
 	 * Noop.
@@ -9912,7 +9905,7 @@
 	 * Expose `request`.
 	 */
 	
-	var request = module.exports = __webpack_require__(137).bind(null, Request);
+	var request = module.exports = __webpack_require__(136).bind(null, Request);
 	
 	/**
 	 * Determine XHR.
@@ -10861,7 +10854,7 @@
 
 
 /***/ },
-/* 134 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -11030,13 +11023,13 @@
 
 
 /***/ },
-/* 135 */
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module of mixed-in functions shared between node and client code
 	 */
-	var isObject = __webpack_require__(136);
+	var isObject = __webpack_require__(135);
 	
 	/**
 	 * Clear previous timeout.
@@ -11383,7 +11376,7 @@
 
 
 /***/ },
-/* 136 */
+/* 135 */
 /***/ function(module, exports) {
 
 	/**
@@ -11402,7 +11395,7 @@
 
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports) {
 
 	// The node and browser modules expose versions of this with the
@@ -11437,6 +11430,38 @@
 	}
 	
 	module.exports = request;
+
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var PreventSource = (function () {
+	    function PreventSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function (ev) {
+	                ev.preventDefault();
+	                ev.stopPropagation();
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	    }
+	    return PreventSource;
+	}());
+	exports.PreventSource = PreventSource;
+	function makePreventDriver() {
+	    function preventDriver(event$) {
+	        return new PreventSource(event$);
+	    }
+	    return preventDriver;
+	}
+	exports.makePreventDriver = makePreventDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makePreventDriver;
 
 
 /***/ }

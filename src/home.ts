@@ -53,7 +53,8 @@ function findChildIndex(node: VNode): number {
 }
 
 function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNode {
-  return article('.event.card' + ((!shorten && (event.url == expand)) ? '.expanded' : ''), {
+  const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+  return article('.event.card' + expanded, {
     attrs: {
       'data-url': event.url
     },
@@ -119,9 +120,9 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
           ])
         ])
       ]),
-      a('.go.to.event.button', { props: { title: 'go to event', href: '#/' + event.url } }, [
-        span('.hidden', 'go to event'),
-        i('.material-icons', 'keyboard_arrow_right')
+      a('.join.event.button', { props: { title: 'join event', href: '#' }, attrs: { 'data-url': event.url } }, [
+        span('.hidden', 'join event'),
+        i('.material-icons', 'add')
       ])
     ]);
 }
@@ -171,6 +172,18 @@ function renderFooter(): VNode {
   ]);
 }
 
+function closest(el: HTMLElement, selector: string): HTMLElement {
+  var retval: HTMLElement = undefined;
+  while (el) {
+    if (el.matches(selector)) {
+      retval = el;
+      break
+    }
+    el = el.parentElement;
+  }
+  return retval;
+}
+
 function home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
@@ -213,13 +226,26 @@ function home(sources: Sources): Sinks {
         .map(ev => xs.of(true))
         .startWith(xs.of(false))
     ).flatten();
+  const joinEventClick$ =
+    dom
+      .select('.join.event')
+      .events('click');
+  const join$ =
+    joinEventClick$
+      .map(ev => {
+        const anchor = ev.currentTarget as HTMLAnchorElement;
+        const card = closest(anchor, '.event.card');
+        anchor.classList.add('expand');
+        return card.attributes['data-url'].value;
+      })
+      .startWith('');
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten]) =>
+          .map(([noun, topic, events, more, expand, shorten, join]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
@@ -251,13 +277,14 @@ function home(sources: Sources): Sinks {
     xs.merge(
       moreClick$,
       eventClick$,
-      expandedEventClick$
+      expandedEventClick$,
+      joinEventClick$
     );
   return {
     dom: vtree$,
     events: xs.empty(),
     routes: xs.empty(),
-    prevent: prevent$
+    prevent: prevent$,
   };
 }
 
