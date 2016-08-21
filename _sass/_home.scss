@@ -493,6 +493,10 @@
                             transition: .6s cubic-bezier(.65,-0.40,.49,1.40);
                             transition-delay: .2s;
 
+                            &.loaded {
+                              transform: scale3d(1, 1, 1);
+                            }
+
                             &.expand {
                               cursor: default;
                               transform: scale3d(21, 21, 1);
@@ -502,10 +506,6 @@
                               i {
                                 display: none;
                               }
-                            }
-
-                            &.loaded {
-                              transform: scale3d(1, 1, 1);
                             }
                         }
 
