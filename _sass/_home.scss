@@ -486,6 +486,7 @@
                             height: 56px;
                             width: 56px;
                             z-index: 20;
+                            opacity: 0;
 
                             border-radius: 50%;
                             cursor: pointer;
@@ -502,6 +503,10 @@
                               i {
                                 display: none;
                               }
+                            }
+
+                            &.loaded {
+                              opacity: 1;
                             }
                         }
 
