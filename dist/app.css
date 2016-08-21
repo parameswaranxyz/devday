@@ -112,7 +112,7 @@ textarea {
 
   h2, h3 {
     page-break-after: avoid; } }
-a, .mdl-accordion, .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button, .devday.home > .container > .layout > .content > main > nav > a > button, .devday.event > .container > .layout > main > .panel > section .card > footer .button, .mdl-card, .devday.home > .container > .layout > .content > main > .event.card, .devday.event > .container > .layout > main > .panel > section .card, .mdl-checkbox, .mdl-dropdown-menu, .mdl-icon-toggle, .mdl-item, .mdl-radio, .mdl-slider, .mdl-switch, .mdl-tabs__tab {
+a, .mdl-accordion, .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button, .devday.home > .container > .layout > .content > main > nav > a > button, .devday.event > .container > .layout > main > .panel > section .card > footer .button, .mdl-card, .devday.home > .container > .layout > .content > main > .event.card, .devday.event > .container > .layout > main > .panel > section .card, .mdl-checkbox, .mdl-dropdown-menu, .mdl-icon-toggle, .mdl-item, .mdl-radio, .mdl-slider, .mdl-switch, .mdl-tabs__tab {
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0); }
 
@@ -2173,7 +2173,7 @@ ul, ol {
 .mdl-color--primary-dark {
   background-color: #303f9f !important; }
 
-.mdl-color--accent, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button {
+.mdl-color--accent, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
   background-color: #ff4081 !important; }
 
 .mdl-color--accent-contrast {
@@ -2260,7 +2260,7 @@ ul, ol {
     background: #ff4081;
     color: white; }
 
-.mdl-button .mdl-badge[data-badge]:after, .devday > .container > .layout > header > .container > .content > .search.box > label .mdl-badge[data-badge]:after, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button .mdl-badge[data-badge]:after, .devday.home > .container > .layout > .content > main > nav > a > button .mdl-badge[data-badge]:after, .devday.event > .container > .layout > main > .panel > section .card > footer .button .mdl-badge[data-badge]:after {
+.mdl-button .mdl-badge[data-badge]:after, .devday > .container > .layout > header > .container > .content > .search.box > label .mdl-badge[data-badge]:after, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button .mdl-badge[data-badge]:after, .devday.home > .container > .layout > .content > main > nav > a > button .mdl-badge[data-badge]:after, .devday.event > .container > .layout > main > .panel > section .card > footer .button .mdl-badge[data-badge]:after {
   top: -10px;
   right: -5px; }
 
@@ -2273,7 +2273,7 @@ ul, ol {
   .mdl-badge.mdl-badge--overlap:after {
     right: -10px; }
 
-.mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button, .devday.home > .container > .layout > .content > main > nav > a > button, .devday.event > .container > .layout > main > .panel > section .card > footer .button {
+.mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button, .devday.home > .container > .layout > .content > main > nav > a > button, .devday.event > .container > .layout > main > .panel > section .card > footer .button {
   background: 0 0;
   border: none;
   border-radius: 2px;
@@ -2298,20 +2298,20 @@ ul, ol {
   text-align: center;
   line-height: 36px;
   vertical-align: middle; }
-  .mdl-button::-moz-focus-inner, .devday > .container > .layout > header > .container > .content > .search.box > label::-moz-focus-inner, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button::-moz-focus-inner, .devday.home > .container > .layout > .content > main > nav > a > button::-moz-focus-inner, .devday.event > .container > .layout > main > .panel > section .card > footer .button::-moz-focus-inner {
+  .mdl-button::-moz-focus-inner, .devday > .container > .layout > header > .container > .content > .search.box > label::-moz-focus-inner, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button::-moz-focus-inner, .devday.home > .container > .layout > .content > main > nav > a > button::-moz-focus-inner, .devday.event > .container > .layout > main > .panel > section .card > footer .button::-moz-focus-inner {
     border: 0; }
-  .mdl-button:hover, .devday > .container > .layout > header > .container > .content > .search.box > label:hover, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button:hover, .devday.home > .container > .layout > .content > main > nav > a > button:hover, .devday.event > .container > .layout > main > .panel > section .card > footer .button:hover {
+  .mdl-button:hover, .devday > .container > .layout > header > .container > .content > .search.box > label:hover, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button:hover, .devday.home > .container > .layout > .content > main > nav > a > button:hover, .devday.event > .container > .layout > main > .panel > section .card > footer .button:hover {
     background-color: rgba(158, 158, 158, 0.2); }
-  .mdl-button:focus:not(:active), .devday > .container > .layout > header > .container > .content > .search.box > label:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button:focus:not(:active), .devday.home > .container > .layout > .content > main > nav > a > button:focus:not(:active), .devday.event > .container > .layout > main > .panel > section .card > footer .button:focus:not(:active) {
+  .mdl-button:focus:not(:active), .devday > .container > .layout > header > .container > .content > .search.box > label:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .join.event.button:focus:not(:active), .devday.home > .container > .layout > .content > main > nav > a > button:focus:not(:active), .devday.event > .container > .layout > main > .panel > section .card > footer .button:focus:not(:active) {
     background-color: rgba(0, 0, 0, 0.12); }
-  .mdl-button:active, .devday > .container > .layout > header > .container > .content > .search.box > label:active, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button:active, .devday.home > .container > .layout > .content > main > nav > a > button:active, .devday.event > .container > .layout > main > .panel > section .card > footer .button:active {
+  .mdl-button:active, .devday > .container > .layout > header > .container > .content > .search.box > label:active, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button:active, .devday.home > .container > .layout > .content > main > nav > a > button:active, .devday.event > .container > .layout > main > .panel > section .card > footer .button:active {
     background-color: rgba(158, 158, 158, 0.4); }
-  .mdl-button.mdl-button--colored, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--colored, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--colored, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--colored.button {
+  .mdl-button.mdl-button--colored, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--colored, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--colored, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--colored.button {
     color: #3f51b5; }
-    .mdl-button.mdl-button--colored:focus:not(:active), .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--colored:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button:focus:not(:active), .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--colored:focus:not(:active), .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--colored.button:focus:not(:active) {
+    .mdl-button.mdl-button--colored:focus:not(:active), .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--colored:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button:focus:not(:active), .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--colored:focus:not(:active), .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--colored.button:focus:not(:active) {
       background-color: rgba(0, 0, 0, 0.12); }
 
-input.mdl-button[type="submit"], .devday.home > .container > .layout > .content > main > .event.card > input[type="submit"].go.to.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer input[type="submit"].button {
+input.mdl-button[type="submit"], .devday.home > .container > .layout > .content > main > .event.card > input[type="submit"].join.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer input[type="submit"].button {
   -webkit-appearance: none; }
 
 .mdl-button--raised {
@@ -2331,7 +2331,7 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
     .mdl-button--raised.mdl-button--colored .mdl-ripple {
       background: white; }
 
-.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button {
+.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
   border-radius: 50%;
   font-size: 24px;
   height: 56px;
@@ -2344,7 +2344,7 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
   box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
   position: relative;
   line-height: normal; }
-  .mdl-button--fab .material-icons, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button .material-icons {
+  .mdl-button--fab .material-icons, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button .material-icons {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2352,25 +2352,25 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
     transform: translate(-12px, -12px);
     line-height: 24px;
     width: 24px; }
-  .mdl-button--fab.mdl-button--mini-fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--mini-fab.go.to.event.button {
+  .mdl-button--fab.mdl-button--mini-fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--mini-fab.join.event.button {
     height: 40px;
     min-width: 40px;
     width: 40px; }
-  .mdl-button--fab .mdl-button__ripple-container, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button .mdl-button__ripple-container {
+  .mdl-button--fab .mdl-button__ripple-container, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button .mdl-button__ripple-container {
     border-radius: 50%;
     -webkit-mask-image: -webkit-radial-gradient(circle, #fff, #000); }
-  .mdl-button--fab:active, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button:active {
+  .mdl-button--fab:active, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button:active {
     box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     background-color: rgba(158, 158, 158, 0.4); }
-  .mdl-button--fab:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button:focus:not(:active) {
+  .mdl-button--fab:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .join.event.button:focus:not(:active) {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36);
     background-color: rgba(158, 158, 158, 0.4); }
-  .mdl-button--fab.mdl-button--colored, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button {
+  .mdl-button--fab.mdl-button--colored, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button {
     background: #ff4081;
     color: white; }
-    .mdl-button--fab.mdl-button--colored:hover, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button:hover, .mdl-button--fab.mdl-button--colored:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button:focus:not(:active), .mdl-button--fab.mdl-button--colored:active, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button:active {
+    .mdl-button--fab.mdl-button--colored:hover, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button:hover, .mdl-button--fab.mdl-button--colored:focus:not(:active), .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button:focus:not(:active), .mdl-button--fab.mdl-button--colored:active, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button:active {
       background-color: #ff4081; }
-    .mdl-button--fab.mdl-button--colored .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.go.to.event.button .mdl-ripple {
+    .mdl-button--fab.mdl-button--colored .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--colored.join.event.button .mdl-ripple {
       background: white; }
 
 .mdl-button--icon, .devday > .container > .layout > header > .container > .content > .search.box > label, .devday.home > .container > .layout > .content > main > nav > a > button {
@@ -2414,14 +2414,14 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
   z-index: 0;
   overflow: hidden; }
 
-.mdl-button[disabled] .mdl-button__ripple-container .mdl-ripple, .devday > .container > .layout > header > .container > .content > .search.box > label[disabled] .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > [disabled].go.to.event.button .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > nav > a > button[disabled] .mdl-button__ripple-container .mdl-ripple, .devday.event > .container > .layout > main > .panel > section .card > footer [disabled].button .mdl-button__ripple-container .mdl-ripple, .mdl-button.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.go.to.event.button .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--disabled.button .mdl-button__ripple-container .mdl-ripple {
+.mdl-button[disabled] .mdl-button__ripple-container .mdl-ripple, .devday > .container > .layout > header > .container > .content > .search.box > label[disabled] .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > [disabled].join.event.button .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > nav > a > button[disabled] .mdl-button__ripple-container .mdl-ripple, .devday.event > .container > .layout > main > .panel > section .card > footer [disabled].button .mdl-button__ripple-container .mdl-ripple, .mdl-button.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.join.event.button .mdl-button__ripple-container .mdl-ripple, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--disabled .mdl-button__ripple-container .mdl-ripple, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--disabled.button .mdl-button__ripple-container .mdl-ripple {
   background-color: transparent; }
 
 .mdl-button--primary.mdl-button--primary {
   color: #3f51b5; }
   .mdl-button--primary.mdl-button--primary .mdl-ripple {
     background: white; }
-  .mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--primary.mdl-button--primary.go.to.event.button {
+  .mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--primary.mdl-button--primary.join.event.button {
     color: white;
     background-color: #3f51b5; }
 
@@ -2429,16 +2429,16 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
   color: #ff4081; }
   .mdl-button--accent.mdl-button--accent .mdl-ripple, .devday.event > .container > .layout > main > .panel > section .card > footer .button .mdl-ripple {
     background: white; }
-  .mdl-button--accent.mdl-button--accent.mdl-button--raised, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--raised.button, .mdl-button--accent.mdl-button--accent.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--accent.mdl-button--accent.go.to.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--fab.button {
+  .mdl-button--accent.mdl-button--accent.mdl-button--raised, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--raised.button, .mdl-button--accent.mdl-button--accent.mdl-button--fab, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--accent.mdl-button--accent.join.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer .devday.home > .container > .layout > .content > main > .event.card > .join.event.button, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--fab.button {
     color: white;
     background-color: #ff4081; }
 
-.mdl-button[disabled][disabled], .devday > .container > .layout > header > .container > .content > .search.box > label[disabled][disabled], .devday.home > .container > .layout > .content > main > .event.card > [disabled][disabled].go.to.event.button, .devday.home > .container > .layout > .content > main > nav > a > button[disabled][disabled], .devday.event > .container > .layout > main > .panel > section .card > footer [disabled][disabled].button, .mdl-button.mdl-button--disabled.mdl-button--disabled, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--disabled.mdl-button--disabled, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.mdl-button--disabled.go.to.event.button, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--disabled.mdl-button--disabled, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--disabled.mdl-button--disabled.button {
+.mdl-button[disabled][disabled], .devday > .container > .layout > header > .container > .content > .search.box > label[disabled][disabled], .devday.home > .container > .layout > .content > main > .event.card > [disabled][disabled].join.event.button, .devday.home > .container > .layout > .content > main > nav > a > button[disabled][disabled], .devday.event > .container > .layout > main > .panel > section .card > footer [disabled][disabled].button, .mdl-button.mdl-button--disabled.mdl-button--disabled, .devday > .container > .layout > header > .container > .content > .search.box > label.mdl-button--disabled.mdl-button--disabled, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.mdl-button--disabled.join.event.button, .devday.home > .container > .layout > .content > main > nav > a > button.mdl-button--disabled.mdl-button--disabled, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-button--disabled.mdl-button--disabled.button {
   color: rgba(0, 0, 0, 0.26);
   cursor: default;
   background-color: transparent; }
 
-.mdl-button--fab[disabled][disabled], .devday.home > .container > .layout > .content > main > .event.card > [disabled][disabled].go.to.event.button, .mdl-button--fab.mdl-button--disabled.mdl-button--disabled, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.mdl-button--disabled.go.to.event.button {
+.mdl-button--fab[disabled][disabled], .devday.home > .container > .layout > .content > main > .event.card > [disabled][disabled].join.event.button, .mdl-button--fab.mdl-button--disabled.mdl-button--disabled, .devday.home > .container > .layout > .content > main > .event.card > .mdl-button--disabled.mdl-button--disabled.join.event.button {
   background-color: rgba(0, 0, 0, 0.12);
   color: rgba(0, 0, 0, 0.26); }
 
@@ -2450,7 +2450,7 @@ input.mdl-button[type="submit"], .devday.home > .container > .layout > .content 
 .mdl-button--colored[disabled][disabled], .mdl-button--colored.mdl-button--disabled.mdl-button--disabled {
   color: rgba(0, 0, 0, 0.26); }
 
-.mdl-button .material-icons, .devday > .container > .layout > header > .container > .content > .search.box > label .material-icons, .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button .material-icons, .devday.home > .container > .layout > .content > main > nav > a > button .material-icons, .devday.event > .container > .layout > main > .panel > section .card > footer .button .material-icons {
+.mdl-button .material-icons, .devday > .container > .layout > header > .container > .content > .search.box > label .material-icons, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button .material-icons, .devday.home > .container > .layout > .content > main > nav > a > button .material-icons, .devday.event > .container > .layout > main > .panel > section .card > footer .button .material-icons {
   vertical-align: middle; }
 
 .mdl-card, .devday.home > .container > .layout > .content > main > .event.card, .devday.event > .container > .layout > main > .panel > section .card {
@@ -4989,7 +4989,7 @@ fieldset[disabled] .mdl-switch .mdl-switch__ripple-container .mdl-ripple {
   max-width: 100%;
   margin: 0;
   padding: 20px 0; }
-  .mdl-textfield .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .mdl-textfield .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button, .devday > .container > .layout > header > .container > .content > .search.box .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button, .mdl-textfield .devday.home > .container > .layout > .content > main > nav > a > button, .devday > .container > .layout > header > .container > .content > .search.box .devday.home > .container > .layout > .content > main > nav > a > button, .mdl-textfield .devday.event > .container > .layout > main > .panel > section .card > footer .button, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-textfield .button, .devday > .container > .layout > header > .container > .content > .search.box .devday.event > .container > .layout > main > .panel > section .card > footer .button, .devday.event > .container > .layout > main > .panel > section .card > footer .devday > .container > .layout > header > .container > .content > .search.box .button {
+  .mdl-textfield .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box .mdl-button, .devday > .container > .layout > header > .container > .content > .search.box > label, .mdl-textfield .devday.home > .container > .layout > .content > main > .event.card > .join.event.button, .devday > .container > .layout > header > .container > .content > .search.box .devday.home > .container > .layout > .content > main > .event.card > .join.event.button, .mdl-textfield .devday.home > .container > .layout > .content > main > nav > a > button, .devday > .container > .layout > header > .container > .content > .search.box .devday.home > .container > .layout > .content > main > nav > a > button, .mdl-textfield .devday.event > .container > .layout > main > .panel > section .card > footer .button, .devday.event > .container > .layout > main > .panel > section .card > footer .mdl-textfield .button, .devday > .container > .layout > header > .container > .content > .search.box .devday.event > .container > .layout > main > .panel > section .card > footer .button, .devday.event > .container > .layout > main > .panel > section .card > footer .devday > .container > .layout > header > .container > .content > .search.box .button {
     position: absolute;
     bottom: 20px; }
 
@@ -6338,14 +6338,26 @@ iframe {
               position: absolute;
               top: 30px;
               color: white; }
-      .devday.home > .container > .layout > .content > main > .event.card > .go.to.event.button {
+      .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
         color: white;
         position: absolute;
-        top: -28px;
+        bottom: 72px;
         right: 28px;
         height: 56px;
         width: 56px;
-        display: none; }
+        z-index: 20;
+        border-radius: 50%;
+        cursor: pointer;
+        transform: scale3d(1, 1, 1);
+        transition: 0.6s cubic-bezier(0.65, -0.4, 0.49, 1.4);
+        transition-delay: .2s; }
+        .devday.home > .container > .layout > .content > main > .event.card > .join.event.button.expand {
+          cursor: default;
+          transform: scale3d(21, 21, 1);
+          transition: 0.6s cubic-bezier(0.65, -0.68, 0.49, 1.94);
+          transition-delay: .1s; }
+          .devday.home > .container > .layout > .content > main > .event.card > .join.event.button.expand i {
+            display: none; }
       .devday.home > .container > .layout > .content > main > .event.card.expanded {
         position: absolute;
         left: 20px;
