@@ -59,6 +59,25 @@ export interface AgendaEntry {
   abstract: string;
 }
 
+export interface DevdayRegistrationForm {
+  url: string;
+  name: string;
+  email: string;
+  mobile: string;
+  type: string;
+  title: string;
+  abstract: string;
+}
+
+export interface DevdayRegistrationData {
+  name: string;
+  email: string;
+  mobile: string;
+  type?: string;
+  title?: string;
+  abstract?: string;
+}
+
 export interface DevdayEvent {
   title: string;
   url: string;
@@ -77,6 +96,7 @@ export interface DevdayEvent {
   meetup_urlname?: string;
   meetup_event_id?: string;
   attending?: number;
+  form?: DevdayRegistrationForm;
 }
 
 export interface MeetupEvent {
