@@ -2,35 +2,11 @@ import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
-import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
+import { topEvents, moreEvents } from './drivers/events';
 import { getAgendaNodes } from './event';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
-
-function topEvents(events: DevdayEvent[]): DevdayEvent[] {
-  const chennaiEvent =
-    events
-      .filter(ev => ev.venue === CHENNAI_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  const bangaloreEvent =
-    events
-      .filter(ev => ev.venue === BANGALORE_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  return [bangaloreEvent, chennaiEvent];
-}
-
-function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
-  if (!more)
-    return [];
-  const topEventsResult = topEvents(events);
-  const sortedEvents =
-    events
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
-  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
-}
 
 function renderBackground(event: DevdayEvent): VNode {
   var style = '';
@@ -300,6 +276,7 @@ function home(sources: Sources): Sinks {
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
+    registrations: xs.empty()
   };
 }
 
