@@ -44,6 +44,7 @@ function getMeridien(date: Date): string {
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   switch (entry.type) {
     case AgendaEntryType.Talk:
+    case AgendaEntryType.Workshop:
       return [
         div('.thumbnail', [
           h5([getHHMM(entry.time.start_time)]),
