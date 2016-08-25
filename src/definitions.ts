@@ -3,6 +3,7 @@ import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
 import { MeetupsSource } from './drivers/meetups';
+import { RegistrationsSource, RegistrationResult } from './drivers/registrations';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
 
@@ -11,6 +12,7 @@ export interface Sources {
   routes: RoutesSource;
   events: EventsSource;
   prevent: PreventSource;
+  registrations: RegistrationsSource;
 }
 
 export interface Sinks {
@@ -18,6 +20,7 @@ export interface Sinks {
   routes: Stream<string>;
   events: Stream<string>;
   prevent: Stream<Event>;
+  registrations: Stream<RegistrationResult>;
 }
 
 export interface EventTime {
@@ -59,6 +62,25 @@ export interface AgendaEntry {
   abstract: string;
 }
 
+export interface DevdayRegistrationForm {
+  url: string;
+  name: string;
+  email: string;
+  mobile: string;
+  type: string;
+  title: string;
+  abstract: string;
+}
+
+export interface DevdayRegistrationData {
+  name: string;
+  email: string;
+  mobile: string;
+  type?: string;
+  title?: string;
+  abstract?: string;
+}
+
 export interface DevdayEvent {
   title: string;
   url: string;
@@ -77,6 +99,7 @@ export interface DevdayEvent {
   meetup_urlname?: string;
   meetup_event_id?: string;
   attending?: number;
+  form?: DevdayRegistrationForm;
 }
 
 export interface MeetupEvent {

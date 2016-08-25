@@ -2,35 +2,11 @@ import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
-import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './data/events';
+import { topEvents, moreEvents } from './drivers/events';
 import { getAgendaNodes } from './event';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
-
-function topEvents(events: DevdayEvent[]): DevdayEvent[] {
-  const chennaiEvent =
-    events
-      .filter(ev => ev.venue === CHENNAI_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  const bangaloreEvent =
-    events
-      .filter(ev => ev.venue === BANGALORE_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  return [bangaloreEvent, chennaiEvent];
-}
-
-function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
-  if (!more)
-    return [];
-  const topEventsResult = topEvents(events);
-  const sortedEvents =
-    events
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
-  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
-}
 
 function renderBackground(event: DevdayEvent): VNode {
   var style = '';
@@ -54,6 +30,7 @@ function findChildIndex(node: VNode): number {
 
 function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNode {
   const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+  const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   return article('.event.card' + expanded, {
     attrs: {
       'data-url': event.url
@@ -121,10 +98,19 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
           ])
         ])
       ]),
-      a('.join.event.button', { props: { title: 'join event', href: '#' }, attrs: { 'data-url': event.url } }, [
-        span('.hidden', 'join event'),
-        i('.material-icons', 'add')
-      ])
+      a('.join.event.button', {
+        props: {
+          title: 'join event',
+          href: '#'
+        },
+        attrs: {
+          'data-url': event.url,
+          style: showForm ? '' : 'display: none !important;'
+        }
+      }, [
+          span('.hidden', 'join event'),
+          i('.material-icons', 'add')
+        ])
     ]);
 }
 
@@ -240,13 +226,17 @@ function home(sources: Sources): Sinks {
         return card.attributes['data-url'].value;
       })
       .startWith('');
+  const animation$ =
+    xs.merge(
+      join$
+    );
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, animation$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, join]) =>
+          .map(([noun, topic, events, more, expand, shorten, animation]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
@@ -286,6 +276,7 @@ function home(sources: Sources): Sinks {
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
+    registrations: xs.empty()
   };
 }
 

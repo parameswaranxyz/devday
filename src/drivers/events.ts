@@ -2,6 +2,7 @@ import { Stream } from 'xstream';
 import events from './../data/events';
 import { DevdayEvent } from './../definitions';
 import { makeMeetupsDriver } from './meetups';
+import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './../data/events';
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
@@ -49,6 +50,30 @@ export function makeEventsDriver(): (event$: Stream<string>) => EventsSource {
     return new EventsSource(event$);
   }
   return eventsDriver;
+}
+
+export function topEvents(events: DevdayEvent[]): DevdayEvent[] {
+  const chennaiEvent =
+    events
+      .filter(ev => ev.venue === CHENNAI_ADDRESS)
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
+      .shift();
+  const bangaloreEvent =
+    events
+      .filter(ev => ev.venue === BANGALORE_ADDRESS)
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
+      .shift();
+  return [bangaloreEvent, chennaiEvent];
+}
+
+export function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
+  if (!more)
+    return [];
+  const topEventsResult = topEvents(events);
+  const sortedEvents =
+    events
+      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
+  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
 }
 
 export default makeEventsDriver;
