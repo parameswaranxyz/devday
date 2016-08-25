@@ -22,6 +22,7 @@ export class RegistrationsSource {
     const response$$: Stream<Stream<Response>> = http.select('registrations');
     this.registration$ =
       response$$
+        .map(response$ => response$.replaceError(error => xs.of<Response>(null)))
         .flatten()
         .filter(Boolean)
         .map(response => ({
