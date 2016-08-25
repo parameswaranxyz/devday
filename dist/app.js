@@ -2105,6 +2105,7 @@
 	}
 	function renderEvent(event, expand, shorten) {
 	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    return dom_1.article('.event.card' + expanded, {
 	        attrs: {
 	            'data-url': event.url
@@ -2171,7 +2172,16 @@
 	                ])
 	            ])
 	        ]),
-	        dom_1.a('.join.event.button', { props: { title: 'join event', href: '#' }, attrs: { 'data-url': event.url } }, [
+	        dom_1.a('.join.event.button', {
+	            props: {
+	                title: 'join event',
+	                href: '#'
+	            },
+	            attrs: {
+	                'data-url': event.url,
+	                style: showForm ? '' : 'display: none !important;'
+	            }
+	        }, [
 	            dom_1.span('.hidden', 'join event'),
 	            dom_1.i('.material-icons', 'add')
 	        ])
@@ -2275,13 +2285,14 @@
 	        return card.attributes['data-url'].value;
 	    })
 	        .startWith('');
+	    var animation$ = xs.merge(join$);
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, animation$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], animation = _a[6];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
@@ -9245,6 +9256,133 @@
 	        image_url: 'images/events/js_everywhere.png',
 	        meetup_urlname: 'devday_chennai',
 	        meetup_event_id: '232886624'
+	    },
+	    {
+	        title: 'Tasting Elixir',
+	        url: 'tasting-elixir',
+	        categories: ['events'],
+	        tags: ['elixir', 'functional programming', 'concurrent programming'],
+	        author: 'devday_ team',
+	        abstract: 'We bring to you Elixir - a concurrent, functional programming language.',
+	        event_time: {
+	            start_time: new Date('2016-08-27T10:30:00+05:30'),
+	            end_time: new Date('2016-08-28T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-08-27T10:30:00+05:30'),
+	            end_time: new Date('2016-08-28T13:30:00+05:30'),
+	        },
+	        venue: exports.BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Hands-On with Elixir',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Navaneeth N",
+	                        image_url: 'images/speakers/navneeth.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-27T10:30:00+05:30')
+	                }
+	            }
+	        ],
+	        color: '#211b33',
+	        image_url: 'images/events/tasting_elixir.jpg',
+	        meetup_urlname: 'devday_bangalore',
+	        meetup_event_id: '233530425'
+	    },
+	    {
+	        title: 'It\'s Real Time',
+	        url: 'its-real-time',
+	        categories: ['events'],
+	        tags: ['real-time', 'rtc', 'webrtc', 'peer-js'],
+	        author: 'devday_ team',
+	        abstract: 'Desktop or offline applications? We\'ve got you covered. Reactive applications? Try cycle. Native moblie applications? We have React Native. Internet of Things? Johnny Five\'s here to help. JavaScript has evolved into one of the easiest and ubiquitous language around, and it looks like there isn\'t much that can\'t be done with it. JS Everywhere - Let\'s rejoice!',
+	        event_time: {
+	            start_time: new Date('2016-09-10T10:00:00+05:30'),
+	            end_time: new Date('2016-09-10T13:00:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-09-10T10:00:00+05:30'),
+	            end_time: new Date('2016-09-10T13:00:00+05:30'),
+	        },
+	        venue: exports.CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Creating offline/desktop applications using Electron',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Sairam Krishnamurthy',
+	                        image_url: 'images/speakers/sairam.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-04T18:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Building native mobile applications using React Native',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Vagmi Mudumbai',
+	                        image_url: 'images/speakers/vagmi.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-04T19:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Functional Reactive Programming with Cycle.js',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Sudarsan Balaji',
+	                        image_url: 'images/speakers/sudarsan.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-04T19:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Writing for IoT using Johnny-Five',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: 'Raj Bharath Kannan',
+	                        image_url: 'images/speakers/raj.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-04-02T13:00:00+05:30')
+	                }
+	            }
+	        ],
+	        color: '#040509',
+	        image_url: 'images/events/its_real_time.jpg',
+	        meetup_urlname: 'devday_chennai',
+	        meetup_event_id: '232886624',
+	        form: {
+	            url: 'https://docs.google.com/a/sahajsoft.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
+	            name: 'entry.2092238618',
+	            email: 'entry.1556369182',
+	            mobile: 'entry.479301265',
+	            type: 'entry.630971362',
+	            title: 'entry.1832696420',
+	            abstract: 'entry.354689399'
+	        }
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9308,6 +9446,7 @@
 	function renderAgendaEntry(entry) {
 	    switch (entry.type) {
 	        case definitions_1.AgendaEntryType.Talk:
+	        case definitions_1.AgendaEntryType.Workshop:
 	            return [
 	                dom_1.div('.thumbnail', [
 	                    dom_1.h5([getHHMM(entry.time.start_time)]),
