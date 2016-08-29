@@ -61,6 +61,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
     url: form.url,
     method: 'POST',
     send: payload,
-    category: 'registrations'
+    category: 'registrations',
+    type: 'application/xml'
   };
 }
