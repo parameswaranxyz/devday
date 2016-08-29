@@ -2106,52 +2106,72 @@
 	            dom_1.span('.hidden', 'join event'),
 	            dom_1.i('.material-icons', 'add')
 	        ]),
-	        dom_1.div('.event.form' + formClassName, [
-	            dom_1.div('.form.text.input.element', [
-	                dom_1.input({
+	        dom_1.form('.event.form' + formClassName, [
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
 	                    props: {
-	                        name: 'name',
+	                        id: 'name',
 	                        placeholder: 'Name'
 	                    }
 	                }),
-	                dom_1.label(['Name'])
-	            ]),
-	            dom_1.div('.form.text.input.element', [
-	                dom_1.input({
+	                dom_1.label('.mdl-textfield__label', {
 	                    props: {
-	                        name: 'email',
+	                        for: 'name'
+	                    }
+	                }, ['Name'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'email',
 	                        placeholder: 'Email'
 	                    }
 	                }),
-	                dom_1.label(['Email'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-textfield.mdl-js-textfield', [
-	                dom_1.input({
+	                dom_1.label('.mdl-textfield__label', {
 	                    props: {
-	                        name: 'mobile',
+	                        for: 'email'
+	                    }
+	                }, ['Email'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'mobile',
 	                        placeholder: 'Mobile'
 	                    }
 	                }),
-	                dom_1.label(['Mobile'])
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'mobile'
+	                    }
+	                }, ['Mobile'])
 	            ]),
 	            dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
-	            dom_1.div('.form.text.input.element', [
-	                dom_1.input({
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
 	                    props: {
-	                        name: 'title',
+	                        id: 'tilte',
 	                        placeholder: 'Title'
 	                    }
 	                }),
-	                dom_1.label(['Title'])
-	            ]),
-	            dom_1.div('.form.text.input.element', [
-	                dom_1.input({
+	                dom_1.label('.mdl-textfield__label', {
 	                    props: {
-	                        name: 'abstract',
+	                        for: 'title'
+	                    }
+	                }, ['Title'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'abstract',
 	                        placeholder: 'Abstract'
 	                    }
 	                }),
-	                dom_1.label(['Abstract'])
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'abstract'
+	                    }
+	                }, ['Abstract'])
 	            ]),
 	            dom_1.button({
 	                props: {
@@ -2358,6 +2378,11 @@
 	        });
 	    }).flatten();
 	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$);
+	    vtree$.compose(delay_1.default(30)).addListener({
+	        next: function () { return window.componentHandler.upgradeDom(); },
+	        complete: function () { },
+	        error: function () { }
+	    });
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),

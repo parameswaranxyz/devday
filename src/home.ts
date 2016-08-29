@@ -1,6 +1,6 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, input, label, makeDOMDriver, VNode } from '@cycle/dom';
+import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, form, input, label, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayEvent, Author } from './definitions';
 import { topEvents, moreEvents } from './drivers/events';
 import { getAgendaNodes } from './event';
@@ -48,52 +48,72 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
         span('.hidden', 'join event'),
         i('.material-icons', 'add')
       ]),
-    div('.event.form' + formClassName, [
-      div('.form.text.input.element', [
-        input({
+    form('.event.form' + formClassName, [
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
           props: {
-            name: 'name',
+            id: 'name',
             placeholder: 'Name'
           }
         }),
-        label(['Name'])
-      ]),
-      div('.form.text.input.element', [
-        input({
+        label('.mdl-textfield__label', {
           props: {
-            name: 'email',
+            for: 'name'
+          }
+        }, ['Name'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'email',
             placeholder: 'Email'
           }
         }),
-        label(['Email'])
-      ]),
-      div('.form.text.input.element.mdl-textfield.mdl-js-textfield', [
-        input({
+        label('.mdl-textfield__label', {
           props: {
-            name: 'mobile',
+            for: 'email'
+          }
+        }, ['Email'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'mobile',
             placeholder: 'Mobile'
           }
         }),
-        label(['Mobile'])
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'mobile'
+          }
+        }, ['Mobile'])
       ]),
       p('Please fill out the following in case you want to present a talk/workshop'),
-      div('.form.text.input.element', [
-        input({
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
           props: {
-            name: 'title',
+            id: 'tilte',
             placeholder: 'Title'
           }
         }),
-        label(['Title'])
-      ]),
-      div('.form.text.input.element', [
-        input({
+        label('.mdl-textfield__label', {
           props: {
-            name: 'abstract',
+            for: 'title'
+          }
+        }, ['Title'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'abstract',
             placeholder: 'Abstract'
           }
         }),
-        label(['Abstract'])
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'abstract'
+          }
+        }, ['Abstract'])
       ]),
       button({
         props: {
@@ -340,6 +360,11 @@ function home(sources: Sources): Sinks {
       joinEventClick$,
       formClick$
     );
+  vtree$.compose(delay<VNode>(30)).addListener({
+    next: () => (<any>window).componentHandler.upgradeDom(),
+    complete: () => {},
+    error: () => {}
+  });
   return {
     dom: vtree$,
     events: xs.empty(),

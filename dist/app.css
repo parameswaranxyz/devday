@@ -6015,6 +6015,9 @@ iframe {
     background-color: transparent !important;
     border-bottom: 4px solid transparent; }
 
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.7); }
+
 .devday.home::before {
   background-size: cover;
   background-attachment: fixed;
