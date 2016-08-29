@@ -11655,7 +11655,8 @@
 	        dom: vdom$,
 	        routes: xs.empty(),
 	        events: eventRequest$,
-	        prevent: xs.empty()
+	        prevent: xs.empty(),
+	        registrations: xs.empty()
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -11800,7 +11801,8 @@
 	        url: form.url,
 	        method: 'POST',
 	        send: payload,
-	        category: 'registrations'
+	        category: 'registrations',
+	        type: 'application/xml'
 	    };
 	}
 
