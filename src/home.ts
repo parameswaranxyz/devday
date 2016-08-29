@@ -31,6 +31,17 @@ function findChildIndex(node: VNode): number {
 
 function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
   const buttonClassName = clicked ? '.expand' : '';
+  const buttonStyle = clicked
+    ? {
+      transform: 'scale(1)',
+      delayed: { transform: 'scale3d(21, 21, 1)' },
+      destroy: { transform: 'scale(1)' }
+    }
+    : {
+      transform: 'scale(0)',
+      delayed: { transform: 'scale(1)' },
+      destroy: { transform: 'scale(0)' }
+    };
   const formClassName = loaded ? '.loaded' : '';
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
@@ -43,7 +54,8 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
       },
       attrs: {
         'data-url': event.url
-      }
+      },
+      style: buttonStyle,
     }, [
         span('.hidden', 'join event'),
         i('.material-icons', 'add')
@@ -124,6 +136,10 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
   ]
 }
 
+const fadeInOutStyle = {
+  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+};
+
 function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, clicked: string, loaded: string): VNode {
   const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
   const clickedBoolean = clicked === event.url;
@@ -148,7 +164,7 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
                 element.querySelector('.speakers > .content').classList.add('loaded');
                 element.querySelector('.agenda > .content').classList.add('loaded');
                 const joinEventButton = element.querySelector('.join.event');
-                if(joinEventButton != undefined)
+                if (joinEventButton != undefined)
                   joinEventButton.classList.add('loaded');
                 setTimeout(() => {
                   element.querySelector('.secondary.info > .content').classList.add('loaded');
@@ -362,8 +378,8 @@ function home(sources: Sources): Sinks {
     );
   vtree$.compose(delay<VNode>(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
-    complete: () => {},
-    error: () => {}
+    complete: () => { },
+    error: () => { }
   });
   return {
     dom: vtree$,

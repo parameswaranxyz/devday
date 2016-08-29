@@ -2089,6 +2089,17 @@
 	}
 	function renderForm(event, clicked, loaded) {
 	    var buttonClassName = clicked ? '.expand' : '';
+	    var buttonStyle = clicked
+	        ? {
+	            transform: 'scale(1)',
+	            delayed: { transform: 'scale3d(21, 21, 1)' },
+	            destroy: { transform: 'scale(1)' }
+	        }
+	        : {
+	            transform: 'scale(0)',
+	            delayed: { transform: 'scale(1)' },
+	            destroy: { transform: 'scale(0)' }
+	        };
 	    var formClassName = loaded ? '.loaded' : '';
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
@@ -2101,7 +2112,8 @@
 	            },
 	            attrs: {
 	                'data-url': event.url
-	            }
+	            },
+	            style: buttonStyle,
 	        }, [
 	            dom_1.span('.hidden', 'join event'),
 	            dom_1.i('.material-icons', 'add')
@@ -2181,6 +2193,9 @@
 	        ])
 	    ];
 	}
+	var fadeInOutStyle = {
+	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+	};
 	function renderEvent(event, expand, shorten, clicked, loaded) {
 	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
 	    var clickedBoolean = clicked === event.url;
