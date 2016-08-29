@@ -2066,6 +2066,7 @@
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
 	var event_1 = __webpack_require__(135);
+	var delay_1 = __webpack_require__(139);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function renderBackground(event) {
@@ -2086,9 +2087,119 @@
 	            return i;
 	    return -1;
 	}
-	function renderEvent(event, expand, shorten) {
-	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	function renderForm(event, clicked, loaded) {
+	    var buttonClassName = clicked ? '.expand' : '';
+	    var buttonStyle = clicked
+	        ? {
+	            transform: 'scale(1)',
+	            delayed: { transform: 'scale3d(21, 21, 1)' },
+	            destroy: { transform: 'scale(1)' }
+	        }
+	        : {
+	            transform: 'scale(0)',
+	            delayed: { transform: 'scale(1)' },
+	            destroy: { transform: 'scale(0)' }
+	        };
+	    var formClassName = loaded ? '.loaded' : '';
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	    if (!showForm)
+	        return [];
+	    return [
+	        dom_1.a('.join.event.button' + buttonClassName, {
+	            props: {
+	                title: 'join event',
+	                href: '#'
+	            },
+	            attrs: {
+	                'data-url': event.url
+	            },
+	            style: buttonStyle,
+	        }, [
+	            dom_1.span('.hidden', 'join event'),
+	            dom_1.i('.material-icons', 'add')
+	        ]),
+	        dom_1.form('.event.form' + formClassName, [
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'name',
+	                        placeholder: 'Name'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'name'
+	                    }
+	                }, ['Name'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'email',
+	                        placeholder: 'Email'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'email'
+	                    }
+	                }, ['Email'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'mobile',
+	                        placeholder: 'Mobile'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'mobile'
+	                    }
+	                }, ['Mobile'])
+	            ]),
+	            dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'title',
+	                        placeholder: 'Title'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'title'
+	                    }
+	                }, ['Title'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'abstract',
+	                        placeholder: 'Abstract'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'abstract'
+	                    }
+	                }, ['Abstract'])
+	            ]),
+	            dom_1.button({
+	                props: {
+	                    type: 'submit'
+	                }
+	            }, ['Join Us!'])
+	        ])
+	    ];
+	}
+	var fadeInOutStyle = {
+	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+	};
+	function renderEvent(event, expand, shorten, clicked, loaded) {
+	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	    var clickedBoolean = clicked === event.url;
+	    var loadedBoolean = loaded === event.url;
 	    return dom_1.article('.event.card' + expanded, {
 	        attrs: {
 	            'data-url': event.url
@@ -2108,7 +2219,9 @@
 	                                element.querySelector('.secondary.info').classList.add('loaded');
 	                                element.querySelector('.speakers > .content').classList.add('loaded');
 	                                element.querySelector('.agenda > .content').classList.add('loaded');
-	                                element.querySelector('.join.event').classList.add('loaded');
+	                                var joinEventButton = element.querySelector('.join.event');
+	                                if (joinEventButton != undefined)
+	                                    joinEventButton.classList.add('loaded');
 	                                setTimeout(function () {
 	                                    element.querySelector('.secondary.info > .content').classList.add('loaded');
 	                                }, 150);
@@ -2154,21 +2267,17 @@
 	                    dom_1.p([event.attending != undefined ? event.attending + " attending" : 'JOIN NOW'])
 	                ])
 	            ])
-	        ]),
-	        dom_1.a('.join.event.button', {
-	            props: {
-	                title: 'join event',
-	                href: '#'
-	            },
-	            attrs: {
-	                'data-url': event.url,
-	                style: showForm ? '' : 'display: none !important;'
-	            }
-	        }, [
-	            dom_1.span('.hidden', 'join event'),
-	            dom_1.i('.material-icons', 'add')
 	        ])
-	    ]);
+	    ].concat(renderForm(event, clickedBoolean, loadedBoolean)));
+	}
+	function getFormData(form) {
+	    return {
+	        name: encodeURIComponent(form.elements['name'].value),
+	        email: encodeURIComponent(form.elements['email'].value),
+	        mobile: encodeURIComponent(form.elements['mobile'].value),
+	        title: encodeURIComponent(form.elements['title'].value),
+	        abstract: encodeURIComponent(form.elements['abstract'].value),
+	    };
 	}
 	function renderHeader(noun, topic) {
 	    return dom_1.header([
@@ -2228,7 +2337,7 @@
 	    var xs = xstream_1.Stream;
 	    var dom = sources.dom;
 	    var route$ = sources.routes.route$;
-	    var events$ = sources.events.events$;
+	    var events$ = sources.events.events$.remember();
 	    var noun$ = xs.periodic(1000)
 	        .startWith(0)
 	        .map(function (x) { return x % nouns.length; })
@@ -2268,20 +2377,42 @@
 	        return card.attributes['data-url'].value;
 	    })
 	        .startWith('');
-	    var animation$ = xs.merge(join$);
+	    var formClick$ = dom
+	        .select('.form.event')
+	        .events('click');
+	    var formLoaded$ = join$.compose(delay_1.default(1000));
+	    var formSubmit$ = dom
+	        .select('.form.event button')
+	        .events('click');
+	    var formSubmitRequest$ = events$
+	        .map(function (events) {
+	        return formSubmit$
+	            .map(function (ev) {
+	            var buttonElement = ev.currentTarget;
+	            var formElement = closest(buttonElement, 'form');
+	            var cardElement = closest(formElement, '.event.card');
+	            var eventUrl = cardElement.attributes['data-url'].value;
+	            var event = events.find(function (event) { return event.url === eventUrl; });
+	            var request = {
+	                event: event,
+	                data: getFormData(formElement)
+	            };
+	            return request;
+	        });
+	    }).flatten();
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, animation$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, formLoaded$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], animation = _a[6];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6], loaded = _a[7];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(events_1.topEvents(events).map(function (event) { return renderEvent(event, expand, shorten); }).concat(events_1.moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten); }))),
+	                            dom_1.main(events_1.topEvents(events).map(function (event) { return renderEvent(event, expand, shorten, join, loaded); }).concat(events_1.moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten, join, loaded); }))),
 	                            renderFooter()
 	                        ])
 	                    ])
@@ -2289,13 +2420,18 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formSubmit$);
+	    vtree$.compose(delay_1.default(30)).addListener({
+	        next: function () { return window.componentHandler.upgradeDom(); },
+	        complete: function () { },
+	        error: function () { }
+	    });
 	    return {
 	        dom: vtree$,
 	        events: xs.empty(),
 	        routes: xs.empty(),
 	        prevent: prevent$,
-	        registrations: xs.empty()
+	        registrations: formSubmitRequest$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -11668,6 +11804,104 @@
 	    };
 	}
 
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var core_1 = __webpack_require__(5);
+	var DelayOperator = (function () {
+	    function DelayOperator(dt, ins) {
+	        this.dt = dt;
+	        this.ins = ins;
+	        this.type = 'delay';
+	        this.out = null;
+	    }
+	    DelayOperator.prototype._start = function (out) {
+	        this.out = out;
+	        this.ins._add(this);
+	    };
+	    DelayOperator.prototype._stop = function () {
+	        this.ins._remove(this);
+	        this.out = null;
+	    };
+	    DelayOperator.prototype._n = function (t) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        var id = setInterval(function () {
+	            u._n(t);
+	            clearInterval(id);
+	        }, this.dt);
+	    };
+	    DelayOperator.prototype._e = function (err) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        var id = setInterval(function () {
+	            u._e(err);
+	            clearInterval(id);
+	        }, this.dt);
+	    };
+	    DelayOperator.prototype._c = function () {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        var id = setInterval(function () {
+	            u._c();
+	            clearInterval(id);
+	        }, this.dt);
+	    };
+	    return DelayOperator;
+	}());
+	/**
+	 * Delays periodic events by a given time period.
+	 *
+	 * Marble diagram:
+	 *
+	 * ```text
+	 * 1----2--3--4----5|
+	 *     delay(60)
+	 * ---1----2--3--4----5|
+	 * ```
+	 *
+	 * Example:
+	 *
+	 * ```js
+	 * import fromDiagram from 'xstream/extra/fromDiagram'
+	 * import delay from 'xstream/extra/delay'
+	 *
+	 * const stream = fromDiagram('1----2--3--4----5|')
+	 *  .compose(delay(60))
+	 *
+	 * stream.addListener({
+	 *   next: i => console.log(i),
+	 *   error: err => console.error(err),
+	 *   complete: () => console.log('completed')
+	 * })
+	 * ```
+	 *
+	 * ```text
+	 * > 1  (after 60 ms)
+	 * > 2  (after 160 ms)
+	 * > 3  (after 220 ms)
+	 * > 4  (after 280 ms)
+	 * > 5  (after 380 ms)
+	 * > completed
+	 * ```
+	 *
+	 * @param {number} period The amount of silence required in milliseconds.
+	 * @return {Stream}
+	 */
+	function delay(period) {
+	    return function delayOperator(ins) {
+	        return new core_1.Stream(new DelayOperator(period, ins));
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = delay;
+	//# sourceMappingURL=delay.js.map
 
 /***/ }
 /******/ ]);

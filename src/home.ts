@@ -1,9 +1,11 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayEvent, Author } from './definitions';
+import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, form, input, label, makeDOMDriver, VNode } from '@cycle/dom';
+import { Sources, Sinks, DevdayEvent, Author, DevdayRegistrationData } from './definitions';
 import { topEvents, moreEvents } from './drivers/events';
+import { RegistrationRequest } from './drivers/registrations';
 import { getAgendaNodes } from './event';
+import delay from 'xstream/extra/delay';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
@@ -28,9 +30,121 @@ function findChildIndex(node: VNode): number {
   return -1;
 }
 
-function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNode {
-  const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
+  const buttonClassName = clicked ? '.expand' : '';
+  const buttonStyle = clicked
+    ? {
+      transform: 'scale(1)',
+      delayed: { transform: 'scale3d(21, 21, 1)' },
+      destroy: { transform: 'scale(1)' }
+    }
+    : {
+      transform: 'scale(0)',
+      delayed: { transform: 'scale(1)' },
+      destroy: { transform: 'scale(0)' }
+    };
+  const formClassName = loaded ? '.loaded' : '';
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+  if (!showForm)
+    return [];
+  return [
+    a('.join.event.button' + buttonClassName, {
+      props: {
+        title: 'join event',
+        href: '#'
+      },
+      attrs: {
+        'data-url': event.url
+      },
+      style: buttonStyle,
+    }, [
+        span('.hidden', 'join event'),
+        i('.material-icons', 'add')
+      ]),
+    form('.event.form' + formClassName, [
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'name',
+            placeholder: 'Name'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'name'
+          }
+        }, ['Name'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'email',
+            placeholder: 'Email'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'email'
+          }
+        }, ['Email'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'mobile',
+            placeholder: 'Mobile'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'mobile'
+          }
+        }, ['Mobile'])
+      ]),
+      p('Please fill out the following in case you want to present a talk/workshop'),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'title',
+            placeholder: 'Title'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'title'
+          }
+        }, ['Title'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'abstract',
+            placeholder: 'Abstract'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'abstract'
+          }
+        }, ['Abstract'])
+      ]),
+      button({
+        props: {
+          type: 'submit'
+        }
+      }, ['Join Us!'])
+    ])
+  ]
+}
+
+const fadeInOutStyle = {
+  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+};
+
+function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, clicked: string, loaded: string): VNode {
+  const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+  const clickedBoolean = clicked === event.url;
+  const loadedBoolean = loaded === event.url;
   return article('.event.card' + expanded, {
     attrs: {
       'data-url': event.url
@@ -50,7 +164,9 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
                 element.querySelector('.secondary.info').classList.add('loaded');
                 element.querySelector('.speakers > .content').classList.add('loaded');
                 element.querySelector('.agenda > .content').classList.add('loaded');
-                element.querySelector('.join.event').classList.add('loaded');
+                const joinEventButton = element.querySelector('.join.event');
+                if (joinEventButton != undefined)
+                  joinEventButton.classList.add('loaded');
                 setTimeout(() => {
                   element.querySelector('.secondary.info > .content').classList.add('loaded');
                 }, 150);
@@ -98,20 +214,18 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean): VNod
           ])
         ])
       ]),
-      a('.join.event.button', {
-        props: {
-          title: 'join event',
-          href: '#'
-        },
-        attrs: {
-          'data-url': event.url,
-          style: showForm ? '' : 'display: none !important;'
-        }
-      }, [
-          span('.hidden', 'join event'),
-          i('.material-icons', 'add')
-        ])
+      ...renderForm(event, clickedBoolean, loadedBoolean)
     ]);
+}
+
+function getFormData(form: HTMLFormElement): DevdayRegistrationData {
+  return {
+    name: encodeURIComponent(form.elements['name'].value),
+    email: encodeURIComponent(form.elements['email'].value),
+    mobile: encodeURIComponent(form.elements['mobile'].value),
+    title: encodeURIComponent(form.elements['title'].value),
+    abstract: encodeURIComponent(form.elements['abstract'].value),
+  }
 }
 
 function renderHeader(noun: string, topic: string): VNode {
@@ -175,7 +289,7 @@ function home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
   const route$ = sources.routes.route$;
-  const events$ = sources.events.events$;
+  const events$ = sources.events.events$.remember();
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)
@@ -226,25 +340,47 @@ function home(sources: Sources): Sinks {
         return card.attributes['data-url'].value;
       })
       .startWith('');
-  const animation$ =
-    xs.merge(
-      join$
-    );
+  const formClick$ =
+    dom
+      .select('.form.event')
+      .events('click');
+  const formLoaded$ = join$.compose(delay<string>(1000));
+  const formSubmit$ =
+    dom
+      .select('.form.event button')
+      .events('click');
+  const formSubmitRequest$ =
+    events$
+      .map(events =>
+        formSubmit$
+          .map(ev => {
+            const buttonElement = ev.currentTarget as HTMLButtonElement;
+            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const cardElement = closest(formElement, '.event.card');
+            const eventUrl = cardElement.attributes['data-url'].value;
+            const event = events.find(event => event.url === eventUrl);
+            const request: RegistrationRequest = {
+              event,
+              data: getFormData(formElement)
+            }
+            return request;
+          })
+      ).flatten();
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, animation$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, formLoaded$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, animation]) =>
+          .map(([noun, topic, events, more, expand, shorten, join, loaded]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
                   div('.content', [
                     renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(event => renderEvent(event, expand, shorten)),
-                      ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten)),
+                      ...topEvents(events).map(event => renderEvent(event, expand, shorten, join, loaded)),
+                      ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
                       // nav([
                       //   a('.more', {
                       //     props: { href: '#', title: 'view all previous events' },
@@ -269,14 +405,21 @@ function home(sources: Sources): Sinks {
       moreClick$,
       eventClick$,
       expandedEventClick$,
-      joinEventClick$
+      joinEventClick$,
+      formClick$,
+      formSubmit$
     );
+  vtree$.compose(delay<VNode>(30)).addListener({
+    next: () => (<any>window).componentHandler.upgradeDom(),
+    complete: () => { },
+    error: () => { }
+  });
   return {
     dom: vtree$,
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
-    registrations: xs.empty()
+    registrations: formSubmitRequest$
   };
 }
 
