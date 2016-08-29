@@ -506,7 +506,58 @@
                               i {
                                 display: none;
                               }
+
+                              & + .event.form {
+                                display: block;
+                              }
                             }
+                        }
+
+                        .event.form {
+                          display: none;
+                          position: absolute;
+                          top: 0;
+                          left: 0;
+                          right: 0;
+                          bottom: 0;
+                          padding: 20px;
+                          z-index: 20;
+                          opacity: 0;
+                          -moz-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+                          &.loaded {
+                            opacity: 1;
+                          }
+
+                          & > .form.text.input.element {
+                            @extend .mdl-textfield;
+
+                            & > input {
+                              @extend .mdl-textfield__input;
+                              
+                              color: white;
+                              border-color: white;
+                            }
+
+                            & > label {
+                              @extend .mdl-textfield__label;
+
+                              color: white;
+                            }
+                          }
+
+                          & > p {
+                            color: white;
+                          }
+
+                          & > button {
+                            @extend .mdl-button;
+                            display: block;
+                            background: white;
+                            color: $primary-accent;
+                          }
                         }
 
                         &.expanded {
