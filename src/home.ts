@@ -1,8 +1,9 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, address, br, form, input, label, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayEvent, Author } from './definitions';
+import { Sources, Sinks, DevdayEvent, Author, DevdayRegistrationData } from './definitions';
 import { topEvents, moreEvents } from './drivers/events';
+import { RegistrationRequest } from './drivers/registrations';
 import { getAgendaNodes } from './event';
 import delay from 'xstream/extra/delay';
 
@@ -104,7 +105,7 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
       div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
         input('.mdl-textfield__input', {
           props: {
-            id: 'tilte',
+            id: 'title',
             placeholder: 'Title'
           }
         }),
@@ -217,6 +218,16 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
     ]);
 }
 
+function getFormData(form: HTMLFormElement): DevdayRegistrationData {
+  return {
+    name: encodeURIComponent(form.elements['name'].value),
+    email: encodeURIComponent(form.elements['email'].value),
+    mobile: encodeURIComponent(form.elements['mobile'].value),
+    title: encodeURIComponent(form.elements['title'].value),
+    abstract: encodeURIComponent(form.elements['abstract'].value),
+  }
+}
+
 function renderHeader(noun: string, topic: string): VNode {
   return header([
     h1([
@@ -278,7 +289,7 @@ function home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
   const route$ = sources.routes.route$;
-  const events$ = sources.events.events$;
+  const events$ = sources.events.events$.remember();
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)
@@ -334,6 +345,27 @@ function home(sources: Sources): Sinks {
       .select('.form.event')
       .events('click');
   const formLoaded$ = join$.compose(delay<string>(1000));
+  const formSubmit$ =
+    dom
+      .select('.form.event button')
+      .events('click');
+  const formSubmitRequest$ =
+    events$
+      .map(events =>
+        formSubmit$
+          .map(ev => {
+            const buttonElement = ev.currentTarget as HTMLButtonElement;
+            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const cardElement = closest(formElement, '.event.card');
+            const eventUrl = cardElement.attributes['data-url'].value;
+            const event = events.find(event => event.url === eventUrl);
+            const request: RegistrationRequest = {
+              event,
+              data: getFormData(formElement)
+            }
+            return request;
+          })
+      ).flatten();
   const currentDate = new Date();
   const vtree$ =
     route$
@@ -374,7 +406,8 @@ function home(sources: Sources): Sinks {
       eventClick$,
       expandedEventClick$,
       joinEventClick$,
-      formClick$
+      formClick$,
+      formSubmit$
     );
   vtree$.compose(delay<VNode>(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
@@ -386,7 +419,7 @@ function home(sources: Sources): Sinks {
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
-    registrations: xs.empty()
+    registrations: formSubmitRequest$
   };
 }
 

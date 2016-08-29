@@ -2162,7 +2162,7 @@
 	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	                dom_1.input('.mdl-textfield__input', {
 	                    props: {
-	                        id: 'tilte',
+	                        id: 'title',
 	                        placeholder: 'Title'
 	                    }
 	                }),
@@ -2270,6 +2270,15 @@
 	        ])
 	    ].concat(renderForm(event, clickedBoolean, loadedBoolean)));
 	}
+	function getFormData(form) {
+	    return {
+	        name: encodeURIComponent(form.elements['name'].value),
+	        email: encodeURIComponent(form.elements['email'].value),
+	        mobile: encodeURIComponent(form.elements['mobile'].value),
+	        title: encodeURIComponent(form.elements['title'].value),
+	        abstract: encodeURIComponent(form.elements['abstract'].value),
+	    };
+	}
 	function renderHeader(noun, topic) {
 	    return dom_1.header([
 	        dom_1.h1([
@@ -2328,7 +2337,7 @@
 	    var xs = xstream_1.Stream;
 	    var dom = sources.dom;
 	    var route$ = sources.routes.route$;
-	    var events$ = sources.events.events$;
+	    var events$ = sources.events.events$.remember();
 	    var noun$ = xs.periodic(1000)
 	        .startWith(0)
 	        .map(function (x) { return x % nouns.length; })
@@ -2372,6 +2381,25 @@
 	        .select('.form.event')
 	        .events('click');
 	    var formLoaded$ = join$.compose(delay_1.default(1000));
+	    var formSubmit$ = dom
+	        .select('.form.event button')
+	        .events('click');
+	    var formSubmitRequest$ = events$
+	        .map(function (events) {
+	        return formSubmit$
+	            .map(function (ev) {
+	            var buttonElement = ev.currentTarget;
+	            var formElement = closest(buttonElement, 'form');
+	            var cardElement = closest(formElement, '.event.card');
+	            var eventUrl = cardElement.attributes['data-url'].value;
+	            var event = events.find(function (event) { return event.url === eventUrl; });
+	            var request = {
+	                event: event,
+	                data: getFormData(formElement)
+	            };
+	            return request;
+	        });
+	    }).flatten();
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
@@ -2392,7 +2420,7 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formSubmit$);
 	    vtree$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
@@ -2403,7 +2431,7 @@
 	        events: xs.empty(),
 	        routes: xs.empty(),
 	        prevent: prevent$,
-	        registrations: xs.empty()
+	        registrations: formSubmitRequest$
 	    };
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
