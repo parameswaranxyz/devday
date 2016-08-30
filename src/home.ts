@@ -123,15 +123,28 @@ function home(sources: Sources): Sinks {
     dom
       .select('.join.event')
       .events('click');
+  const formCloseClick$ =
+    dom
+      .select('.form.event button.close')
+      .events('click');
   const join$ =
-    joinEventClick$
-      .map(ev => {
-        const anchor = ev.currentTarget as HTMLAnchorElement;
-        const card = closest(anchor, '.event.card');
-        anchor.classList.add('expand');
-        return card.attributes['data-url'].value;
-      })
-      .startWith('');
+    xs.merge(
+      joinEventClick$
+        .map(ev => {
+          const anchor = ev.currentTarget as HTMLAnchorElement;
+          const card = closest(anchor, '.event.card');
+          anchor.classList.add('expand');
+          return xs.of(card.attributes['data-url'].value);
+        }),
+      formCloseClick$
+        .map(ev => {
+          const closeButton = ev.currentTarget as HTMLButtonElement;
+          const card = closest(closeButton, '.event.card');
+          const anchor = card.querySelector('.join.event');
+          anchor.classList.remove('expand');
+          return xs.of('');
+        })
+    ).flatten().startWith('');
   const formClick$ =
     dom
       .select('.form.event')
@@ -139,7 +152,7 @@ function home(sources: Sources): Sinks {
   const formLoaded$ = join$.compose(delay<string>(1000));
   const formSubmit$ =
     dom
-      .select('.form.event button')
+      .select('.form.event button[type=submit]')
       .events('click');
   const formSubmitRequest$ =
     events$
@@ -199,6 +212,7 @@ function home(sources: Sources): Sinks {
       expandedEventClick$,
       joinEventClick$,
       formClick$,
+      formCloseClick$,
       formSubmit$
     );
   vtree$.compose(delay<VNode>(30)).addListener({

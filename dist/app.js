@@ -2168,20 +2168,29 @@
 	    var joinEventClick$ = dom
 	        .select('.join.event')
 	        .events('click');
-	    var join$ = joinEventClick$
+	    var formCloseClick$ = dom
+	        .select('.form.event button.close')
+	        .events('click');
+	    var join$ = xs.merge(joinEventClick$
 	        .map(function (ev) {
 	        var anchor = ev.currentTarget;
 	        var card = closest(anchor, '.event.card');
 	        anchor.classList.add('expand');
-	        return card.attributes['data-url'].value;
-	    })
-	        .startWith('');
+	        return xs.of(card.attributes['data-url'].value);
+	    }), formCloseClick$
+	        .map(function (ev) {
+	        var closeButton = ev.currentTarget;
+	        var card = closest(closeButton, '.event.card');
+	        var anchor = card.querySelector('.join.event');
+	        anchor.classList.remove('expand');
+	        return xs.of('');
+	    })).flatten().startWith('');
 	    var formClick$ = dom
 	        .select('.form.event')
 	        .events('click');
 	    var formLoaded$ = join$.compose(delay_1.default(1000));
 	    var formSubmit$ = dom
-	        .select('.form.event button')
+	        .select('.form.event button[type=submit]')
 	        .events('click');
 	    var formSubmitRequest$ = events$
 	        .map(function (events) {
@@ -2219,7 +2228,7 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formSubmit$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
 	    vtree$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
@@ -11389,6 +11398,11 @@
 	            dom_1.i('.material-icons', 'add')
 	        ]),
 	        dom_1.form('.event.form' + formClassName, [
+	            dom_1.button('.close', {
+	                style: {
+	                    float: 'right'
+	                }
+	            }, 'x'),
 	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	                dom_1.input('.mdl-textfield__input', {
 	                    props: {

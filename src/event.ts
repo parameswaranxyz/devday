@@ -105,6 +105,11 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
         i('.material-icons', 'add')
       ]),
     form('.event.form' + formClassName, [
+      button('.close', {
+        style: {
+          float: 'right'
+        }
+      }, 'x'),
       div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
         input('.mdl-textfield__input', {
           props: {
