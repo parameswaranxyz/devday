@@ -9499,7 +9499,7 @@
 	        meetup_event_id: '233530425'
 	    },
 	    {
-	        title: 'It\'s Real Time',
+	        title: 'This time it\'s real-time',
 	        url: 'its-real-time',
 	        categories: ['events'],
 	        tags: ['real-time', 'rtc', 'webrtc', 'peer-js'],
