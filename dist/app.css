@@ -6120,7 +6120,6 @@ iframe {
         z-index: 0;
         top: 0;
         left: 0;
-        right: 100%;
         bottom: 0;
         -webkit-transition-property: right;
         transition-property: right;
@@ -6128,17 +6127,13 @@ iframe {
         -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         background: white; }
-        .devday.home > .container > .layout > .content > main > .event.card > .primary.info.loaded {
-          right: 35%; }
         .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content {
           padding: 20px;
           overflow: hidden;
-          opacity: 0;
           -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content.loaded {
-            opacity: 1; }
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition-delay: .3s; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h4 {
             font-size: inherit;
             color: rgba(0, 0, 0, 0.54);

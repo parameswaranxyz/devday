@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(136);
+	var router_1 = __webpack_require__(137);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(137);
+	var prevent_1 = __webpack_require__(138);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(138);
+	var registrations_1 = __webpack_require__(139);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2066,7 +2066,7 @@
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
 	var event_1 = __webpack_require__(135);
-	var delay_1 = __webpack_require__(139);
+	var delay_1 = __webpack_require__(136);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function renderBackground(event) {
@@ -2211,10 +2211,8 @@
 	                    var element = node.elm;
 	                    element.classList.add('show');
 	                    setTimeout(function () {
-	                        element.querySelector('.primary.info').classList.add('loaded');
 	                        setTimeout(function () {
 	                            element.querySelector('.speakers').classList.add('loaded');
-	                            element.querySelector('.primary.info > .content').classList.add('loaded');
 	                            setTimeout(function () {
 	                                element.querySelector('.secondary.info').classList.add('loaded');
 	                                element.querySelector('.speakers > .content').classList.add('loaded');
@@ -2232,8 +2230,22 @@
 	            }
 	        }
 	    }, [
-	        dom_1.div('.primary.info', [
-	            dom_1.div('.content', [
+	        dom_1.div('.primary.info', {
+	            style: {
+	                right: '100%',
+	                delayed: {
+	                    right: '35%'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: {
+	                    opacity: '0',
+	                    delayed: {
+	                        opacity: '1'
+	                    }
+	                }
+	            }, [
 	                dom_1.h4([event.event_time.start_time.toDateString()]),
 	                dom_1.h3([event.title]),
 	                dom_1.p([event.abstract]),
@@ -11668,150 +11680,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var HashChangeProducer = (function () {
-	    function HashChangeProducer() {
-	        var _this = this;
-	        this.start = function (listener) {
-	            _this.stream = listener;
-	            window.addEventListener('hashchange', _this.handler);
-	        };
-	        this.stop = function () {
-	            window.removeEventListener('hashchange', _this.handler);
-	            _this.stream = null;
-	        };
-	        this.stream = null;
-	        this.handler = function (event) { return _this.stream.next(event); };
-	    }
-	    return HashChangeProducer;
-	}());
-	var RoutesSource = (function () {
-	    function RoutesSource(route$) {
-	        route$.addListener({
-	            next: function (route) {
-	                window.location.hash = "/" + route;
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	        var xs = xstream_1.Stream;
-	        var hashChangeProducer = new HashChangeProducer();
-	        var hashRoute$ = xs.create(hashChangeProducer)
-	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
-	            .startWith(window.location.hash.replace('#', '') || '');
-	        this.route$ = hashRoute$;
-	    }
-	    return RoutesSource;
-	}());
-	exports.RoutesSource = RoutesSource;
-	function makeRoutesDriver() {
-	    function routesDriver(route$) {
-	        return new RoutesSource(route$);
-	    }
-	    return routesDriver;
-	}
-	exports.makeRoutesDriver = makeRoutesDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makeRoutesDriver;
-
-
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var PreventSource = (function () {
-	    function PreventSource(event$) {
-	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function (ev) {
-	                ev.preventDefault();
-	                ev.stopPropagation();
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	    }
-	    return PreventSource;
-	}());
-	exports.PreventSource = PreventSource;
-	function makePreventDriver() {
-	    function preventDriver(event$) {
-	        return new PreventSource(event$);
-	    }
-	    return preventDriver;
-	}
-	exports.makePreventDriver = makePreventDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makePreventDriver;
-
-
-/***/ },
-/* 138 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var http_1 = __webpack_require__(126);
-	var xstream_adapter_1 = __webpack_require__(3);
-	var RegistrationsSource = (function () {
-	    function RegistrationsSource(registration$) {
-	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
-	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
-	        var response$$ = http.select('registrations');
-	        this.registration$ =
-	            response$$
-	                .map(function (response$) { return response$.replaceError(function (error) { return xstream_1.default.of(null); }); })
-	                .flatten()
-	                .filter(Boolean)
-	                .map(function (response) { return ({
-	                event_url: response.request.category,
-	                success: response.status === 200
-	            }); })
-	                .remember();
-	    }
-	    return RegistrationsSource;
-	}());
-	exports.RegistrationsSource = RegistrationsSource;
-	function makeRegistrationsDriver() {
-	    function registrationsDriver(registration$) {
-	        return new RegistrationsSource(registration$);
-	    }
-	    return registrationsDriver;
-	}
-	exports.makeRegistrationsDriver = makeRegistrationsDriver;
-	function register(event, data) {
-	    var form = event.form;
-	    if (form == undefined)
-	        return null;
-	    var payload = {
-	        event_url: event.url
-	    };
-	    payload[form.name] = data.name;
-	    payload[form.email] = data.email;
-	    payload[form.mobile] = data.mobile;
-	    if (data.type != undefined)
-	        payload[form.type] = data.type;
-	    if (data.title != undefined)
-	        payload[form.title] = data.title;
-	    if (data.abstract != undefined)
-	        payload[form.abstract] = data.abstract;
-	    return {
-	        url: form.url,
-	        method: 'POST',
-	        send: payload,
-	        category: 'registrations',
-	        type: 'application/xml'
-	    };
-	}
-
-
-/***/ },
-/* 139 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 	var core_1 = __webpack_require__(5);
 	var DelayOperator = (function () {
 	    function DelayOperator(dt, ins) {
@@ -11904,6 +11772,150 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = delay;
 	//# sourceMappingURL=delay.js.map
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var HashChangeProducer = (function () {
+	    function HashChangeProducer() {
+	        var _this = this;
+	        this.start = function (listener) {
+	            _this.stream = listener;
+	            window.addEventListener('hashchange', _this.handler);
+	        };
+	        this.stop = function () {
+	            window.removeEventListener('hashchange', _this.handler);
+	            _this.stream = null;
+	        };
+	        this.stream = null;
+	        this.handler = function (event) { return _this.stream.next(event); };
+	    }
+	    return HashChangeProducer;
+	}());
+	var RoutesSource = (function () {
+	    function RoutesSource(route$) {
+	        route$.addListener({
+	            next: function (route) {
+	                window.location.hash = "/" + route;
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	        var xs = xstream_1.Stream;
+	        var hashChangeProducer = new HashChangeProducer();
+	        var hashRoute$ = xs.create(hashChangeProducer)
+	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
+	            .startWith(window.location.hash.replace('#', '') || '');
+	        this.route$ = hashRoute$;
+	    }
+	    return RoutesSource;
+	}());
+	exports.RoutesSource = RoutesSource;
+	function makeRoutesDriver() {
+	    function routesDriver(route$) {
+	        return new RoutesSource(route$);
+	    }
+	    return routesDriver;
+	}
+	exports.makeRoutesDriver = makeRoutesDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makeRoutesDriver;
+
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var PreventSource = (function () {
+	    function PreventSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function (ev) {
+	                ev.preventDefault();
+	                ev.stopPropagation();
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	    }
+	    return PreventSource;
+	}());
+	exports.PreventSource = PreventSource;
+	function makePreventDriver() {
+	    function preventDriver(event$) {
+	        return new PreventSource(event$);
+	    }
+	    return preventDriver;
+	}
+	exports.makePreventDriver = makePreventDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makePreventDriver;
+
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var http_1 = __webpack_require__(126);
+	var xstream_adapter_1 = __webpack_require__(3);
+	var RegistrationsSource = (function () {
+	    function RegistrationsSource(registration$) {
+	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
+	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
+	        var response$$ = http.select('registrations');
+	        this.registration$ =
+	            response$$
+	                .map(function (response$) { return response$.replaceError(function (error) { return xstream_1.default.of(null); }); })
+	                .flatten()
+	                .filter(Boolean)
+	                .map(function (response) { return ({
+	                event_url: response.request.category,
+	                success: response.status === 200
+	            }); })
+	                .remember();
+	    }
+	    return RegistrationsSource;
+	}());
+	exports.RegistrationsSource = RegistrationsSource;
+	function makeRegistrationsDriver() {
+	    function registrationsDriver(registration$) {
+	        return new RegistrationsSource(registration$);
+	    }
+	    return registrationsDriver;
+	}
+	exports.makeRegistrationsDriver = makeRegistrationsDriver;
+	function register(event, data) {
+	    var form = event.form;
+	    if (form == undefined)
+	        return null;
+	    var payload = {
+	        event_url: event.url
+	    };
+	    payload[form.name] = data.name;
+	    payload[form.email] = data.email;
+	    payload[form.mobile] = data.mobile;
+	    if (data.type != undefined)
+	        payload[form.type] = data.type;
+	    if (data.title != undefined)
+	        payload[form.title] = data.title;
+	    if (data.abstract != undefined)
+	        payload[form.abstract] = data.abstract;
+	    return {
+	        url: form.url,
+	        method: 'POST',
+	        send: payload,
+	        category: 'registrations',
+	        type: 'application/xml'
+	    };
+	}
+
 
 /***/ }
 /******/ ]);

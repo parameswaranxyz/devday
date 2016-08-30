@@ -156,10 +156,8 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
           const element = (node.elm as HTMLElement);
           element.classList.add('show');
           setTimeout(() => {
-            element.querySelector('.primary.info').classList.add('loaded');
             setTimeout(() => {
               element.querySelector('.speakers').classList.add('loaded');
-              element.querySelector('.primary.info > .content').classList.add('loaded');
               setTimeout(() => {
                 element.querySelector('.secondary.info').classList.add('loaded');
                 element.querySelector('.speakers > .content').classList.add('loaded');
@@ -177,8 +175,22 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
       }
     }
   }, [
-      div('.primary.info', [
-        div('.content', [
+      div('.primary.info', {
+        style: {
+          right: '100%',
+          delayed: {
+            right: '35%'
+          }
+        }
+      }, [
+        div('.content', {
+          style: {
+            opacity: '0',
+            delayed: {
+              opacity: '1'
+            }
+          }
+        }, [
           h4([event.event_time.start_time.toDateString()]),
           h3([event.title]),
           p([event.abstract]),
