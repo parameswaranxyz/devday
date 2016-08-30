@@ -2088,7 +2088,6 @@
 	    return -1;
 	}
 	function renderForm(event, clicked, loaded) {
-	    var buttonClassName = clicked ? '.expand' : '';
 	    var buttonStyle = clicked
 	        ? {
 	            transform: 'scale(1)',
@@ -2105,7 +2104,7 @@
 	    if (!showForm)
 	        return [];
 	    return [
-	        dom_1.a('.join.event.button' + buttonClassName, {
+	        dom_1.a('.join.event.button', {
 	            props: {
 	                title: 'join event',
 	                href: '#'
@@ -2204,29 +2203,12 @@
 	        attrs: {
 	            'data-url': event.url
 	        },
-	        hook: {
-	            insert: function (node) {
-	                var index = findChildIndex(node);
-	                setTimeout(function () {
-	                    var element = node.elm;
-	                    element.classList.add('show');
-	                    setTimeout(function () {
-	                        setTimeout(function () {
-	                            element.querySelector('.speakers').classList.add('loaded');
-	                            setTimeout(function () {
-	                                element.querySelector('.secondary.info').classList.add('loaded');
-	                                element.querySelector('.speakers > .content').classList.add('loaded');
-	                                element.querySelector('.agenda > .content').classList.add('loaded');
-	                                var joinEventButton = element.querySelector('.join.event');
-	                                if (joinEventButton != undefined)
-	                                    joinEventButton.classList.add('loaded');
-	                                setTimeout(function () {
-	                                    element.querySelector('.secondary.info > .content').classList.add('loaded');
-	                                }, 150);
-	                            }, 150);
-	                        }, 300);
-	                    }, 150);
-	                }, index * 300);
+	        style: {
+	            transform: 'scale(0)',
+	            opacity: '0',
+	            delayed: {
+	                transform: 'scale(1)',
+	                opacity: '1'
 	            }
 	        }
 	    }, [
@@ -2239,12 +2221,7 @@
 	            }
 	        }, [
 	            dom_1.div('.content', {
-	                style: {
-	                    opacity: '0',
-	                    delayed: {
-	                        opacity: '1'
-	                    }
-	                }
+	                style: fadeInOutStyle
 	            }, [
 	                dom_1.h4([event.event_time.start_time.toDateString()]),
 	                dom_1.h3([event.title]),
@@ -2252,15 +2229,33 @@
 	            ])
 	        ]),
 	        renderBackground(event),
-	        dom_1.div('.speakers', [
-	            dom_1.div('.content', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
+	        dom_1.div('.speakers', {
+	            style: {
+	                top: '540px',
+	                delayed: {
+	                    top: '312px'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
 	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
 	        ]),
 	        dom_1.div('.agenda', [
-	            dom_1.div('.content', event_1.getAgendaNodes(event.agenda))
+	            dom_1.div('.content', { style: fadeInOutStyle }, event_1.getAgendaNodes(event.agenda))
 	        ]),
-	        dom_1.div('.secondary.info', [
-	            dom_1.div('.content', [
+	        dom_1.div('.secondary.info', {
+	            style: {
+	                top: '540px',
+	                delayed: {
+	                    top: '440px'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [
 	                dom_1.div('.location', [
 	                    dom_1.address([
 	                        event.venue.locality + ',',

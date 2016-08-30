@@ -31,7 +31,6 @@ function findChildIndex(node: VNode): number {
 }
 
 function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
-  const buttonClassName = clicked ? '.expand' : '';
   const buttonStyle = clicked
     ? {
       transform: 'scale(1)',
@@ -48,7 +47,7 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
   if (!showForm)
     return [];
   return [
-    a('.join.event.button' + buttonClassName, {
+    a('.join.event.button', {
       props: {
         title: 'join event',
         href: '#'
@@ -149,29 +148,12 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
     attrs: {
       'data-url': event.url
     },
-    hook: {
-      insert: (node: VNode) => {
-        const index = findChildIndex(node);
-        setTimeout(() => {
-          const element = (node.elm as HTMLElement);
-          element.classList.add('show');
-          setTimeout(() => {
-            setTimeout(() => {
-              element.querySelector('.speakers').classList.add('loaded');
-              setTimeout(() => {
-                element.querySelector('.secondary.info').classList.add('loaded');
-                element.querySelector('.speakers > .content').classList.add('loaded');
-                element.querySelector('.agenda > .content').classList.add('loaded');
-                const joinEventButton = element.querySelector('.join.event');
-                if (joinEventButton != undefined)
-                  joinEventButton.classList.add('loaded');
-                setTimeout(() => {
-                  element.querySelector('.secondary.info > .content').classList.add('loaded');
-                }, 150);
-              }, 150);
-            }, 300);
-          }, 150);
-        }, index * 300);
+    style: {
+      transform: 'scale(0)',
+      opacity: '0',
+      delayed: {
+        transform: 'scale(1)',
+        opacity: '1'
       }
     }
   }, [
@@ -183,49 +165,63 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
           }
         }
       }, [
-        div('.content', {
-          style: {
-            opacity: '0',
-            delayed: {
-              opacity: '1'
-            }
-          }
-        }, [
-          h4([event.event_time.start_time.toDateString()]),
-          h3([event.title]),
-          p([event.abstract]),
-        ])
-      ]),
-      renderBackground(event),
-      div('.speakers', [
-        div('.content',
-          [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
-            .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
-      ]),
-      div('.agenda', [
-        div('.content', getAgendaNodes(event.agenda))
-      ]),
-      div('.secondary.info', [
-        div('.content', [
-          div('.location', [
-            address([
-              event.venue.locality + ',',
-              br(),
-              event.venue.city
-            ]),
-            a({ props: { href: event.venue.map_link } }, [
-              div('.filler', {
-                attrs: {
-                  style: `background-image: url("${event.venue.map_image}");`
-                }
-              })
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              h4([event.event_time.start_time.toDateString()]),
+              h3([event.title]),
+              p([event.abstract]),
             ])
-          ]),
-          div('.attending', [
-            p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
-          ])
-        ])
+        ]),
+      renderBackground(event),
+      div('.speakers', {
+        style: {
+          top: '540px',
+          delayed: {
+            top: '312px'
+          }
+        }
+      }, [
+          div('.content', {
+            style: fadeInOutStyle
+          },
+            [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors))
+              .map((speaker: Author) => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+        ]),
+      div('.agenda', [
+        div('.content', { style: fadeInOutStyle }, getAgendaNodes(event.agenda))
       ]),
+      div('.secondary.info', {
+        style: {
+          top: '540px',
+          delayed: {
+            top: '440px'
+          }
+        }
+      },
+        [
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              div('.location', [
+                address([
+                  event.venue.locality + ',',
+                  br(),
+                  event.venue.city
+                ]),
+                a({ props: { href: event.venue.map_link } }, [
+                  div('.filler', {
+                    attrs: {
+                      style: `background-image: url("${event.venue.map_image}");`
+                    }
+                  })
+                ])
+              ]),
+              div('.attending', [
+                p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
+              ])
+            ])
+        ]),
       ...renderForm(event, clickedBoolean, loadedBoolean)
     ]);
 }
