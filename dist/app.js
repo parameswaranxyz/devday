@@ -2070,14 +2070,14 @@
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function renderBackground(event) {
-	    var style = '';
+	    var style = {};
 	    if (event.color)
-	        style += "background-color: " + event.color + ";";
+	        style['background-color'] = event.color;
 	    if (event.image_url != undefined)
-	        style += "background-image: url(\"" + event.image_url + "\");";
+	        style['background-image'] = "url(\"" + event.image_url + "\")";
 	    if (event.background_size != undefined)
-	        style += "background-size: " + event.background_size + ";";
-	    return dom_1.div('.background', { attrs: { style: style } });
+	        style['background-size'] = event.background_size;
+	    return dom_1.div('.background', { style: style });
 	}
 	function renderForm(event, clicked, loaded) {
 	    var buttonStyle = clicked

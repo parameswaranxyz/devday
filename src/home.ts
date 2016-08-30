@@ -11,14 +11,14 @@ const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 
 function renderBackground(event: DevdayEvent): VNode {
-  var style = '';
+  var style = {};
   if (event.color)
-    style += `background-color: ${event.color};`;
+    style['background-color'] = event.color;
   if (event.image_url != undefined)
-    style += `background-image: url("${event.image_url}");`;
+    style['background-image'] = `url("${event.image_url}")`;
   if (event.background_size != undefined)
-    style += `background-size: ${event.background_size};`;
-  return div('.background', { attrs: { style } });
+    style['background-size'] = event.background_size;
+  return div('.background', { style });
 }
 
 function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
