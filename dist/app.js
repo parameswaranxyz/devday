@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(136);
+	var router_1 = __webpack_require__(137);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(137);
+	var prevent_1 = __webpack_require__(138);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(138);
+	var registrations_1 = __webpack_require__(139);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2066,210 +2066,9 @@
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
 	var event_1 = __webpack_require__(135);
-	var delay_1 = __webpack_require__(139);
+	var delay_1 = __webpack_require__(136);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
-	function renderBackground(event) {
-	    var style = '';
-	    if (event.color)
-	        style += "background-color: " + event.color + ";";
-	    if (event.image_url != undefined)
-	        style += "background-image: url(\"" + event.image_url + "\");";
-	    if (event.background_size != undefined)
-	        style += "background-size: " + event.background_size + ";";
-	    return dom_1.div('.background', { attrs: { style: style } });
-	}
-	function findChildIndex(node) {
-	    var element = node.elm;
-	    var childNodes = element.parentElement.childNodes;
-	    for (var i = 0; i < childNodes.length; i++)
-	        if (childNodes[i] === element)
-	            return i;
-	    return -1;
-	}
-	function renderForm(event, clicked, loaded) {
-	    var buttonClassName = clicked ? '.expand' : '';
-	    var buttonStyle = clicked
-	        ? {
-	            transform: 'scale(1)',
-	            delayed: { transform: 'scale3d(21, 21, 1)' },
-	            destroy: { transform: 'scale(1)' }
-	        }
-	        : {
-	            transform: 'scale(0)',
-	            delayed: { transform: 'scale(1)' },
-	            destroy: { transform: 'scale(0)' }
-	        };
-	    var formClassName = loaded ? '.loaded' : '';
-	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-	    if (!showForm)
-	        return [];
-	    return [
-	        dom_1.a('.join.event.button' + buttonClassName, {
-	            props: {
-	                title: 'join event',
-	                href: '#'
-	            },
-	            attrs: {
-	                'data-url': event.url
-	            },
-	            style: buttonStyle,
-	        }, [
-	            dom_1.span('.hidden', 'join event'),
-	            dom_1.i('.material-icons', 'add')
-	        ]),
-	        dom_1.form('.event.form' + formClassName, [
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'name',
-	                        placeholder: 'Name'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'name'
-	                    }
-	                }, ['Name'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'email',
-	                        placeholder: 'Email'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'email'
-	                    }
-	                }, ['Email'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'mobile',
-	                        placeholder: 'Mobile'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'mobile'
-	                    }
-	                }, ['Mobile'])
-	            ]),
-	            dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'title',
-	                        placeholder: 'Title'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'title'
-	                    }
-	                }, ['Title'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'abstract',
-	                        placeholder: 'Abstract'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'abstract'
-	                    }
-	                }, ['Abstract'])
-	            ]),
-	            dom_1.button({
-	                props: {
-	                    type: 'submit'
-	                }
-	            }, ['Join Us!'])
-	        ])
-	    ];
-	}
-	var fadeInOutStyle = {
-	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
-	};
-	function renderEvent(event, expand, shorten, clicked, loaded) {
-	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
-	    var clickedBoolean = clicked === event.url;
-	    var loadedBoolean = loaded === event.url;
-	    return dom_1.article('.event.card' + expanded, {
-	        attrs: {
-	            'data-url': event.url
-	        },
-	        hook: {
-	            insert: function (node) {
-	                var index = findChildIndex(node);
-	                setTimeout(function () {
-	                    var element = node.elm;
-	                    element.classList.add('show');
-	                    setTimeout(function () {
-	                        element.querySelector('.primary.info').classList.add('loaded');
-	                        setTimeout(function () {
-	                            element.querySelector('.speakers').classList.add('loaded');
-	                            element.querySelector('.primary.info > .content').classList.add('loaded');
-	                            setTimeout(function () {
-	                                element.querySelector('.secondary.info').classList.add('loaded');
-	                                element.querySelector('.speakers > .content').classList.add('loaded');
-	                                element.querySelector('.agenda > .content').classList.add('loaded');
-	                                var joinEventButton = element.querySelector('.join.event');
-	                                if (joinEventButton != undefined)
-	                                    joinEventButton.classList.add('loaded');
-	                                setTimeout(function () {
-	                                    element.querySelector('.secondary.info > .content').classList.add('loaded');
-	                                }, 150);
-	                            }, 150);
-	                        }, 300);
-	                    }, 150);
-	                }, index * 300);
-	            }
-	        }
-	    }, [
-	        dom_1.div('.primary.info', [
-	            dom_1.div('.content', [
-	                dom_1.h4([event.event_time.start_time.toDateString()]),
-	                dom_1.h3([event.title]),
-	                dom_1.p([event.abstract]),
-	            ])
-	        ]),
-	        renderBackground(event),
-	        dom_1.div('.speakers', [
-	            dom_1.div('.content', [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
-	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
-	        ]),
-	        dom_1.div('.agenda', [
-	            dom_1.div('.content', event_1.getAgendaNodes(event.agenda))
-	        ]),
-	        dom_1.div('.secondary.info', [
-	            dom_1.div('.content', [
-	                dom_1.div('.location', [
-	                    dom_1.address([
-	                        event.venue.locality + ',',
-	                        dom_1.br(),
-	                        event.venue.city
-	                    ]),
-	                    dom_1.a({ props: { href: event.venue.map_link } }, [
-	                        dom_1.div('.filler', {
-	                            attrs: {
-	                                style: "background-image: url(\"" + event.venue.map_image + "\");"
-	                            }
-	                        })
-	                    ])
-	                ]),
-	                dom_1.div('.attending', [
-	                    dom_1.p([event.attending != undefined ? event.attending + " attending" : 'JOIN NOW'])
-	                ])
-	            ])
-	        ])
-	    ].concat(renderForm(event, clickedBoolean, loadedBoolean)));
-	}
 	function getFormData(form) {
 	    return {
 	        name: encodeURIComponent(form.elements['name'].value),
@@ -2369,20 +2168,29 @@
 	    var joinEventClick$ = dom
 	        .select('.join.event')
 	        .events('click');
-	    var join$ = joinEventClick$
+	    var formCloseClick$ = dom
+	        .select('.form.event button.close')
+	        .events('click');
+	    var join$ = xs.merge(joinEventClick$
 	        .map(function (ev) {
 	        var anchor = ev.currentTarget;
 	        var card = closest(anchor, '.event.card');
 	        anchor.classList.add('expand');
-	        return card.attributes['data-url'].value;
-	    })
-	        .startWith('');
+	        return xs.of(card.attributes['data-url'].value);
+	    }), formCloseClick$
+	        .map(function (ev) {
+	        var closeButton = ev.currentTarget;
+	        var card = closest(closeButton, '.event.card');
+	        var anchor = card.querySelector('.join.event');
+	        anchor.classList.remove('expand');
+	        return xs.of('');
+	    })).flatten().startWith('');
 	    var formClick$ = dom
 	        .select('.form.event')
 	        .events('click');
 	    var formLoaded$ = join$.compose(delay_1.default(1000));
 	    var formSubmit$ = dom
-	        .select('.form.event button')
+	        .select('.form.event button[type=submit]')
 	        .events('click');
 	    var formSubmitRequest$ = events$
 	        .map(function (events) {
@@ -2412,7 +2220,7 @@
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(events_1.topEvents(events).map(function (event) { return renderEvent(event, expand, shorten, join, loaded); }).concat(events_1.moreEvents(events, more).map(function (event) { return renderEvent(event, expand, shorten, join, loaded); }))),
+	                            dom_1.main(events_1.topEvents(events).map(function (event) { return event_1.default(event, expand, shorten, join, loaded); }).slice()),
 	                            renderFooter()
 	                        ])
 	                    ])
@@ -2420,7 +2228,7 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formSubmit$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
 	    vtree$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
@@ -9492,7 +9300,7 @@
 	        meetup_event_id: '233530425'
 	    },
 	    {
-	        title: 'It\'s Real Time',
+	        title: 'This time it\'s real-time',
 	        url: 'its-real-time',
 	        categories: ['events'],
 	        tags: ['real-time', 'rtc', 'webrtc', 'peer-js'],
@@ -11494,29 +11302,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
-	function getDisplayTime(date) {
-	    var timeSplits = date.toString().split(' ');
-	    return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-	}
-	function renderHeader() {
-	    return dom_1.header([
-	        dom_1.div('.container', [
-	            dom_1.div('.content', [
-	                dom_1.a('.title', { props: { href: '#/' } }, [
-	                    dom_1.img({ props: { src: 'images/logo.gif' } })
-	                ]),
-	                dom_1.div('.navigation.container', [
-	                    dom_1.nav([
-	                        dom_1.a({ props: { href: '#/archive' } }, 'Archive')
-	                    ])
-	                ])
-	            ])
-	        ])
-	    ]);
-	}
 	function pad(n, width, z) {
 	    z = z || '0';
 	    n = n + '';
@@ -11570,245 +11357,217 @@
 	    return [].concat.apply([], agenda.map(renderAgendaEntry));
 	}
 	exports.getAgendaNodes = getAgendaNodes;
-	function renderAgenda(agenda) {
-	    return dom_1.section('.centered.agenda', [
-	        dom_1.div('.twelve.column.card', [
-	            dom_1.div('.content', [
-	                dom_1.h4('.full.width', 'Agenda')
-	            ].concat(getAgendaNodes(agenda))),
-	            dom_1.footer([
-	                dom_1.a('.button', 'Register')
-	            ])
-	        ])
-	    ]);
+	function renderBackground(event) {
+	    var style = {};
+	    if (event.color)
+	        style['background-color'] = event.color;
+	    if (event.image_url != undefined)
+	        style['background-image'] = "url(\"" + event.image_url + "\")";
+	    if (event.background_size != undefined)
+	        style['background-size'] = event.background_size;
+	    return dom_1.div('.background', { style: style });
 	}
-	function event(sources) {
-	    var xs = xstream_1.Stream;
-	    var route$ = sources.routes.route$;
-	    var event$ = sources.events.event$.filter(Boolean);
-	    var events$ = sources.events.events$;
-	    var eventRequest$ = route$
-	        .filter(function (url) { return url !== 'archive' && url !== ''; });
-	    var currentDate = new Date();
-	    var vdom$ = event$
-	        .map(function (event) {
-	        return dom_1.div('.devday.event', [
-	            dom_1.div('.container', [
-	                dom_1.div('.layout', [
-	                    renderHeader(),
-	                    dom_1.main([
-	                        dom_1.div('.panel', [
-	                            dom_1.section('.centered.intro', [
-	                                dom_1.div('.twelve.column.card', [
-	                                    dom_1.div('.content', [
-	                                        dom_1.h4([
-	                                            'Upcoming event: ',
-	                                            dom_1.span('.title', event.title),
-	                                            ' on ' + event.event_time.start_time.toDateString()
-	                                        ]),
-	                                        event.abstract
-	                                    ]),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Participate'),
-	                                        dom_1.a('.button', 'Present')
-	                                    ])
-	                                ])
-	                            ]),
-	                            renderAgenda(event.agenda),
-	                            dom_1.section('.centered.info', [
-	                                dom_1.div('.location.card', [
-	                                    dom_1.header([
-	                                        dom_1.a({ props: { href: event.venue.map_link } }, [
-	                                            dom_1.div('.filler', {
-	                                                attrs: {
-	                                                    style: "background-image: url(\"" + event.venue.map_image + "\");"
-	                                                }
-	                                            }, [
-	                                                dom_1.h4(['Location'])
-	                                            ])
-	                                        ])
-	                                    ])
-	                                ]),
-	                                dom_1.div('.event.card', [
-	                                    dom_1.header([
-	                                        dom_1.h4([event.title]),
-	                                        dom_1.h5([event.event_time.start_time.toDateString()]),
-	                                        dom_1.h6([event.event_time.start_time.toTimeString()])
-	                                    ]),
-	                                    dom_1.footer([
-	                                        dom_1.a('.button', 'Add to calendar'),
-	                                        dom_1.div('.absolute.right', [
-	                                            dom_1.a('.button', [
-	                                                dom_1.i('.material-icons', 'event')
-	                                            ])
-	                                        ])
-	                                    ])
-	                                ])
-	                            ])
-	                        ])
+	function renderForm(event, clicked, loaded) {
+	    var buttonStyle = clicked
+	        ? {
+	            transform: 'scale(1)',
+	            delayed: { transform: 'scale3d(21, 21, 1)' },
+	            destroy: { transform: 'scale(1)' }
+	        }
+	        : {
+	            transform: 'scale(0)',
+	            delayed: { transform: 'scale(1)' },
+	            destroy: { transform: 'scale(0)' }
+	        };
+	    var formClassName = loaded ? '.loaded' : '';
+	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	    if (!showForm)
+	        return [];
+	    return [
+	        dom_1.a('.join.event.button', {
+	            props: {
+	                title: 'join event',
+	                href: '#'
+	            },
+	            attrs: {
+	                'data-url': event.url
+	            },
+	            style: buttonStyle,
+	        }, [
+	            dom_1.span('.hidden', 'join event'),
+	            dom_1.i('.material-icons', 'add')
+	        ]),
+	        dom_1.form('.event.form' + formClassName, [
+	            dom_1.button('.close', {
+	                style: {
+	                    float: 'right'
+	                }
+	            }, 'x'),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'name',
+	                        placeholder: 'Name'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'name'
+	                    }
+	                }, ['Name'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'email',
+	                        placeholder: 'Email'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'email'
+	                    }
+	                }, ['Email'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'mobile',
+	                        placeholder: 'Mobile'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'mobile'
+	                    }
+	                }, ['Mobile'])
+	            ]),
+	            dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'title',
+	                        placeholder: 'Title'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'title'
+	                    }
+	                }, ['Title'])
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'abstract',
+	                        placeholder: 'Abstract'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'abstract'
+	                    }
+	                }, ['Abstract'])
+	            ]),
+	            dom_1.button({
+	                props: {
+	                    type: 'submit'
+	                }
+	            }, ['Join Us!'])
+	        ])
+	    ];
+	}
+	var fadeInOutStyle = {
+	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+	};
+	function renderEvent(event, expand, shorten, clicked, loaded) {
+	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	    var clickedBoolean = clicked === event.url;
+	    var loadedBoolean = loaded === event.url;
+	    return dom_1.article('.event.card' + expanded, {
+	        attrs: {
+	            'data-url': event.url
+	        },
+	        style: {
+	            transform: 'scale(0)',
+	            opacity: '0',
+	            delayed: {
+	                transform: 'scale(1)',
+	                opacity: '1'
+	            }
+	        }
+	    }, [
+	        dom_1.div('.primary.info', {
+	            style: {
+	                right: '100%',
+	                delayed: {
+	                    right: '35%'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [
+	                dom_1.h4([event.event_time.start_time.toDateString()]),
+	                dom_1.h3([event.title]),
+	                dom_1.p([event.abstract]),
+	            ])
+	        ]),
+	        renderBackground(event),
+	        dom_1.div('.speakers', {
+	            style: {
+	                top: '540px',
+	                delayed: {
+	                    top: '312px'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
+	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
+	        ]),
+	        dom_1.div('.agenda', [
+	            dom_1.div('.content', { style: fadeInOutStyle }, getAgendaNodes(event.agenda))
+	        ]),
+	        dom_1.div('.secondary.info', {
+	            style: {
+	                top: '540px',
+	                delayed: {
+	                    top: '440px'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [
+	                dom_1.div('.location', [
+	                    dom_1.address([
+	                        event.venue.locality + ',',
+	                        dom_1.br(),
+	                        event.venue.city
+	                    ]),
+	                    dom_1.a({ props: { href: event.venue.map_link } }, [
+	                        dom_1.div('.filler', {
+	                            attrs: {
+	                                style: "background-image: url(\"" + event.venue.map_image + "\");"
+	                            }
+	                        })
 	                    ])
+	                ]),
+	                dom_1.div('.attending', [
+	                    dom_1.p([event.attending != undefined ? event.attending + " attending" : 'JOIN NOW'])
 	                ])
 	            ])
-	        ]);
-	    });
-	    return {
-	        dom: vdom$,
-	        routes: xs.empty(),
-	        events: eventRequest$,
-	        prevent: xs.empty(),
-	        registrations: xs.empty()
-	    };
+	        ])
+	    ].concat(renderForm(event, clickedBoolean, loadedBoolean)));
 	}
 	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = event;
+	exports.default = renderEvent;
 
 
 /***/ },
 /* 136 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var HashChangeProducer = (function () {
-	    function HashChangeProducer() {
-	        var _this = this;
-	        this.start = function (listener) {
-	            _this.stream = listener;
-	            window.addEventListener('hashchange', _this.handler);
-	        };
-	        this.stop = function () {
-	            window.removeEventListener('hashchange', _this.handler);
-	            _this.stream = null;
-	        };
-	        this.stream = null;
-	        this.handler = function (event) { return _this.stream.next(event); };
-	    }
-	    return HashChangeProducer;
-	}());
-	var RoutesSource = (function () {
-	    function RoutesSource(route$) {
-	        route$.addListener({
-	            next: function (route) {
-	                window.location.hash = "/" + route;
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	        var xs = xstream_1.Stream;
-	        var hashChangeProducer = new HashChangeProducer();
-	        var hashRoute$ = xs.create(hashChangeProducer)
-	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
-	            .startWith(window.location.hash.replace('#', '') || '');
-	        this.route$ = hashRoute$;
-	    }
-	    return RoutesSource;
-	}());
-	exports.RoutesSource = RoutesSource;
-	function makeRoutesDriver() {
-	    function routesDriver(route$) {
-	        return new RoutesSource(route$);
-	    }
-	    return routesDriver;
-	}
-	exports.makeRoutesDriver = makeRoutesDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makeRoutesDriver;
-
-
-/***/ },
-/* 137 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var PreventSource = (function () {
-	    function PreventSource(event$) {
-	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function (ev) {
-	                ev.preventDefault();
-	                ev.stopPropagation();
-	            },
-	            error: function () { },
-	            complete: function () { }
-	        });
-	    }
-	    return PreventSource;
-	}());
-	exports.PreventSource = PreventSource;
-	function makePreventDriver() {
-	    function preventDriver(event$) {
-	        return new PreventSource(event$);
-	    }
-	    return preventDriver;
-	}
-	exports.makePreventDriver = makePreventDriver;
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = makePreventDriver;
-
-
-/***/ },
-/* 138 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var xstream_1 = __webpack_require__(4);
-	var http_1 = __webpack_require__(126);
-	var xstream_adapter_1 = __webpack_require__(3);
-	var RegistrationsSource = (function () {
-	    function RegistrationsSource(registration$) {
-	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
-	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
-	        var response$$ = http.select('registrations');
-	        this.registration$ =
-	            response$$
-	                .map(function (response$) { return response$.replaceError(function (error) { return xstream_1.default.of(null); }); })
-	                .flatten()
-	                .filter(Boolean)
-	                .map(function (response) { return ({
-	                event_url: response.request.category,
-	                success: response.status === 200
-	            }); })
-	                .remember();
-	    }
-	    return RegistrationsSource;
-	}());
-	exports.RegistrationsSource = RegistrationsSource;
-	function makeRegistrationsDriver() {
-	    function registrationsDriver(registration$) {
-	        return new RegistrationsSource(registration$);
-	    }
-	    return registrationsDriver;
-	}
-	exports.makeRegistrationsDriver = makeRegistrationsDriver;
-	function register(event, data) {
-	    var form = event.form;
-	    if (form == undefined)
-	        return null;
-	    var payload = {
-	        event_url: event.url
-	    };
-	    payload[form.name] = data.name;
-	    payload[form.email] = data.email;
-	    payload[form.mobile] = data.mobile;
-	    if (data.type != undefined)
-	        payload[form.type] = data.type;
-	    if (data.title != undefined)
-	        payload[form.title] = data.title;
-	    if (data.abstract != undefined)
-	        payload[form.abstract] = data.abstract;
-	    return {
-	        url: form.url,
-	        method: 'POST',
-	        send: payload,
-	        category: 'registrations',
-	        type: 'application/xml'
-	    };
-	}
-
-
-/***/ },
-/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11904,6 +11663,150 @@
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = delay;
 	//# sourceMappingURL=delay.js.map
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var HashChangeProducer = (function () {
+	    function HashChangeProducer() {
+	        var _this = this;
+	        this.start = function (listener) {
+	            _this.stream = listener;
+	            window.addEventListener('hashchange', _this.handler);
+	        };
+	        this.stop = function () {
+	            window.removeEventListener('hashchange', _this.handler);
+	            _this.stream = null;
+	        };
+	        this.stream = null;
+	        this.handler = function (event) { return _this.stream.next(event); };
+	    }
+	    return HashChangeProducer;
+	}());
+	var RoutesSource = (function () {
+	    function RoutesSource(route$) {
+	        route$.addListener({
+	            next: function (route) {
+	                window.location.hash = "/" + route;
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	        var xs = xstream_1.Stream;
+	        var hashChangeProducer = new HashChangeProducer();
+	        var hashRoute$ = xs.create(hashChangeProducer)
+	            .map(function (ev) { return ev.target.location.hash.replace('#/', ''); })
+	            .startWith(window.location.hash.replace('#', '') || '');
+	        this.route$ = hashRoute$;
+	    }
+	    return RoutesSource;
+	}());
+	exports.RoutesSource = RoutesSource;
+	function makeRoutesDriver() {
+	    function routesDriver(route$) {
+	        return new RoutesSource(route$);
+	    }
+	    return routesDriver;
+	}
+	exports.makeRoutesDriver = makeRoutesDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makeRoutesDriver;
+
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var PreventSource = (function () {
+	    function PreventSource(event$) {
+	        var xs = xstream_1.Stream;
+	        event$.addListener({
+	            next: function (ev) {
+	                ev.preventDefault();
+	                ev.stopPropagation();
+	            },
+	            error: function () { },
+	            complete: function () { }
+	        });
+	    }
+	    return PreventSource;
+	}());
+	exports.PreventSource = PreventSource;
+	function makePreventDriver() {
+	    function preventDriver(event$) {
+	        return new PreventSource(event$);
+	    }
+	    return preventDriver;
+	}
+	exports.makePreventDriver = makePreventDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makePreventDriver;
+
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var xstream_1 = __webpack_require__(4);
+	var http_1 = __webpack_require__(126);
+	var xstream_adapter_1 = __webpack_require__(3);
+	var RegistrationsSource = (function () {
+	    function RegistrationsSource(registration$) {
+	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
+	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
+	        var response$$ = http.select('registrations');
+	        this.registration$ =
+	            response$$
+	                .map(function (response$) { return response$.replaceError(function (error) { return xstream_1.default.of(null); }); })
+	                .flatten()
+	                .filter(Boolean)
+	                .map(function (response) { return ({
+	                event_url: response.request.category,
+	                success: response.status === 200
+	            }); })
+	                .remember();
+	    }
+	    return RegistrationsSource;
+	}());
+	exports.RegistrationsSource = RegistrationsSource;
+	function makeRegistrationsDriver() {
+	    function registrationsDriver(registration$) {
+	        return new RegistrationsSource(registration$);
+	    }
+	    return registrationsDriver;
+	}
+	exports.makeRegistrationsDriver = makeRegistrationsDriver;
+	function register(event, data) {
+	    var form = event.form;
+	    if (form == undefined)
+	        return null;
+	    var payload = {
+	        event_url: event.url
+	    };
+	    payload[form.name] = data.name;
+	    payload[form.email] = data.email;
+	    payload[form.mobile] = data.mobile;
+	    if (data.type != undefined)
+	        payload[form.type] = data.type;
+	    if (data.title != undefined)
+	        payload[form.title] = data.title;
+	    if (data.abstract != undefined)
+	        payload[form.abstract] = data.abstract;
+	    return {
+	        url: form.url,
+	        method: 'POST',
+	        send: payload,
+	        category: 'registrations',
+	        type: 'application/xml'
+	    };
+	}
+
 
 /***/ }
 /******/ ]);

@@ -1,29 +1,7 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, AgendaEntry, AgendaEntryType } from './definitions';
-
-function getDisplayTime(date: Date) {
-  var timeSplits = date.toString().split(' ');
-  return timeSplits[2] + ' ' + timeSplits[1] + ' ' + timeSplits[3];
-}
-
-function renderHeader(): VNode {
-  return header([
-    div('.container', [
-      div('.content', [
-        a('.title', { props: { href: '#/' } }, [
-          img({ props: { src: 'images/logo.gif' } })
-        ]),
-        div('.navigation.container', [
-          nav([
-            a({ props: { href: '#/archive' } }, 'Archive')
-          ])
-        ])
-      ])
-    ])
-  ]);
-}
+import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
+import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from './definitions';
 
 function pad(n: string, width: number, z?: string): string {
   z = z || '0';
@@ -83,98 +61,218 @@ export function getAgendaNodes(agenda: AgendaEntry[]): VNode[] {
   return [].concat.apply([], agenda.map(renderAgendaEntry));
 }
 
-function renderAgenda(agenda: AgendaEntry[]): VNode {
-  return section('.centered.agenda', [
-    div('.twelve.column.card', [
-      div('.content', [
-        h4('.full.width', 'Agenda'),
-        ...getAgendaNodes(agenda)
-      ]),
-      footer([
-        a('.button', 'Register')
-      ])
-    ])
-  ]);
+
+
+function renderBackground(event: DevdayEvent): VNode {
+  var style = {};
+  if (event.color)
+    style['background-color'] = event.color;
+  if (event.image_url != undefined)
+    style['background-image'] = `url("${event.image_url}")`;
+  if (event.background_size != undefined)
+    style['background-size'] = event.background_size;
+  return div('.background', { style });
 }
 
-function event(sources: Sources): Sinks {
-  const xs = Stream;
-  const route$ = sources.routes.route$;
-  const event$ = sources.events.event$.filter(Boolean);
-  const events$ = sources.events.events$;
-  const eventRequest$ = route$
-    .filter(url => url !== 'archive' && url !== '');
-  const currentDate = new Date();
-  const vdom$ =
-    event$
-      .map(event =>
-        div('.devday.event', [
-          div('.container', [
-            div('.layout', [
-              renderHeader(),
-              main([
-                div('.panel', [
-                  section('.centered.intro', [
-                    div('.twelve.column.card', [
-                      div('.content', [
-                        h4([
-                          'Upcoming event: ',
-                          span('.title', event.title),
-                          ' on ' + event.event_time.start_time.toDateString()
-                        ]),
-                        event.abstract
-                      ]),
-                      footer([
-                        a('.button', 'Participate'),
-                        a('.button', 'Present')
-                      ])
-                    ])
-                  ]),
-                  renderAgenda(event.agenda),
-                  section('.centered.info', [
-                    div('.location.card', [
-                      header([
-                        a({ props: { href: event.venue.map_link } }, [
-                          div('.filler', {
-                            attrs: {
-                              style: `background-image: url("${event.venue.map_image}");`
-                            }
-                          }, [
-                              h4(['Location'])
-                            ])
-                        ])
-                      ])
-                    ]),
-                    div('.event.card', [
-                      header([
-                        h4([event.title]),
-                        h5([event.event_time.start_time.toDateString()]),
-                        h6([event.event_time.start_time.toTimeString()])
-                      ]),
-                      footer([
-                        a('.button', 'Add to calendar'),
-                        div('.absolute.right', [
-                          a('.button', [
-                            i('.material-icons', 'event')
-                          ])
-                        ])
-                      ])
-                    ])
-                  ])
+function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
+  const buttonStyle = clicked
+    ? {
+      transform: 'scale(1)',
+      delayed: { transform: 'scale3d(21, 21, 1)' },
+      destroy: { transform: 'scale(1)' }
+    }
+    : {
+      transform: 'scale(0)',
+      delayed: { transform: 'scale(1)' },
+      destroy: { transform: 'scale(0)' }
+    };
+  const formClassName = loaded ? '.loaded' : '';
+  const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+  if (!showForm)
+    return [];
+  return [
+    a('.join.event.button', {
+      props: {
+        title: 'join event',
+        href: '#'
+      },
+      attrs: {
+        'data-url': event.url
+      },
+      style: buttonStyle,
+    }, [
+        span('.hidden', 'join event'),
+        i('.material-icons', 'add')
+      ]),
+    form('.event.form' + formClassName, [
+      button('.close', {
+        style: {
+          float: 'right'
+        }
+      }, 'x'),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'name',
+            placeholder: 'Name'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'name'
+          }
+        }, ['Name'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'email',
+            placeholder: 'Email'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'email'
+          }
+        }, ['Email'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'mobile',
+            placeholder: 'Mobile'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'mobile'
+          }
+        }, ['Mobile'])
+      ]),
+      p('Please fill out the following in case you want to present a talk/workshop'),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'title',
+            placeholder: 'Title'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'title'
+          }
+        }, ['Title'])
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'abstract',
+            placeholder: 'Abstract'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'abstract'
+          }
+        }, ['Abstract'])
+      ]),
+      button({
+        props: {
+          type: 'submit'
+        }
+      }, ['Join Us!'])
+    ])
+  ]
+}
+
+const fadeInOutStyle = {
+  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+};
+
+function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, clicked: string, loaded: string): VNode {
+  const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+  const clickedBoolean = clicked === event.url;
+  const loadedBoolean = loaded === event.url;
+  return article('.event.card' + expanded, {
+    attrs: {
+      'data-url': event.url
+    },
+    style: {
+      transform: 'scale(0)',
+      opacity: '0',
+      delayed: {
+        transform: 'scale(1)',
+        opacity: '1'
+      }
+    }
+  }, [
+      div('.primary.info', {
+        style: {
+          right: '100%',
+          delayed: {
+            right: '35%'
+          }
+        }
+      }, [
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              h4([event.event_time.start_time.toDateString()]),
+              h3([event.title]),
+              p([event.abstract]),
+            ])
+        ]),
+      renderBackground(event),
+      div('.speakers', {
+        style: {
+          top: '540px',
+          delayed: {
+            top: '312px'
+          }
+        }
+      }, [
+          div('.content', {
+            style: fadeInOutStyle
+          },
+            ([].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors)) as Author[])
+              .map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+        ]),
+      div('.agenda', [
+        div('.content', { style: fadeInOutStyle }, getAgendaNodes(event.agenda))
+      ]),
+      div('.secondary.info', {
+        style: {
+          top: '540px',
+          delayed: {
+            top: '440px'
+          }
+        }
+      },
+        [
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              div('.location', [
+                address([
+                  event.venue.locality + ',',
+                  br(),
+                  event.venue.city
+                ]),
+                a({ props: { href: event.venue.map_link } }, [
+                  div('.filler', {
+                    attrs: {
+                      style: `background-image: url("${event.venue.map_image}");`
+                    }
+                  })
                 ])
+              ]),
+              div('.attending', [
+                p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
               ])
             ])
-          ])
-        ])
-      );
-
-  return {
-    dom: vdom$,
-    routes: xs.empty(),
-    events: eventRequest$,
-    prevent: xs.empty(),
-    registrations: xs.empty()
-  };
+        ]),
+      ...renderForm(event, clickedBoolean, loadedBoolean)
+    ]);
 }
 
-export default event;
+export default renderEvent;
