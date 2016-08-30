@@ -21,15 +21,6 @@ function renderBackground(event: DevdayEvent): VNode {
   return div('.background', { attrs: { style } });
 }
 
-function findChildIndex(node: VNode): number {
-  const element = node.elm as HTMLElement;
-  const childNodes = element.parentElement.childNodes;
-  for (var i = 0; i < childNodes.length; i++)
-    if (childNodes[i] === element)
-      return i;
-  return -1;
-}
-
 function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
   const buttonStyle = clicked
     ? {

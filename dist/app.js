@@ -2079,14 +2079,6 @@
 	        style += "background-size: " + event.background_size + ";";
 	    return dom_1.div('.background', { attrs: { style: style } });
 	}
-	function findChildIndex(node) {
-	    var element = node.elm;
-	    var childNodes = element.parentElement.childNodes;
-	    for (var i = 0; i < childNodes.length; i++)
-	        if (childNodes[i] === element)
-	            return i;
-	    return -1;
-	}
 	function renderForm(event, clicked, loaded) {
 	    var buttonStyle = clicked
 	        ? {
