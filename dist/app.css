@@ -6104,7 +6104,7 @@ iframe {
     flex-shrink: 0; }
     .devday.home > .container > .layout > .content > main > .event.card {
       z-index: 10;
-      height: 540px;
+      height: 550px;
       background: white;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       transform-origin: 0% 0%; }
@@ -6290,7 +6290,7 @@ iframe {
             position: relative;
             float: right;
             width: 50%;
-            padding-left: px; }
+            padding-left: 20px; }
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .attending::before {
               content: 'attending';
               text-transform: uppercase;

@@ -141,7 +141,7 @@
                         @extend .mdl-cell--6-col-desktop;
 
                         z-index: 10;
-                        height: 540px;
+                        height: 550px;
                         background: white;
                         transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
                         transform-origin: 0% 0%;
@@ -402,7 +402,7 @@
                               position: relative;
                               float: right;
                               width: 50%;
-                              padding-left: px;
+                              padding-left: 20px;
 
                               &::before {
                                 content: 'attending';
