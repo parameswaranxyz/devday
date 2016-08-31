@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: '├óΓé¼┼ô'; }
+    content: 'â€œ'; }
   blockquote:after {
-    content: '├óΓé¼┬¥';
+    content: 'â€';
     margin-left: -.05em; }
 
 mark {
@@ -829,7 +829,7 @@ ul, ol {
 .mdl-color-text--deep-purple-600 {
   color: #5e35b1 !important; }
 
-.mdl-color--deep-purple-600 {
+.mdl-color--deep-purple-600, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
   background-color: #5e35b1 !important; }
 
 .mdl-color-text--deep-purple-700 {
@@ -844,7 +844,7 @@ ul, ol {
 .mdl-color--deep-purple-800 {
   background-color: #4527a0 !important; }
 
-.mdl-color-text--deep-purple-900 {
+.mdl-color-text--deep-purple-900, .devday.home > .container > .layout > .content > main > .event.card .event.form > button {
   color: #311b92 !important; }
 
 .mdl-color--deep-purple-900 {
@@ -2173,7 +2173,7 @@ ul, ol {
 .mdl-color--primary-dark {
   background-color: #303f9f !important; }
 
-.mdl-color--accent, .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
+.mdl-color--accent {
   background-color: #ff4081 !important; }
 
 .mdl-color--accent-contrast {
@@ -6015,8 +6015,17 @@ iframe {
     background-color: transparent !important;
     border-bottom: 4px solid transparent; }
 
-::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
-  color: rgba(255, 255, 255, 0.7); }
+::-webkit-input-placeholder {
+  color: #d1c4e9 !important; }
+
+:-moz-placeholder {
+  color: #d1c4e9 !important; }
+
+::-moz-placeholder {
+  color: #d1c4e9 !important; }
+
+:-ms-input-placeholder {
+  color: #d1c4e9 !important; }
 
 .devday.home::before {
   background-size: cover;
@@ -6246,7 +6255,9 @@ iframe {
         background: #5C6BC0;
         transition-property: top;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        transition-delay: .45s; }
+        transition-delay: .45s;
+        min-height: 110px;
+        cursor: pointer; }
         .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content {
           padding: 20px;
           position: relative;
@@ -6262,14 +6273,12 @@ iframe {
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .location::before {
               content: 'location';
               text-transform: uppercase;
-              position: absolute;
               color: rgba(255, 255, 255, 0.5); }
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .location > address {
-              position: absolute;
-              top: 30px;
               color: white;
               font-size: 0.875em;
-              line-height: 1em; }
+              line-height: 1.5em;
+              margin-top: 10px; }
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .location .filler {
               background-repeat: no-repeat;
               background-size: cover;
@@ -6280,15 +6289,14 @@ iframe {
           .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .attending {
             position: relative;
             float: right;
-            width: 50%; }
+            width: 50%;
+            padding-left: px; }
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .attending::before {
               content: 'attending';
               text-transform: uppercase;
-              position: absolute;
               color: rgba(255, 255, 255, 0.5); }
             .devday.home > .container > .layout > .content > main > .event.card > .secondary.info > .content > .attending > p {
-              position: absolute;
-              top: 30px;
+              margin: 10px 0 0;
               color: white; }
       .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
         color: white;
@@ -6308,13 +6316,9 @@ iframe {
           transition-delay: .1s; }
           .devday.home > .container > .layout > .content > main > .event.card > .join.event.button.expand i {
             display: none; }
+      .devday.home > .container > .layout > .content > main > .event.card .event.button.expand + .event.form {
+        padding: 20px; }
       .devday.home > .container > .layout > .content > main > .event.card .event.form {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        padding: 20px;
         z-index: 20;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         transition-delay: .75s; }
@@ -6327,8 +6331,11 @@ iframe {
           color: white; }
         .devday.home > .container > .layout > .content > main > .event.card .event.form > button {
           display: block;
-          background: white;
-          color: #ff4081; }
+          background: white; }
+          .devday.home > .container > .layout > .content > main > .event.card .event.form > button:hover, .devday.home > .container > .layout > .content > main > .event.card .event.form > button:active {
+            background: #fefefe; }
+        .devday.home > .container > .layout > .content > main > .event.card .event.form > button[type=submit] {
+          margin: 10px auto; }
       .devday.home > .container > .layout > .content > main > .event.card.expanded {
         z-index: 11;
         height: auto;
@@ -6350,18 +6357,16 @@ iframe {
           top: 0;
           height: auto; }
           .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content {
-            width: auto;
-            height: auto; }
+            float: left; }
             .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location {
-              padding: 30px 0 20px; }
-              .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location::before {
-                top: 0; }
+              padding: 0 20px 0 0; }
               .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location > address {
                 position: initial;
                 top: 0;
                 margin-bottom: 10px; }
               .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location .filler {
-                display: block; }
+                display: block;
+                margin: 20px 0; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;
@@ -6410,6 +6415,8 @@ iframe {
         background-image: url("../images/logos/twitter.png"); }
       .devday.home > .container > .layout > .content > footer > .section > .social.button.facebook {
         background-image: url("../images/logos/facebook.png"); }
+.devday.home > .container .mdl-textfield__label:after, .devday.home > .container > .layout > .content > main > .event.card .event.form > .form.text.input.element > label:after {
+  background-color: #f48fb1; }
 
 .devday.event > .container > .layout > main > .panel {
   padding: 8px;
