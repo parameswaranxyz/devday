@@ -434,15 +434,10 @@
                               i {
                                 display: none;
                               }
-
-                              & + .event.form {
-                                display: block;
-                              }
                             }
                         }
 
                         .event.form {
-                          display: none;
                           position: absolute;
                           top: 0;
                           left: 0;
@@ -450,12 +445,8 @@
                           bottom: 0;
                           padding: 20px;
                           z-index: 20;
-                          opacity: 0;
                           transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
-
-                          &.loaded {
-                            opacity: 1;
-                          }
+                          transition-delay: .75s;
 
                           & > .form.text.input.element {
                             @extend .mdl-textfield;
@@ -487,11 +478,6 @@
                         }
 
                         &.expanded {
-                          position: absolute;
-                          left: 20px;
-                          right: 20px;
-                          bottom: 20px;
-                          top: 20px;
                           z-index: 11;
                           height: auto;
                           width: auto;

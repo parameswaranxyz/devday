@@ -149,7 +149,6 @@ function home(sources: Sources): Sinks {
     dom
       .select('.form.event')
       .events('click');
-  const formLoaded$ = join$.compose(delay<string>(1000));
   const formSubmit$ =
     dom
       .select('.form.event button[type=submit]')
@@ -175,16 +174,16 @@ function home(sources: Sources): Sinks {
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, formLoaded$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, join, loaded]) =>
+          .map(([noun, topic, events, more, expand, shorten, join]) =>
             div('.devday.home', [
               div('.container', [
                 div('.layout', [
                   div('.content', [
                     renderHeader(noun, topic),
                     main([
-                      ...topEvents(events).map(event => renderEvent(event, expand, shorten, join, loaded)),
+                      ...topEvents(events).map(event => renderEvent(event, expand, shorten, join)),
                       // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
                       // nav([
                       //   a('.more', {
