@@ -1,10 +1,10 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayRegistrationData } from './definitions';
+import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from './definitions';
 import { topEvents, moreEvents } from './drivers/events';
 import { RegistrationRequest } from './drivers/registrations';
-import renderEvent from './event';
+import { renderEvent, renderExpandedEvent } from './event';
 import delay from 'xstream/extra/delay';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
@@ -149,7 +149,6 @@ function home(sources: Sources): Sinks {
     dom
       .select('.form.event')
       .events('click');
-  const formLoaded$ = join$.compose(delay<string>(1000));
   const formSubmit$ =
     dom
       .select('.form.event button[type=submit]')
@@ -175,34 +174,44 @@ function home(sources: Sources): Sinks {
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, formLoaded$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, join, loaded]) =>
-            div('.devday.home', [
+          .map(([noun, topic, events, more, expand, shorten, join]) => {
+            let expandedEvent: DevdayEvent = undefined;
+            if (!shorten)
+              expandedEvent = events.find(event => event.url === expand);
+            const children =
+              expandedEvent == undefined
+                ? [
+                  ...topEvents(events).map(event => renderEvent(event, join)),
+                  // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
+                  // nav([
+                  //   a('.more', {
+                  //     props: { href: '#', title: 'view all previous events' },
+                  //     attrs: { style: more ? 'display: none;' : '' }
+                  //   }, [
+                  //       'Past events',
+                  //       button([
+                  //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                  //       ])
+                  //     ])
+                  // ])
+                ]
+                : [
+                  renderExpandedEvent(expandedEvent)
+                ];
+            return div('.devday.home', [
               div('.container', [
                 div('.layout', [
                   div('.content', [
                     renderHeader(noun, topic),
-                    main([
-                      ...topEvents(events).map(event => renderEvent(event, expand, shorten, join, loaded)),
-                      // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
-                      // nav([
-                      //   a('.more', {
-                      //     props: { href: '#', title: 'view all previous events' },
-                      //     attrs: { style: more ? 'display: none;' : '' }
-                      //   }, [
-                      //       'Past events',
-                      //       button([
-                      //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                      //       ])
-                      //     ])
-                      // ])
-                    ]),
+                    main(children),
                     renderFooter()
                   ])
                 ])
               ])
-            ])
+            ]);
+          }
           )
       ).flatten();
   const prevent$ =

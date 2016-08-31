@@ -3,6 +3,10 @@ import { run } from '@cycle/xstream-run';
 import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from './definitions';
 
+const fadeInOutStyle = {
+  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+};
+
 function pad(n: string, width: number, z?: string): string {
   z = z || '0';
   n = n + '';
@@ -57,12 +61,6 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   }
 }
 
-export function getAgendaNodes(agenda: AgendaEntry[]): VNode[] {
-  return [].concat.apply([], agenda.map(renderAgendaEntry));
-}
-
-
-
 function renderBackground(event: DevdayEvent): VNode {
   var style = {};
   if (event.color)
@@ -74,22 +72,105 @@ function renderBackground(event: DevdayEvent): VNode {
   return div('.background', { style });
 }
 
-function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNode[] {
-  const buttonStyle = clicked
-    ? {
-      transform: 'scale(1)',
-      delayed: { transform: 'scale3d(21, 21, 1)' },
-      destroy: { transform: 'scale(1)' }
-    }
-    : {
-      transform: 'scale(0)',
-      delayed: { transform: 'scale(1)' },
-      destroy: { transform: 'scale(0)' }
-    };
-  const formClassName = loaded ? '.loaded' : '';
+function renderExpandedForm(event: DevdayEvent): VNode {
+  return form('.event.form', { style: fadeInOutStyle }, [
+    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      input('.mdl-textfield__input', {
+        props: {
+          id: 'name',
+          placeholder: 'Name'
+        }
+      }),
+      label('.mdl-textfield__label', {
+        props: {
+          for: 'name'
+        }
+      }, ['Name'])
+    ]),
+    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      input('.mdl-textfield__input', {
+        props: {
+          id: 'email',
+          placeholder: 'Email'
+        }
+      }),
+      label('.mdl-textfield__label', {
+        props: {
+          for: 'email'
+        }
+      }, ['Email'])
+    ]),
+    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      input('.mdl-textfield__input', {
+        props: {
+          id: 'mobile',
+          placeholder: 'Mobile'
+        }
+      }),
+      label('.mdl-textfield__label', {
+        props: {
+          for: 'mobile'
+        }
+      }, ['Mobile'])
+    ]),
+    p('Please fill out the following in case you want to present a talk/workshop'),
+    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      input('.mdl-textfield__input', {
+        props: {
+          id: 'title',
+          placeholder: 'Title'
+        }
+      }),
+      label('.mdl-textfield__label', {
+        props: {
+          for: 'title'
+        }
+      }, ['Title'])
+    ]),
+    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      input('.mdl-textfield__input', {
+        props: {
+          id: 'abstract',
+          placeholder: 'Abstract'
+        }
+      }),
+      label('.mdl-textfield__label', {
+        props: {
+          for: 'abstract'
+        }
+      }, ['Abstract'])
+    ]),
+    button({
+      props: {
+        type: 'submit'
+      }
+    }, ['Join Us!'])
+  ]);
+}
+
+function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
     return [];
+  if (!clicked)
+    return [
+      a('.join.event.button', {
+        props: {
+          title: 'join event',
+          href: '#'
+        },
+        attrs: {
+          'data-url': event.url
+        },
+        style: {
+          transform: 'scale(0)',
+          delayed: { transform: 'scale(1)' },
+          destroy: { transform: 'scale(0)' }
+        },
+      }, [
+          span('.hidden', 'join event'),
+          i('.material-icons', 'add')
+        ])];
   return [
     a('.join.event.button', {
       props: {
@@ -99,12 +180,16 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
       attrs: {
         'data-url': event.url
       },
-      style: buttonStyle,
+      style: {
+        transform: 'scale(1)',
+        delayed: { transform: 'scale3d(21, 21, 1)' },
+        destroy: { transform: 'scale(1)' }
+      },
     }, [
         span('.hidden', 'join event'),
         i('.material-icons', 'add')
       ]),
-    form('.event.form' + formClassName, [
+    form('.event.form', { style: fadeInOutStyle }, [
       button('.close', {
         style: {
           float: 'right'
@@ -185,15 +270,9 @@ function renderForm(event: DevdayEvent, clicked: boolean, loaded: boolean): VNod
   ]
 }
 
-const fadeInOutStyle = {
-  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
-};
-
-function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, clicked: string, loaded: string): VNode {
-  const expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+export function renderEvent(event: DevdayEvent, clicked: string): VNode {
   const clickedBoolean = clicked === event.url;
-  const loadedBoolean = loaded === event.url;
-  return article('.event.card' + expanded, {
+  return article('.event.card', {
     attrs: {
       'data-url': event.url
     },
@@ -237,9 +316,6 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
             ([].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors)) as Author[])
               .map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
         ]),
-      div('.agenda', [
-        div('.content', { style: fadeInOutStyle }, getAgendaNodes(event.agenda))
-      ]),
       div('.secondary.info', {
         style: {
           top: '540px',
@@ -271,8 +347,78 @@ function renderEvent(event: DevdayEvent, expand: string, shorten: boolean, click
               ])
             ])
         ]),
-      ...renderForm(event, clickedBoolean, loadedBoolean)
+      ...renderForm(event, clickedBoolean)
     ]);
 }
 
-export default renderEvent;
+export function renderExpandedEvent(event: DevdayEvent): VNode {
+  return article('.event.card.expanded', {
+    attrs: {
+      'data-url': event.url
+    },
+    style: {
+      transform: 'scale(0)',
+      opacity: '0',
+      delayed: {
+        transform: 'scale(1)',
+        opacity: '1'
+      }
+    }
+  }, [
+      div('.primary.info', {
+        style: {
+          right: '100%',
+          delayed: {
+            right: '35%'
+          }
+        }
+      }, [
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              h4([event.event_time.start_time.toDateString()]),
+              h3([event.title]),
+              p([event.abstract]),
+            ])
+        ]),
+      renderBackground(event),
+      div('.agenda', [
+        div('.content', { style: fadeInOutStyle }, [].concat.apply([], event.agenda.map(renderAgendaEntry)))
+      ]),
+      div('.secondary.info', {
+        style: {
+          top: '540px',
+          delayed: {
+            top: '440px'
+          }
+        }
+      },
+        [
+          div('.content', {
+            style: fadeInOutStyle
+          }, [
+              div('.location', [
+                a({ props: { href: event.venue.map_link } }, [
+                  div('.filler', {
+                    attrs: {
+                      style: `background-image: url("${event.venue.map_image}");`
+                    }
+                  })
+                ]),
+                address([
+                  event.venue.line_one,
+                  br(),
+                  event.venue.line_two,
+                  br(),
+                  event.venue.locality,
+                  br(),
+                  event.venue.city + ' - ' + event.venue.zip
+                ])
+              ]),
+              div('.attending', [
+                renderExpandedForm(event)
+              ])
+            ])
+        ]),
+    ]);
+}

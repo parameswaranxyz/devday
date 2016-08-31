@@ -2188,7 +2188,6 @@
 	    var formClick$ = dom
 	        .select('.form.event')
 	        .events('click');
-	    var formLoaded$ = join$.compose(delay_1.default(1000));
 	    var formSubmit$ = dom
 	        .select('.form.event button[type=submit]')
 	        .events('click');
@@ -2211,16 +2210,24 @@
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, formLoaded$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6], loaded = _a[7];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6];
+	            var expandedEvent = undefined;
+	            if (!shorten)
+	                expandedEvent = events.find(function (event) { return event.url === expand; });
+	            var children = expandedEvent == undefined
+	                ? events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join); }).slice()
+	                : [
+	                    event_1.renderExpandedEvent(expandedEvent)
+	                ];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
 	                    dom_1.div('.layout', [
 	                        dom_1.div('.content', [
 	                            renderHeader(noun, topic),
-	                            dom_1.main(events_1.topEvents(events).map(function (event) { return event_1.default(event, expand, shorten, join, loaded); }).slice()),
+	                            dom_1.main(children),
 	                            renderFooter()
 	                        ])
 	                    ])
@@ -11304,6 +11311,9 @@
 	"use strict";
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
+	var fadeInOutStyle = {
+	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+	};
 	function pad(n, width, z) {
 	    z = z || '0';
 	    n = n + '';
@@ -11353,10 +11363,6 @@
 	            ];
 	    }
 	}
-	function getAgendaNodes(agenda) {
-	    return [].concat.apply([], agenda.map(renderAgendaEntry));
-	}
-	exports.getAgendaNodes = getAgendaNodes;
 	function renderBackground(event) {
 	    var style = {};
 	    if (event.color)
@@ -11367,22 +11373,104 @@
 	        style['background-size'] = event.background_size;
 	    return dom_1.div('.background', { style: style });
 	}
-	function renderForm(event, clicked, loaded) {
-	    var buttonStyle = clicked
-	        ? {
-	            transform: 'scale(1)',
-	            delayed: { transform: 'scale3d(21, 21, 1)' },
-	            destroy: { transform: 'scale(1)' }
-	        }
-	        : {
-	            transform: 'scale(0)',
-	            delayed: { transform: 'scale(1)' },
-	            destroy: { transform: 'scale(0)' }
-	        };
-	    var formClassName = loaded ? '.loaded' : '';
+	function renderExpandedForm(event) {
+	    return dom_1.form('.event.form', { style: fadeInOutStyle }, [
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'name',
+	                    placeholder: 'Name'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'name'
+	                }
+	            }, ['Name'])
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'email',
+	                    placeholder: 'Email'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'email'
+	                }
+	            }, ['Email'])
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'mobile',
+	                    placeholder: 'Mobile'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'mobile'
+	                }
+	            }, ['Mobile'])
+	        ]),
+	        dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'title',
+	                    placeholder: 'Title'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'title'
+	                }
+	            }, ['Title'])
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'abstract',
+	                    placeholder: 'Abstract'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'abstract'
+	                }
+	            }, ['Abstract'])
+	        ]),
+	        dom_1.button({
+	            props: {
+	                type: 'submit'
+	            }
+	        }, ['Join Us!'])
+	    ]);
+	}
+	function renderForm(event, clicked) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
 	        return [];
+	    if (!clicked)
+	        return [
+	            dom_1.a('.join.event.button', {
+	                props: {
+	                    title: 'join event',
+	                    href: '#'
+	                },
+	                attrs: {
+	                    'data-url': event.url
+	                },
+	                style: {
+	                    transform: 'scale(0)',
+	                    delayed: { transform: 'scale(1)' },
+	                    destroy: { transform: 'scale(0)' }
+	                },
+	            }, [
+	                dom_1.span('.hidden', 'join event'),
+	                dom_1.i('.material-icons', 'add')
+	            ])];
 	    return [
 	        dom_1.a('.join.event.button', {
 	            props: {
@@ -11392,12 +11480,16 @@
 	            attrs: {
 	                'data-url': event.url
 	            },
-	            style: buttonStyle,
+	            style: {
+	                transform: 'scale(1)',
+	                delayed: { transform: 'scale3d(21, 21, 1)' },
+	                destroy: { transform: 'scale(1)' }
+	            },
 	        }, [
 	            dom_1.span('.hidden', 'join event'),
 	            dom_1.i('.material-icons', 'add')
 	        ]),
-	        dom_1.form('.event.form' + formClassName, [
+	        dom_1.form('.event.form', { style: fadeInOutStyle }, [
 	            dom_1.button('.close', {
 	                style: {
 	                    float: 'right'
@@ -11477,14 +11569,9 @@
 	        ])
 	    ];
 	}
-	var fadeInOutStyle = {
-	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
-	};
-	function renderEvent(event, expand, shorten, clicked, loaded) {
-	    var expanded = ((!shorten && (event.url === expand)) ? '.expanded' : '');
+	function renderEvent(event, clicked) {
 	    var clickedBoolean = clicked === event.url;
-	    var loadedBoolean = loaded === event.url;
-	    return dom_1.article('.event.card' + expanded, {
+	    return dom_1.article('.event.card', {
 	        attrs: {
 	            'data-url': event.url
 	        },
@@ -11527,9 +11614,6 @@
 	            }, [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
 	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
 	        ]),
-	        dom_1.div('.agenda', [
-	            dom_1.div('.content', { style: fadeInOutStyle }, getAgendaNodes(event.agenda))
-	        ]),
 	        dom_1.div('.secondary.info', {
 	            style: {
 	                top: '540px',
@@ -11560,10 +11644,80 @@
 	                ])
 	            ])
 	        ])
-	    ].concat(renderForm(event, clickedBoolean, loadedBoolean)));
+	    ].concat(renderForm(event, clickedBoolean)));
 	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = renderEvent;
+	exports.renderEvent = renderEvent;
+	function renderExpandedEvent(event) {
+	    return dom_1.article('.event.card.expanded', {
+	        attrs: {
+	            'data-url': event.url
+	        },
+	        style: {
+	            transform: 'scale(0)',
+	            opacity: '0',
+	            delayed: {
+	                transform: 'scale(1)',
+	                opacity: '1'
+	            }
+	        }
+	    }, [
+	        dom_1.div('.primary.info', {
+	            style: {
+	                right: '100%',
+	                delayed: {
+	                    right: '35%'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [
+	                dom_1.h4([event.event_time.start_time.toDateString()]),
+	                dom_1.h3([event.title]),
+	                dom_1.p([event.abstract]),
+	            ])
+	        ]),
+	        renderBackground(event),
+	        dom_1.div('.agenda', [
+	            dom_1.div('.content', { style: fadeInOutStyle }, [].concat.apply([], event.agenda.map(renderAgendaEntry)))
+	        ]),
+	        dom_1.div('.secondary.info', {
+	            style: {
+	                top: '540px',
+	                delayed: {
+	                    top: '440px'
+	                }
+	            }
+	        }, [
+	            dom_1.div('.content', {
+	                style: fadeInOutStyle
+	            }, [
+	                dom_1.div('.location', [
+	                    dom_1.a({ props: { href: event.venue.map_link } }, [
+	                        dom_1.div('.filler', {
+	                            attrs: {
+	                                style: "background-image: url(\"" + event.venue.map_image + "\");"
+	                            }
+	                        })
+	                    ]),
+	                    dom_1.address([
+	                        event.venue.line_one,
+	                        dom_1.br(),
+	                        event.venue.line_two,
+	                        dom_1.br(),
+	                        event.venue.locality,
+	                        dom_1.br(),
+	                        event.venue.city + ' - ' + event.venue.zip
+	                    ])
+	                ]),
+	                dom_1.div('.attending', [
+	                    renderExpandedForm(event)
+	                ])
+	            ])
+	        ]),
+	    ]);
+	}
+	exports.renderExpandedEvent = renderExpandedEvent;
 
 
 /***/ },
