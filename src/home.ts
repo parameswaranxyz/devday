@@ -12,11 +12,11 @@ const topics = ['technology', 'internet of things', 'cloud computing', 'arduino'
 
 function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   return {
-    name: encodeURIComponent(form.elements['name'].value),
-    email: encodeURIComponent(form.elements['email'].value),
-    mobile: encodeURIComponent(form.elements['mobile'].value),
-    title: encodeURIComponent(form.elements['title'].value),
-    abstract: encodeURIComponent(form.elements['abstract'].value),
+    name: form.elements['name'].value,
+    email: form.elements['email'].value,
+    mobile: form.elements['mobile'].value,
+    title: form.elements['title'].value,
+    abstract: form.elements['abstract'].value,
   }
 }
 
