@@ -18,23 +18,6 @@ export class RegistrationsSource {
   registration$: Stream<RegistrationResult>;
   constructor(registration$: Stream<RegistrationRequest>) {
     const request$ = registration$.map(req => register(req.event, req.data));
-    request$.map(request => $.ajax({
-      url: request.url,
-      data: request.send,
-      type: request.type,
-      dataType: 'xml',
-      crossDomain: true,
-      statusCode: {
-        0: () => this.registration$.shamefullySendNext({
-          event_url: (<any>request.send).event_url,
-          success: true
-        } as RegistrationResult),
-        200: () => this.registration$.shamefullySendNext({
-          event_url: (<any>request.send).event_url,
-          success: true
-        } as RegistrationResult),
-      }
-    }));
     const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
     const response$$: Stream<Stream<Response>> = http.select('registrations');
     this.registration$ =
@@ -63,7 +46,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   if (form == undefined)
     return null;
   const payload = {
-    event_url: event.url
+    // event_url: event.url
   };
   payload[form.name] = data.name;
   payload[form.email] = data.email;
@@ -79,9 +62,6 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
     method: 'POST',
     send: payload,
     category: 'registrations',
-    type: 'application/x-www-form-urlencoded',
-    headers: {
-      'Upgrade-Insecure-Requests': '1'
-    }
+    type: 'application/x-www-form-urlencoded; charset=UTF-8'
   };
 }

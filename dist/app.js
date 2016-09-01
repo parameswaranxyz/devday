@@ -2071,11 +2071,11 @@
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
 	    return {
-	        name: encodeURIComponent(form.elements['name'].value),
-	        email: encodeURIComponent(form.elements['email'].value),
-	        mobile: encodeURIComponent(form.elements['mobile'].value),
-	        title: encodeURIComponent(form.elements['title'].value),
-	        abstract: encodeURIComponent(form.elements['abstract'].value),
+	        name: form.elements['name'].value,
+	        email: form.elements['email'].value,
+	        mobile: form.elements['mobile'].value,
+	        title: form.elements['title'].value,
+	        abstract: form.elements['abstract'].value,
 	    };
 	}
 	function renderHeader(noun, topic) {
@@ -11916,25 +11916,7 @@
 	var xstream_adapter_1 = __webpack_require__(3);
 	var RegistrationsSource = (function () {
 	    function RegistrationsSource(registration$) {
-	        var _this = this;
 	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
-	        request$.map(function (request) { return $.ajax({
-	            url: request.url,
-	            data: request.send,
-	            type: request.type,
-	            dataType: 'xml',
-	            crossDomain: true,
-	            statusCode: {
-	                0: function () { return _this.registration$.shamefullySendNext({
-	                    event_url: request.send.event_url,
-	                    success: true
-	                }); },
-	                200: function () { return _this.registration$.shamefullySendNext({
-	                    event_url: request.send.event_url,
-	                    success: true
-	                }); },
-	            }
-	        }); });
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('registrations');
 	        this.registration$ =
@@ -11962,9 +11944,7 @@
 	    var form = event.form;
 	    if (form == undefined)
 	        return null;
-	    var payload = {
-	        event_url: event.url
-	    };
+	    var payload = {};
 	    payload[form.name] = data.name;
 	    payload[form.email] = data.email;
 	    payload[form.mobile] = data.mobile;
@@ -11979,10 +11959,7 @@
 	        method: 'POST',
 	        send: payload,
 	        category: 'registrations',
-	        type: 'application/x-www-form-urlencoded',
-	        headers: {
-	            'Upgrade-Insecure-Requests': '1'
-	        }
+	        type: 'application/x-www-form-urlencoded; charset=UTF-8'
 	    };
 	}
 
