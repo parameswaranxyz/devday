@@ -11959,9 +11959,8 @@
 	    return {
 	        url: form.url,
 	        method: 'POST',
-	        send: payload,
-	        category: 'registrations',
-	        type: 'application/xml'
+	        field: payload,
+	        category: 'registrations'
 	    };
 	}
 
