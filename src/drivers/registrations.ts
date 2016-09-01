@@ -60,7 +60,8 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   return {
     url: form.url,
     method: 'POST',
-    field: payload,
-    category: 'registrations'
+    send: payload,
+    category: 'registrations',
+    type: 'application/x-www-form-urlencoded'
   };
 }
