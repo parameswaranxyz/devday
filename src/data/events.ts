@@ -588,7 +588,7 @@ export const events: DevdayEvent[] = [
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624',
     form: {
-      url: 'https://docs.google.com/a/sahajsoft.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
       name: 'entry.2092238618',
       email: 'entry.1556369182',
       mobile: 'entry.479301265',

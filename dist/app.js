@@ -9386,7 +9386,7 @@
 	        meetup_urlname: 'devday_chennai',
 	        meetup_event_id: '232886624',
 	        form: {
-	            url: 'https://docs.google.com/a/sahajsoft.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
+	            url: 'https://docs.google.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
 	            name: 'entry.2092238618',
 	            email: 'entry.1556369182',
 	            mobile: 'entry.479301265',
@@ -11916,7 +11916,25 @@
 	var xstream_adapter_1 = __webpack_require__(3);
 	var RegistrationsSource = (function () {
 	    function RegistrationsSource(registration$) {
+	        var _this = this;
 	        var request$ = registration$.map(function (req) { return register(req.event, req.data); });
+	        request$.map(function (request) { return $.ajax({
+	            url: request.url,
+	            data: request.send,
+	            type: request.type,
+	            dataType: 'xml',
+	            crossDomain: true,
+	            statusCode: {
+	                0: function () { return _this.registration$.shamefullySendNext({
+	                    event_url: request.send.event_url,
+	                    success: true
+	                }); },
+	                200: function () { return _this.registration$.shamefullySendNext({
+	                    event_url: request.send.event_url,
+	                    success: true
+	                }); },
+	            }
+	        }); });
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('registrations');
 	        this.registration$ =
@@ -11961,7 +11979,10 @@
 	        method: 'POST',
 	        send: payload,
 	        category: 'registrations',
-	        type: 'application/x-www-form-urlencoded'
+	        type: 'application/x-www-form-urlencoded',
+	        headers: {
+	            'Upgrade-Insecure-Requests': '1'
+	        }
 	    };
 	}
 
