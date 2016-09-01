@@ -1,17 +1,17 @@
 ::-webkit-input-placeholder {
-  color: #d1c4e9 !important;
+  color: $light-secondary-text-color !important;
 }
 
 :-moz-placeholder {
-  color: #d1c4e9 !important;
+  color: $light-secondary-text-color !important;
 }
 
 ::-moz-placeholder {
-  color: #d1c4e9 !important;
+  color: $light-secondary-text-color !important;
 }
 
 :-ms-input-placeholder {
-  color: #d1c4e9 !important;
+  color: $light-secondary-text-color !important;
 }
 
 .devday.home {
@@ -422,7 +422,7 @@
                         & > .join.event.button {
                             @extend .mdl-button;
                             @extend .mdl-button--fab;
-                            @extend .mdl-color--deep-purple-600;
+                            @extend .mdl-color--accent;
                             
                             color: white;
                             position: absolute;
@@ -433,24 +433,18 @@
                             z-index: 20;
                             border-radius: 50%;
                             cursor: pointer;
-                            transition: .6s cubic-bezier(.65,-0.40,.49,1.40);
+                            transition: .3s cubic-bezier(.65,-0.40,.49,1.40);
                             transition-delay: .45s;
 
                             &.expand {
                               cursor: default;
-                              transition:.6s cubic-bezier(.65,-0.68,.49,1.94);
+                              transition:.3s cubic-bezier(.65,-0.68,.49,1.94);
                               transition-delay: .1s;
 
-                              i {
-                                display: none;
+                              & + .event.form {
+                                padding: 20px;
                               }
                             }
-                        }
-
-                        .event.button.expand {
-                          + .event.form {
-                            padding: 20px;
-                          }
                         }
 
                         .event.form {
@@ -465,13 +459,16 @@
                               @extend .mdl-textfield__input;
                               
                               color: white;
-                              border-color: white;
+                              border-color: $light-secondary-text-color;
                             }
 
                             & > label {
                               @extend .mdl-textfield__label;
-
                               color: white;
+
+                              &:after { 
+                                background-color: $light-primary-text-color;
+                              }
                             }
                           }
 
@@ -483,16 +480,18 @@
                             @extend .mdl-button;
                             display: block;
                             background: white;
-                            @extend .mdl-color-text--deep-purple-900;
+                            color: $primary-accent !important;
+
+                            &[type=submit] {
+                              margin: 10px auto;
+                            }
 
                             &:hover,
-                            &:active {
+                            &:active, 
+                            &:focus {
                               background: #fefefe;
+                              color: $primary-accent !important;
                             }
-                          }
-
-                          & > button[type=submit] {
-                            margin: 10px auto;
                           }
                         }
 
@@ -627,10 +626,6 @@
                     }
                 }
             }
-        }
-
-        .mdl-textfield__label:after { 
-          background-color: #f48fb1;
         }
     }
 }

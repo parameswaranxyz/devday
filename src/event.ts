@@ -142,7 +142,8 @@ function renderExpandedForm(event: DevdayEvent): VNode {
     ]),
     button({
       props: {
-        type: 'submit'
+        type: 'submit',
+        tabindex: '0'
       }
     }, ['Join Us!'])
   ]);
@@ -169,7 +170,7 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
         },
       }, [
           span('.hidden', 'join event'),
-          i('.material-icons', 'add')
+          i('.material-icons', { style:  {opacity: '0', delayed: { opacity: '1' } } }, 'add')
         ])];
   return [
     a('.join.event.button', {
@@ -186,13 +187,15 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
         destroy: { transform: 'scale(1)' }
       },
     }, [
-        span('.hidden', 'join event'),
-        i('.material-icons', 'add')
+        span('.hidden', 'join event')
       ]),
     form('.event.form', { style: fadeInOutStyle }, [
       button('.close', {
         style: {
           float: 'right'
+        },
+        props: {
+          tabindex: '0'
         }
       }, 'x'),
       div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
@@ -263,7 +266,8 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
       ]),
       button({
         props: {
-          type: 'submit'
+          type: 'submit',
+          tabindex: '1'
         }
       }, ['Join Us!'])
     ])
