@@ -15,8 +15,8 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
     name: form.elements['name'].value,
     email: form.elements['email'].value,
     mobile: form.elements['mobile'].value,
-    title: form.elements['title'].value,
-    abstract: form.elements['abstract'].value,
+    // title: form.elements['title'].value,
+    // abstract: form.elements['abstract'].value,
   }
 }
 

@@ -2074,8 +2074,6 @@
 	        name: form.elements['name'].value,
 	        email: form.elements['email'].value,
 	        mobile: form.elements['mobile'].value,
-	        title: form.elements['title'].value,
-	        abstract: form.elements['abstract'].value,
 	    };
 	}
 	function renderHeader(noun, topic) {
@@ -11374,6 +11372,9 @@
 	    return dom_1.div('.background', { style: style });
 	}
 	function renderExpandedForm(event) {
+	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	    if (!showForm)
+	        return dom_1.p(['This event no longer accepts new registrations.']);
 	    return dom_1.form('.event.form', { style: fadeInOutStyle }, [
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
@@ -11414,33 +11415,33 @@
 	                }
 	            }, ['Mobile'])
 	        ]),
-	        dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
-	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            dom_1.input('.mdl-textfield__input', {
-	                props: {
-	                    id: 'title',
-	                    placeholder: 'Title'
-	                }
-	            }),
-	            dom_1.label('.mdl-textfield__label', {
-	                props: {
-	                    for: 'title'
-	                }
-	            }, ['Title'])
-	        ]),
-	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            dom_1.input('.mdl-textfield__input', {
-	                props: {
-	                    id: 'abstract',
-	                    placeholder: 'Abstract'
-	                }
-	            }),
-	            dom_1.label('.mdl-textfield__label', {
-	                props: {
-	                    for: 'abstract'
-	                }
-	            }, ['Abstract'])
-	        ]),
+	        // p('Please fill out the following in case you want to present a talk/workshop'),
+	        // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	        //   input('.mdl-textfield__input', {
+	        //     props: {
+	        //       id: 'title',
+	        //       placeholder: 'Title'
+	        //     }
+	        //   }),
+	        //   label('.mdl-textfield__label', {
+	        //     props: {
+	        //       for: 'title'
+	        //     }
+	        //   }, ['Title'])
+	        // ]),
+	        // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	        //   input('.mdl-textfield__input', {
+	        //     props: {
+	        //       id: 'abstract',
+	        //       placeholder: 'Abstract'
+	        //     }
+	        //   }),
+	        //   label('.mdl-textfield__label', {
+	        //     props: {
+	        //       for: 'abstract'
+	        //     }
+	        //   }, ['Abstract'])
+	        // ]),
 	        dom_1.button({
 	            props: {
 	                type: 'submit',
@@ -11537,33 +11538,33 @@
 	                    }
 	                }, ['Mobile'])
 	            ]),
-	            dom_1.p('Please fill out the following in case you want to present a talk/workshop'),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'title',
-	                        placeholder: 'Title'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'title'
-	                    }
-	                }, ['Title'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'abstract',
-	                        placeholder: 'Abstract'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'abstract'
-	                    }
-	                }, ['Abstract'])
-	            ]),
+	            // p('Please fill out the following in case you want to present a talk/workshop'),
+	            // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            //   input('.mdl-textfield__input', {
+	            //     props: {
+	            //       id: 'title',
+	            //       placeholder: 'Title'
+	            //     }
+	            //   }),
+	            //   label('.mdl-textfield__label', {
+	            //     props: {
+	            //       for: 'title'
+	            //     }
+	            //   }, ['Title'])
+	            // ]),
+	            // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            //   input('.mdl-textfield__input', {
+	            //     props: {
+	            //       id: 'abstract',
+	            //       placeholder: 'Abstract'
+	            //     }
+	            //   }),
+	            //   label('.mdl-textfield__label', {
+	            //     props: {
+	            //       for: 'abstract'
+	            //     }
+	            //   }, ['Abstract'])
+	            // ]),
 	            dom_1.button({
 	                props: {
 	                    type: 'submit',
