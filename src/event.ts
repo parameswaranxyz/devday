@@ -73,6 +73,9 @@ function renderBackground(event: DevdayEvent): VNode {
 }
 
 function renderExpandedForm(event: DevdayEvent): VNode {
+  const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+  if(!showForm)
+    return p(['This event no longer accepts new registrations.']); 
   return form('.event.form', { style: fadeInOutStyle }, [
     div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
       input('.mdl-textfield__input', {
@@ -113,33 +116,33 @@ function renderExpandedForm(event: DevdayEvent): VNode {
         }
       }, ['Mobile'])
     ]),
-    p('Please fill out the following in case you want to present a talk/workshop'),
-    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-      input('.mdl-textfield__input', {
-        props: {
-          id: 'title',
-          placeholder: 'Title'
-        }
-      }),
-      label('.mdl-textfield__label', {
-        props: {
-          for: 'title'
-        }
-      }, ['Title'])
-    ]),
-    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-      input('.mdl-textfield__input', {
-        props: {
-          id: 'abstract',
-          placeholder: 'Abstract'
-        }
-      }),
-      label('.mdl-textfield__label', {
-        props: {
-          for: 'abstract'
-        }
-      }, ['Abstract'])
-    ]),
+    // p('Please fill out the following in case you want to present a talk/workshop'),
+    // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+    //   input('.mdl-textfield__input', {
+    //     props: {
+    //       id: 'title',
+    //       placeholder: 'Title'
+    //     }
+    //   }),
+    //   label('.mdl-textfield__label', {
+    //     props: {
+    //       for: 'title'
+    //     }
+    //   }, ['Title'])
+    // ]),
+    // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+    //   input('.mdl-textfield__input', {
+    //     props: {
+    //       id: 'abstract',
+    //       placeholder: 'Abstract'
+    //     }
+    //   }),
+    //   label('.mdl-textfield__label', {
+    //     props: {
+    //       for: 'abstract'
+    //     }
+    //   }, ['Abstract'])
+    // ]),
     button({
       props: {
         type: 'submit',
@@ -237,33 +240,33 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
           }
         }, ['Mobile'])
       ]),
-      p('Please fill out the following in case you want to present a talk/workshop'),
-      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-        input('.mdl-textfield__input', {
-          props: {
-            id: 'title',
-            placeholder: 'Title'
-          }
-        }),
-        label('.mdl-textfield__label', {
-          props: {
-            for: 'title'
-          }
-        }, ['Title'])
-      ]),
-      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-        input('.mdl-textfield__input', {
-          props: {
-            id: 'abstract',
-            placeholder: 'Abstract'
-          }
-        }),
-        label('.mdl-textfield__label', {
-          props: {
-            for: 'abstract'
-          }
-        }, ['Abstract'])
-      ]),
+      // p('Please fill out the following in case you want to present a talk/workshop'),
+      // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      //   input('.mdl-textfield__input', {
+      //     props: {
+      //       id: 'title',
+      //       placeholder: 'Title'
+      //     }
+      //   }),
+      //   label('.mdl-textfield__label', {
+      //     props: {
+      //       for: 'title'
+      //     }
+      //   }, ['Title'])
+      // ]),
+      // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+      //   input('.mdl-textfield__input', {
+      //     props: {
+      //       id: 'abstract',
+      //       placeholder: 'Abstract'
+      //     }
+      //   }),
+      //   label('.mdl-textfield__label', {
+      //     props: {
+      //       for: 'abstract'
+      //     }
+      //   }, ['Abstract'])
+      // ]),
       button({
         props: {
           type: 'submit',
