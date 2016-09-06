@@ -69,7 +69,7 @@ function renderBackground(event: DevdayEvent): VNode {
     style['background-image'] = `url("${event.image_url}")`;
   if (event.background_size != undefined)
     style['background-size'] = event.background_size;
-  return div('.background', { style, hero: { id: event.url + '_background' } });
+  return div('.background', { style });
 }
 
 function renderExpandedForm(event: DevdayEvent): VNode {
@@ -289,10 +289,7 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
       delayed: {
         transform: 'scale(1)',
         opacity: '1'
-      },
-    hero: {
-      id: event.url + '_card'
-    }
+      }
     }
   }, [
       div('.primary.info', {
@@ -366,10 +363,14 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
     attrs: {
       'data-url': event.url
     },
-    style: fadeInOutStyle,
-    hero: {
-      id: event.url + '_card'
-    }
+    style: {
+      transform: 'scale(0)',
+      opacity: '0',
+      delayed: {
+        transform: 'scale(1)',
+        opacity: '1'
+      }
+    },
   }, [
       div('.primary.info', {
         style: {
