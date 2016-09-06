@@ -2,10 +2,11 @@
   "name": "devday",
   "version": "1.0.0",
   "description": "The site for devday",
-  "main": "index.js",
   "scripts": {
+    "build": "sass  ./_sass/app.scss:./dist/app.css && webpack",
     "dev": "concurrently \"sass --watch ./_sass/app.scss:./dist/app.css\" \"webpack --watch\" \"lite-server\"",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "postinstall": "typings install"
   },
   "keywords": [
     "devday"
