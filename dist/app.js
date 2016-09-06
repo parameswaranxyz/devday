@@ -98,7 +98,10 @@
 	 * @function run
 	 */
 	function run(main, drivers) {
-	    var run = base_1.default(main, drivers, { streamAdapter: xstream_adapter_1.default }).run;
+	    var _a = base_1.default(main, drivers, { streamAdapter: xstream_adapter_1.default }), run = _a.run, sinks = _a.sinks;
+	    if (typeof window !== 'undefined' && window['CyclejsDevTool_startGraphSerializer']) {
+	        window['CyclejsDevTool_startGraphSerializer'](sinks);
+	    }
 	    return run();
 	}
 	exports.run = run;
@@ -131,7 +134,11 @@
 	 * @function Cycle
 	 */
 	var Cycle = function (main, drivers) {
-	    return base_1.default(main, drivers, { streamAdapter: xstream_adapter_1.default });
+	    var out = base_1.default(main, drivers, { streamAdapter: xstream_adapter_1.default });
+	    if (typeof window !== 'undefined' && window['CyclejsDevTool_startGraphSerializer']) {
+	        window['CyclejsDevTool_startGraphSerializer'](out.sinks);
+	    }
+	    return out;
 	};
 	Cycle.run = run;
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -178,6 +185,9 @@
 	            }
 	            else {
 	                sources[name_2] = driverOutput;
+	            }
+	            if (sources[name_2] && typeof sources[name_2] === 'object') {
+	                sources[name_2]._isCycleSource = name_2;
 	            }
 	        }
 	    }
@@ -797,8 +807,6 @@
 	        if (u === NO)
 	            return;
 	        var _a = this, inner = _a.inner, il = _a.il;
-	        if (s === inner && s._prod !== NO)
-	            s._stopNow();
 	        if (inner !== NO && il !== exports.NO_IL)
 	            inner._remove(il);
 	        (this.inner = s)._add(this.il = new FlattenListener(u, this));
@@ -967,8 +975,6 @@
 	            u._e(e);
 	            return;
 	        }
-	        if (s === inner && s._prod !== NO)
-	            s._stopNow();
 	        if (inner !== NO && il !== exports.NO_IL)
 	            inner._remove(il);
 	        (this.inner = s)._add(this.il = new MapFlattenInner(u, this));
@@ -1132,7 +1138,12 @@
 	    TakeOperator.prototype._start = function (out) {
 	        this.out = out;
 	        this.taken = 0;
-	        this.ins._add(this);
+	        if (this.max <= 0) {
+	            out._c();
+	        }
+	        else {
+	            this.ins._add(this);
+	        }
 	    };
 	    TakeOperator.prototype._stop = function () {
 	        this.ins._remove(this);
@@ -6824,12 +6835,12 @@
 /***/ function(module, exports) {
 
 	/**
-	 * lodash 3.0.8 (Custom Build) <https://lodash.com/>
+	 * lodash (Custom Build) <https://lodash.com/>
 	 * Build: `lodash modularize exports="npm" -o ./`
-	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
+	 * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+	 * Released under MIT license <https://lodash.com/license>
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
-	 * Copyright 2009-2016 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
-	 * Available under MIT license <https://lodash.com/license>
+	 * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 */
 	
 	/** Used as references for various `Number` constants. */
@@ -6847,7 +6858,8 @@
 	var hasOwnProperty = objectProto.hasOwnProperty;
 	
 	/**
-	 * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
 	 * of values.
 	 */
 	var objectToString = objectProto.toString;
@@ -6856,38 +6868,15 @@
 	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
 	
 	/**
-	 * The base implementation of `_.property` without support for deep paths.
-	 *
-	 * @private
-	 * @param {string} key The key of the property to get.
-	 * @returns {Function} Returns the new function.
-	 */
-	function baseProperty(key) {
-	  return function(object) {
-	    return object == null ? undefined : object[key];
-	  };
-	}
-	
-	/**
-	 * Gets the "length" property value of `object`.
-	 *
-	 * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
-	 * that affects Safari on at least iOS 8.1-8.3 ARM64.
-	 *
-	 * @private
-	 * @param {Object} object The object to query.
-	 * @returns {*} Returns the "length" value.
-	 */
-	var getLength = baseProperty('length');
-	
-	/**
 	 * Checks if `value` is likely an `arguments` object.
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 0.1.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
 	 * @example
 	 *
 	 * _.isArguments(function() { return arguments; }());
@@ -6897,7 +6886,7 @@
 	 * // => false
 	 */
 	function isArguments(value) {
-	  // Safari 8.1 incorrectly makes `arguments.callee` enumerable in strict mode.
+	  // Safari 8.1 makes `arguments.callee` enumerable in strict mode.
 	  return isArrayLikeObject(value) && hasOwnProperty.call(value, 'callee') &&
 	    (!propertyIsEnumerable.call(value, 'callee') || objectToString.call(value) == argsTag);
 	}
@@ -6909,6 +6898,7 @@
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 4.0.0
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
@@ -6927,7 +6917,7 @@
 	 * // => false
 	 */
 	function isArrayLike(value) {
-	  return value != null && isLength(getLength(value)) && !isFunction(value);
+	  return value != null && isLength(value.length) && !isFunction(value);
 	}
 	
 	/**
@@ -6936,9 +6926,11 @@
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 4.0.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
+	 * @returns {boolean} Returns `true` if `value` is an array-like object,
+	 *  else `false`.
 	 * @example
 	 *
 	 * _.isArrayLikeObject([1, 2, 3]);
@@ -6962,9 +6954,10 @@
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 0.1.0
 	 * @category Lang
 	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
 	 * @example
 	 *
 	 * _.isFunction(_);
@@ -6975,8 +6968,7 @@
 	 */
 	function isFunction(value) {
 	  // The use of `Object#toString` avoids issues with the `typeof` operator
-	  // in Safari 8 which returns 'object' for typed array and weak map constructors,
-	  // and PhantomJS 1.9 which returns 'function' for `NodeList` instances.
+	  // in Safari 8-9 which returns 'object' for typed array and other constructors.
 	  var tag = isObject(value) ? objectToString.call(value) : '';
 	  return tag == funcTag || tag == genTag;
 	}
@@ -6984,10 +6976,12 @@
 	/**
 	 * Checks if `value` is a valid array-like length.
 	 *
-	 * **Note:** This function is loosely based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 4.0.0
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
@@ -7011,11 +7005,13 @@
 	}
 	
 	/**
-	 * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
-	 * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 0.1.0
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
@@ -7044,6 +7040,7 @@
 	 *
 	 * @static
 	 * @memberOf _
+	 * @since 4.0.0
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
@@ -9662,11 +9659,11 @@
 	    };
 	}
 	function makeHTTPDriver() {
-	    function httpDriver(request$, runSA) {
+	    function httpDriver(request$, runSA, name) {
 	        var response$$ = request$
 	            .map(makeRequestInputToResponse$(runSA))
 	            .remember();
-	        var httpSource = new MainHTTPSource_1.MainHTTPSource(response$$, runSA, []);
+	        var httpSource = new MainHTTPSource_1.MainHTTPSource(response$$, runSA, name, []);
 	        /* tslint:disable:no-empty */
 	        response$$.addListener({ next: function () { }, error: function () { }, complete: function () { } });
 	        /* tslint:enable:no-empty */
@@ -9686,31 +9683,36 @@
 	var isolate_1 = __webpack_require__(129);
 	var xstream_adapter_1 = __webpack_require__(3);
 	var MainHTTPSource = (function () {
-	    function MainHTTPSource(_res$$, runStreamAdapter, _namespace) {
+	    function MainHTTPSource(_res$$, runStreamAdapter, _name, _namespace) {
 	        if (_namespace === void 0) { _namespace = []; }
 	        this._res$$ = _res$$;
 	        this.runStreamAdapter = runStreamAdapter;
+	        this._name = _name;
 	        this._namespace = _namespace;
 	        this.isolateSource = isolate_1.isolateSource;
 	        this.isolateSink = isolate_1.isolateSink;
 	    }
 	    Object.defineProperty(MainHTTPSource.prototype, "response$$", {
 	        get: function () {
-	            return this.runStreamAdapter.adapt(this._res$$, xstream_adapter_1.default.streamSubscribe);
+	            var out = this.runStreamAdapter.adapt(this._res$$, xstream_adapter_1.default.streamSubscribe);
+	            out._isCycleSource = this._name;
+	            return out;
 	        },
 	        enumerable: true,
 	        configurable: true
 	    });
 	    MainHTTPSource.prototype.filter = function (predicate) {
 	        var filteredResponse$$ = this._res$$.filter(predicate);
-	        return new MainHTTPSource(filteredResponse$$, this.runStreamAdapter, this._namespace);
+	        return new MainHTTPSource(filteredResponse$$, this.runStreamAdapter, this._name, this._namespace);
 	    };
 	    MainHTTPSource.prototype.select = function (category) {
 	        var res$$ = this._res$$;
 	        if (category) {
 	            res$$ = this._res$$.filter(function (res$) { return res$.request && res$.request.category === category; });
 	        }
-	        return this.runStreamAdapter.adapt(res$$, xstream_adapter_1.default.streamSubscribe);
+	        var out = this.runStreamAdapter.adapt(res$$, xstream_adapter_1.default.streamSubscribe);
+	        out._isCycleSource = this._name;
+	        return out;
 	    };
 	    return MainHTTPSource;
 	}());
@@ -11369,7 +11371,7 @@
 	        style['background-image'] = "url(\"" + event.image_url + "\")";
 	    if (event.background_size != undefined)
 	        style['background-size'] = event.background_size;
-	    return dom_1.div('.background', { style: style, hero: { id: event.url + '_background' } });
+	    return dom_1.div('.background', { style: style });
 	}
 	function renderExpandedForm(event) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
@@ -11586,9 +11588,6 @@
 	            delayed: {
 	                transform: 'scale(1)',
 	                opacity: '1'
-	            },
-	            hero: {
-	                id: event.url + '_card'
 	            }
 	        }
 	    }, [
@@ -11660,10 +11659,14 @@
 	        attrs: {
 	            'data-url': event.url
 	        },
-	        style: fadeInOutStyle,
-	        hero: {
-	            id: event.url + '_card'
-	        }
+	        style: {
+	            transform: 'scale(0)',
+	            opacity: '0',
+	            delayed: {
+	                transform: 'scale(1)',
+	                opacity: '1'
+	            }
+	        },
 	    }, [
 	        dom_1.div('.primary.info', {
 	            style: {
