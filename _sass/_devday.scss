@@ -1,0 +1,66 @@
+@import "mdl";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+$primary-color: #3f51b5;
+$secondary-color: #303f9f;
+$tertiary-color: #283593;
+$primary-accent: #ff4081;
+
+$dark-primary-text-color: rgba(0,0,0,0.87);
+$dark-secondary-text-color: rgba(0,0,0,0.54);
+$dark-disabled-text-color: rgba(0,0,0,0.38);
+$dark-hint-text-color: $dark-disabled-text-color;
+$dark-icon-text-color: $dark-disabled-text-color;
+$dark-divider-text-color: rgba(0,0,0,0.12);
+
+
+$light-primary-text-color: rgba(255,255,255,1);
+$light-secondary-text-color: rgba(255,255,255,0.70);
+$light-disabled-text-color: rgba(255,255,255,0.50);
+$light-hint-text-color: $light-disabled-text-color;
+$light-icon-text-color: $light-disabled-text-color;
+$light-divider-text-color: rgba(255,255,255,0.12);
+
+$large-screen: 1200px !default;
+$small-screen: 600px !default;
+$range : $large-screen - $small-screen !default;
+$intervals: 20 !default;
+$interval-size: $range / $intervals !default;
+
+
+.hidden {
+    @extend .visuallyhidden;
+}
+
+.full.width {
+    width: 100%;
+}
+
+.right {
+    float: right;
+
+    &.absolute {
+        position: absolute;
+        right: 0;
+        float: none;
+    }
+}
+
+.flow-text{
+    font-weight: 300;
+    $i: 0;
+    @while $i <= $intervals {
+        @media only screen and (min-width : 360 + ($i * $interval-size)) {
+            font-size: 1.2rem * (1 + (.02 * $i));
+        }
+        $i: $i + 1;
+    }
+
+    // Handle below 360px screen
+    @media only screen and (max-width: 360px) {
+        font-size: 1.2rem;
+    }
+}
