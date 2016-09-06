@@ -11369,7 +11369,7 @@
 	        style['background-image'] = "url(\"" + event.image_url + "\")";
 	    if (event.background_size != undefined)
 	        style['background-size'] = event.background_size;
-	    return dom_1.div('.background', { style: style });
+	    return dom_1.div('.background', { style: style, hero: { id: event.url + '_background' } });
 	}
 	function renderExpandedForm(event) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
@@ -11586,6 +11586,9 @@
 	            delayed: {
 	                transform: 'scale(1)',
 	                opacity: '1'
+	            },
+	            hero: {
+	                id: event.url + '_card'
 	            }
 	        }
 	    }, [
@@ -11657,13 +11660,9 @@
 	        attrs: {
 	            'data-url': event.url
 	        },
-	        style: {
-	            transform: 'scale(0)',
-	            opacity: '0',
-	            delayed: {
-	                transform: 'scale(1)',
-	                opacity: '1'
-	            }
+	        style: fadeInOutStyle,
+	        hero: {
+	            id: event.url + '_card'
 	        }
 	    }, [
 	        dom_1.div('.primary.info', {
