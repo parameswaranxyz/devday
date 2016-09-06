@@ -20,32 +20,34 @@ function getHHMM(date: Date): string {
 }
 
 function getMeridien(date: Date): string {
-  return date.getHours() > 12 ? 'PM' : 'AM';
+  return date.getHours() >= 12 ? 'PM' : 'AM';
 }
 
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   switch (entry.type) {
     case AgendaEntryType.Talk:
     case AgendaEntryType.Workshop:
-      return [
-        div('.thumbnail', [
-          h5([getHHMM(entry.time.start_time)]),
-          h6([getMeridien(entry.time.start_time)])
-        ]),
-        div('.info', [
-          img('.avatar', {
-            props: {
-              src:
-              entry.authors[0] != undefined
-                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-                : 'images/speakers/devday-speaker.png'
-            }
-          }),
-          h5(entry.title),
-          h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
-          entry.abstract
-        ])
-      ];
+      if(entry.authors.length) {
+        return [
+          div('.thumbnail', [
+            h5([getHHMM(entry.time.start_time)]),
+            h6([getMeridien(entry.time.start_time)])
+          ]),
+          div('.info', [
+            img('.avatar', {
+              props: {
+                src:
+                entry.authors[0] != undefined
+                  ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+                  : 'images/speakers/devday-speaker.png'
+              }
+            }),
+            h5(entry.title),
+            h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
+            p(entry.abstract)
+          ])
+        ];
+      }
     case AgendaEntryType.Break:
       return [
         div('.thumbnail.break', [
