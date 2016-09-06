@@ -11371,7 +11371,11 @@
 	        style['background-image'] = "url(\"" + event.image_url + "\")";
 	    if (event.background_size != undefined)
 	        style['background-size'] = event.background_size;
+<<<<<<< HEAD
 	    return dom_1.div('.background', { style: style });
+=======
+	    return dom_1.div('.background', { style: style, hero: { id: event.url + '_background' } });
+>>>>>>> refs/remotes/origin/master
 	}
 	function renderExpandedForm(event) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
