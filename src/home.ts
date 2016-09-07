@@ -157,6 +157,13 @@ function home(sources: Sources): Sinks {
     events$
       .map(events =>
         formSubmit$
+          .filter(ev => {
+            const buttonElement = ev.currentTarget as HTMLButtonElement;
+            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const invalidElements = formElement.querySelectorAll('.is-invalid');
+            const dirtyElements = formElement.querySelectorAll('.is-dirty');
+            return invalidElements.length === 0 && dirtyElements.length === 3;
+          })
           .map(ev => {
             const buttonElement = ev.currentTarget as HTMLButtonElement;
             const formElement = closest(buttonElement, 'form') as HTMLFormElement;

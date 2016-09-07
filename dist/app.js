@@ -2203,6 +2203,13 @@
 	    var formSubmitRequest$ = events$
 	        .map(function (events) {
 	        return formSubmit$
+	            .filter(function (ev) {
+	            var buttonElement = ev.currentTarget;
+	            var formElement = closest(buttonElement, 'form');
+	            var invalidElements = formElement.querySelectorAll('.is-invalid');
+	            var dirtyElements = formElement.querySelectorAll('.is-dirty');
+	            return invalidElements.length === 0 && dirtyElements.length === 3;
+	        })
 	            .map(function (ev) {
 	            var buttonElement = ev.currentTarget;
 	            var formElement = closest(buttonElement, 'form');
@@ -11416,7 +11423,8 @@
 	                props: {
 	                    id: 'name',
 	                    placeholder: 'Name',
-	                    pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$'
+	                    pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$',
+	                    required: 'required'
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {
@@ -11431,7 +11439,8 @@
 	                props: {
 	                    id: 'email',
 	                    placeholder: 'Email',
-	                    type: 'email'
+	                    type: 'email',
+	                    required: 'required'
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {
@@ -11447,7 +11456,10 @@
 	                    id: 'mobile',
 	                    placeholder: 'Mobile',
 	                    pattern: '^[987][0-9]{9}$',
-	                    maxlength: 10
+	                    required: 'required'
+	                },
+	                attrs: {
+	                    maxlength: '10'
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {

@@ -90,7 +90,8 @@ function renderFormFields(): VNode[] {
         props: {
           id: 'name',
           placeholder: 'Name',
-          pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$'
+          pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$',
+          required: 'required'
         }
       }),
       label('.mdl-textfield__label', {
@@ -105,7 +106,8 @@ function renderFormFields(): VNode[] {
         props: {
           id: 'email',
           placeholder: 'Email',
-          type: 'email'
+          type: 'email',
+          required: 'required'
         }
       }),
       label('.mdl-textfield__label', {
@@ -121,7 +123,10 @@ function renderFormFields(): VNode[] {
           id: 'mobile',
           placeholder: 'Mobile',
           pattern: '^[987][0-9]{9}$',
-          maxlength: 10
+          required: 'required'
+        },
+        attrs: {
+          maxlength: '10'
         }
       }),
       label('.mdl-textfield__label', {
