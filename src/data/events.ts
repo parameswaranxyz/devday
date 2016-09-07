@@ -514,7 +514,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['real-time','rtc', 'webrtc', 'peer-js'],
     author: 'devday_ team',
-    abstract: '',
+    abstract: 'In this edition of Dev Day (Chennai) we have talks scheduled on RTC. Come learn about aspects of real time communication and the way real time systems are built.',
     event_time: {
       start_time: new Date('2016-09-10T10:00:00+05:30'),
       end_time: new Date('2016-09-10T13:00:00+05:30'),
@@ -529,7 +529,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Realtime Chat using Socket.io on Production',
-        abstract: '',
+        abstract: 'The web has typically been a client request server protocol from the beginning of time. Websockets are starting to change that with a bi-directional data flow. This talk will explore how socket.io, a framework for websockets was used to develop a chat application that was on production.',
         authors: [
           {
             name: 'Arvind Sridharan',
@@ -543,7 +543,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Real Time Communication, Fast and Slow',
-        abstract: '',
+        abstract: 'Browsers and servers have always constituted a distributed system, and with the rise of (micro?)services, servers have now become distributed systems too. The fundamental need of any of these systems is to communicate effectively - we\'ll look at the various options and methods of doing just that.',
         authors: [
           {
             name: 'Sudhir Jonathan',
@@ -557,7 +557,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Getting started with WebRTC',
-        abstract: '',
+        abstract: 'WebRTC is a framework for the web that enables Real Time Communication in the browser. Get to know about WebRTC technology & also learn how to build a webrtc application.',
         authors: [
           {
             name: 'Vijayakumar Nagarajan',
