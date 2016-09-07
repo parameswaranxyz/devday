@@ -418,7 +418,13 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
             style: fadeInOutStyle
           }, [
               div('.location', [
-                a({ props: { target: '_blank', href: event.venue.map_link } }, [
+                a({
+                    props: {
+                      target: '_blank', 
+                      href: event.venue.map_link
+                    }
+                  },
+                  [
                   div('.filler', {
                     attrs: {
                       style: `background-image: url("${event.venue.map_image}");`
