@@ -431,7 +431,7 @@
                             
                             color: white;
                             position: absolute;
-                            bottom: 72px;
+                            bottom: 82px;
                             right: 28px;
                             height: 56px;
                             width: 56px;
@@ -546,6 +546,10 @@
                                   display: block;
                                   margin: 20px 0;
                                 }
+                              }
+
+                              & > .attending::before {
+                                content: 'registration';
                               }
                             }
                           }

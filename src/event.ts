@@ -333,7 +333,7 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
             style: fadeInOutStyle
           }, authors.length > 0
           ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
-          : [ p(['There are no speakers at this event. Join us!']) ]
+          : [ p(['There are no speakers at this event. Walk in for a hands-on experience!!!']) ]
           )
         ]),
       div('.secondary.info', {
@@ -362,9 +362,9 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
                   })
                 ])
               ]),
-              div('.attending', [
-                p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
-              ])
+              // div('.attending', [
+              //   p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
+              // ])
             ])
         ]),
       ...renderForm(event, clickedBoolean)

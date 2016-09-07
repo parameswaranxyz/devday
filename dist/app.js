@@ -11657,7 +11657,7 @@
 	                style: fadeInOutStyle
 	            }, authors.length > 0
 	                ? authors.map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })
-	                : [dom_1.p(['There are no speakers at this event. Join us!'])])
+	                : [dom_1.p(['There are no speakers at this event. Walk in for a hands-on experience!!!'])])
 	        ]),
 	        dom_1.div('.secondary.info', {
 	            style: {
@@ -11684,9 +11684,6 @@
 	                        })
 	                    ])
 	                ]),
-	                dom_1.div('.attending', [
-	                    dom_1.p([event.attending != undefined ? event.attending + " attending" : 'JOIN NOW'])
-	                ])
 	            ])
 	        ])
 	    ].concat(renderForm(event, clickedBoolean)));

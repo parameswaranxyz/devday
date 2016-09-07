@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: 'â€œ'; }
+    content: '├óΓé¼┼ô'; }
   blockquote:after {
-    content: 'â€';
+    content: '├óΓé¼┬¥';
     margin-left: -.05em; }
 
 mark {
@@ -6304,7 +6304,7 @@ iframe {
       .devday.home > .container > .layout > .content > main > .event.card > .join.event.button {
         color: white;
         position: absolute;
-        bottom: 72px;
+        bottom: 82px;
         right: 28px;
         height: 56px;
         width: 56px;
@@ -6373,6 +6373,8 @@ iframe {
               .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .location .filler {
                 display: block;
                 margin: 20px 0; }
+            .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info > .content > .attending::before {
+              content: 'registration'; }
     .devday.home > .container > .layout > .content > main > nav {
       margin: 12px 15px;
       display: -webkit-flex;
