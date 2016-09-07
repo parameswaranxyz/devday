@@ -42,7 +42,8 @@ export interface Address {
 export enum AgendaEntryType {
   Talk,
   Break,
-  Workshop
+  Workshop,
+  Hackathon
 }
 
 export interface Author {
@@ -67,9 +68,9 @@ export interface DevdayRegistrationForm {
   name: string;
   email: string;
   mobile: string;
-  type: string;
-  title: string;
-  abstract: string;
+  type?: string;
+  title?: string;
+  abstract?: string;
 }
 
 export interface DevdayRegistrationData {
