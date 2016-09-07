@@ -471,15 +471,15 @@ export const events: DevdayEvent[] = [
     meetup_event_id: '232886624'
   },
   {
-    title: 'Hackathon',
-    url: 'hackathon',
+    title: 'Tasting Elixir',
+    url: 'tasting-elixir',
     categories: ['events'],
-    tags: ['hackathon','hack day'],
+    tags: ['elixir','functional programming', 'concurrent programming'],
     author: 'devday_ team',
-    abstract: '',
+    abstract: 'We bring to you Elixir - a concurrent, functional programming language.',
     event_time: {
-      start_time: new Date('2016-09-17T10:30:00+05:30'),
-      end_time: new Date('2016-09-17T10:00:00+05:30'),
+      start_time: new Date('2016-08-27T10:30:00+05:30'),
+      end_time: new Date('2016-08-28T13:30:00+05:30'),
     },
     publish_time: new Date('2016-07-09T10:30:00+05:30'),
     registration_time: {
@@ -490,16 +490,21 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Workshop,
-        title: 'Hackathon Begins!',
-        abstract: '',
-        authors: [],
+        title: 'Hands-On with Elixir',
+        abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+        authors: [
+          {
+            name: "Navaneeth N",
+            image_url: 'images/speakers/navneeth.jpg'
+          }
+        ],
         time: {
-          start_time: new Date('2016-08-04T10:00:00+05:30')
+          start_time: new Date('2016-08-27T10:30:00+05:30')
         }
       } as AgendaEntry
     ],
     color: '#211b33',
-    image_url: 'images/events/its_real_time.jpg',
+    image_url: 'images/events/tasting_elixir.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '233530425'
   },
@@ -569,11 +574,52 @@ export const events: DevdayEvent[] = [
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624',
     form: {
+      url: 'https://docs.google.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
+      name: 'entry.2092238618',
+      email: 'entry.1556369182',
+      mobile: 'entry.479301265',
+      type: 'entry.630971362',
+      title: 'entry.1832696420',
+      abstract: 'entry.354689399'
+    }
+  },
+  {
+    title: 'Hackathon',
+    url: 'hackathon',
+    categories: ['events'],
+    tags: ['hackathon','hack day'],
+    author: 'devday_ team',
+    abstract: '',
+    event_time: {
+      start_time: new Date('2016-09-17T10:30:00+05:30'),
+      end_time: new Date('2016-09-17T10:00:00+05:30'),
+    },
+    publish_time: new Date('2016-07-09T10:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2016-08-27T10:30:00+05:30'),
+      end_time: new Date('2016-08-28T13:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Hackathon,
+        title: 'Hackathon Begins!',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-08-04T10:00:00+05:30')
+        }
+      } as AgendaEntry
+    ],
+    color: '#211b33',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '233530425',
+    form: {
       url: 'https://docs.google.com/forms/d/17I8-e7DltY5zLStkHosjXMwQ7uf0fd51GkJDDXkEbfM/formResponse',
       name: 'entry.288897361',
       email: 'entry.543157192',
       mobile: 'entry.1884598983'
     }
-  }
+  },
 ];
 export default events;

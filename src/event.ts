@@ -27,7 +27,6 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   switch (entry.type) {
     case AgendaEntryType.Talk:
     case AgendaEntryType.Workshop:
-      if(entry.authors.length) {
         return [
           div('.thumbnail', [
             h5([getHHMM(entry.time.start_time)]),
@@ -47,7 +46,17 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
             p(entry.abstract)
           ])
         ];
-      }
+    case AgendaEntryType.Hackathon:
+    return [
+          div('.thumbnail', [
+            h5([getHHMM(entry.time.start_time)]),
+            h6([getMeridien(entry.time.start_time)])
+          ]),
+          div('.info', [
+            h5(entry.title),
+            p(entry.abstract)
+          ])
+        ];
     case AgendaEntryType.Break:
       return [
         div('.thumbnail.break', [

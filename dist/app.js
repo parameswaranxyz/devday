@@ -9264,15 +9264,15 @@
 	        meetup_event_id: '232886624'
 	    },
 	    {
-	        title: 'Hackathon',
-	        url: 'hackathon',
+	        title: 'Tasting Elixir',
+	        url: 'tasting-elixir',
 	        categories: ['events'],
-	        tags: ['hackathon', 'hack day'],
+	        tags: ['elixir', 'functional programming', 'concurrent programming'],
 	        author: 'devday_ team',
-	        abstract: '',
+	        abstract: 'We bring to you Elixir - a concurrent, functional programming language.',
 	        event_time: {
-	            start_time: new Date('2016-09-17T10:30:00+05:30'),
-	            end_time: new Date('2016-09-17T10:00:00+05:30'),
+	            start_time: new Date('2016-08-27T10:30:00+05:30'),
+	            end_time: new Date('2016-08-28T13:30:00+05:30'),
 	        },
 	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
 	        registration_time: {
@@ -9283,16 +9283,21 @@
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Workshop,
-	                title: 'Hackathon Begins!',
-	                abstract: '',
-	                authors: [],
+	                title: 'Hands-On with Elixir',
+	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                authors: [
+	                    {
+	                        name: "Navaneeth N",
+	                        image_url: 'images/speakers/navneeth.jpg'
+	                    }
+	                ],
 	                time: {
-	                    start_time: new Date('2016-08-04T10:00:00+05:30')
+	                    start_time: new Date('2016-08-27T10:30:00+05:30')
 	                }
 	            }
 	        ],
 	        color: '#211b33',
-	        image_url: 'images/events/its_real_time.jpg',
+	        image_url: 'images/events/tasting_elixir.jpg',
 	        meetup_urlname: 'devday_bangalore',
 	        meetup_event_id: '233530425'
 	    },
@@ -9362,12 +9367,53 @@
 	        meetup_urlname: 'devday_chennai',
 	        meetup_event_id: '232886624',
 	        form: {
+	            url: 'https://docs.google.com/forms/d/e/1FAIpQLSd7wUzgQ7VuP3z41GtnTemaxFzv-4K10TuBHjCZqjcI8xxDJA/formResponse',
+	            name: 'entry.2092238618',
+	            email: 'entry.1556369182',
+	            mobile: 'entry.479301265',
+	            type: 'entry.630971362',
+	            title: 'entry.1832696420',
+	            abstract: 'entry.354689399'
+	        }
+	    },
+	    {
+	        title: 'Hackathon',
+	        url: 'hackathon',
+	        categories: ['events'],
+	        tags: ['hackathon', 'hack day'],
+	        author: 'devday_ team',
+	        abstract: '',
+	        event_time: {
+	            start_time: new Date('2016-09-17T10:30:00+05:30'),
+	            end_time: new Date('2016-09-17T10:00:00+05:30'),
+	        },
+	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-08-27T10:30:00+05:30'),
+	            end_time: new Date('2016-08-28T13:30:00+05:30'),
+	        },
+	        venue: exports.BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Hackathon,
+	                title: 'Hackathon Begins!',
+	                abstract: '',
+	                authors: [],
+	                time: {
+	                    start_time: new Date('2016-08-04T10:00:00+05:30')
+	                }
+	            }
+	        ],
+	        color: '#211b33',
+	        meetup_urlname: 'devday_bangalore',
+	        meetup_event_id: '233530425',
+	        form: {
 	            url: 'https://docs.google.com/forms/d/17I8-e7DltY5zLStkHosjXMwQ7uf0fd51GkJDDXkEbfM/formResponse',
 	            name: 'entry.288897361',
 	            email: 'entry.543157192',
 	            mobile: 'entry.1884598983'
 	        }
-	    }
+	    },
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = exports.events;
@@ -9382,6 +9428,7 @@
 	    AgendaEntryType[AgendaEntryType["Talk"] = 0] = "Talk";
 	    AgendaEntryType[AgendaEntryType["Break"] = 1] = "Break";
 	    AgendaEntryType[AgendaEntryType["Workshop"] = 2] = "Workshop";
+	    AgendaEntryType[AgendaEntryType["Hackathon"] = 3] = "Hackathon";
 	})(exports.AgendaEntryType || (exports.AgendaEntryType = {}));
 	var AgendaEntryType = exports.AgendaEntryType;
 
@@ -11309,26 +11356,35 @@
 	    switch (entry.type) {
 	        case definitions_1.AgendaEntryType.Talk:
 	        case definitions_1.AgendaEntryType.Workshop:
-	            if (entry.authors.length) {
-	                return [
-	                    dom_1.div('.thumbnail', [
-	                        dom_1.h5([getHHMM(entry.time.start_time)]),
-	                        dom_1.h6([getMeridien(entry.time.start_time)])
-	                    ]),
-	                    dom_1.div('.info', [
-	                        dom_1.img('.avatar', {
-	                            props: {
-	                                src: entry.authors[0] != undefined
-	                                    ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-	                                    : 'images/speakers/devday-speaker.png'
-	                            }
-	                        }),
-	                        dom_1.h5(entry.title),
-	                        dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
-	                        dom_1.p(entry.abstract)
-	                    ])
-	                ];
-	            }
+	            return [
+	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
+	                    dom_1.img('.avatar', {
+	                        props: {
+	                            src: entry.authors[0] != undefined
+	                                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+	                                : 'images/speakers/devday-speaker.png'
+	                        }
+	                    }),
+	                    dom_1.h5(entry.title),
+	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
+	                    dom_1.p(entry.abstract)
+	                ])
+	            ];
+	        case definitions_1.AgendaEntryType.Hackathon:
+	            return [
+	                dom_1.div('.thumbnail', [
+	                    dom_1.h5([getHHMM(entry.time.start_time)]),
+	                    dom_1.h6([getMeridien(entry.time.start_time)])
+	                ]),
+	                dom_1.div('.info', [
+	                    dom_1.h5(entry.title),
+	                    dom_1.p(entry.abstract)
+	                ])
+	            ];
 	        case definitions_1.AgendaEntryType.Break:
 	            return [
 	                dom_1.div('.thumbnail.break', [
@@ -11351,7 +11407,7 @@
 	        style['background-image'] = "url(\"" + event.image_url + "\")";
 	    if (event.background_size != undefined)
 	        style['background-size'] = event.background_size;
-	    return dom_1.div('.background', { style: style, hero: { id: event.url + '_background' } });
+	    return dom_1.div('.background', { style: style });
 	}
 	function renderExpandedForm(event) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
@@ -11568,9 +11624,6 @@
 	            delayed: {
 	                transform: 'scale(1)',
 	                opacity: '1'
-	            },
-	            hero: {
-	                id: event.url + '_card'
 	            }
 	        }
 	    }, [
@@ -11642,10 +11695,14 @@
 	        attrs: {
 	            'data-url': event.url
 	        },
-	        style: fadeInOutStyle,
-	        hero: {
-	            id: event.url + '_card'
-	        }
+	        style: {
+	            transform: 'scale(0)',
+	            opacity: '0',
+	            delayed: {
+	                transform: 'scale(1)',
+	                opacity: '1'
+	            }
+	        },
 	    }, [
 	        dom_1.div('.primary.info', {
 	            style: {
