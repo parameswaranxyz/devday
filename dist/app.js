@@ -11409,84 +11409,68 @@
 	        style['background-size'] = event.background_size;
 	    return dom_1.div('.background', { style: style });
 	}
-	function renderExpandedForm(event) {
-	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-	    if (!showForm)
-	        return dom_1.p(['This event no longer accepts new registrations.']);
-	    return dom_1.form('.event.form', { style: fadeInOutStyle }, [
+	function renderFormFields() {
+	    return [
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
 	                props: {
 	                    id: 'name',
-	                    placeholder: 'Name'
+	                    placeholder: 'Name',
+	                    pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$'
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {
 	                props: {
 	                    for: 'name'
 	                }
-	            }, ['Name'])
+	            }, ['Name']),
+	            dom_1.span('mdl-textfield__error', 'Enter a valid name!')
 	        ]),
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
 	                props: {
 	                    id: 'email',
-	                    placeholder: 'Email'
+	                    placeholder: 'Email',
+	                    type: 'email'
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {
 	                props: {
 	                    for: 'email'
 	                }
-	            }, ['Email'])
+	            }, ['Email']),
+	            dom_1.span('mdl-textfield__error', 'Enter a valid email!')
 	        ]),
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
 	                props: {
 	                    id: 'mobile',
-	                    placeholder: 'Mobile'
+	                    placeholder: 'Mobile',
+	                    pattern: '^[987][0-9]{9}$',
+	                    maxlength: 10
 	                }
 	            }),
 	            dom_1.label('.mdl-textfield__label', {
 	                props: {
 	                    for: 'mobile'
 	                }
-	            }, ['Mobile'])
+	            }, ['Mobile']),
+	            dom_1.span('mdl-textfield__error', 'Enter a valid mobile number!')
 	        ]),
-	        // p('Please fill out the following in case you want to present a talk/workshop'),
-	        // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	        //   input('.mdl-textfield__input', {
-	        //     props: {
-	        //       id: 'title',
-	        //       placeholder: 'Title'
-	        //     }
-	        //   }),
-	        //   label('.mdl-textfield__label', {
-	        //     props: {
-	        //       for: 'title'
-	        //     }
-	        //   }, ['Title'])
-	        // ]),
-	        // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	        //   input('.mdl-textfield__input', {
-	        //     props: {
-	        //       id: 'abstract',
-	        //       placeholder: 'Abstract'
-	        //     }
-	        //   }),
-	        //   label('.mdl-textfield__label', {
-	        //     props: {
-	        //       for: 'abstract'
-	        //     }
-	        //   }, ['Abstract'])
-	        // ]),
+	    ];
+	}
+	function renderExpandedForm(event) {
+	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	    if (!showForm)
+	        return dom_1.p(['This event no longer accepts new registrations.']);
+	    return dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields().concat([
 	        dom_1.button({
 	            props: {
 	                type: 'submit',
 	                tabindex: '0'
 	            }
 	        }, ['Join Us!'])
-	    ]);
+	    ]));
 	}
 	function renderForm(event, clicked) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
@@ -11536,80 +11520,15 @@
 	                props: {
 	                    tabindex: '0'
 	                }
-	            }, 'x'),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'name',
-	                        placeholder: 'Name'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'name'
-	                    }
-	                }, ['Name'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'email',
-	                        placeholder: 'Email'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'email'
-	                    }
-	                }, ['Email'])
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'mobile',
-	                        placeholder: 'Mobile'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'mobile'
-	                    }
-	                }, ['Mobile'])
-	            ]),
-	            // p('Please fill out the following in case you want to present a talk/workshop'),
-	            // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            //   input('.mdl-textfield__input', {
-	            //     props: {
-	            //       id: 'title',
-	            //       placeholder: 'Title'
-	            //     }
-	            //   }),
-	            //   label('.mdl-textfield__label', {
-	            //     props: {
-	            //       for: 'title'
-	            //     }
-	            //   }, ['Title'])
-	            // ]),
-	            // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            //   input('.mdl-textfield__input', {
-	            //     props: {
-	            //       id: 'abstract',
-	            //       placeholder: 'Abstract'
-	            //     }
-	            //   }),
-	            //   label('.mdl-textfield__label', {
-	            //     props: {
-	            //       for: 'abstract'
-	            //     }
-	            //   }, ['Abstract'])
-	            // ]),
+	            }, 'x')
+	        ].concat(renderFormFields(), [
 	            dom_1.button({
 	                props: {
 	                    type: 'submit',
 	                    tabindex: '1'
 	                }
 	            }, ['Join Us!'])
-	        ])
+	        ]))
 	    ];
 	}
 	function renderEvent(event, clicked) {
