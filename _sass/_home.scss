@@ -452,6 +452,21 @@
                             }
                         }
 
+                        & > .shrink {
+                          @extend .mdl-button;
+                          @extend .mdl-button--fab;
+                          @extend .mdl-color--accent;
+                          position: absolute;
+                          right: 20px;
+                          top: 20px;
+                          z-index: 20;
+                          border-radius: 50%;
+                          cursor: pointer;
+                          transition: .3s cubic-bezier(.65,-0.40,.49,1.40);
+                          transition-delay: .45s;
+                          color: white;
+                        }
+
                         .event.form {
                           z-index: 20;
                           transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);

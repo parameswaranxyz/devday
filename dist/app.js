@@ -2166,12 +2166,12 @@
 	    var expand$ = eventClick$
 	        .map(function (ev) { return ev.currentTarget.attributes['data-url'].value; })
 	        .startWith('');
-	    var expandedEventClick$ = dom
-	        .select('.event.card.expanded')
+	    var shrinkEventClick$ = dom
+	        .select('.shrink')
 	        .events('click');
 	    var shorten$ = xs.merge(expand$
 	        .filter(function (e) { return e !== ''; })
-	        .map(function () { return xs.of(false); }), expandedEventClick$
+	        .map(function () { return xs.of(false); }), shrinkEventClick$
 	        .map(function (ev) { return xs.of(true); })
 	        .startWith(xs.of(false))).flatten();
 	    var joinEventClick$ = dom
@@ -2244,7 +2244,7 @@
 	            ]);
 	        });
 	    }).flatten();
-	    var prevent$ = xs.merge(moreClick$, eventClick$, expandedEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, shrinkEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
 	    vtree$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
@@ -11755,8 +11755,22 @@
 	                dom_1.div('.attending', [
 	                    renderExpandedForm(event)
 	                ])
-	            ])
+	            ]),
 	        ]),
+	        dom_1.a('.shrink.button', {
+	            props: {
+	                title: 'close event',
+	                href: '#'
+	            },
+	            style: {
+	                transform: 'scale(0)',
+	                delayed: { transform: 'scale(1)' },
+	                destroy: { transform: 'scale(0)' }
+	            },
+	        }, [
+	            dom_1.span('.hidden', 'close event'),
+	            dom_1.i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'close')
+	        ])
 	    ]);
 	}
 	exports.renderExpandedEvent = renderExpandedEvent;

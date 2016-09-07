@@ -27,36 +27,36 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   switch (entry.type) {
     case AgendaEntryType.Talk:
     case AgendaEntryType.Workshop:
-        return [
-          div('.thumbnail', [
-            h5([getHHMM(entry.time.start_time)]),
-            h6([getMeridien(entry.time.start_time)])
-          ]),
-          div('.info', [
-            img('.avatar', {
-              props: {
-                src:
-                entry.authors[0] != undefined
-                  ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-                  : 'images/speakers/devday-speaker.png'
-              }
-            }),
-            h5(entry.title),
-            h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
-            p(entry.abstract)
-          ])
-        ];
+      return [
+        div('.thumbnail', [
+          h5([getHHMM(entry.time.start_time)]),
+          h6([getMeridien(entry.time.start_time)])
+        ]),
+        div('.info', [
+          img('.avatar', {
+            props: {
+              src:
+              entry.authors[0] != undefined
+                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+                : 'images/speakers/devday-speaker.png'
+            }
+          }),
+          h5(entry.title),
+          h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
+          p(entry.abstract)
+        ])
+      ];
     case AgendaEntryType.Hackathon:
-    return [
-          div('.thumbnail', [
-            h5([getHHMM(entry.time.start_time)]),
-            h6([getMeridien(entry.time.start_time)])
-          ]),
-          div('.info', [
-            h5(entry.title),
-            p(entry.abstract)
-          ])
-        ];
+      return [
+        div('.thumbnail', [
+          h5([getHHMM(entry.time.start_time)]),
+          h6([getMeridien(entry.time.start_time)])
+        ]),
+        div('.info', [
+          h5(entry.title),
+          p(entry.abstract)
+        ])
+      ];
     case AgendaEntryType.Break:
       return [
         div('.thumbnail.break', [
@@ -85,8 +85,8 @@ function renderBackground(event: DevdayEvent): VNode {
 
 function renderExpandedForm(event: DevdayEvent): VNode {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-  if(!showForm)
-    return p(['This event no longer accepts new registrations.']); 
+  if (!showForm)
+    return p(['This event no longer accepts new registrations.']);
   return form('.event.form', { style: fadeInOutStyle }, [
     div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
       input('.mdl-textfield__input', {
@@ -184,7 +184,7 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
         },
       }, [
           span('.hidden', 'join event'),
-          i('.material-icons', { style:  {opacity: '0', delayed: { opacity: '1' } } }, 'add')
+          i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'add')
         ])];
   return [
     a('.join.event.button', {
@@ -332,8 +332,8 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
           div('.content', {
             style: fadeInOutStyle
           }, authors.length > 0
-          ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
-          : [ p(['There are no speakers at this event. Walk in for a hands-on experience!!!']) ]
+              ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
+              : [p(['There are no speakers at this event. Walk in for a hands-on experience!!!'])]
           )
         ]),
       div('.secondary.info', {
@@ -438,7 +438,21 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
               div('.attending', [
                 renderExpandedForm(event)
               ])
-            ])
+            ]),
         ]),
+      a('.shrink.button', {
+        props: {
+          title: 'close event',
+          href: '#'
+        },
+        style: {
+          transform: 'scale(0)',
+          delayed: { transform: 'scale(1)' },
+          destroy: { transform: 'scale(0)' }
+        },
+      }, [
+          span('.hidden', 'close event'),
+          i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'close')
+        ])
     ]);
 }
