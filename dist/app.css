@@ -6176,6 +6176,8 @@ iframe {
             margin: 0;
             margin-right: 20px;
             margin-bottom: 20px; }
+          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content p {
+            color: white; }
       .devday.home > .container > .layout > .content > main > .event.card > .agenda {
         display: none;
         z-index: 1;
