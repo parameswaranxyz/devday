@@ -319,6 +319,7 @@
                               }
 
                               p {
+                                margin-bottom: 0;
                                 color: $light-secondary-text-color;
                               }
 
@@ -517,6 +518,7 @@
                           }
                           & > .agenda {
                             display: block;
+                            min-width: 885px;
                           }
 
                           & > .secondary.info {

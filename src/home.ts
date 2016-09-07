@@ -60,7 +60,7 @@ function renderFooter(): VNode {
       //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
       //   span('.hidden', 'share')
       // ]),
-      p(['© Copyright 2016, Sahaj Software Solutions Pvt. Ltd.'])
+      p(['© 2016 - Organised & Hosted by Sahaj Software Solutions Pvt. Ltd.'])
     ])
   ]);
 }

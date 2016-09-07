@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: '├óΓé¼┼ô'; }
+    content: 'â€œ'; }
   blockquote:after {
-    content: '├óΓé¼┬¥';
+    content: 'â€';
     margin-left: -.05em; }
 
 mark {
@@ -6231,6 +6231,7 @@ iframe {
               font-size: inherit;
               color: white; }
             .devday.home > .container > .layout > .content > main > .event.card > .agenda > .content > .info p {
+              margin-bottom: 0;
               color: rgba(255, 255, 255, 0.7); }
             .devday.home > .container > .layout > .content > main > .event.card > .agenda > .content > .info.break .centerer {
               white-space: nowrap;
@@ -6353,7 +6354,8 @@ iframe {
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .speakers {
           display: none; }
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .agenda {
-          display: block; }
+          display: block;
+          min-width: 885px; }
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info {
           position: initial;
           top: 0;
