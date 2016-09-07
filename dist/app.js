@@ -8800,7 +8800,7 @@
 	    locality: 'Koramangala',
 	    city: 'Bangalore',
 	    zip: 560034,
-	    map_link: '',
+	    map_link: 'https://goo.gl/maps/7Z8iBAdjT1o',
 	    map_image: 'images/bangalore-map.jpg'
 	};
 	exports.CHENNAI_ADDRESS = {
@@ -8809,7 +8809,7 @@
 	    locality: 'Thiruvanmiyur',
 	    city: 'Chennai',
 	    zip: 600041,
-	    map_link: '',
+	    map_link: 'https://goo.gl/maps/ziSASk4tmvM2',
 	    map_image: 'images/chennai-map.jpg'
 	};
 	exports.events = [
@@ -9384,13 +9384,13 @@
 	        author: 'devday_ team',
 	        abstract: '',
 	        event_time: {
-	            start_time: new Date('2016-09-17T10:30:00+05:30'),
-	            end_time: new Date('2016-09-17T10:00:00+05:30'),
+	            start_time: new Date('2016-09-24T10:30:00+05:30'),
+	            end_time: new Date('2016-09-24T10:00:00+05:30'),
 	        },
-	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
+	        publish_time: new Date('2016-09-07T17:45:00+05:30'),
 	        registration_time: {
-	            start_time: new Date('2016-08-27T10:30:00+05:30'),
-	            end_time: new Date('2016-08-28T13:30:00+05:30'),
+	            start_time: new Date('2016-09-07T17:45:00+05:30'),
+	            end_time: new Date('2016-09-24T09:45:00+05:30'),
 	        },
 	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
@@ -9408,10 +9408,10 @@
 	        meetup_urlname: 'devday_bangalore',
 	        meetup_event_id: '233530425',
 	        form: {
-	            url: 'https://docs.google.com/forms/d/17I8-e7DltY5zLStkHosjXMwQ7uf0fd51GkJDDXkEbfM/formResponse',
-	            name: 'entry.288897361',
-	            email: 'entry.543157192',
-	            mobile: 'entry.1884598983'
+	            url: 'https://docs.google.com/forms/d/1FAIpQLSfzUp2QaYh5m3MSB80DoDZvmVOFqU8lTA7NJnSMjU968PZQUg/formResponse',
+	            name: 'entry.1835601702',
+	            email: 'entry.190890788',
+	            mobile: 'entry.1343889675'
 	        }
 	    },
 	];
@@ -11738,7 +11738,7 @@
 	                style: fadeInOutStyle
 	            }, [
 	                dom_1.div('.location', [
-	                    dom_1.a({ props: { href: event.venue.map_link } }, [
+	                    dom_1.a({ props: { target: '_blank', href: event.venue.map_link } }, [
 	                        dom_1.div('.filler', {
 	                            attrs: {
 	                                style: "background-image: url(\"" + event.venue.map_image + "\");"
