@@ -11614,6 +11614,7 @@
 	}
 	function renderEvent(event, clicked) {
 	    var clickedBoolean = clicked === event.url;
+	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
 	    return dom_1.article('.event.card', {
 	        attrs: {
 	            'data-url': event.url
@@ -11654,8 +11655,9 @@
 	        }, [
 	            dom_1.div('.content', {
 	                style: fadeInOutStyle
-	            }, [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }))
-	                .map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); }))
+	            }, authors.length > 0
+	                ? authors.map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })
+	                : [dom_1.p(['There are no speakers at this event. Join us!'])])
 	        ]),
 	        dom_1.div('.secondary.info', {
 	            style: {

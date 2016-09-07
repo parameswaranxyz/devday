@@ -231,6 +231,10 @@
                               margin-right: 20px;
                               margin-bottom: 20px;
                             }
+
+                            p {
+                              color: $light-primary-text-color;
+                            }
                           }
                         }
 
@@ -256,7 +260,7 @@
                               position: absolute;
                               top: 20px;
                               left: 20px;
-                              color: $light-primary-text-color;
+                              color: $light-hint-text-color;
                             }
 
                             & > .thumbnail {

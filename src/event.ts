@@ -290,6 +290,7 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
 
 export function renderEvent(event: DevdayEvent, clicked: string): VNode {
   const clickedBoolean = clicked === event.url;
+  const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
   return article('.event.card', {
     attrs: {
       'data-url': event.url
@@ -330,9 +331,10 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
       }, [
           div('.content', {
             style: fadeInOutStyle
-          },
-            ([].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors)) as Author[])
-              .map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+          }, authors.length > 0
+          ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
+          : [ p(['There are no speakers at this event. Join us!']) ]
+          )
         ]),
       div('.secondary.info', {
         style: {
