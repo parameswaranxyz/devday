@@ -106,16 +106,16 @@ function home(sources: Sources): Sinks {
     eventClick$
       .map(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
       .startWith('');
-  const expandedEventClick$ =
+  const shrinkEventClick$ =
     dom
-      .select('.event.card.expanded')
+      .select('.shrink')
       .events('click');
   const shorten$ =
     xs.merge(
       expand$
         .filter(e => e !== '')
         .map(() => xs.of(false)),
-      expandedEventClick$
+      shrinkEventClick$
         .map(ev => xs.of(true))
         .startWith(xs.of(false))
     ).flatten();
@@ -218,7 +218,7 @@ function home(sources: Sources): Sinks {
     xs.merge(
       moreClick$,
       eventClick$,
-      expandedEventClick$,
+      shrinkEventClick$,
       joinEventClick$,
       formClick$,
       formCloseClick$,
