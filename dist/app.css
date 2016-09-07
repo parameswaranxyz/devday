@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: '├óΓé¼┼ô'; }
+    content: 'â€œ'; }
   blockquote:after {
-    content: '├óΓé¼┬¥';
+    content: 'â€';
     margin-left: -.05em; }
 
 mark {

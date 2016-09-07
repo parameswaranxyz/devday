@@ -9350,7 +9350,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Getting started with WebRTC',
-	                abstract: 'This talk is all about WebRTC. WebRTC is a free, open project that provides browsers and mobile applications with Real-Time Communications (RTC) capabilities via simple APIs.',
+	                abstract: 'WebRTC is a framework for the web that enables Real Time Communication in the browser. Get to know about WebRTC technology & also learn how to build a webrtc application.',
 	                authors: [
 	                    {
 	                        name: 'Vijayakumar Nagarajan',
