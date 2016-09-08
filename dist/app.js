@@ -9415,7 +9415,7 @@
 	        meetup_urlname: 'devday_bangalore',
 	        meetup_event_id: '233530425',
 	        form: {
-	            url: 'https://docs.google.com/forms/d/1FAIpQLSfzUp2QaYh5m3MSB80DoDZvmVOFqU8lTA7NJnSMjU968PZQUg/formResponse',
+	            url: 'https://docs.google.com/forms/d/e/1FAIpQLSfzUp2QaYh5m3MSB80DoDZvmVOFqU8lTA7NJnSMjU968PZQUg/formResponse',
 	            name: 'entry.1835601702',
 	            email: 'entry.190890788',
 	            mobile: 'entry.1343889675'
@@ -11666,7 +11666,12 @@
 	                style: fadeInOutStyle
 	            }, [
 	                dom_1.div('.location', [
-	                    dom_1.a({ props: { target: '_blank', href: event.venue.map_link } }, [
+	                    dom_1.a({
+	                        props: {
+	                            target: '_blank',
+	                            href: event.venue.map_link
+	                        }
+	                    }, [
 	                        dom_1.div('.filler', {
 	                            attrs: {
 	                                style: "background-image: url(\"" + event.venue.map_image + "\");"

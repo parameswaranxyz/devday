@@ -12,4 +12,3 @@ Gemfile.lock
 .vscode/.browse.VC.db
 .vscode/.BROWSE.VC.DB-shm
 typings/
-*.map
