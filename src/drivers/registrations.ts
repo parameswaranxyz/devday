@@ -26,7 +26,7 @@ export class RegistrationsSource {
         .flatten()
         .filter(Boolean)
         .map(response => ({
-          event_url: response.request.category,
+          event_url: (<any>response.request.send).event_url,
           success: response.status === 200
         } as RegistrationResult))
         .remember();
@@ -46,7 +46,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   if (form == undefined)
     return null;
   const payload = {
-    // event_url: event.url
+    event_url: event.url
   };
   payload[form.name] = data.name;
   payload[form.email] = data.email;

@@ -2146,6 +2146,7 @@
 	    var dom = sources.dom;
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$.remember();
+	    var registration$ = sources.registrations.registration$;
 	    var noun$ = xs.periodic(1000)
 	        .startWith(0)
 	        .map(function (x) { return x % nouns.length; })
@@ -2204,6 +2205,7 @@
 	        .map(function (events) {
 	        return formSubmit$
 	            .filter(function (ev) {
+	            // TODO: Validate
 	            var buttonElement = ev.currentTarget;
 	            var formElement = closest(buttonElement, 'form');
 	            var invalidElements = formElement.querySelectorAll('.is-invalid');
@@ -2223,20 +2225,24 @@
 	            return request;
 	        });
 	    }).flatten();
+	    var registrationSuccessfulUrl$ = registration$
+	        .filter(Boolean)
+	        .map(function (reg) { return reg.event_url; })
+	        .startWith('its-real-time');
 	    var currentDate = new Date();
 	    var vtree$ = route$
 	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
+	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$)
 	            .filter(function () { return url === ''; })
 	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6];
+	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6], registrationSuccessfulUrl = _a[7];
 	            var expandedEvent = undefined;
 	            if (!shorten)
 	                expandedEvent = events.find(function (event) { return event.url === expand; });
 	            var children = expandedEvent == undefined
-	                ? events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join); }).slice()
+	                ? events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, registrationSuccessfulUrl); }).slice()
 	                : [
-	                    event_1.renderExpandedEvent(expandedEvent)
+	                    event_1.renderExpandedEvent(expandedEvent, registrationSuccessfulUrl)
 	                ];
 	            return dom_1.div('.devday.home', [
 	                dom_1.div('.container', [
@@ -11471,20 +11477,24 @@
 	        ]),
 	    ];
 	}
-	function renderExpandedForm(event) {
+	function renderExpandedForm(event, registrationSuccessful) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
 	        return dom_1.p(['This event no longer accepts new registrations.']);
-	    return dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields().concat([
-	        dom_1.button({
-	            props: {
-	                type: 'submit',
-	                tabindex: '0'
-	            }
-	        }, ['Join Us!'])
-	    ]));
+	    return registrationSuccessful
+	        ? dom_1.div('.registration.success', [
+	            dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
+	        ])
+	        : dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields().concat([
+	            dom_1.button({
+	                props: {
+	                    type: 'submit',
+	                    tabindex: '0'
+	                }
+	            }, ['Join Us!'])
+	        ]));
 	}
-	function renderForm(event, clicked) {
+	function renderForm(event, clicked, registrationSuccessful) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
 	        return [];
@@ -11524,27 +11534,32 @@
 	        }, [
 	            dom_1.span('.hidden', 'join event')
 	        ]),
-	        dom_1.form('.event.form', { style: fadeInOutStyle }, [
-	            dom_1.button('.close', {
-	                style: {
-	                    float: 'right'
-	                },
-	                props: {
-	                    tabindex: '0'
-	                }
-	            }, 'x')
-	        ].concat(renderFormFields(), [
-	            dom_1.button({
-	                props: {
-	                    type: 'submit',
-	                    tabindex: '1'
-	                }
-	            }, ['Join Us!'])
-	        ]))
+	        registrationSuccessful
+	            ? dom_1.div('.registration.success', [
+	                dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
+	            ])
+	            : dom_1.form('.event.form', { style: fadeInOutStyle }, [
+	                dom_1.button('.close', {
+	                    style: {
+	                        float: 'right'
+	                    },
+	                    props: {
+	                        tabindex: '0'
+	                    }
+	                }, 'x')
+	            ].concat(renderFormFields(), [
+	                dom_1.button({
+	                    props: {
+	                        type: 'submit',
+	                        tabindex: '1'
+	                    }
+	                }, ['Join Us!'])
+	            ]))
 	    ];
 	}
-	function renderEvent(event, clicked) {
-	    var clickedBoolean = clicked === event.url;
+	function renderEvent(event, joinUrl, registrationSuccessfulUrl) {
+	    var clickedBoolean = joinUrl === event.url;
+	    var registrationSuccessful = registrationSuccessfulUrl === event.url;
 	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
 	    return dom_1.article('.event.card', {
 	        attrs: {
@@ -11617,10 +11632,11 @@
 	                ]),
 	            ])
 	        ])
-	    ].concat(renderForm(event, clickedBoolean)));
+	    ].concat(renderForm(event, clickedBoolean, registrationSuccessful)));
 	}
 	exports.renderEvent = renderEvent;
-	function renderExpandedEvent(event) {
+	function renderExpandedEvent(event, registrationSuccessUrl) {
+	    var registrationSuccessful = registrationSuccessUrl === event.url;
 	    return dom_1.article('.event.card.expanded', {
 	        attrs: {
 	            'data-url': event.url
@@ -11689,7 +11705,7 @@
 	                    ])
 	                ]),
 	                dom_1.div('.attending', [
-	                    renderExpandedForm(event)
+	                    renderExpandedForm(event, registrationSuccessful)
 	                ])
 	            ]),
 	        ]),
@@ -11913,7 +11929,7 @@
 	                .flatten()
 	                .filter(Boolean)
 	                .map(function (response) { return ({
-	                event_url: response.request.category,
+	                event_url: response.request.send.event_url,
 	                success: response.status === 200
 	            }); })
 	                .remember();
@@ -11932,7 +11948,9 @@
 	    var form = event.form;
 	    if (form == undefined)
 	        return null;
-	    var payload = {};
+	    var payload = {
+	        event_url: event.url
+	    };
 	    payload[form.name] = data.name;
 	    payload[form.email] = data.email;
 	    payload[form.mobile] = data.mobile;

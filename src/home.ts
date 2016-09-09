@@ -82,6 +82,7 @@ function home(sources: Sources): Sinks {
   const dom = sources.dom;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
+  const registration$ = sources.registrations.registration$;
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)
@@ -158,6 +159,7 @@ function home(sources: Sources): Sinks {
       .map(events =>
         formSubmit$
           .filter(ev => {
+            // TODO: Validate
             const buttonElement = ev.currentTarget as HTMLButtonElement;
             const formElement = closest(buttonElement, 'form') as HTMLFormElement;
             const invalidElements = formElement.querySelectorAll('.is-invalid');
@@ -177,20 +179,25 @@ function home(sources: Sources): Sinks {
             return request;
           })
       ).flatten();
+  const registrationSuccessfulUrl$ =
+    registration$
+      .filter(Boolean)
+      .map(reg => reg.event_url)
+      .startWith('its-real-time');
   const currentDate = new Date();
   const vtree$ =
     route$
       .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
+        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$)
           .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, join]) => {
+          .map(([noun, topic, events, more, expand, shorten, join, registrationSuccessfulUrl]) => {
             let expandedEvent: DevdayEvent = undefined;
             if (!shorten)
               expandedEvent = events.find(event => event.url === expand);
             const children =
               expandedEvent == undefined
                 ? [
-                  ...topEvents(events).map(event => renderEvent(event, join)),
+                  ...topEvents(events).map(event => renderEvent(event, join, registrationSuccessfulUrl)),
                   // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
                   // nav([
                   //   a('.more', {
@@ -205,7 +212,7 @@ function home(sources: Sources): Sinks {
                   // ])
                 ]
                 : [
-                  renderExpandedEvent(expandedEvent)
+                  renderExpandedEvent(expandedEvent, registrationSuccessfulUrl)
                 ];
             return div('.devday.home', [
               div('.container', [

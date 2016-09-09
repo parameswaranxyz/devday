@@ -166,22 +166,26 @@ function renderFormFields(): VNode[] {
   ];
 }
 
-function renderExpandedForm(event: DevdayEvent): VNode {
+function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean): VNode {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
     return p(['This event no longer accepts new registrations.']);
-  return form('.event.form', { style: fadeInOutStyle }, [
-    ...renderFormFields(),
-    button({
-      props: {
-        type: 'submit',
-        tabindex: '0'
-      }
-    }, ['Join Us!'])
-  ]);
+  return registrationSuccessful
+    ? div('.registration.success', [
+      p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
+    ])
+    : form('.event.form', { style: fadeInOutStyle }, [
+      ...renderFormFields(),
+      button({
+        props: {
+          type: 'submit',
+          tabindex: '0'
+        }
+      }, ['Join Us!'])
+    ]);
 }
 
-function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
+function renderForm(event: DevdayEvent, clicked: boolean, registrationSuccessful: boolean): VNode[] {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
     return [];
@@ -221,28 +225,33 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
     }, [
         span('.hidden', 'join event')
       ]),
-    form('.event.form', { style: fadeInOutStyle }, [
-      button('.close', {
-        style: {
-          float: 'right'
-        },
-        props: {
-          tabindex: '0'
-        }
-      }, 'x'),
-      ...renderFormFields(),
-      button({
-        props: {
-          type: 'submit',
-          tabindex: '1'
-        }
-      }, ['Join Us!'])
-    ])
+    registrationSuccessful
+      ? div('.registration.success', [
+        p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
+      ])
+      : form('.event.form', { style: fadeInOutStyle }, [
+        button('.close', {
+          style: {
+            float: 'right'
+          },
+          props: {
+            tabindex: '0'
+          }
+        }, 'x'),
+        ...renderFormFields(),
+        button({
+          props: {
+            type: 'submit',
+            tabindex: '1'
+          }
+        }, ['Join Us!'])
+      ])
   ]
 }
 
-export function renderEvent(event: DevdayEvent, clicked: string): VNode {
-  const clickedBoolean = clicked === event.url;
+export function renderEvent(event: DevdayEvent, joinUrl: string, registrationSuccessfulUrl: string): VNode {
+  const clickedBoolean = joinUrl === event.url;
+  const registrationSuccessful = registrationSuccessfulUrl === event.url;
   const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
   return article('.event.card', {
     attrs: {
@@ -320,11 +329,12 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
               // ])
             ])
         ]),
-      ...renderForm(event, clickedBoolean)
+      ...renderForm(event, clickedBoolean, registrationSuccessful)
     ]);
 }
 
-export function renderExpandedEvent(event: DevdayEvent): VNode {
+export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: string): VNode {
+  const registrationSuccessful = registrationSuccessUrl === event.url;
   return article('.event.card.expanded', {
     attrs: {
       'data-url': event.url
@@ -372,18 +382,18 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
           }, [
               div('.location', [
                 a({
-                    props: {
-                      target: '_blank', 
-                      href: event.venue.map_link
-                    }
-                  },
+                  props: {
+                    target: '_blank',
+                    href: event.venue.map_link
+                  }
+                },
                   [
-                  div('.filler', {
-                    attrs: {
-                      style: `background-image: url("${event.venue.map_image}");`
-                    }
-                  })
-                ]),
+                    div('.filler', {
+                      attrs: {
+                        style: `background-image: url("${event.venue.map_image}");`
+                      }
+                    })
+                  ]),
                 address([
                   event.venue.line_one,
                   br(),
@@ -395,7 +405,7 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
                 ])
               ]),
               div('.attending', [
-                renderExpandedForm(event)
+                renderExpandedForm(event, registrationSuccessful)
               ])
             ]),
         ]),
