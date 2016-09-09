@@ -90,7 +90,7 @@ function renderFormFields(): VNode[] {
         props: {
           id: 'name',
           placeholder: 'Name',
-          pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$',
+          pattern: '^[a-zA-Z][a-zA-Z ]{4,}',
           required: 'required'
         }
       }),
@@ -99,7 +99,7 @@ function renderFormFields(): VNode[] {
           for: 'name'
         }
       }, ['Name']),
-      span('mdl-textfield__error', 'Enter a valid name!')
+      span('mdl-textfield__error', 'Please enter a valid name!')
     ]),
     div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
       input('.mdl-textfield__input', {
@@ -115,7 +115,7 @@ function renderFormFields(): VNode[] {
           for: 'email'
         }
       }, ['Email']),
-      span('mdl-textfield__error', 'Enter a valid email!')
+      span('mdl-textfield__error', 'Please enter a valid email!')
     ]),
     div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
       input('.mdl-textfield__input', {
@@ -134,7 +134,7 @@ function renderFormFields(): VNode[] {
           for: 'mobile'
         }
       }, ['Mobile']),
-      span('mdl-textfield__error', 'Enter a valid mobile number!')
+      span('mdl-textfield__error', 'Please enter a valid mobile number!')
     ]),
     // p('Please fill out the following in case you want to present a talk/workshop'),
     // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
@@ -170,7 +170,7 @@ function renderExpandedForm(event: DevdayEvent): VNode {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
     return p(['This event no longer accepts new registrations.']);
-  return form('.event.form', { style: fadeInOutStyle }, [
+  return form('.event.form', [
     ...renderFormFields(),
     button({
       props: {
@@ -194,15 +194,10 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
         },
         attrs: {
           'data-url': event.url
-        },
-        style: {
-          transform: 'scale(0)',
-          delayed: { transform: 'scale(1)' },
-          destroy: { transform: 'scale(0)' }
-        },
+        }
       }, [
           span('.hidden', 'join event'),
-          i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'add')
+          i('.material-icons', 'add')
         ])];
   return [
     a('.join.event.button', {
@@ -212,16 +207,11 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
       },
       attrs: {
         'data-url': event.url
-      },
-      style: {
-        transform: 'scale(1)',
-        delayed: { transform: 'scale3d(21, 21, 1)' },
-        destroy: { transform: 'scale(1)' }
-      },
+      }
     }, [
         span('.hidden', 'join event')
       ]),
-    form('.event.form', { style: fadeInOutStyle }, [
+    form('.event.form', [
       button('.close', {
         style: {
           float: 'right'
@@ -271,6 +261,10 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
               h4([event.event_time.start_time.toDateString()]),
               h3([event.title]),
               p([event.abstract]),
+              span('.animated shake', [
+                "Details",
+                i('.material-icons', ["trending_flat"])
+              ])
             ])
         ]),
       renderBackground(event),
@@ -403,15 +397,10 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
         props: {
           title: 'close event',
           href: '#'
-        },
-        style: {
-          transform: 'scale(0)',
-          delayed: { transform: 'scale(1)' },
-          destroy: { transform: 'scale(0)' }
-        },
+        }
       }, [
           span('.hidden', 'close event'),
-          i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'close')
+          i('.material-icons', 'close')
         ])
     ]);
 }

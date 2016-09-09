@@ -2126,7 +2126,7 @@
 	            //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
 	            //   span('.hidden', 'share')
 	            // ]),
-	            dom_1.p(['© 2016 - Organised & Hosted by Sahaj Software Solutions Pvt. Ltd.'])
+	            dom_1.p(['© 2016 - Organised by Sahaj Software Solutions'])
 	        ])
 	    ]);
 	}
@@ -2184,6 +2184,7 @@
 	        .map(function (ev) {
 	        var anchor = ev.currentTarget;
 	        var card = closest(anchor, '.event.card');
+	        card.classList.add('register');
 	        anchor.classList.add('expand');
 	        return xs.of(card.attributes['data-url'].value);
 	    }), formCloseClick$
@@ -2191,6 +2192,7 @@
 	        var closeButton = ev.currentTarget;
 	        var card = closest(closeButton, '.event.card');
 	        var anchor = card.querySelector('.join.event');
+	        card.classList.remove('register');
 	        anchor.classList.remove('expand');
 	        return xs.of('');
 	    })).flatten().startWith('');
@@ -11423,7 +11425,7 @@
 	                props: {
 	                    id: 'name',
 	                    placeholder: 'Name',
-	                    pattern: '^[a-zA-Z][a-zA-Z]+(\s[a-zA-Z]*)*$',
+	                    pattern: '^[a-zA-Z][a-zA-Z ]{4,}',
 	                    required: 'required'
 	                }
 	            }),
@@ -11432,7 +11434,7 @@
 	                    for: 'name'
 	                }
 	            }, ['Name']),
-	            dom_1.span('mdl-textfield__error', 'Enter a valid name!')
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid name!')
 	        ]),
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
@@ -11448,7 +11450,7 @@
 	                    for: 'email'
 	                }
 	            }, ['Email']),
-	            dom_1.span('mdl-textfield__error', 'Enter a valid email!')
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid email!')
 	        ]),
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
@@ -11467,7 +11469,7 @@
 	                    for: 'mobile'
 	                }
 	            }, ['Mobile']),
-	            dom_1.span('mdl-textfield__error', 'Enter a valid mobile number!')
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid mobile number!')
 	        ]),
 	    ];
 	}
@@ -11475,7 +11477,7 @@
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
 	        return dom_1.p(['This event no longer accepts new registrations.']);
-	    return dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields().concat([
+	    return dom_1.form('.event.form', renderFormFields().concat([
 	        dom_1.button({
 	            props: {
 	                type: 'submit',
@@ -11497,15 +11499,10 @@
 	                },
 	                attrs: {
 	                    'data-url': event.url
-	                },
-	                style: {
-	                    transform: 'scale(0)',
-	                    delayed: { transform: 'scale(1)' },
-	                    destroy: { transform: 'scale(0)' }
-	                },
+	                }
 	            }, [
 	                dom_1.span('.hidden', 'join event'),
-	                dom_1.i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'add')
+	                dom_1.i('.material-icons', 'add')
 	            ])];
 	    return [
 	        dom_1.a('.join.event.button', {
@@ -11515,16 +11512,11 @@
 	            },
 	            attrs: {
 	                'data-url': event.url
-	            },
-	            style: {
-	                transform: 'scale(1)',
-	                delayed: { transform: 'scale3d(21, 21, 1)' },
-	                destroy: { transform: 'scale(1)' }
-	            },
+	            }
 	        }, [
 	            dom_1.span('.hidden', 'join event')
 	        ]),
-	        dom_1.form('.event.form', { style: fadeInOutStyle }, [
+	        dom_1.form('.event.form', [
 	            dom_1.button('.close', {
 	                style: {
 	                    float: 'right'
@@ -11573,6 +11565,10 @@
 	                dom_1.h4([event.event_time.start_time.toDateString()]),
 	                dom_1.h3([event.title]),
 	                dom_1.p([event.abstract]),
+	                dom_1.span('.animated shake', [
+	                    "Details",
+	                    dom_1.i('.material-icons', ["trending_flat"])
+	                ])
 	            ])
 	        ]),
 	        renderBackground(event),
@@ -11697,15 +11693,10 @@
 	            props: {
 	                title: 'close event',
 	                href: '#'
-	            },
-	            style: {
-	                transform: 'scale(0)',
-	                delayed: { transform: 'scale(1)' },
-	                destroy: { transform: 'scale(0)' }
-	            },
+	            }
 	        }, [
 	            dom_1.span('.hidden', 'close event'),
-	            dom_1.i('.material-icons', { style: { opacity: '0', delayed: { opacity: '1' } } }, 'close')
+	            dom_1.i('.material-icons', 'close')
 	        ])
 	    ]);
 	}

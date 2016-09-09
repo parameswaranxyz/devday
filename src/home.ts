@@ -60,7 +60,7 @@ function renderFooter(): VNode {
       //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
       //   span('.hidden', 'share')
       // ]),
-      p(['© 2016 - Organised & Hosted by Sahaj Software Solutions Pvt. Ltd.'])
+      p(['© 2016 - Organised by Sahaj Software Solutions'])
     ])
   ]);
 }
@@ -133,6 +133,7 @@ function home(sources: Sources): Sinks {
         .map(ev => {
           const anchor = ev.currentTarget as HTMLAnchorElement;
           const card = closest(anchor, '.event.card');
+          card.classList.add('register');
           anchor.classList.add('expand');
           return xs.of(card.attributes['data-url'].value);
         }),
@@ -141,6 +142,7 @@ function home(sources: Sources): Sinks {
           const closeButton = ev.currentTarget as HTMLButtonElement;
           const card = closest(closeButton, '.event.card');
           const anchor = card.querySelector('.join.event');
+          card.classList.remove('register');
           anchor.classList.remove('expand');
           return xs.of('');
         })
