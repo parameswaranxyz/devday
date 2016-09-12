@@ -6,7 +6,7 @@ export const BANGALORE_ADDRESS: Address = {
       locality: 'Koramangala',
       city: 'Bangalore',
       zip: 560034,
-      map_link: 'https://goo.gl/maps/7Z8iBAdjT1o',
+      map_link: 'https://goo.gl/maps/ziSASk4tmvM2',
       map_image: 'images/bangalore-map.jpg'
     };
 export const CHENNAI_ADDRESS: Address = {
@@ -15,8 +15,8 @@ export const CHENNAI_ADDRESS: Address = {
       locality: 'Thiruvanmiyur',
       city: 'Chennai',
       zip: 600041,
-      map_link: 'https://goo.gl/maps/ziSASk4tmvM2',
-      map_image: 'images/chennai-map.jpg'
+      map_link: 'https://goo.gl/maps/7Z8iBAdjT1o',
+      map_image: 'images/chennai-map.png'
     };
 
 export const events: DevdayEvent[] = [
