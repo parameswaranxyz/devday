@@ -2172,8 +2172,8 @@
 	    var shorten$ = xs.merge(expand$
 	        .filter(function (e) { return e !== ''; })
 	        .map(function () { return xs.of(false); }), shrinkEventClick$
-	        .map(function (ev) { return xs.of(true); })
-	        .startWith(xs.of(false))).flatten();
+	        .map(function (ev) { return xs.of(true); })).flatten()
+	        .startWith(true);
 	    var joinEventClick$ = dom
 	        .select('.join.event')
 	        .events('click');
@@ -2184,7 +2184,6 @@
 	        .map(function (ev) {
 	        var anchor = ev.currentTarget;
 	        var card = closest(anchor, '.event.card');
-	        card.classList.add('register');
 	        anchor.classList.add('expand');
 	        return xs.of(card.attributes['data-url'].value);
 	    }), formCloseClick$
@@ -2192,7 +2191,6 @@
 	        var closeButton = ev.currentTarget;
 	        var card = closest(closeButton, '.event.card');
 	        var anchor = card.querySelector('.join.event');
-	        card.classList.remove('register');
 	        anchor.classList.remove('expand');
 	        return xs.of('');
 	    })).flatten().startWith('');
@@ -2226,41 +2224,43 @@
 	        });
 	    }).flatten();
 	    var currentDate = new Date();
-	    var vtree$ = route$
-	        .map(function (url) {
-	        return xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
-	            .filter(function () { return url === ''; })
-	            .map(function (_a) {
-	            var noun = _a[0], topic = _a[1], events = _a[2], more = _a[3], expand = _a[4], shorten = _a[5], join = _a[6];
-	            var expandedEvent = undefined;
-	            if (!shorten)
-	                expandedEvent = events.find(function (event) { return event.url === expand; });
-	            var children = expandedEvent == undefined
-	                ? events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join); }).slice()
-	                : [
-	                    event_1.renderExpandedEvent(expandedEvent)
-	                ];
-	            return dom_1.div('.devday.home', [
-	                dom_1.div('.container', [
-	                    dom_1.div('.layout', [
-	                        dom_1.div('.content', [
-	                            renderHeader(noun, topic),
-	                            dom_1.main(children),
-	                            renderFooter()
-	                        ])
+	    var headerDom$ = xs.combine(noun$, topic$)
+	        .map(function (_a) {
+	        var noun = _a[0], topic = _a[1];
+	        return renderHeader(noun, topic);
+	    });
+	    var footerDom$ = xs.of(renderFooter());
+	    var bodyDom$ = xs.combine(events$, more$, expand$, shorten$, join$)
+	        .map(function (_a) {
+	        var events = _a[0], more = _a[1], expand = _a[2], shorten = _a[3], join = _a[4];
+	        var expandedEvent = !shorten && events.find(function (event) { return event.url === expand; });
+	        return dom_1.main(Boolean(expandedEvent)
+	            ? [event_1.renderExpandedEvent(expandedEvent)]
+	            : events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, shorten); }).slice());
+	    });
+	    var vdom$ = xs.combine(headerDom$, bodyDom$, footerDom$)
+	        .map(function (_a) {
+	        var headerDom = _a[0], bodyDom = _a[1], footerDom = _a[2];
+	        return dom_1.div('.devday.home', [
+	            dom_1.div('.container', [
+	                dom_1.div('.layout', [
+	                    dom_1.div('.content', [
+	                        headerDom,
+	                        bodyDom,
+	                        footerDom
 	                    ])
 	                ])
-	            ]);
-	        });
-	    }).flatten();
+	            ])
+	        ]);
+	    });
 	    var prevent$ = xs.merge(moreClick$, eventClick$, shrinkEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
-	    vtree$.compose(delay_1.default(30)).addListener({
+	    vdom$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
 	        error: function () { }
 	    });
 	    return {
-	        dom: vtree$,
+	        dom: vdom$,
 	        events: xs.empty(),
 	        routes: xs.empty(),
 	        prevent: prevent$,
@@ -11346,7 +11346,7 @@
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
 	var fadeInOutStyle = {
-	    opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+	    opacity: '0', delayed: { opacity: '1' }
 	};
 	function pad(n, width, z) {
 	    z = z || '0';
@@ -11486,23 +11486,30 @@
 	        }, ['Join Us!'])
 	    ]));
 	}
-	function renderForm(event, clicked) {
+	function renderForm(event, clicked, shorten) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	    var buttonSelector = '.join.event.button' + (shorten ? '' : '.no.delay');
 	    if (!showForm)
 	        return [];
 	    if (!clicked)
 	        return [
-	            dom_1.a('.join.event.button', {
+	            dom_1.a(buttonSelector, {
 	                props: {
 	                    title: 'join event',
 	                    href: '#'
+	                },
+	                style: {
+	                    transform: 'scale3d(0, 0, 1)',
+	                    delayed: {
+	                        transform: 'scale3d(1,1,1)'
+	                    }
 	                },
 	                attrs: {
 	                    'data-url': event.url
 	                }
 	            }, [
 	                dom_1.span('.hidden', 'join event'),
-	                dom_1.i('.material-icons', 'add')
+	                dom_1.i('.material-icons.join.icon', { style: fadeInOutStyle }, 'add')
 	            ])];
 	    return [
 	        dom_1.a('.join.event.button', {
@@ -11510,13 +11517,19 @@
 	                title: 'join event',
 	                href: '#'
 	            },
+	            style: {
+	                transform: 'scale3d(1, 1, 1)',
+	                delayed: {
+	                    transform: 'scale3d(21,21,1)'
+	                }
+	            },
 	            attrs: {
 	                'data-url': event.url
 	            }
 	        }, [
 	            dom_1.span('.hidden', 'join event')
 	        ]),
-	        dom_1.form('.event.form', [
+	        dom_1.form('.event.form', { style: fadeInOutStyle }, [
 	            dom_1.button('.close', {
 	                style: {
 	                    float: 'right'
@@ -11535,7 +11548,7 @@
 	        ]))
 	    ];
 	}
-	function renderEvent(event, clicked) {
+	function renderEvent(event, clicked, shorten) {
 	    var clickedBoolean = clicked === event.url;
 	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
 	    return dom_1.article('.event.card', {
@@ -11613,7 +11626,7 @@
 	                ]),
 	            ])
 	        ])
-	    ].concat(renderForm(event, clickedBoolean)));
+	    ].concat(renderForm(event, clickedBoolean, shorten)));
 	}
 	exports.renderEvent = renderEvent;
 	function renderExpandedEvent(event) {

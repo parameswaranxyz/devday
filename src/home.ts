@@ -104,7 +104,7 @@ function home(sources: Sources): Sinks {
       .events('click');
   const expand$ =
     eventClick$
-      .map(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
+      .map<string>(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
       .startWith('');
   const shrinkEventClick$ =
     dom
@@ -117,8 +117,8 @@ function home(sources: Sources): Sinks {
         .map(() => xs.of(false)),
       shrinkEventClick$
         .map(ev => xs.of(true))
-        .startWith(xs.of(false))
-    ).flatten();
+    ).flatten()
+      .startWith(true);
   const joinEventClick$ =
     dom
       .select('.join.event')
@@ -133,16 +133,14 @@ function home(sources: Sources): Sinks {
         .map(ev => {
           const anchor = ev.currentTarget as HTMLAnchorElement;
           const card = closest(anchor, '.event.card');
-          card.classList.add('register');
           anchor.classList.add('expand');
-          return xs.of(card.attributes['data-url'].value);
+          return xs.of<string>(card.attributes['data-url'].value);
         }),
       formCloseClick$
         .map(ev => {
           const closeButton = ev.currentTarget as HTMLButtonElement;
           const card = closest(closeButton, '.event.card');
           const anchor = card.querySelector('.join.event');
-          card.classList.remove('register');
           anchor.classList.remove('expand');
           return xs.of('');
         })
@@ -180,49 +178,48 @@ function home(sources: Sources): Sinks {
           })
       ).flatten();
   const currentDate = new Date();
-  const vtree$ =
-    route$
-      .map(url =>
-        xs.combine(noun$, topic$, events$, more$, expand$, shorten$, join$)
-          .filter(() => url === '')
-          .map(([noun, topic, events, more, expand, shorten, join]) => {
-            let expandedEvent: DevdayEvent = undefined;
-            if (!shorten)
-              expandedEvent = events.find(event => event.url === expand);
-            const children =
-              expandedEvent == undefined
-                ? [
-                  ...topEvents(events).map(event => renderEvent(event, join)),
-                  // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
-                  // nav([
-                  //   a('.more', {
-                  //     props: { href: '#', title: 'view all previous events' },
-                  //     attrs: { style: more ? 'display: none;' : '' }
-                  //   }, [
-                  //       'Past events',
-                  //       button([
-                  //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                  //       ])
-                  //     ])
-                  // ])
-                ]
-                : [
-                  renderExpandedEvent(expandedEvent)
-                ];
-            return div('.devday.home', [
-              div('.container', [
-                div('.layout', [
-                  div('.content', [
-                    renderHeader(noun, topic),
-                    main(children),
-                    renderFooter()
-                  ])
-                ])
-              ])
+  const headerDom$ =
+    xs.combine(noun$, topic$)
+      .map(([noun, topic]) => renderHeader(noun, topic));
+  const footerDom$ = xs.of(renderFooter());
+
+  const bodyDom$ =
+    xs.combine(events$, more$, expand$, shorten$, join$)
+      .map(([events, more, expand, shorten, join]) => {
+        const expandedEvent = !shorten && events.find(event => event.url === expand);
+        return main(
+          Boolean(expandedEvent)
+            ? [renderExpandedEvent(expandedEvent)]
+            : [
+              ...topEvents(events).map(event => renderEvent(event, join, shorten)),
+              // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
+              // nav([
+              //   a('.more', {
+              //     props: { href: '#', title: 'view all previous events' },
+              //     attrs: { style: more ? 'display: none;' : '' }
+              //   }, [
+              //       'Past events',
+              //       button([
+              //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+              //       ])
+              //     ])
+              // ])
             ]);
-          }
-          )
-      ).flatten();
+      });
+  const vdom$ =
+    xs.combine(headerDom$, bodyDom$, footerDom$)
+      .map(([headerDom, bodyDom, footerDom]) =>
+        div('.devday.home', [
+          div('.container', [
+            div('.layout', [
+              div('.content', [
+                headerDom,
+                bodyDom,
+                footerDom
+              ])
+            ])
+          ])
+        ]));
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -233,13 +230,13 @@ function home(sources: Sources): Sinks {
       formCloseClick$,
       formSubmit$
     );
-  vtree$.compose(delay<VNode>(30)).addListener({
+  vdom$.compose(delay<VNode>(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
     complete: () => { },
     error: () => { }
   });
   return {
-    dom: vtree$,
+    dom: vdom$,
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,

@@ -460,15 +460,22 @@
                             transition: .3s cubic-bezier(.65,-0.40,.49,1.40);
                             transition-delay: .45s;
 
+                            &.no.delay {
+                              transition-delay: 0s;
+                            }
+
+                            & > .join.icon {
+                              transition-delay: .6s;
+                              transition-duration: .3s;
+                            }
+
                             &.expand {
                               cursor: default;
                               transition:.3s cubic-bezier(.65,-0.68,.49,1.94);
                               transition-delay: .1s;
-                              display: none;
 
                               & + .event.form {
                                 padding: 20px;
-                                @extend .mdl-color--accent;
                               }
                             }
                         }
@@ -491,7 +498,7 @@
                         .event.form {
                           z-index: 20;
                           transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
-                          transition-delay: .75s;
+                          transition-delay: .3s;
 
                           & > .input.element {
                             @extend .mdl-textfield;

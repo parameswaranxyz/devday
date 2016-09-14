@@ -4,7 +4,7 @@ import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, 
 import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from './definitions';
 
 const fadeInOutStyle = {
-  opacity: '0', delayed: { opacity: '1' }, remove: { opacity: '0' }
+  opacity: '0', delayed: { opacity: '1' }
 };
 
 function pad(n: string, width: number, z?: string): string {
@@ -181,23 +181,30 @@ function renderExpandedForm(event: DevdayEvent): VNode {
   ]);
 }
 
-function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
+function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean): VNode[] {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+  const buttonSelector = '.join.event.button' + (shorten ? '' : '.no.delay');
   if (!showForm)
     return [];
   if (!clicked)
     return [
-      a('.join.event.button', {
+      a(buttonSelector, {
         props: {
           title: 'join event',
           href: '#'
+        },
+        style: {
+          transform: 'scale3d(0, 0, 1)',
+          delayed: {
+            transform: 'scale3d(1,1,1)'
+          }
         },
         attrs: {
           'data-url': event.url
         }
       }, [
           span('.hidden', 'join event'),
-          i('.material-icons', 'add')
+          i('.material-icons.join.icon', { style: fadeInOutStyle }, 'add')
         ])];
   return [
     a('.join.event.button', {
@@ -205,13 +212,19 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
         title: 'join event',
         href: '#'
       },
+      style: {
+        transform: 'scale3d(1, 1, 1)',
+        delayed: {
+          transform: 'scale3d(21,21,1)'
+        }
+      },
       attrs: {
         'data-url': event.url
       }
     }, [
         span('.hidden', 'join event')
       ]),
-    form('.event.form', [
+    form('.event.form', { style: fadeInOutStyle }, [
       button('.close', {
         style: {
           float: 'right'
@@ -231,7 +244,7 @@ function renderForm(event: DevdayEvent, clicked: boolean): VNode[] {
   ]
 }
 
-export function renderEvent(event: DevdayEvent, clicked: string): VNode {
+export function renderEvent(event: DevdayEvent, clicked: string, shorten: boolean): VNode {
   const clickedBoolean = clicked === event.url;
   const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
   return article('.event.card', {
@@ -314,7 +327,7 @@ export function renderEvent(event: DevdayEvent, clicked: string): VNode {
               // ])
             ])
         ]),
-      ...renderForm(event, clickedBoolean)
+      ...renderForm(event, clickedBoolean, shorten)
     ]);
 }
 
@@ -366,18 +379,18 @@ export function renderExpandedEvent(event: DevdayEvent): VNode {
           }, [
               div('.location', [
                 a({
-                    props: {
-                      target: '_blank', 
-                      href: event.venue.map_link
-                    }
-                  },
+                  props: {
+                    target: '_blank',
+                    href: event.venue.map_link
+                  }
+                },
                   [
-                  div('.filler', {
-                    attrs: {
-                      style: `background-image: url("${event.venue.map_image}");`
-                    }
-                  })
-                ]),
+                    div('.filler', {
+                      attrs: {
+                        style: `background-image: url("${event.venue.map_image}");`
+                      }
+                    })
+                  ]),
                 address([
                   event.venue.line_one,
                   br(),
