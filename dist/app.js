@@ -11572,16 +11572,17 @@
 	                }
 	            }
 	        }, [
-	            dom_1.div('.content', {
-	                style: fadeInOutStyle
-	            }, [
-	                dom_1.h4([event.event_time.start_time.toDateString()]),
+	            dom_1.div('.content', { style: fadeInOutStyle }, [
+	                dom_1.h5('.location', [
+	                    dom_1.i(".material-icons detail-icon", "location_on"),
+	                    event.venue.city
+	                ]),
+	                dom_1.h4('', [
+	                    dom_1.i(".material-icons detail-icon", "event"),
+	                    event.event_time.start_time.toDateString()
+	                ]),
 	                dom_1.h3([event.title]),
-	                dom_1.p([event.abstract]),
-	                dom_1.span('.animated shake', [
-	                    "Details",
-	                    dom_1.i('.material-icons', ["trending_flat"])
-	                ])
+	                dom_1.p([event.abstract])
 	            ])
 	        ]),
 	        renderBackground(event),

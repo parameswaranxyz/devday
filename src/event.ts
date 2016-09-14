@@ -268,16 +268,17 @@ export function renderEvent(event: DevdayEvent, clicked: string, shorten: boolea
           }
         }
       }, [
-          div('.content', {
-            style: fadeInOutStyle
-          }, [
-              h4([event.event_time.start_time.toDateString()]),
+          div('.content', { style: fadeInOutStyle }, [
+              h5('.location', [
+                i(".material-icons detail-icon", "location_on"),
+                event.venue.city
+              ]),
+              h4('', [
+                i(".material-icons detail-icon", "event"),
+                event.event_time.start_time.toDateString()
+              ]),
               h3([event.title]),
-              p([event.abstract]),
-              span('.animated shake', [
-                "Details",
-                i('.material-icons', ["trending_flat"])
-              ])
+              p([event.abstract])
             ])
         ]),
       renderBackground(event),

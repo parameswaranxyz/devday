@@ -44,7 +44,7 @@
             (min-width: 1025px) and (max-width: 2048px) and (max-resolution: 1.5dppx)  {
             background-image: url('../images/bg_2048.jpg');
         }
-        
+
         @media (min-width: 1025px) and (-webkit-min-device-pixel-ratio: 1.5),
             (min-width: 1025px) and (min-resolution: 1.5dppx),
             (min-width: 2049px) and (-webkit-max-device-pixel-ratio: 1.5),
@@ -69,10 +69,10 @@
         top: 0;
         position: fixed;
     }
-    
+
     & > .container {
         @extend .mdl-layout__container;
-        
+
         & > .layout {
             @extend .mdl-layout;
             @extend .has-drawer;
@@ -83,7 +83,7 @@
                 position: relative;
 
                 & > header {
-                    
+
                     padding: 20px;
 
                     & > h1 {
@@ -159,16 +159,35 @@
                           background: white;
                           transition-delay: .15s;
 
-                          & > .content { 
+                          & > .content {
                             padding: 20px;
                             overflow: hidden;
                             transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
                             transition-delay: .6s;
 
+                            & > h5 {
+                              font-size: inherit;
+                              color: $dark-secondary-text-color;
+                              margin: 0;
+                              font-weight : normal;
+                            }
+
                             & > h4 {
                               font-size: inherit;
                               color: $dark-secondary-text-color;
                               margin: 0;
+                              margin-top : 3px;
+                            }
+
+                            & > .location {
+                              color : #ff4081
+                            }
+
+                            .detail-icon {
+                              font-size: inherit;
+                              vertical-align: middle;
+                              margin-right: 5px;
+                              margin-top: -3px;
                             }
 
                             & > h3 {
@@ -398,7 +417,7 @@
                               position: relative;
                               width: 50%;
                               float: left;
-                                
+
                               &::before {
                                 content: 'location';
                                 text-transform: uppercase;
@@ -442,12 +461,12 @@
                             }
                           }
                         }
-                        
+
                         & > .join.event.button {
                             @extend .mdl-button;
                             @extend .mdl-button--fab;
                             @extend .mdl-color--accent;
-                            
+
                             color: white;
                             position: absolute;
                             bottom: 82px;
@@ -505,16 +524,16 @@
 
                             & > input {
                               @extend .mdl-textfield__input;
-                              
+
                               color: white;
-                              border-color: $light-secondary-text-color !important; 
+                              border-color: $light-secondary-text-color !important;
                             }
 
                             & > label {
                               @extend .mdl-textfield__label;
                               color: white;
 
-                              &:after { 
+                              &:after {
                                 background-color: $light-primary-text-color;
                               }
                             }
@@ -557,7 +576,7 @@
                             }
 
                             &:hover,
-                            &:active, 
+                            &:active,
                             &:focus {
                               background: #fefefe;
                               color: $primary-accent !important;
@@ -607,7 +626,7 @@
                                   top: 0;
                                   margin-bottom: 10px;
                                 }
-                                
+
                                 .filler {
                                   display: block;
                                   margin: 20px 0;
@@ -627,7 +646,7 @@
                         @extend .mdl-cell--4-col-phone;
                         @extend .mdl-cell--8-col-tablet;
                         @extend .mdl-cell--12-col-desktop;
-                        
+
                         margin: 12px 15px;
                         display: -webkit-flex;
                         display: -ms-flexbox;
@@ -655,7 +674,7 @@
                             }
                         }
                     }
-                } 
+                }
 
                 & > footer {
 
@@ -678,7 +697,7 @@
                           margin: 0;
                         }
                       }
-                      
+
                       & > .social.button {
                         @extend .mdl-mini-footer--social-btn;
                         position: relative;

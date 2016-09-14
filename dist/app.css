@@ -6125,10 +6125,23 @@ iframe {
           overflow: hidden;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           transition-delay: .6s; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h5 {
+            font-size: inherit;
+            color: rgba(0, 0, 0, 0.54);
+            margin: 0;
+            font-weight: normal; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h4 {
             font-size: inherit;
             color: rgba(0, 0, 0, 0.54);
-            margin: 0; }
+            margin: 0;
+            margin-top: 3px; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > .location {
+            color: #ff4081; }
+          .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content .detail-icon {
+            font-size: inherit;
+            vertical-align: middle;
+            margin-right: 5px;
+            margin-top: -3px; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h3 {
             margin-top: 0;
             height: 80px; }
