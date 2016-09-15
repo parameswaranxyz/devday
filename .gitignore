@@ -13,3 +13,4 @@ Gemfile.lock
 .vscode/.BROWSE.VC.DB-shm
 typings/
 *.map
+src/**/*.js

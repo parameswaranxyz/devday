@@ -22,7 +22,9 @@
     "@cycle/http": "^10.1.0",
     "@cycle/xstream-adapter": "^3.0.3",
     "@cycle/xstream-run": "^3.0.3",
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "request": "^2.74.0",
     "xstream": "^5.2.1"
   },
   "devDependencies": {

@@ -51,6 +51,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   payload[form.name] = data.name;
   payload[form.email] = data.email;
   payload[form.mobile] = data.mobile;
+  payload['formUrl'] = form.url;
   if (data.type != undefined)
     payload[form.type] = data.type;
   if (data.title != undefined)
@@ -58,7 +59,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   if (data.abstract != undefined)
     payload[form.abstract] = data.abstract;
   return {
-    url: form.url,
+    url: '/register',
     method: 'POST',
     send: payload,
     category: 'registrations',
