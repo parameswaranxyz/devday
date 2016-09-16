@@ -46,18 +46,13 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   if (form == undefined)
     return null;
   const payload = {
-    // event_url: event.url
+    name : data.name,
+    email : data.email,
+    mobile : data.mobile,
+    spreadsheetId : form.spreadsheetId,
+    sheetName : form.sheetName
   };
-  payload[form.name] = data.name;
-  payload[form.email] = data.email;
-  payload[form.mobile] = data.mobile;
-  payload['formUrl'] = form.url;
-  if (data.type != undefined)
-    payload[form.type] = data.type;
-  if (data.title != undefined)
-    payload[form.title] = data.title;
-  if (data.abstract != undefined)
-    payload[form.abstract] = data.abstract;
+
   return {
     url: '/register',
     method: 'POST',

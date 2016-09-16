@@ -615,10 +615,8 @@ export const events: DevdayEvent[] = [
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '233530425',
     form: {
-      url: 'https://docs.google.com/forms/d/e/1FAIpQLSfzUp2QaYh5m3MSB80DoDZvmVOFqU8lTA7NJnSMjU968PZQUg/formResponse',
-      name: 'entry.1835601702',
-      email: 'entry.190890788',
-      mobile: 'entry.1343889675'
+      spreadsheetId : '1ycN3XRH2UgZesuJmE0F4r4Ylbr3JVcUCuiQsZnV_lWU',
+      sheetName : 'Form Responses 1'
     }
   },
 ];

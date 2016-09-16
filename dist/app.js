@@ -9417,10 +9417,8 @@
 	        meetup_urlname: 'devday_bangalore',
 	        meetup_event_id: '233530425',
 	        form: {
-	            url: 'https://docs.google.com/forms/d/e/1FAIpQLSfzUp2QaYh5m3MSB80DoDZvmVOFqU8lTA7NJnSMjU968PZQUg/formResponse',
-	            name: 'entry.1835601702',
-	            email: 'entry.190890788',
-	            mobile: 'entry.1343889675'
+	            spreadsheetId: '1ycN3XRH2UgZesuJmE0F4r4Ylbr3JVcUCuiQsZnV_lWU',
+	            sheetName: 'Form Responses 1'
 	        }
 	    },
 	];
@@ -11937,17 +11935,13 @@
 	    var form = event.form;
 	    if (form == undefined)
 	        return null;
-	    var payload = {};
-	    payload[form.name] = data.name;
-	    payload[form.email] = data.email;
-	    payload[form.mobile] = data.mobile;
-	    payload['formUrl'] = form.url;
-	    if (data.type != undefined)
-	        payload[form.type] = data.type;
-	    if (data.title != undefined)
-	        payload[form.title] = data.title;
-	    if (data.abstract != undefined)
-	        payload[form.abstract] = data.abstract;
+	    var payload = {
+	        name: data.name,
+	        email: data.email,
+	        mobile: data.mobile,
+	        spreadsheetId: form.spreadsheetId,
+	        sheetName: form.sheetName
+	    };
 	    return {
 	        url: '/register',
 	        method: 'POST',
