@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var request = require('request');
+let registrationStore = require('./src/backend/registration_store');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -10,12 +10,10 @@ app.use(express.static('./'));
 app.post('/register', function(req, res){
   console.log("trying to register");
   console.dir(req.body);
-  request.post({url : req.body.formUrl, form: req.body}, function(err,httpResponse,body){
-    if(err){
-      console.log("error registering");
-      console.dir(err);
-    }
-    res.sendStatus(httpResponse.statusCode);
+  registrationStore.store(req.body).then(function(){
+    res.sendStatus(200);
+  }).catch(function(err){
+    res.sendStatus(500);
   })
 })
 
