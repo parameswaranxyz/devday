@@ -36,7 +36,7 @@ function storeData(auth, data) {
       resource : {
         "majorDimension": 'ROWS',
         "values": [
-          [formattedDateTime, data.name,data.email,data.mobile]
+          [formattedDateTime, data.name,data.email,data.mobile, data.event_url]
         ],
       }
     },{}, function(err, response) {
@@ -52,19 +52,23 @@ function storeData(auth, data) {
 }
 
 let isUserRegistered = function(auth, data){
+  console.dir(data);
   return new Promise(function(resolve, reject){
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
       access_token: auth.access_token,
       spreadsheetId: data.spreadsheetId,
-      range: getSheetName(data) + '!C:D',
+      range: getSheetName(data) + '!C:E',
     }, function(err,resp){
         if(err){
           console.log("error getting sheet data");
           reject(err);
           return;
         }
-        resolve(isUserInSheet(resp.values, data.email, data.mobile));
+        let values = resp.values.filter(function(row){
+          return data.event_url === row[2];
+        });
+        resolve(isUserInSheet(values, data.email, data.mobile));
     });
   })
 
