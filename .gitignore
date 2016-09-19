@@ -15,3 +15,4 @@ typings/
 *.map
 src/**/*.js
 !src/backend/**
+npm-debug.log

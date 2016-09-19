@@ -52,7 +52,6 @@ function storeData(auth, data) {
 }
 
 let isUserRegistered = function(auth, data){
-  console.dir(data);
   return new Promise(function(resolve, reject){
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
