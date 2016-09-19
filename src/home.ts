@@ -82,6 +82,7 @@ function home(sources: Sources): Sinks {
   const dom = sources.dom;
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
+  const registration$ = sources.registrations.registration$;
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)
@@ -158,6 +159,7 @@ function home(sources: Sources): Sinks {
       .map(events =>
         formSubmit$
           .filter(ev => {
+            // TODO: Validate
             const buttonElement = ev.currentTarget as HTMLButtonElement;
             const formElement = closest(buttonElement, 'form') as HTMLFormElement;
             const invalidElements = formElement.querySelectorAll('.is-invalid');
@@ -177,21 +179,25 @@ function home(sources: Sources): Sinks {
             return request;
           })
       ).flatten();
+  const registrationSuccessfulUrl$ =
+    registration$
+      .filter(Boolean)
+      .map(reg => reg.event_url)
+      .startWith('its-real-time');
   const currentDate = new Date();
   const headerDom$ =
     xs.combine(noun$, topic$)
       .map(([noun, topic]) => renderHeader(noun, topic));
   const footerDom$ = xs.of(renderFooter());
-
   const bodyDom$ =
-    xs.combine(events$, more$, expand$, shorten$, join$)
-      .map(([events, more, expand, shorten, join]) => {
+    xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$)
+      .map(([events, more, expand, shorten, join, registrationSuccessfulUrl]) => {
         const expandedEvent = !shorten && events.find(event => event.url === expand);
         return main(
           Boolean(expandedEvent)
-            ? [renderExpandedEvent(expandedEvent)]
+            ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl)]
             : [
-              ...topEvents(events).map(event => renderEvent(event, join, shorten)),
+              ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl)),
               // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
               // nav([
               //   a('.more', {

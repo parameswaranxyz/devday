@@ -12,6 +12,7 @@ let getSheetName = function(data){
 }
 
 let trimAndLower = function(str){
+  str = str || '';
   return str.trim().toLowerCase()
 }
 

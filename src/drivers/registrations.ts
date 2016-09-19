@@ -26,7 +26,7 @@ export class RegistrationsSource {
         .flatten()
         .filter(Boolean)
         .map(response => ({
-          event_url: response.request.category,
+          event_url: (<any>response.request.send).event_url,
           success: response.status === 200
         } as RegistrationResult))
         .remember();
@@ -50,7 +50,8 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
     email : data.email,
     mobile : data.mobile,
     spreadsheetId : form.spreadsheetId,
-    sheetName : form.sheetName
+    sheetName : form.sheetName,
+    event_url: event.url
   };
 
   return {

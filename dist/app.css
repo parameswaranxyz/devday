@@ -6394,6 +6394,8 @@ iframe {
           .devday.home > .container > .layout > .content > main > .event.card .event.form > button:hover, .devday.home > .container > .layout > .content > main > .event.card .event.form > button:active, .devday.home > .container > .layout > .content > main > .event.card .event.form > button:focus {
             background: #fefefe;
             color: #ff4081 !important; }
+      .devday.home > .container > .layout > .content > main > .event.card > .registration.success {
+        z-index: 21; }
       .devday.home > .container > .layout > .content > main > .event.card.expanded {
         z-index: 11;
         height: auto;

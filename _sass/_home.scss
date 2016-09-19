@@ -584,6 +584,10 @@
                           }
                         }
 
+                        & > .registration.success {
+                          z-index: 21;
+                        }
+
                         &.expanded {
                           z-index: 11;
                           height: auto;

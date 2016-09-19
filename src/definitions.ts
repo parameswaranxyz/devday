@@ -64,13 +64,15 @@ export interface AgendaEntry {
 }
 
 export interface DevdayRegistrationForm {
-  url: string;
+  url?: string;
   name: string;
   email: string;
   mobile: string;
   type?: string;
   title?: string;
   abstract?: string;
+  spreadsheetId?: string;
+  sheetName?: string;
 }
 
 export interface DevdayRegistrationData {
