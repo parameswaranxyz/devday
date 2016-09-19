@@ -6,6 +6,23 @@ var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
 var key = require('../../devday-753952375eca.json');
 var jwtClient = new google.auth.JWT(key.client_email, null, key.private_key, SCOPES, null);
+
+let getSheetName = function(data){
+  return data.sheetName || 'Sheet 1';
+}
+
+let trimAndLower = function(str){
+  return str.trim().toLowerCase()
+}
+
+let isUserInSheet = function(sheetData, emailAddress, mobile){
+  sheetData.reverse();
+  return sheetData.some(function(entry){
+    return trimAndLower(entry[0]) === trimAndLower(emailAddress)
+          && trimAndLower(entry[1]) === trimAndLower(mobile);
+  });
+}
+
 function storeData(auth, data) {
   return new Promise(function(resolve, reject){
     let formattedDateTime = (new Date()).toLocaleString('en-US',{ timeZone: 'Asia/Kolkata' });
@@ -13,7 +30,7 @@ function storeData(auth, data) {
     sheets.spreadsheets.values.append({
       access_token: auth.access_token,
       spreadsheetId: data.spreadsheetId,
-      range: data.sheetName || 'Sheet1',
+      range: getSheetName(data),
       valueInputOption : 'USER_ENTERED',
       resource : {
         "majorDimension": 'ROWS',
@@ -33,6 +50,25 @@ function storeData(auth, data) {
   });
 }
 
+let isUserRegistered = function(auth, data){
+  return new Promise(function(resolve, reject){
+    var sheets = google.sheets('v4');
+    sheets.spreadsheets.values.get({
+      access_token: auth.access_token,
+      spreadsheetId: data.spreadsheetId,
+      range: getSheetName(data) + '!C:D',
+    }, function(err,resp){
+        if(err){
+          console.log("error getting sheet data");
+          reject(err);
+          return;
+        }
+        resolve(isUserInSheet(resp.values, data.email, data.mobile));
+    });
+  })
+
+}
+
 let store = function(data){
   return new Promise(function(resolve, reject){
     jwtClient.authorize(function(err, tokens) {
@@ -41,8 +77,15 @@ let store = function(data){
         console.log(err);
         return;
       }
-      storeData(tokens, data).then(function(response){
-        resolve(response);
+
+      isUserRegistered(tokens, data).then(function(userRegistered){
+        if(userRegistered){
+          resolve(204)
+          return;
+        }
+        return storeData(tokens, data);
+      }).then(function(response){
+        resolve(200);
       }).catch(function(err){
         console.log("Error storing details");
         console.dir(data);

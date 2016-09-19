@@ -8,8 +8,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static('./'));
 
 app.post('/register', function(req, res){
-  registrationStore.store(req.body).then(function(){
-    res.sendStatus(200);
+  registrationStore.store(req.body).then(function(respStatus){
+    res.sendStatus(respStatus);
   }).catch(function(err){
     res.sendStatus(500);
   })
