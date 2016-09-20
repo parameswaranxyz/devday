@@ -26,7 +26,7 @@ let isUserInSheet = function(sheetData, emailAddress, mobile){
 
 function storeData(auth, data) {
   return new Promise(function(resolve, reject){
-    let formattedDateTime = (new Date()).toLocaleString('en-US',{ timeZone: 'Asia/Kolkata' });
+    let formattedDateTime = new Date(Date.now()+ (5.5 * 3600 * 1000)).toISOString().slice(0,-5).replace('T',' ')
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.append({
       access_token: auth.access_token,
@@ -70,7 +70,6 @@ let isUserRegistered = function(auth, data){
         resolve(isUserInSheet(values, data.email, data.mobile));
     });
   })
-
 }
 
 let store = function(data){
