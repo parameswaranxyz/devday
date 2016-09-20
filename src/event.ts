@@ -1,6 +1,6 @@
 import { Stream } from 'xstream';
 import { run } from '@cycle/xstream-run';
-import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
+import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, textarea, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from './definitions';
 
 const fadeInOutStyle = {
@@ -83,7 +83,42 @@ function renderBackground(event: DevdayEvent): VNode {
   return div('.background', { style });
 }
 
-function renderFormFields(): VNode[] {
+function renderFormFields(present: boolean): VNode[] {
+  const presentFields =
+    present
+    ? [
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        input('.mdl-textfield__input', {
+          props: {
+            id: 'title',
+            placeholder: 'Title',
+            required : 'required'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'title'
+          }
+        }, ['Title']),
+        span('mdl-textfield__error', 'Please enter a title!')
+      ]),
+      div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+        textarea('.mdl-textfield__input', {
+          props: {
+            id: 'abstract',
+            placeholder: 'Abstract',
+            required : 'required'
+          }
+        }),
+        label('.mdl-textfield__label', {
+          props: {
+            for: 'abstract'
+          }
+        }, ['Abstract']),
+        span('mdl-textfield__error', 'Please enter an abstract!')
+      ])
+    ]
+    : [];
   return [
     div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
       input('.mdl-textfield__input', {
@@ -136,37 +171,19 @@ function renderFormFields(): VNode[] {
       }, ['Mobile']),
       span('mdl-textfield__error', 'Please enter a valid mobile number!')
     ]),
-    // p('Please fill out the following in case you want to present a talk/workshop'),
-    // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-    //   input('.mdl-textfield__input', {
-    //     props: {
-    //       id: 'title',
-    //       placeholder: 'Title'
-    //     }
-    //   }),
-    //   label('.mdl-textfield__label', {
-    //     props: {
-    //       for: 'title'
-    //     }
-    //   }, ['Title'])
-    // ]),
-    // div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-    //   input('.mdl-textfield__input', {
-    //     props: {
-    //       id: 'abstract',
-    //       placeholder: 'Abstract'
-    //     }
-    //   }),
-    //   label('.mdl-textfield__label', {
-    //     props: {
-    //       for: 'abstract'
-    //     }
-    //   }, ['Abstract'])
-    // ]),
+    label('#present', {
+      props: {
+        for: 'presentCheckbox'
+      }
+    },[
+      input('#presentCheckbox', { attrs: { type: 'checkbox' } }),
+      'I want to present a talk/workshop'
+    ]),
+    ...presentFields
   ];
 }
 
-function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean): VNode {
+function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean, present: boolean): VNode {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   if (!showForm)
     return p(['This event no longer accepts new registrations.']);
@@ -175,7 +192,7 @@ function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean)
       p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
     ])
     : form('.event.form', { style: fadeInOutStyle }, [
-      ...renderFormFields(),
+      ...renderFormFields(present),
       button({
         props: {
           type: 'submit',
@@ -185,7 +202,7 @@ function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean)
     ]);
 }
 
-function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, registrationSuccessful: boolean): VNode[] {
+function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, registrationSuccessful: boolean, present: boolean): VNode[] {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   const buttonSelector = '.join.event.button' + (shorten ? '' : '.no.delay');
   if (!showForm)
@@ -241,7 +258,7 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
             tabindex: '0'
           }
         }, 'x'),
-        ...renderFormFields(),
+        ...renderFormFields(present),
         button({
           props: {
             type: 'submit',
@@ -252,7 +269,7 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
   ]
 }
 
-export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolean, registrationSuccessfulUrl: string): VNode {
+export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolean, registrationSuccessfulUrl: string, present: boolean): VNode {
   const clickedBoolean = joinUrl === event.url;
   const registrationSuccessful = registrationSuccessfulUrl === event.url;
   const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
@@ -337,11 +354,11 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
               // ])
             ])
         ]),
-      ...renderForm(event, clickedBoolean, shorten, registrationSuccessful)
+      ...renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)
     ]);
 }
 
-export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: string): VNode {
+export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: string, present: boolean): VNode {
   const registrationSuccessful = registrationSuccessUrl === event.url;
   return article('.event.card.expanded', {
     attrs: {
@@ -413,7 +430,7 @@ export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: 
                 ])
               ]),
               div('.attending', [
-                renderExpandedForm(event, registrationSuccessful)
+                renderExpandedForm(event, registrationSuccessful, present)
               ])
             ]),
         ]),

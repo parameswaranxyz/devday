@@ -80,6 +80,26 @@ function closest(el: HTMLElement, selector: string): HTMLElement {
 function home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
+  const presentClick$ =
+    dom
+      .select('#present')
+      .events('click');
+  const presentCheckboxClick$ =
+    dom
+      .select('#presentCheckbox')
+      .events('click');
+  const present$ =
+    presentClick$
+      .map(ev => {
+        const labelElement = event.currentTarget as HTMLLabelElement;
+        const isLabel = labelElement === event.target;
+        const checkBoxElement = labelElement.children[0] as HTMLInputElement;
+        if(isLabel) {
+          checkBoxElement.checked = !checkBoxElement.checked;
+        }
+        return checkBoxElement.checked;
+      })
+      .startWith(false);
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
   const registration$ = sources.registrations.registration$;
@@ -163,8 +183,7 @@ function home(sources: Sources): Sinks {
             const buttonElement = ev.currentTarget as HTMLButtonElement;
             const formElement = closest(buttonElement, 'form') as HTMLFormElement;
             const invalidElements = formElement.querySelectorAll('.is-invalid');
-            const dirtyElements = formElement.querySelectorAll('.is-dirty');
-            return invalidElements.length === 0 && dirtyElements.length === 3;
+            return invalidElements.length === 0;
           })
           .map(ev => {
             const buttonElement = ev.currentTarget as HTMLButtonElement;
@@ -190,14 +209,14 @@ function home(sources: Sources): Sinks {
       .map(([noun, topic]) => renderHeader(noun, topic));
   const footerDom$ = xs.of(renderFooter());
   const bodyDom$ =
-    xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$)
-      .map(([events, more, expand, shorten, join, registrationSuccessfulUrl]) => {
+    xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
+      .map(([events, more, expand, shorten, join, registrationSuccessfulUrl, present]) => {
         const expandedEvent = !shorten && events.find(event => event.url === expand);
         return main(
           Boolean(expandedEvent)
-            ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl)]
+            ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
             : [
-              ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl)),
+              ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
               // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
               // nav([
               //   a('.more', {
@@ -234,8 +253,20 @@ function home(sources: Sources): Sinks {
       joinEventClick$,
       formClick$,
       formCloseClick$,
-      formSubmit$
+      formSubmit$,
+      presentClick$
     );
+  presentCheckboxClick$.addListener({
+    next: ev => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      const checkbox = (ev.target as HTMLInputElement);
+      checkbox.checked = !checkbox.checked;
+      setTimeout(() => checkbox.parentElement.click(), 30);
+    },
+    error: () => {},
+    complete: () => {}
+  });
   vdom$.compose(delay<VNode>(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
     complete: () => { },

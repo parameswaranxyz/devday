@@ -2144,6 +2144,23 @@
 	function home(sources) {
 	    var xs = xstream_1.Stream;
 	    var dom = sources.dom;
+	    var presentClick$ = dom
+	        .select('#present')
+	        .events('click');
+	    var presentCheckboxClick$ = dom
+	        .select('#presentCheckbox')
+	        .events('click');
+	    var present$ = presentClick$
+	        .map(function (ev) {
+	        var labelElement = event.currentTarget;
+	        var isLabel = labelElement === event.target;
+	        var checkBoxElement = labelElement.children[0];
+	        if (isLabel) {
+	            checkBoxElement.checked = !checkBoxElement.checked;
+	        }
+	        return checkBoxElement.checked;
+	    })
+	        .startWith(false);
 	    var route$ = sources.routes.route$;
 	    var events$ = sources.events.events$.remember();
 	    var registration$ = sources.registrations.registration$;
@@ -2209,8 +2226,7 @@
 	            var buttonElement = ev.currentTarget;
 	            var formElement = closest(buttonElement, 'form');
 	            var invalidElements = formElement.querySelectorAll('.is-invalid');
-	            var dirtyElements = formElement.querySelectorAll('.is-dirty');
-	            return invalidElements.length === 0 && dirtyElements.length === 3;
+	            return invalidElements.length === 0;
 	        })
 	            .map(function (ev) {
 	            var buttonElement = ev.currentTarget;
@@ -2236,13 +2252,13 @@
 	        return renderHeader(noun, topic);
 	    });
 	    var footerDom$ = xs.of(renderFooter());
-	    var bodyDom$ = xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$)
+	    var bodyDom$ = xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
 	        .map(function (_a) {
-	        var events = _a[0], more = _a[1], expand = _a[2], shorten = _a[3], join = _a[4], registrationSuccessfulUrl = _a[5];
+	        var events = _a[0], more = _a[1], expand = _a[2], shorten = _a[3], join = _a[4], registrationSuccessfulUrl = _a[5], present = _a[6];
 	        var expandedEvent = !shorten && events.find(function (event) { return event.url === expand; });
 	        return dom_1.main(Boolean(expandedEvent)
-	            ? [event_1.renderExpandedEvent(expandedEvent, registrationSuccessfulUrl)]
-	            : events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, shorten, registrationSuccessfulUrl); }).slice());
+	            ? [event_1.renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
+	            : events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, shorten, registrationSuccessfulUrl, present); }).slice());
 	    });
 	    var vdom$ = xs.combine(headerDom$, bodyDom$, footerDom$)
 	        .map(function (_a) {
@@ -2259,7 +2275,18 @@
 	            ])
 	        ]);
 	    });
-	    var prevent$ = xs.merge(moreClick$, eventClick$, shrinkEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$);
+	    var prevent$ = xs.merge(moreClick$, eventClick$, shrinkEventClick$, joinEventClick$, formClick$, formCloseClick$, formSubmit$, presentClick$);
+	    presentCheckboxClick$.addListener({
+	        next: function (ev) {
+	            ev.preventDefault();
+	            ev.stopPropagation();
+	            var checkbox = ev.target;
+	            checkbox.checked = !checkbox.checked;
+	            setTimeout(function () { return checkbox.parentElement.click(); }, 30);
+	        },
+	        error: function () { },
+	        complete: function () { }
+	    });
 	    vdom$.compose(delay_1.default(30)).addListener({
 	        next: function () { return window.componentHandler.upgradeDom(); },
 	        complete: function () { },
@@ -11422,7 +11449,41 @@
 	        style['background-size'] = event.background_size;
 	    return dom_1.div('.background', { style: style });
 	}
-	function renderFormFields() {
+	function renderFormFields(present) {
+	    var presentFields = present
+	        ? [
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.input('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'title',
+	                        placeholder: 'Title',
+	                        required: 'required'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'title'
+	                    }
+	                }, ['Title']),
+	                dom_1.span('mdl-textfield__error', 'Please enter a title!')
+	            ]),
+	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	                dom_1.textarea('.mdl-textfield__input', {
+	                    props: {
+	                        id: 'abstract',
+	                        placeholder: 'Abstract',
+	                        required: 'required'
+	                    }
+	                }),
+	                dom_1.label('.mdl-textfield__label', {
+	                    props: {
+	                        for: 'abstract'
+	                    }
+	                }, ['Abstract']),
+	                dom_1.span('mdl-textfield__error', 'Please enter an abstract!')
+	            ])
+	        ]
+	        : [];
 	    return [
 	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
 	            dom_1.input('.mdl-textfield__input', {
@@ -11475,9 +11536,17 @@
 	            }, ['Mobile']),
 	            dom_1.span('mdl-textfield__error', 'Please enter a valid mobile number!')
 	        ]),
-	    ];
+	        dom_1.label('#present', {
+	            props: {
+	                for: 'presentCheckbox'
+	            }
+	        }, [
+	            dom_1.input('#presentCheckbox', { attrs: { type: 'checkbox' } }),
+	            'I want to present a talk/workshop'
+	        ])
+	    ].concat(presentFields);
 	}
-	function renderExpandedForm(event, registrationSuccessful) {
+	function renderExpandedForm(event, registrationSuccessful, present) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    if (!showForm)
 	        return dom_1.p(['This event no longer accepts new registrations.']);
@@ -11485,7 +11554,7 @@
 	        ? dom_1.div('.registration.success', [
 	            dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
 	        ])
-	        : dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields().concat([
+	        : dom_1.form('.event.form', { style: fadeInOutStyle }, renderFormFields(present).concat([
 	            dom_1.button({
 	                props: {
 	                    type: 'submit',
@@ -11494,7 +11563,7 @@
 	            }, ['Join Us!'])
 	        ]));
 	}
-	function renderForm(event, clicked, shorten, registrationSuccessful) {
+	function renderForm(event, clicked, shorten, registrationSuccessful, present) {
 	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
 	    var buttonSelector = '.join.event.button' + (shorten ? '' : '.no.delay');
 	    if (!showForm)
@@ -11550,7 +11619,7 @@
 	                        tabindex: '0'
 	                    }
 	                }, 'x')
-	            ].concat(renderFormFields(), [
+	            ].concat(renderFormFields(present), [
 	                dom_1.button({
 	                    props: {
 	                        type: 'submit',
@@ -11560,7 +11629,7 @@
 	            ]))
 	    ];
 	}
-	function renderEvent(event, joinUrl, shorten, registrationSuccessfulUrl) {
+	function renderEvent(event, joinUrl, shorten, registrationSuccessfulUrl, present) {
 	    var clickedBoolean = joinUrl === event.url;
 	    var registrationSuccessful = registrationSuccessfulUrl === event.url;
 	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
@@ -11640,10 +11709,10 @@
 	                ]),
 	            ])
 	        ])
-	    ].concat(renderForm(event, clickedBoolean, shorten, registrationSuccessful)));
+	    ].concat(renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)));
 	}
 	exports.renderEvent = renderEvent;
-	function renderExpandedEvent(event, registrationSuccessUrl) {
+	function renderExpandedEvent(event, registrationSuccessUrl, present) {
 	    var registrationSuccessful = registrationSuccessUrl === event.url;
 	    return dom_1.article('.event.card.expanded', {
 	        attrs: {
@@ -11713,7 +11782,7 @@
 	                    ])
 	                ]),
 	                dom_1.div('.attending', [
-	                    renderExpandedForm(event, registrationSuccessful)
+	                    renderExpandedForm(event, registrationSuccessful, present)
 	                ])
 	            ]),
 	        ]),
