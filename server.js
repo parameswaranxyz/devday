@@ -17,5 +17,5 @@ app.post('/register', function(req, res){
 
 let portNumber = 5000;
 app.listen(portNumber, function () {
-  console.log('Example app listening on port ' + portNumber);
+  console.log('DevDay Backend listening on port ' + portNumber);
 });

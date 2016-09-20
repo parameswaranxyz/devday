@@ -36,7 +36,7 @@ function storeData(auth, data) {
       resource : {
         "majorDimension": 'ROWS',
         "values": [
-          [formattedDateTime, data.name,data.email,data.mobile, data.event_url]
+          [formattedDateTime, data.name,data.email,data.mobile, data.event_url, data.title, data.abstract]
         ],
       }
     },{}, function(err, response) {
