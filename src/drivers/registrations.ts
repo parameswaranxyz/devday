@@ -51,7 +51,10 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
     mobile : data.mobile,
     spreadsheetId : form.spreadsheetId,
     sheetName : form.sheetName,
-    event_url: event.url
+    event_url: event.url,
+    present : data.present,
+    title : data.title,
+    abstract : data.abstract
   };
 
   return {

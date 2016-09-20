@@ -80,6 +80,7 @@ export interface DevdayRegistrationData {
   email: string;
   mobile: string;
   type?: string;
+  present? : boolean;
   title?: string;
   abstract?: string;
 }

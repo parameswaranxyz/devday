@@ -2085,6 +2085,9 @@
 	        name: form.elements['name'].value,
 	        email: form.elements['email'].value,
 	        mobile: form.elements['mobile'].value,
+	        present: form.elements['presentCheckbox'].checked,
+	        title: form.elements['title'].value,
+	        abstract: form.elements['abstract'].value,
 	    };
 	}
 	function renderHeader(noun, topic) {
@@ -12026,7 +12029,10 @@
 	        mobile: data.mobile,
 	        spreadsheetId: form.spreadsheetId,
 	        sheetName: form.sheetName,
-	        event_url: event.url
+	        event_url: event.url,
+	        present: data.present,
+	        title: data.title,
+	        abstract: data.abstract
 	    };
 	    return {
 	        url: '/register',
