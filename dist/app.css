@@ -6110,6 +6110,10 @@ iframe {
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       transform-origin: 0% 0%;
       cursor: pointer; }
+      .devday.home > .container > .layout > .content > main > .event.card .registration.success {
+        text-align: center;
+        padding-top: 10px;
+        color: white; }
       .devday.home > .container > .layout > .content > main > .event.card > .primary.info {
         position: absolute;
         z-index: 0;

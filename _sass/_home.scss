@@ -148,6 +148,12 @@
                         transform-origin: 0% 0%;
                         cursor: pointer;
 
+                        .registration.success {
+                          text-align: center;
+                          padding-top: 10px;
+                          color: white;
+                        }
+
                         & > .primary.info {
                           position: absolute;
                           z-index: 0;
