@@ -1,5 +1,5 @@
 var google = require('googleapis');
-
+let registrationEmail = require('./registration_mail')
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -88,6 +88,9 @@ let store = function(data){
         }
         return storeData(tokens, data);
       }).then(function(response){
+        if(data.present){
+          registrationEmail.send(data);
+        }
         resolve(200);
       }).catch(function(err){
         console.log("Error storing details");
