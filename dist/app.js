@@ -9429,8 +9429,8 @@
 	        author: 'devday_ team',
 	        abstract: '',
 	        event_time: {
-	            start_time: new Date('2016-09-24T10:30:00+05:30'),
-	            end_time: new Date('2016-09-24T10:00:00+05:30'),
+	            start_time: new Date('2016-10-01T10:30:00+05:30'),
+	            end_time: new Date('2016-10-01T10:00:00+05:30'),
 	        },
 	        publish_time: new Date('2016-09-07T17:45:00+05:30'),
 	        registration_time: {
@@ -9445,7 +9445,7 @@
 	                abstract: '',
 	                authors: [],
 	                time: {
-	                    start_time: new Date('2016-08-04T10:00:00+05:30')
+	                    start_time: new Date('2016-10-01T10:30:00+05:30')
 	                }
 	            }
 	        ],
