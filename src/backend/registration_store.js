@@ -88,7 +88,7 @@ let store = function(data){
         }
         return storeData(tokens, data);
       }).then(function(response){
-        if(data.present){
+        if(data.present === 'true'){
           registrationEmail.send(data);
         }
         resolve(200);

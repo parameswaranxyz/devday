@@ -597,7 +597,7 @@ export const events: DevdayEvent[] = [
     publish_time: new Date('2016-09-07T17:45:00+05:30'),
     registration_time: {
       start_time: new Date('2016-09-07T17:45:00+05:30'),
-      end_time: new Date('2016-09-24T09:45:00+05:30'),
+      end_time: new Date('2016-10-01T09:45:00+05:30'),
     },
     venue: BANGALORE_ADDRESS,
     agenda: [
