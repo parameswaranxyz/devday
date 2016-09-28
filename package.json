@@ -26,6 +26,7 @@
     "express": "^4.14.0",
     "googleapis": "^13.0.0",
     "nodemailer": "^2.6.4",
+    "pouchdb": "^6.0.5",
     "xstream": "^5.2.1"
   },
   "devDependencies": {
