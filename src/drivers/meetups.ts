@@ -27,12 +27,12 @@ export class MeetupsSource {
       response$$
         .flatten()
         .map(response => {
+          // console.log(response);
           return {
-            event_url: response.request.query['event_url'],
-            yes_rsvp_count: parseInt(response.text)
+            event_url: response.body['event_url'],
+            yes_rsvp_count: response.body['yes_rsvp_count']
           };
-        })
-        .remember();
+        });
   }
 }
 

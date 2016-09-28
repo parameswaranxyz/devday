@@ -8789,16 +8789,20 @@
 	        })).compose(dropRepeats_1.default(function (x, y) { return x.url === y.url; })).debug();
 	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
 	        var meetup$ = meetups.event$;
-	        meetup$.map(function (meetup) {
+	        var meetupsAction$ = meetup$.map(function (meetup) {
 	            var index = events_1.default.findIndex(function (event) { return event.url === meetup.event_url; });
 	            if (index === -1)
 	                return;
 	            events_1.default[index].attending = meetup.yes_rsvp_count;
+	            return xs.of(events_1.default);
+	        }).flatten();
+	        var noop = function () { };
+	        meetupsAction$.addListener({
+	            next: noop,
+	            error: noop,
+	            complete: noop
 	        });
-	        this.events$ =
-	            xs.merge(event$, meetup$)
-	                .mapTo(events_1.default)
-	                .startWith(events_1.default);
+	        this.events$ = meetupsAction$.startWith(events_1.default);
 	    }
 	    return EventsSource;
 	}());
@@ -9507,12 +9511,12 @@
 	            response$$
 	                .flatten()
 	                .map(function (response) {
+	                // console.log(response);
 	                return {
-	                    event_url: response.request.query['event_url'],
-	                    yes_rsvp_count: parseInt(response.text)
+	                    event_url: response.body['event_url'],
+	                    yes_rsvp_count: response.body['yes_rsvp_count']
 	                };
-	            })
-	                .remember();
+	            });
 	    }
 	    return MeetupsSource;
 	}());
@@ -11767,6 +11771,14 @@
 	    ];
 	}
 	function renderEvent(event, joinUrl, shorten, registrationSuccessfulUrl, present) {
+	    var getAttendingElement = function () {
+	        if (!event.attending) {
+	            return null;
+	        }
+	        return dom_1.div('.attending', [
+	            dom_1.p([(event.attending + " attending")])
+	        ]);
+	    };
 	    var clickedBoolean = joinUrl === event.url;
 	    var registrationSuccessful = registrationSuccessfulUrl === event.url;
 	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
@@ -11844,9 +11856,7 @@
 	                        })
 	                    ])
 	                ]),
-	                dom_1.div('.attending', [
-	                    dom_1.p([(event.attending + " attending")])
-	                ])
+	                getAttendingElement()
 	            ])
 	        ])
 	    ].concat(renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)));

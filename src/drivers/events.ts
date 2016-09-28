@@ -33,19 +33,20 @@ export class EventsSource {
       ).debug();
     const meetups = makeMeetupsDriver()(meetupsEvent$);
     const meetup$ = meetups.event$;
-    meetup$.map(meetup => {
+    const meetupsAction$ = meetup$.map(meetup => {
       const index = events.findIndex(event => event.url === meetup.event_url);
       if (index === -1)
         return;
       events[index].attending = meetup.yes_rsvp_count;
+      return xs.of(events);
+    }).flatten();
+    const noop = () => {};
+    meetupsAction$.addListener({
+      next: noop,
+      error: noop,
+      complete: noop
     });
-    this.events$ =
-      xs.merge(
-        event$,
-        meetup$
-      )
-        .mapTo(events)
-        .startWith(events);
+    this.events$ = meetupsAction$.startWith(events);
   }
 }
 

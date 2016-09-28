@@ -270,6 +270,14 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
 }
 
 export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolean, registrationSuccessfulUrl: string, present: boolean): VNode {
+  let getAttendingElement = () => {
+    if(!event.attending){
+      return null;
+    }
+    return div('.attending', [
+            p([`${event.attending} attending`])
+          ]);
+  }
   const clickedBoolean = joinUrl === event.url;
   const registrationSuccessful = registrationSuccessfulUrl === event.url;
   const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
@@ -349,9 +357,7 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
                   })
                 ])
               ]),
-              div('.attending', [
-                p([`${event.attending} attending`])
-              ])
+              getAttendingElement()
             ])
         ]),
       ...renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)
