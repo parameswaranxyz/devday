@@ -3,6 +3,7 @@ import events from './../data/events';
 import { DevdayEvent } from './../definitions';
 import { makeMeetupsDriver } from './meetups';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './../data/events';
+import dropRepeats from 'xstream/extra/dropRepeats';
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
@@ -25,12 +26,15 @@ export class EventsSource {
         events.filter(event =>
           event.meetup_event_id != undefined
           && event.meetup_urlname != undefined
+          && event.event_time.start_time.getTime() > new Date().getTime()
         )
-      );
+      ).compose<DevdayEvent>(
+        dropRepeats<DevdayEvent>((x,y) => x.url === y.url)
+      ).debug();
     const meetups = makeMeetupsDriver()(meetupsEvent$);
     const meetup$ = meetups.event$;
     meetup$.map(meetup => {
-      const index = events.findIndex(event => event.meetup_event_id === meetup.id);
+      const index = events.findIndex(event => event.url === meetup.event_url);
       if (index === -1)
         return;
       events[index].attending = meetup.yes_rsvp_count;

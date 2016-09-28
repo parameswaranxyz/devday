@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(137);
+	var router_1 = __webpack_require__(138);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(138);
+	var prevent_1 = __webpack_require__(139);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(139);
+	var registrations_1 = __webpack_require__(140);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2076,8 +2076,8 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(135);
-	var delay_1 = __webpack_require__(136);
+	var event_1 = __webpack_require__(136);
+	var delay_1 = __webpack_require__(137);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
@@ -8766,6 +8766,7 @@
 	var events_1 = __webpack_require__(123);
 	var meetups_1 = __webpack_require__(125);
 	var events_2 = __webpack_require__(123);
+	var dropRepeats_1 = __webpack_require__(135);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
@@ -8783,12 +8784,13 @@
 	            });
 	        var meetupsEvent$ = xs.fromArray(events_1.default.filter(function (event) {
 	            return event.meetup_event_id != undefined
-	                && event.meetup_urlname != undefined;
-	        }));
+	                && event.meetup_urlname != undefined
+	                && event.event_time.start_time.getTime() > new Date().getTime();
+	        })).compose(dropRepeats_1.default(function (x, y) { return x.url === y.url; })).debug();
 	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
 	        var meetup$ = meetups.event$;
 	        meetup$.map(function (meetup) {
-	            var index = events_1.default.findIndex(function (event) { return event.meetup_event_id === meetup.id; });
+	            var index = events_1.default.findIndex(function (event) { return event.url === meetup.event_url; });
 	            if (index === -1)
 	                return;
 	            events_1.default[index].attending = meetup.yes_rsvp_count;
@@ -9481,30 +9483,35 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var xstream_1 = __webpack_require__(4);
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var MEETUP_EVENT_URL = 'https://api.meetup.com/:urlname/events/:id?&sign=true&photo-host=public';
+	var MEETUP_EVENT_URL = '/attendees?meetup_url=:urlname&meetup_event_id=:id&event_url=:eventUrl';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
-	        var request$ = xstream_1.default.empty();
-	        // meetupRequest$
-	        //   .map(event => {
-	        //     const requestOptions: RequestOptions = {
-	        //       url: MEETUP_EVENT_URL
-	        //         .replace(':urlname', event.meetup_urlname)
-	        //         .replace(':id', event.meetup_event_id),
-	        //       category: 'meetups'
-	        //     };
-	        //     return requestOptions;
-	        //   });
+	        var request$ = 
+	        //xs.empty();
+	        meetupRequest$
+	            .map(function (event) {
+	            var requestOptions = {
+	                url: MEETUP_EVENT_URL
+	                    .replace(':urlname', event.meetup_urlname)
+	                    .replace(':id', event.meetup_event_id)
+	                    .replace(':eventUrl', event.url),
+	                category: 'meetups'
+	            };
+	            return requestOptions;
+	        });
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('meetups');
 	        this.event$ =
 	            response$$
 	                .flatten()
-	                .filter(Boolean)
-	                .map(function (response) { return JSON.parse(response.text); })
+	                .map(function (response) {
+	                return {
+	                    event_url: response.request.query['event_url'],
+	                    yes_rsvp_count: parseInt(response.text)
+	                };
+	            })
 	                .remember();
 	    }
 	    return MeetupsSource;
@@ -11377,6 +11384,133 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var core_1 = __webpack_require__(5);
+	var empty = {};
+	var DropRepeatsOperator = (function () {
+	    function DropRepeatsOperator(fn, ins) {
+	        this.fn = fn;
+	        this.ins = ins;
+	        this.type = 'dropRepeats';
+	        this.out = null;
+	        this.v = empty;
+	    }
+	    DropRepeatsOperator.prototype._start = function (out) {
+	        this.out = out;
+	        this.ins._add(this);
+	    };
+	    DropRepeatsOperator.prototype._stop = function () {
+	        this.ins._remove(this);
+	        this.out = null;
+	        this.v = empty;
+	    };
+	    DropRepeatsOperator.prototype.isEq = function (x, y) {
+	        return this.fn ? this.fn(x, y) : x === y;
+	    };
+	    DropRepeatsOperator.prototype._n = function (t) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        var v = this.v;
+	        if (v !== empty && this.isEq(t, v))
+	            return;
+	        this.v = Array.isArray(t) ? t.slice() : t;
+	        u._n(t);
+	    };
+	    DropRepeatsOperator.prototype._e = function (err) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        u._e(err);
+	    };
+	    DropRepeatsOperator.prototype._c = function () {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        u._c();
+	    };
+	    return DropRepeatsOperator;
+	}());
+	exports.DropRepeatsOperator = DropRepeatsOperator;
+	/**
+	 * Drops consecutive duplicate values in a stream.
+	 *
+	 * Marble diagram:
+	 *
+	 * ```text
+	 * --1--2--1--1--1--2--3--4--3--3|
+	 *     dropRepeats
+	 * --1--2--1--------2--3--4--3---|
+	 * ```
+	 *
+	 * Example:
+	 *
+	 * ```js
+	 * import dropRepeats from 'xstream/extra/dropRepeats'
+	 *
+	 * const stream = xs.of(1, 2, 1, 1, 1, 2, 3, 4, 3, 3)
+	 *   .compose(dropRepeats())
+	 *
+	 * stream.addListener({
+	 *   next: i => console.log(i),
+	 *   error: err => console.error(err),
+	 *   complete: () => console.log('completed')
+	 * })
+	 * ```
+	 *
+	 * ```text
+	 * > 1
+	 * > 2
+	 * > 1
+	 * > 2
+	 * > 3
+	 * > 4
+	 * > 3
+	 * > completed
+	 * ```
+	 *
+	 * Example with a custom isEqual function:
+	 *
+	 * ```js
+	 * import dropRepeats from 'xstream/extra/dropRepeats'
+	 *
+	 * const stream = xs.of('a', 'b', 'a', 'A', 'B', 'b')
+	 *   .compose(dropRepeats((x, y) => x.toLowerCase() === y.toLowerCase()))
+	 *
+	 * stream.addListener({
+	 *   next: i => console.log(i),
+	 *   error: err => console.error(err),
+	 *   complete: () => console.log('completed')
+	 * })
+	 * ```
+	 *
+	 * ```text
+	 * > a
+	 * > b
+	 * > a
+	 * > B
+	 * > completed
+	 * ```
+	 *
+	 * @param {Function} isEqual An optional function of type
+	 * `(x: T, y: T) => boolean` that takes an event from the input stream and
+	 * checks if it is equal to previous event, by returning a boolean.
+	 * @return {Stream}
+	 */
+	function dropRepeats(isEqual) {
+	    if (isEqual === void 0) { isEqual = null; }
+	    return function dropRepeatsOperator(ins) {
+	        return new core_1.Stream(new DropRepeatsOperator(isEqual, ins));
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = dropRepeats;
+	//# sourceMappingURL=dropRepeats.js.map
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
 	var fadeInOutStyle = {
@@ -11710,6 +11844,9 @@
 	                        })
 	                    ])
 	                ]),
+	                dom_1.div('.attending', [
+	                    dom_1.p([(event.attending + " attending")])
+	                ])
 	            ])
 	        ])
 	    ].concat(renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)));
@@ -11804,7 +11941,7 @@
 
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11902,7 +12039,7 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11954,7 +12091,7 @@
 
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11986,7 +12123,7 @@
 
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

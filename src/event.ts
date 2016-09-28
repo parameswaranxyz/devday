@@ -349,9 +349,9 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
                   })
                 ])
               ]),
-              // div('.attending', [
-              //   p([event.attending != undefined ? `${event.attending} attending` : 'JOIN NOW'])
-              // ])
+              div('.attending', [
+                p([`${event.attending} attending`])
+              ])
             ])
         ]),
       ...renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)
