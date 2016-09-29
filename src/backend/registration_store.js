@@ -57,7 +57,7 @@ let getRegisteredPeople = (auth, data) => {
     sheets.spreadsheets.values.get({
       access_token: auth.access_token,
       spreadsheetId: data.spreadsheetId,
-      range: getSheetName(data) + '!C:E',
+      range: getSheetName(data) + '!C2:E',
     }, function(err,resp){
       if(err){
         console.log("error getting sheet data");
@@ -121,7 +121,16 @@ let store = (data) => {
 }
 
 let getRegisteredCount = (sheetData) => {
-  
+  return new Promise(function(resolve, reject){
+    authorize().then((tokens) => {
+      return getRegisteredPeople(tokens, sheetData)
+    }).then((resp) => {
+      resolve(resp.values.length);
+    }).catch((err) => {
+      console.dir(err);
+      reject(err);
+    });
+  });
 }
 
 module.exports = {

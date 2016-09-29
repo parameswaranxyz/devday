@@ -9489,18 +9489,17 @@
 	"use strict";
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var MEETUP_EVENT_URL = '/attendees?meetup_url=:urlname&meetup_event_id=:id&event_url=:eventUrl';
+	var MEETUP_EVENT_URL = '/attendees?meetup_url=:urlname&meetup_event_id=:id&event_url=:eventUrl&spreadsheetData=:spreadsheetData';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
-	        var request$ = 
-	        //xs.empty();
-	        meetupRequest$
+	        var request$ = meetupRequest$
 	            .map(function (event) {
 	            var requestOptions = {
 	                url: MEETUP_EVENT_URL
 	                    .replace(':urlname', event.meetup_urlname)
 	                    .replace(':id', event.meetup_event_id)
-	                    .replace(':eventUrl', event.url),
+	                    .replace(':eventUrl', event.url)
+	                    .replace(':spreadsheetData', JSON.stringify(event.form)),
 	                category: 'meetups'
 	            };
 	            return requestOptions;
@@ -9511,7 +9510,6 @@
 	            response$$
 	                .flatten()
 	                .map(function (response) {
-	                // console.log(response);
 	                return {
 	                    event_url: response.body['event_url'],
 	                    yes_rsvp_count: response.body['yes_rsvp_count']
