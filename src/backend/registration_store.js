@@ -64,7 +64,11 @@ let getRegisteredPeople = (auth, data) => {
         reject(err);
         return;
       }
-      resolve(resp);
+      let values = resp.values.filter(function(row){
+        return data.event_url === row[2];
+      });
+
+      resolve(values);
   })
 });
 }
@@ -72,10 +76,7 @@ let getRegisteredPeople = (auth, data) => {
 let isUserRegistered = function(auth, data){
   return new Promise(function(resolve, reject){
     getRegisteredPeople(auth, data).then((resp) => {
-      let values = resp.values.filter(function(row){
-        return data.event_url === row[2];
-      });
-      resolve(isUserInSheet(values, data.email, data.mobile));
+      resolve(isUserInSheet(resp, data.email, data.mobile));
     }).catch((err) => {
       reject(err);
     })
@@ -97,15 +98,17 @@ let authorize = () => {
 }
 
 let store = (data) => {
+  let authToken = {};
   return new Promise(function(resolve, reject){
     authorize().then((tokens) => {
+      authToken = tokens;
       return isUserRegistered(tokens, data);
     }).then(function(userRegistered){
       if(userRegistered){
         resolve(204)
         return;
       }
-      return storeData(tokens, data);
+      return storeData(authToken, data);
     }).then(function(response){
       if(data.present === 'true'){
         registrationEmail.send(data);
@@ -120,12 +123,13 @@ let store = (data) => {
   });
 }
 
-let getRegisteredCount = (sheetData) => {
+let getRegisteredCount = (sheetData, eventUrl) => {
   return new Promise(function(resolve, reject){
     authorize().then((tokens) => {
+      sheetData.event_url = eventUrl;
       return getRegisteredPeople(tokens, sheetData)
     }).then((resp) => {
-      resolve(resp.values.length);
+      resolve(resp.length);
     }).catch((err) => {
       console.dir(err);
       reject(err);

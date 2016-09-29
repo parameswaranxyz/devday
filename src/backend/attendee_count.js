@@ -17,19 +17,20 @@ let getMeetupAttendeeCount = (url, eventId) => {
   })
 }
 
-let getAttendeeCount = (url, eventId, spreadsheetId, sheetName) => {
+let getAttendeeCount = (meetupEventUrl, eventId, spreadsheetData, eventUrl) => {
   return new Promise((resolve, reject) => {
-    cache.getAttendeeCount(url).then((data) => {
+    cache.getAttendeeCount(eventUrl).then((data) => {
       if(data){
         resolve(data.meetup + data.store);
         return;
       }
     Promise.all([
-      getMeetupAttendeeCount(url, eventId),
-      registrationStore.getRegisteredCount(spreadsheetData)
+      getMeetupAttendeeCount(meetupEventUrl, eventId),
+      registrationStore.getRegisteredCount(spreadsheetData, eventUrl)
     ]).then((values) => {
-      cache.setAttendeeCount(url, {meetup : values[0], store : values[1]});
-      resolve(values.reduce(function(prev, current) { return prev + current;}));
+      cache.setAttendeeCount(eventUrl, {meetup : values[0], store : values[1]});
+      let finalCount = values.reduce(function(prev, current) { return prev + current;}, 0)
+      resolve(finalCount);
     });
   }).catch((err) => {
     reject(err);
