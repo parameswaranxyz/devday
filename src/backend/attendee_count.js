@@ -10,7 +10,6 @@ let getMeetupAttendeeCount = (url, eventId) => {
         return;
       }
     let requestUrl = 'https://api.meetup.com/'+  url + '/events/'+ eventId + '?&sign=true&photo-host=public&key=' + meetupApiKey;
-    console.log(requestUrl);
     request(requestUrl, (err, resp, body) => {
       if(err){
         reject(err);
