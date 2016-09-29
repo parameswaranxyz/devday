@@ -619,5 +619,75 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
+  {
+    title: 'Devops for Devs',
+    url: 'devops-for-devs',
+    categories: ['events'],
+    tags: ['devops'],
+    author: 'devday_ team',
+    abstract: 'In this edition of the Dev Day, we are presenting talks on Devops - "DevOps for Devs". Come join us to understand why "DevOps" is relevant today from a technology standpoint',
+    event_time: {
+      start_time: new Date('2016-10-13T18:30:00+05:30'),
+      end_time: new Date('2016-10-13T20:30:00+05:30'),
+    },
+    publish_time: new Date('2016-08-04T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2016-09-10T10:00:00+05:30'),
+      end_time: new Date('2016-10-13T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'DevOps 101',
+        abstract: '',
+        authors: [
+          {
+            name: 'Srimathi Harinarayanan',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2016-08-13T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Ephemeral Infrastructure',
+        abstract: '',
+        authors: [
+          {
+            name: 'Mahesh and Arther',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2016-08-13T18:45:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Kubernetes in Production',
+        abstract: '',
+        authors: [
+          {
+            name: 'Manoj Mahalingam',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2016-08-13T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '234495890',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  }
 ];
 export default events;

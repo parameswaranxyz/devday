@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(137);
+	var router_1 = __webpack_require__(138);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(138);
+	var prevent_1 = __webpack_require__(139);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(139);
+	var registrations_1 = __webpack_require__(140);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2076,8 +2076,8 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(135);
-	var delay_1 = __webpack_require__(136);
+	var event_1 = __webpack_require__(136);
+	var delay_1 = __webpack_require__(137);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
@@ -9457,6 +9457,76 @@
 	            sheetName: 'Form Responses 1'
 	        }
 	    },
+	    {
+	        title: 'Devops for Devs',
+	        url: 'devops-for-devs',
+	        categories: ['events'],
+	        tags: ['devops'],
+	        author: 'devday_ team',
+	        abstract: 'In this edition of the Dev Day, we are presenting talks on Devops - "DevOps for Devs". Come join us to understand why "DevOps" is relevant today from a technology standpoint',
+	        event_time: {
+	            start_time: new Date('2016-10-13T18:30:00+05:30'),
+	            end_time: new Date('2016-10-13T20:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-09-10T10:00:00+05:30'),
+	            end_time: new Date('2016-10-13T18:30:00+05:30'),
+	        },
+	        venue: exports.CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'DevOps 101',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Srimathi Harinarayanan',
+	                        image_url: ''
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-13T18:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Ephemeral Infrastructure',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Mahesh and Arther',
+	                        image_url: ''
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-13T18:45:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Kubernetes in Production',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Manoj Mahalingam',
+	                        image_url: ''
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-08-13T19:30:00+05:30')
+	                }
+	            },
+	        ],
+	        color: '#040509',
+	        image_url: '',
+	        meetup_urlname: 'devday_chennai',
+	        meetup_event_id: '234495890',
+	        form: {
+	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+	            sheetName: 'Form Responses 1'
+	        }
+	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = exports.events;
@@ -11373,7 +11443,8 @@
 
 
 /***/ },
-/* 135 */
+/* 135 */,
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11804,7 +11875,7 @@
 
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11902,7 +11973,7 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11954,7 +12025,7 @@
 
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11986,7 +12057,7 @@
 
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
