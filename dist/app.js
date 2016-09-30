@@ -9559,7 +9559,7 @@
 	"use strict";
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var MEETUP_EVENT_URL = '/attendees?meetup_url=:urlname&meetup_event_id=:id&event_url=:eventUrl&spreadsheetData=:spreadsheetData';
+	var MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
 	        var request$ = meetupRequest$

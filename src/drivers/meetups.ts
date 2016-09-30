@@ -3,7 +3,7 @@ import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/htt
 import XStreamAdapter from '@cycle/xstream-adapter';
 import { DevdayEvent, MeetupEvent } from './../definitions';
 
-const MEETUP_EVENT_URL = '/attendees?meetup_url=:urlname&meetup_event_id=:id&event_url=:eventUrl&spreadsheetData=:spreadsheetData';
+const MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 
 export class MeetupsSource {
   event$: Stream<MeetupEvent>;

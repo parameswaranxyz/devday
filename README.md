@@ -4,7 +4,7 @@ DevDay is a monthly informal social event event for developers interested in all
 
 ## Getting started
 
-frontend : run npm watch
+frontend : npm start
 server : node server.js
 
 use http://localhost:3000 to do frontend changes (Watch, live reload etc)

@@ -8,11 +8,12 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.use(express.static('./'));
 
-app.get('/attendees', (req, res) => {
+app.get('/attendees/:event_url', (req, res) => {
   let query = req.query;
   let data = JSON.parse(query.spreadsheetData);
-  attendeeCount.getAttendeeCount(query.meetup_url, query.meetup_event_id, data, query.event_url).then((resp) => {
-    res.json({event_url : req.query['event_url'], yes_rsvp_count : resp});
+  let eventUrl = req.params.event_url;
+  attendeeCount.getAttendeeCount(query.meetup_url, query.meetup_event_id, data, eventUrl).then((resp) => {
+    res.json({event_url : eventUrl, yes_rsvp_count : resp});
   }).catch((err) => {
     console.log("error getting attendee count");
     console.log(err);
