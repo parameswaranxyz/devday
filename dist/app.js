@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(138);
+	var router_1 = __webpack_require__(137);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(139);
+	var prevent_1 = __webpack_require__(138);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(140);
+	var registrations_1 = __webpack_require__(139);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2076,8 +2076,8 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(136);
-	var delay_1 = __webpack_require__(137);
+	var event_1 = __webpack_require__(135);
+	var delay_1 = __webpack_require__(136);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
@@ -9422,27 +9422,27 @@
 	        }
 	    },
 	    {
-	        title: 'Hackathon',
+	        title: 'Hack Hack & Just Hack',
 	        url: 'hackathon',
 	        categories: ['events'],
 	        tags: ['hackathon', 'hack day'],
 	        author: 'devday_ team',
-	        abstract: '',
+	        abstract: 'Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing Software/Hardware products to win cool Prizes & Goodies',
 	        event_time: {
-	            start_time: new Date('2016-10-01T10:30:00+05:30'),
-	            end_time: new Date('2016-10-01T10:00:00+05:30'),
+	            start_time: new Date('2016-10-15T10:30:00+05:30'),
+	            end_time: new Date('2016-10-16T10:00:00+05:30'),
 	        },
 	        publish_time: new Date('2016-09-07T17:45:00+05:30'),
 	        registration_time: {
 	            start_time: new Date('2016-09-07T17:45:00+05:30'),
-	            end_time: new Date('2016-10-01T09:45:00+05:30'),
+	            end_time: new Date('2016-10-15T09:45:00+05:30'),
 	        },
 	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Hackathon,
 	                title: 'Hackathon Begins!',
-	                abstract: '',
+	                abstract: 'Get. Set. Code and Win amazing prizes.<br> Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing<br> Software/Hardware products.<br> The winning team gets to take home a surprise gift!<br> We have also included a bunch of goodies to be won during the hackathon.<br><br><h3>Pre-requisite:</h3><ul><li>Test</li></ul>',
 	                authors: [],
 	                time: {
 	                    start_time: new Date('2016-10-01T10:30:00+05:30')
@@ -11443,8 +11443,7 @@
 
 
 /***/ },
-/* 135 */,
-/* 136 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11495,8 +11494,15 @@
 	                    dom_1.h6([getMeridien(entry.time.start_time)])
 	                ]),
 	                dom_1.div('.info', [
-	                    dom_1.h5(entry.title),
-	                    dom_1.p(entry.abstract)
+	                    dom_1.p('Get. Set. Code and Win amazing prizes'),
+	                    dom_1.p('The winning team gets to take home a surprise gift!'),
+	                    dom_1.p('We have also included a bunch of goodies to be won during the hackathon'),
+	                    dom_1.br(),
+	                    dom_1.h5('Pre-requisite:'),
+	                    dom_1.p(" 1) Just know how to code"),
+	                    dom_1.p(" 2) Bring your laptops"),
+	                    dom_1.br(),
+	                    dom_1.p("If you have a team, bring them in. If you don't, leave that to us. (max team size is 3)")
 	                ])
 	            ];
 	        case definitions_1.AgendaEntryType.Break:
@@ -11754,7 +11760,7 @@
 	                style: fadeInOutStyle
 	            }, authors.length > 0
 	                ? authors.map(function (speaker) { return dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }); })
-	                : [dom_1.p(['There are no speakers at this event. Walk in for a hands-on experience!!!'])])
+	                : [dom_1.p(['There are no speakers at this event. Walk in with your laptops for a hands-on experience!!!'])])
 	        ]),
 	        dom_1.div('.secondary.info', {
 	            style: {
@@ -11875,7 +11881,7 @@
 
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11973,7 +11979,7 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 138 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12025,7 +12031,7 @@
 
 
 /***/ },
-/* 139 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12057,7 +12063,7 @@
 
 
 /***/ },
-/* 140 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

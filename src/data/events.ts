@@ -584,27 +584,27 @@ export const events: DevdayEvent[] = [
     }
   },
   {
-    title: 'Hackathon',
+    title: 'Hack Hack & Just Hack',
     url: 'hackathon',
     categories: ['events'],
     tags: ['hackathon','hack day'],
     author: 'devday_ team',
-    abstract: '',
+    abstract: 'Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing Software/Hardware products to win cool Prizes & Goodies',
     event_time: {
-      start_time: new Date('2016-10-01T10:30:00+05:30'),
-      end_time: new Date('2016-10-01T10:00:00+05:30'),
+      start_time: new Date('2016-10-15T10:30:00+05:30'),
+      end_time: new Date('2016-10-16T10:00:00+05:30'),
     },
     publish_time: new Date('2016-09-07T17:45:00+05:30'),
     registration_time: {
       start_time: new Date('2016-09-07T17:45:00+05:30'),
-      end_time: new Date('2016-10-01T09:45:00+05:30'),
+      end_time: new Date('2016-10-15T09:45:00+05:30'),
     },
     venue: BANGALORE_ADDRESS,
     agenda: [
       {
         type: AgendaEntryType.Hackathon,
         title: 'Hackathon Begins!',
-        abstract: '',
+        abstract: 'Get. Set. Code and Win amazing prizes.<br> Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing<br> Software/Hardware products.<br> The winning team gets to take home a surprise gift!<br> We have also included a bunch of goodies to be won during the hackathon.<br><br><h3>Pre-requisite:</h3><ul><li>Test</li></ul>',
         authors: [],
         time: {
           start_time: new Date('2016-10-01T10:30:00+05:30')
