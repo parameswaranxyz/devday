@@ -18,7 +18,8 @@ export class MeetupsSource {
               .replace(':id', event.meetup_event_id)
               .replace(':eventUrl', event.url)
               .replace(':spreadsheetData', JSON.stringify(event.form)),
-            category: 'meetups'
+            category: 'meetups',
+            lazy: true
           };
           return requestOptions;
         });
