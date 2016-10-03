@@ -8769,11 +8769,6 @@
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function () { },
-	            error: function () { },
-	            complete: function () { }
-	        });
 	        this.event$ =
 	            event$
 	                .map(function (url) {
@@ -8783,19 +8778,20 @@
 	            });
 	        var meetupsEvent$ = xs.fromArray(events_1.default.filter(function (event) {
 	            return event.meetup_event_id != undefined
-	                && event.meetup_urlname != undefined;
+	                && event.meetup_urlname != undefined
+	                && event.event_time.start_time.getTime() > new Date().getTime();
 	        }));
 	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
 	        var meetup$ = meetups.event$;
-	        meetup$.map(function (meetup) {
-	            var index = events_1.default.findIndex(function (event) { return event.meetup_event_id === meetup.id; });
-	            if (index === -1)
-	                return;
-	            events_1.default[index].attending = meetup.yes_rsvp_count;
+	        var eventsChange$ = meetup$.map(function (meetup) {
+	            var event = events_1.default.find(function (event) { return event.url === meetup.event_url; });
+	            if (event != undefined)
+	                event.attending = meetup.yes_rsvp_count;
+	            return true;
 	        });
 	        this.events$ =
-	            xs.merge(event$, meetup$)
-	                .mapTo(events_1.default)
+	            eventsChange$
+	                .map(function () { return events_1.default; })
 	                .startWith(events_1.default);
 	    }
 	    return EventsSource;
@@ -9430,7 +9426,7 @@
 	        abstract: 'Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing Software/Hardware products to win cool Prizes & Goodies',
 	        event_time: {
 	            start_time: new Date('2016-10-15T10:30:00+05:30'),
-	            end_time: new Date('2016-10-16T10:00:00+05:30'),
+	            end_time: new Date('2016-10-16T10:00:00+05:30')
 	        },
 	        publish_time: new Date('2016-09-07T17:45:00+05:30'),
 	        registration_time: {
@@ -9554,28 +9550,38 @@
 	var xstream_1 = __webpack_require__(4);
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var MEETUP_EVENT_URL = 'https://api.meetup.com/:urlname/events/:id?&sign=true&photo-host=public';
+	var flattenConcurrently_1 = __webpack_require__(140);
+	var MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
-	        var request$ = xstream_1.default.empty();
-	        // meetupRequest$
-	        //   .map(event => {
-	        //     const requestOptions: RequestOptions = {
-	        //       url: MEETUP_EVENT_URL
-	        //         .replace(':urlname', event.meetup_urlname)
-	        //         .replace(':id', event.meetup_event_id),
-	        //       category: 'meetups'
-	        //     };
-	        //     return requestOptions;
-	        //   });
+	        var request$ = meetupRequest$
+	            .debug()
+	            .map(function (event) {
+	            var requestOptions = {
+	                url: MEETUP_EVENT_URL
+	                    .replace(':urlname', event.meetup_urlname)
+	                    .replace(':id', event.meetup_event_id)
+	                    .replace(':eventUrl', event.url)
+	                    .replace(':spreadsheetData', JSON.stringify(event.form)),
+	                category: 'meetups',
+	                lazy: true
+	            };
+	            return requestOptions;
+	        });
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('meetups');
 	        this.event$ =
 	            response$$
-	                .flatten()
-	                .filter(Boolean)
-	                .map(function (response) { return JSON.parse(response.text); })
-	                .remember();
+	                .map(function (response$) { return response$.replaceError(function () {
+	                return xstream_1.default.of({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } });
+	            }); })
+	                .compose(flattenConcurrently_1.default)
+	                .map(function (response) {
+	                return {
+	                    event_url: response.body['event_url'],
+	                    yes_rsvp_count: response.body['yes_rsvp_count']
+	                };
+	            });
 	    }
 	    return MeetupsSource;
 	}());
@@ -11710,6 +11716,14 @@
 	    ];
 	}
 	function renderEvent(event, joinUrl, shorten, registrationSuccessfulUrl, present) {
+	    var getAttendingElement = function () {
+	        if (!event.attending) {
+	            return null;
+	        }
+	        return dom_1.div('.attending', [
+	            dom_1.p([(event.attending + " attending")])
+	        ]);
+	    };
 	    var clickedBoolean = joinUrl === event.url;
 	    var registrationSuccessful = registrationSuccessfulUrl === event.url;
 	    var authors = [].concat.apply([], event.agenda.filter(function (entry) { return Boolean(entry.authors) && Boolean(entry.authors.length); }).map(function (entry) { return entry.authors; }));
@@ -11787,6 +11801,7 @@
 	                        })
 	                    ])
 	                ]),
+	                getAttendingElement()
 	            ])
 	        ])
 	    ].concat(renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)));
@@ -12120,6 +12135,103 @@
 	    };
 	}
 
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var core_1 = __webpack_require__(5);
+	var FCIL = (function () {
+	    function FCIL(out, op) {
+	        this.out = out;
+	        this.op = op;
+	    }
+	    FCIL.prototype._n = function (t) {
+	        this.out._n(t);
+	    };
+	    FCIL.prototype._e = function (err) {
+	        this.out._e(err);
+	    };
+	    FCIL.prototype._c = function () {
+	        this.op.less();
+	    };
+	    return FCIL;
+	}());
+	var FlattenConcOperator = (function () {
+	    function FlattenConcOperator(ins) {
+	        this.ins = ins;
+	        this.type = 'flattenConcurrently';
+	        this.active = 1; // number of outers and inners that have not yet ended
+	        this.out = null;
+	    }
+	    FlattenConcOperator.prototype._start = function (out) {
+	        this.out = out;
+	        this.ins._add(this);
+	    };
+	    FlattenConcOperator.prototype._stop = function () {
+	        this.ins._remove(this);
+	        this.active = 1;
+	        this.out = null;
+	    };
+	    FlattenConcOperator.prototype.less = function () {
+	        if (--this.active === 0) {
+	            var u = this.out;
+	            if (!u)
+	                return;
+	            u._c();
+	        }
+	    };
+	    FlattenConcOperator.prototype._n = function (s) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        this.active++;
+	        s._add(new FCIL(u, this));
+	    };
+	    FlattenConcOperator.prototype._e = function (err) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        u._e(err);
+	    };
+	    FlattenConcOperator.prototype._c = function () {
+	        this.less();
+	    };
+	    return FlattenConcOperator;
+	}());
+	exports.FlattenConcOperator = FlattenConcOperator;
+	/**
+	 * Flattens a "stream of streams", handling multiple concurrent nested streams
+	 * simultaneously.
+	 *
+	 * If the input stream is a stream that emits streams, then this operator will
+	 * return an output stream which is a flat stream: emits regular events. The
+	 * flattening happens concurrently. It works like this: when the input stream
+	 * emits a nested stream, *flattenConcurrently* will start imitating that
+	 * nested one. When the next nested stream is emitted on the input stream,
+	 * *flattenConcurrently* will also imitate that new one, but will continue to
+	 * imitate the previous nested streams as well.
+	 *
+	 * Marble diagram:
+	 *
+	 * ```text
+	 * --+--------+---------------
+	 *   \        \
+	 *    \       ----1----2---3--
+	 *    --a--b----c----d--------
+	 *     flattenConcurrently
+	 * -----a--b----c-1--d-2---3--
+	 * ```
+	 *
+	 * @return {Stream}
+	 */
+	function flattenConcurrently(ins) {
+	    return new core_1.Stream(new FlattenConcOperator(ins));
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = flattenConcurrently;
+	//# sourceMappingURL=flattenConcurrently.js.map
 
 /***/ }
 /******/ ]);

@@ -51,57 +51,93 @@ function storeData(auth, data) {
   });
 }
 
-let isUserRegistered = function(auth, data){
-  return new Promise(function(resolve, reject){
+let getRegisteredPeople = (auth, data) => {
+  return new Promise((resolve, reject) => {
     var sheets = google.sheets('v4');
     sheets.spreadsheets.values.get({
       access_token: auth.access_token,
       spreadsheetId: data.spreadsheetId,
-      range: getSheetName(data) + '!C:E',
+      range: getSheetName(data) + '!C2:E',
     }, function(err,resp){
-        if(err){
-          console.log("error getting sheet data");
-          reject(err);
-          return;
-        }
-        let values = resp.values.filter(function(row){
-          return data.event_url === row[2];
-        });
-        resolve(isUserInSheet(values, data.email, data.mobile));
-    });
+      if(err){
+        console.log("error getting sheet data");
+        reject(err);
+        return;
+      }
+      let values = resp.values.filter(function(row){
+        return data.event_url === row[2];
+      });
+
+      resolve(values);
+  })
+});
+}
+
+let isUserRegistered = function(auth, data){
+  return new Promise(function(resolve, reject){
+    getRegisteredPeople(auth, data).then((resp) => {
+      resolve(isUserInSheet(resp, data.email, data.mobile));
+    }).catch((err) => {
+      reject(err);
+    })
   })
 }
 
-let store = function(data){
-  return new Promise(function(resolve, reject){
+let authorize = () => {
+  return new Promise((resolve, reject) => {
     jwtClient.authorize(function(err, tokens) {
       if (err) {
         console.log("error getting jwt token");
         console.log(err);
+        reject(err);
         return;
       }
+      resolve(tokens);
+  });
+});
+}
 
-      isUserRegistered(tokens, data).then(function(userRegistered){
-        if(userRegistered){
-          resolve(204)
-          return;
-        }
-        return storeData(tokens, data);
-      }).then(function(response){
-        if(data.present === 'true'){
-          registrationEmail.send(data);
-        }
-        resolve(200);
-      }).catch(function(err){
-        console.log("Error storing details");
-        console.dir(data);
-        console.log(err);
-        reject(err);
-      });
-    })
+let store = (data) => {
+  let authToken = {};
+  return new Promise(function(resolve, reject){
+    authorize().then((tokens) => {
+      authToken = tokens;
+      return isUserRegistered(tokens, data);
+    }).then(function(userRegistered){
+      if(userRegistered){
+        resolve(204)
+        return;
+      }
+      return storeData(authToken, data);
+    }).then(function(response){
+      if(data.present === 'true'){
+        registrationEmail.send(data);
+      }
+      resolve(200);
+    }).catch((err) => {
+      console.log("Error storing details");
+      console.dir(data);
+      console.log(err);
+      reject(err);
+    });
+  });
+}
+
+let getRegisteredCount = (sheetData, eventUrl) => {
+  return new Promise(function(resolve, reject){
+    authorize().then((tokens) => {
+      sheetData.event_url = eventUrl;
+      return getRegisteredPeople(tokens, sheetData)
+    }).then((resp) => {
+      resolve(resp.length);
+    }).catch((err) => {
+      console.dir(err);
+      reject(err);
+    });
   });
 }
 
 module.exports = {
-  store : store
+  store : store,
+  getRegisteredCount : getRegisteredCount
 }

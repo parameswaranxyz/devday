@@ -208,7 +208,13 @@
                             & > p {
                               text-overflow: ellipsis;
                               overflow: hidden;
-                              height: 120px;
+                              height: 7.5rem;
+                              display: block;
+                              font-size: 1rem;
+                              line-height: 1.5rem;
+                              -webkit-line-clamp: 5;
+                              -webkit-box-orient: vertical;
+                              display: -webkit-box;
                             }
 
                             & > span {
@@ -279,6 +285,12 @@
 
                             p {
                               color: $light-primary-text-color;
+                              height: 7.5rem;
+                              font-size: 1rem;
+                              line-height: 1.5rem;
+                              -webkit-line-clamp: 5;
+                              -webkit-box-orient: vertical;
+                              display: -webkit-box;
                             }
                           }
                         }

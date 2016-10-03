@@ -2,32 +2,41 @@ import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
 import XStreamAdapter from '@cycle/xstream-adapter';
 import { DevdayEvent, MeetupEvent } from './../definitions';
+import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 
-const MEETUP_EVENT_URL = 'https://api.meetup.com/:urlname/events/:id?&sign=true&photo-host=public';
+const MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 
 export class MeetupsSource {
   event$: Stream<MeetupEvent>;
   constructor(meetupRequest$: Stream<DevdayEvent>) {
     const request$ =
-      xs.empty();
-      // meetupRequest$
-      //   .map(event => {
-      //     const requestOptions: RequestOptions = {
-      //       url: MEETUP_EVENT_URL
-      //         .replace(':urlname', event.meetup_urlname)
-      //         .replace(':id', event.meetup_event_id),
-      //       category: 'meetups'
-      //     };
-      //     return requestOptions;
-      //   });
+      meetupRequest$
+        .debug()
+        .map(event => {
+          const requestOptions: RequestOptions = {
+            url: MEETUP_EVENT_URL
+              .replace(':urlname', event.meetup_urlname)
+              .replace(':id', event.meetup_event_id)
+              .replace(':eventUrl', event.url)
+              .replace(':spreadsheetData', JSON.stringify(event.form)),
+            category: 'meetups',
+            lazy: true
+          };
+          return requestOptions;
+        });
     const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
     const response$$: Stream<Stream<Response>> = http.select('meetups');
     this.event$ =
       response$$
-        .flatten()
-        .filter(Boolean)
-        .map(response => JSON.parse(response.text) as MeetupEvent)
-        .remember();
+        .map(response$ => response$.replaceError(() =>
+          xs.of<Response>({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } })))
+        .compose(flattenConcurrently)
+        .map(response => {
+          return {
+            event_url: response.body['event_url'],
+            yes_rsvp_count: response.body['yes_rsvp_count']
+          };
+        });
   }
 }
 

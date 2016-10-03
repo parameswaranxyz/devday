@@ -592,7 +592,7 @@ export const events: DevdayEvent[] = [
     abstract: 'Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing Software/Hardware products to win cool Prizes & Goodies',
     event_time: {
       start_time: new Date('2016-10-15T10:30:00+05:30'),
-      end_time: new Date('2016-10-16T10:00:00+05:30'),
+      end_time: new Date('2016-10-16T10:00:00+05:30')
     },
     publish_time: new Date('2016-09-07T17:45:00+05:30'),
     registration_time: {

@@ -107,7 +107,6 @@ export interface DevdayEvent {
 }
 
 export interface MeetupEvent {
-  id: string;
-  name: string;
+  event_url: string;
   yes_rsvp_count: number;
 }

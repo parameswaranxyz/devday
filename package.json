@@ -18,15 +18,17 @@
   },
   "homepage": "https://github.com/artfuldev/devday",
   "dependencies": {
-    "@cycle/dom": "^10.1.0",
-    "@cycle/http": "^10.1.0",
-    "@cycle/xstream-adapter": "^3.0.3",
-    "@cycle/xstream-run": "^3.0.3",
+    "@cycle/dom": "^11.0.1",
+    "@cycle/http": "^11.0.1",
+    "@cycle/xstream-adapter": "^3.0.1",
+    "@cycle/xstream-run": "^3.1.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "googleapis": "^13.0.0",
     "nodemailer": "^2.6.4",
-    "xstream": "^5.2.1"
+    "pouchdb": "^6.0.5",
+    "request": "^2.75.0",
+    "xstream": "^5.1.4"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
