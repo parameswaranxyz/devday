@@ -1,21 +1,18 @@
 ## Overview
 
-DevDay is a monthly informal social event event for developers interested in all things technology; to share experiences, ideas, opinions and prespectives in software development.
+DevDay is a monthly informal event for developers to share their experiences, ideas, opinions, and perspectives about technology.
 
 ## Getting started
 
-* frontend: `npm start`
-* server : `node server.js`
+* Cycle.js front-end: `npm start` (http://localhost:3000)
+* Express node server back-end : `node server.js` - (http://localhost:5000)
 
-* Use http://localhost:3000 to do frontend changes (Watch, live reload etc)
-* Use http://localhost:5000 incase you want to access backend apis also
+## Deployment
 
-## deploying
-
-* login to the ec2 instance as devday
-* go to `/home/devday/devday` and do the following
+* Log in to the EC2 instance as `devday`
+* Go to `/home/devday/devday` and run the following commands
 ```
-  git pull
-  npm install
-  pm2 reload devday -i 3
+$ git pull
+$ npm install
+$ pm2 reload devday -i 3
 ```
