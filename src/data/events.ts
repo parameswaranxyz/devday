@@ -591,13 +591,13 @@ export const events: DevdayEvent[] = [
     author: 'devday_ team',
     abstract: '',
     event_time: {
-      start_time: new Date('2016-10-01T10:30:00+05:30'),
-      end_time: new Date('2016-10-01T10:00:00+05:30'),
+      start_time: new Date('2016-10-15T10:30:00+05:30'),
+      end_time: new Date('2016-10-15T10:00:00+05:30'),
     },
     publish_time: new Date('2016-09-07T17:45:00+05:30'),
     registration_time: {
       start_time: new Date('2016-09-07T17:45:00+05:30'),
-      end_time: new Date('2016-10-01T09:45:00+05:30'),
+      end_time: new Date('2016-10-15T09:45:00+05:30'),
     },
     venue: BANGALORE_ADDRESS,
     agenda: [

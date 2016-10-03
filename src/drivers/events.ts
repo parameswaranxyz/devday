@@ -10,11 +10,6 @@ export class EventsSource {
   events$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
-    event$.addListener({
-      next: () => { },
-      error: () => { },
-      complete: () => { }
-    });
     this.event$ =
       event$
         .map(url =>
@@ -27,26 +22,19 @@ export class EventsSource {
           event.meetup_event_id != undefined
           && event.meetup_urlname != undefined
           && event.event_time.start_time.getTime() > new Date().getTime()
-        )
-      ).compose<DevdayEvent>(
-        dropRepeats<DevdayEvent>((x,y) => x.url === y.url)
-      ).debug();
+        ));
     const meetups = makeMeetupsDriver()(meetupsEvent$);
     const meetup$ = meetups.event$;
-    const meetupsAction$ = meetup$.map(meetup => {
-      const index = events.findIndex(event => event.url === meetup.event_url);
-      if (index === -1)
-        return;
-      events[index].attending = meetup.yes_rsvp_count;
-      return xs.of(events);
-    }).flatten();
-    const noop = () => {};
-    meetupsAction$.addListener({
-      next: noop,
-      error: noop,
-      complete: noop
+    const eventsChange$ = meetup$.map(meetup => {
+      const event = events.find(event => event.url === meetup.event_url);
+      if (event != undefined)
+        event.attending = meetup.yes_rsvp_count;
+      return true;
     });
-    this.events$ = meetupsAction$.startWith(events);
+    this.events$ =
+      eventsChange$
+        .map(() => events)
+        .startWith(events);
   }
 }
 

@@ -10,6 +10,7 @@ export class MeetupsSource {
   constructor(meetupRequest$: Stream<DevdayEvent>) {
     const request$ =
       meetupRequest$
+        .debug()
         .map(event => {
           const requestOptions: RequestOptions = {
             url: MEETUP_EVENT_URL
@@ -24,14 +25,19 @@ export class MeetupsSource {
     const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
     const response$$: Stream<Stream<Response>> = http.select('meetups');
     this.event$ =
+      // meetupRequest$
+      //   .map(request => ({
+      //     'event_url': request.url,
+      //     'yes_rsvp_count': 20
+      //   }));
       response$$
+        .map(response$ => response$.replaceError(() =>
+          xs.of<Response>({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } })))
         .flatten()
-        .map(response => {
-          return {
-            event_url: response.body['event_url'],
-            yes_rsvp_count: response.body['yes_rsvp_count']
-          };
-        });
+        .map(response => ({
+          event_url: response.body['event_url'],
+          yes_rsvp_count: response.body['yes_rsvp_count']
+        }));
   }
 }
 

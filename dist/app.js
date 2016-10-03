@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(138);
+	var router_1 = __webpack_require__(137);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(139);
+	var prevent_1 = __webpack_require__(138);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(140);
+	var registrations_1 = __webpack_require__(139);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2076,8 +2076,8 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(136);
-	var delay_1 = __webpack_require__(137);
+	var event_1 = __webpack_require__(135);
+	var delay_1 = __webpack_require__(136);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
@@ -2602,35 +2602,48 @@
 
 	var h = __webpack_require__(10);
 	
-	function init(thunk) {
-	  var i, cur = thunk.data;
-	  cur.vnode = cur.fn.apply(undefined, cur.args);
+	function copyToThunk(vnode, thunk) {
+	  thunk.elm = vnode.elm;
+	  vnode.data.fn = thunk.data.fn;
+	  vnode.data.args = thunk.data.args;
+	  thunk.data = vnode.data;
+	  thunk.children = vnode.children;
+	  thunk.text = vnode.text;
+	  thunk.elm = vnode.elm;
 	}
 	
-	function prepatch(oldThunk, thunk) {
-	  var i, old = oldThunk.data, cur = thunk.data;
+	function init(thunk) {
+	  var i, cur = thunk.data;
+	  var vnode = cur.fn.apply(undefined, cur.args);
+	  copyToThunk(vnode, thunk);
+	}
+	
+	function prepatch(oldVnode, thunk) {
+	  var i, old = oldVnode.data, cur = thunk.data, vnode;
 	  var oldArgs = old.args, args = cur.args;
-	  cur.vnode = old.vnode;
 	  if (old.fn !== cur.fn || oldArgs.length !== args.length) {
-	    cur.vnode = cur.fn.apply(undefined, args);
-	    return;
+	    copyToThunk(cur.fn.apply(undefined, args), thunk);
 	  }
 	  for (i = 0; i < args.length; ++i) {
 	    if (oldArgs[i] !== args[i]) {
-	      cur.vnode = cur.fn.apply(undefined, args);
+	      copyToThunk(cur.fn.apply(undefined, args), thunk);
 	      return;
 	    }
 	  }
+	  copyToThunk(oldVnode, thunk);
 	}
 	
-	module.exports = function(name, fn /* args */) {
-	  var i, args = [];
-	  for (i = 2; i < arguments.length; ++i) {
-	    args[i - 2] = arguments[i];
+	module.exports = function(sel, key, fn, args) {
+	  if (args === undefined) {
+	    args = fn;
+	    fn = key;
+	    key = undefined;
 	  }
-	  return h('thunk' + name, {
+	  return h(sel, {
+	    key: key,
 	    hook: {init: init, prepatch: prepatch},
-	    fn: fn, args: args,
+	    fn: fn,
+	    args: args
 	  });
 	};
 
@@ -2653,11 +2666,11 @@
 	
 	module.exports = function h(sel, b, c) {
 	  var data = {}, children, text, i;
-	  if (arguments.length === 3) {
+	  if (c !== undefined) {
 	    data = b;
 	    if (is.array(c)) { children = c; }
 	    else if (is.primitive(c)) { text = c; }
-	  } else if (arguments.length === 2) {
+	  } else if (b !== undefined) {
 	    if (is.array(b)) { children = b; }
 	    else if (is.primitive(b)) { text = b; }
 	    else { data = b; }
@@ -2817,12 +2830,11 @@
 	  }
 	
 	  function createElm(vnode, insertedVnodeQueue) {
-	    var i, thunk, data = vnode.data;
+	    var i, data = vnode.data;
 	    if (isDef(data)) {
-	      if (isDef(i = data.hook) && isDef(i = i.init)) i(vnode);
-	      if (isDef(i = data.vnode)) {
-	          thunk = vnode;
-	          vnode = i;
+	      if (isDef(i = data.hook) && isDef(i = i.init)) {
+	        i(vnode);
+	        data = vnode.data;
 	      }
 	    }
 	    var elm, children = vnode.children, sel = vnode.sel;
@@ -2853,7 +2865,6 @@
 	    } else {
 	      elm = vnode.elm = api.createTextNode(vnode.text);
 	    }
-	    if (isDef(thunk)) thunk.elm = vnode.elm;
 	    return vnode.elm;
 	  }
 	
@@ -2873,7 +2884,6 @@
 	          invokeDestroyHook(vnode.children[j]);
 	        }
 	      }
-	      if (isDef(i = data.vnode)) invokeDestroyHook(i);
 	    }
 	  }
 	
@@ -2958,12 +2968,6 @@
 	    var i, hook;
 	    if (isDef(i = vnode.data) && isDef(hook = i.hook) && isDef(i = hook.prepatch)) {
 	      i(oldVnode, vnode);
-	    }
-	    if (isDef(i = oldVnode.data) && isDef(i = i.vnode)) oldVnode = i;
-	    if (isDef(i = vnode.data) && isDef(i = i.vnode)) {
-	      patchVnode(oldVnode, i, insertedVnodeQueue);
-	      vnode.elm = i.elm;
-	      return;
 	    }
 	    var elm = vnode.elm = oldVnode.elm, oldCh = oldVnode.children, ch = vnode.children;
 	    if (oldVnode === vnode) return;
@@ -3690,6 +3694,7 @@
 	
 	  var cn = _selectorParser.className;
 	
+	
 	  if (!vNode.data) {
 	    return cn;
 	  }
@@ -3697,6 +3702,7 @@
 	  var _vNode$data = vNode.data;
 	  var dataClass = _vNode$data.class;
 	  var props = _vNode$data.props;
+	
 	
 	  if (dataClass) {
 	    var c = Object.keys(vNode.data.class).filter(function (cl) {
@@ -3735,7 +3741,7 @@
 	function selectorParser() {
 	  var selector = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 	
-	  var tagName = undefined;
+	  var tagName = void 0;
 	  var id = '';
 	  var classes = [];
 	
@@ -3745,9 +3751,9 @@
 	    tagName = 'div';
 	  }
 	
-	  var part = undefined;
-	  var type = undefined;
-	  var i = undefined;
+	  var part = void 0;
+	  var type = void 0;
+	  var i = void 0;
 	
 	  for (i = 0; i < tagParts.length; i++) {
 	    part = tagParts[i];
@@ -4008,13 +4014,17 @@
 	
 	function arrInvoker(arr) {
 	  return function() {
+	    if (!arr.length) return;
 	    // Special case when length is two, for performance
 	    arr.length === 2 ? arr[0](arr[1]) : arr[0].apply(undefined, arr.slice(1));
 	  };
 	}
 	
 	function fnInvoker(o) {
-	  return function(ev) { o.fn(ev); };
+	  return function(ev) { 
+	    if (o.fn === null) return;
+	    o.fn(ev); 
+	  };
 	}
 	
 	function updateEventListeners(oldVnode, vnode) {
@@ -4040,6 +4050,19 @@
 	    } else {
 	      old.fn = cur;
 	      on[name] = old;
+	    }
+	  }
+	  if (oldOn) {
+	    for (name in oldOn) {
+	      if (on[name] === undefined) {
+	        var old = oldOn[name];
+	        if (is.array(old)) {
+	          old.length = 0;
+	        }
+	        else {
+	          old.fn = null;
+	        }
+	      }
 	    }
 	  }
 	}
@@ -8766,15 +8789,9 @@
 	var events_1 = __webpack_require__(123);
 	var meetups_1 = __webpack_require__(125);
 	var events_2 = __webpack_require__(123);
-	var dropRepeats_1 = __webpack_require__(135);
 	var EventsSource = (function () {
 	    function EventsSource(event$) {
 	        var xs = xstream_1.Stream;
-	        event$.addListener({
-	            next: function () { },
-	            error: function () { },
-	            complete: function () { }
-	        });
 	        this.event$ =
 	            event$
 	                .map(function (url) {
@@ -8786,23 +8803,19 @@
 	            return event.meetup_event_id != undefined
 	                && event.meetup_urlname != undefined
 	                && event.event_time.start_time.getTime() > new Date().getTime();
-	        })).compose(dropRepeats_1.default(function (x, y) { return x.url === y.url; })).debug();
+	        }));
 	        var meetups = meetups_1.makeMeetupsDriver()(meetupsEvent$);
 	        var meetup$ = meetups.event$;
-	        var meetupsAction$ = meetup$.map(function (meetup) {
-	            var index = events_1.default.findIndex(function (event) { return event.url === meetup.event_url; });
-	            if (index === -1)
-	                return;
-	            events_1.default[index].attending = meetup.yes_rsvp_count;
-	            return xs.of(events_1.default);
-	        }).flatten();
-	        var noop = function () { };
-	        meetupsAction$.addListener({
-	            next: noop,
-	            error: noop,
-	            complete: noop
+	        var eventsChange$ = meetup$.map(function (meetup) {
+	            var event = events_1.default.find(function (event) { return event.url === meetup.event_url; });
+	            if (event != undefined)
+	                event.attending = meetup.yes_rsvp_count;
+	            return true;
 	        });
-	        this.events$ = meetupsAction$.startWith(events_1.default);
+	        this.events$ =
+	            eventsChange$
+	                .map(function () { return events_1.default; })
+	                .startWith(events_1.default);
 	    }
 	    return EventsSource;
 	}());
@@ -9435,13 +9448,13 @@
 	        author: 'devday_ team',
 	        abstract: '',
 	        event_time: {
-	            start_time: new Date('2016-10-01T10:30:00+05:30'),
-	            end_time: new Date('2016-10-01T10:00:00+05:30'),
+	            start_time: new Date('2016-10-15T10:30:00+05:30'),
+	            end_time: new Date('2016-10-15T10:00:00+05:30'),
 	        },
 	        publish_time: new Date('2016-09-07T17:45:00+05:30'),
 	        registration_time: {
 	            start_time: new Date('2016-09-07T17:45:00+05:30'),
-	            end_time: new Date('2016-10-01T09:45:00+05:30'),
+	            end_time: new Date('2016-10-15T09:45:00+05:30'),
 	        },
 	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
@@ -9557,12 +9570,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var xstream_1 = __webpack_require__(4);
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
 	var MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
 	        var request$ = meetupRequest$
+	            .debug()
 	            .map(function (event) {
 	            var requestOptions = {
 	                url: MEETUP_EVENT_URL
@@ -9577,14 +9592,20 @@
 	        var http = http_1.makeHTTPDriver()(request$, xstream_adapter_1.default);
 	        var response$$ = http.select('meetups');
 	        this.event$ =
+	            // meetupRequest$
+	            //   .map(request => ({
+	            //     'event_url': request.url,
+	            //     'yes_rsvp_count': 20
+	            //   }));
 	            response$$
+	                .map(function (response$) { return response$.replaceError(function () {
+	                return xstream_1.default.of({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } });
+	            }); })
 	                .flatten()
-	                .map(function (response) {
-	                return {
-	                    event_url: response.body['event_url'],
-	                    yes_rsvp_count: response.body['yes_rsvp_count']
-	                };
-	            });
+	                .map(function (response) { return ({
+	                event_url: response.body['event_url'],
+	                yes_rsvp_count: response.body['yes_rsvp_count']
+	            }); });
 	    }
 	    return MeetupsSource;
 	}());
@@ -9646,15 +9667,14 @@
 	 * manages response metastreams. These streams of responses have a `request`
 	 * field attached to them (to the stream object itself) indicating which request
 	 * (from the driver input) generated this response streams. The HTTP Source has
-	 * functions `filter()`, `select()`, and `response$$`, but is not itself a
-	 * stream. So you can call
-	 * `sources.HTTP.filter(response$ => response$.request.url === X)` to get a new
-	 * HTTP Source object which is filtered for response streams that match the
-	 * condition given, and may call `sources.HTTP.select(category)` to get a
-	 * metastream of response that match the category key. With an HTTP Source, you
-	 * can also use `httpSource.response$$` to get the metastream. You should
-	 * flatten the metastream before consuming it, then the resulting response
-	 * stream will emit the response object received through superagent.
+	 * functions `filter()` and `select()`, but is not itself a stream. So you can
+	 * call `sources.HTTP.filter(request => request.url === X)` to get a new HTTP
+	 * Source object which is filtered for response streams that match the condition
+	 * given, and may call `sources.HTTP.select(category)` to get a metastream of
+	 * response that match the category key. With an HTTP Source, you can also call
+	 * `httpSource.select()` with no param to get the metastream. You should flatten
+	 * the metastream before consuming it, then the resulting response stream will
+	 * emit the response object received through superagent.
 	 *
 	 * @return {Function} the HTTP Driver function
 	 * @function makeHTTPDriver
@@ -9808,8 +9828,7 @@
 	function makeHTTPDriver() {
 	    function httpDriver(request$, runSA, name) {
 	        var response$$ = request$
-	            .map(makeRequestInputToResponse$(runSA))
-	            .remember();
+	            .map(makeRequestInputToResponse$(runSA));
 	        var httpSource = new MainHTTPSource_1.MainHTTPSource(response$$, runSA, name, []);
 	        /* tslint:disable:no-empty */
 	        response$$.addListener({ next: function () { }, error: function () { }, complete: function () { } });
@@ -9839,17 +9858,8 @@
 	        this.isolateSource = isolate_1.isolateSource;
 	        this.isolateSink = isolate_1.isolateSink;
 	    }
-	    Object.defineProperty(MainHTTPSource.prototype, "response$$", {
-	        get: function () {
-	            var out = this.runStreamAdapter.adapt(this._res$$, xstream_adapter_1.default.streamSubscribe);
-	            out._isCycleSource = this._name;
-	            return out;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
 	    MainHTTPSource.prototype.filter = function (predicate) {
-	        var filteredResponse$$ = this._res$$.filter(predicate);
+	        var filteredResponse$$ = this._res$$.filter(function (r$) { return predicate(r$.request); });
 	        return new MainHTTPSource(filteredResponse$$, this.runStreamAdapter, this._name, this._namespace);
 	    };
 	    MainHTTPSource.prototype.select = function (category) {
@@ -9872,9 +9882,9 @@
 
 	"use strict";
 	function isolateSource(httpSource, scope) {
-	    return httpSource.filter(function (res$) {
-	        return Array.isArray(res$.request._namespace) &&
-	            res$.request._namespace.indexOf(scope) !== -1;
+	    return httpSource.filter(function (request) {
+	        return Array.isArray(request._namespace) &&
+	            request._namespace.indexOf(scope) !== -1;
 	    });
 	}
 	exports.isolateSource = isolateSource;
@@ -11456,133 +11466,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var core_1 = __webpack_require__(5);
-	var empty = {};
-	var DropRepeatsOperator = (function () {
-	    function DropRepeatsOperator(fn, ins) {
-	        this.fn = fn;
-	        this.ins = ins;
-	        this.type = 'dropRepeats';
-	        this.out = null;
-	        this.v = empty;
-	    }
-	    DropRepeatsOperator.prototype._start = function (out) {
-	        this.out = out;
-	        this.ins._add(this);
-	    };
-	    DropRepeatsOperator.prototype._stop = function () {
-	        this.ins._remove(this);
-	        this.out = null;
-	        this.v = empty;
-	    };
-	    DropRepeatsOperator.prototype.isEq = function (x, y) {
-	        return this.fn ? this.fn(x, y) : x === y;
-	    };
-	    DropRepeatsOperator.prototype._n = function (t) {
-	        var u = this.out;
-	        if (!u)
-	            return;
-	        var v = this.v;
-	        if (v !== empty && this.isEq(t, v))
-	            return;
-	        this.v = Array.isArray(t) ? t.slice() : t;
-	        u._n(t);
-	    };
-	    DropRepeatsOperator.prototype._e = function (err) {
-	        var u = this.out;
-	        if (!u)
-	            return;
-	        u._e(err);
-	    };
-	    DropRepeatsOperator.prototype._c = function () {
-	        var u = this.out;
-	        if (!u)
-	            return;
-	        u._c();
-	    };
-	    return DropRepeatsOperator;
-	}());
-	exports.DropRepeatsOperator = DropRepeatsOperator;
-	/**
-	 * Drops consecutive duplicate values in a stream.
-	 *
-	 * Marble diagram:
-	 *
-	 * ```text
-	 * --1--2--1--1--1--2--3--4--3--3|
-	 *     dropRepeats
-	 * --1--2--1--------2--3--4--3---|
-	 * ```
-	 *
-	 * Example:
-	 *
-	 * ```js
-	 * import dropRepeats from 'xstream/extra/dropRepeats'
-	 *
-	 * const stream = xs.of(1, 2, 1, 1, 1, 2, 3, 4, 3, 3)
-	 *   .compose(dropRepeats())
-	 *
-	 * stream.addListener({
-	 *   next: i => console.log(i),
-	 *   error: err => console.error(err),
-	 *   complete: () => console.log('completed')
-	 * })
-	 * ```
-	 *
-	 * ```text
-	 * > 1
-	 * > 2
-	 * > 1
-	 * > 2
-	 * > 3
-	 * > 4
-	 * > 3
-	 * > completed
-	 * ```
-	 *
-	 * Example with a custom isEqual function:
-	 *
-	 * ```js
-	 * import dropRepeats from 'xstream/extra/dropRepeats'
-	 *
-	 * const stream = xs.of('a', 'b', 'a', 'A', 'B', 'b')
-	 *   .compose(dropRepeats((x, y) => x.toLowerCase() === y.toLowerCase()))
-	 *
-	 * stream.addListener({
-	 *   next: i => console.log(i),
-	 *   error: err => console.error(err),
-	 *   complete: () => console.log('completed')
-	 * })
-	 * ```
-	 *
-	 * ```text
-	 * > a
-	 * > b
-	 * > a
-	 * > B
-	 * > completed
-	 * ```
-	 *
-	 * @param {Function} isEqual An optional function of type
-	 * `(x: T, y: T) => boolean` that takes an event from the input stream and
-	 * checks if it is equal to previous event, by returning a boolean.
-	 * @return {Stream}
-	 */
-	function dropRepeats(isEqual) {
-	    if (isEqual === void 0) { isEqual = null; }
-	    return function dropRepeatsOperator(ins) {
-	        return new core_1.Stream(new DropRepeatsOperator(isEqual, ins));
-	    };
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = dropRepeats;
-	//# sourceMappingURL=dropRepeats.js.map
-
-/***/ },
-/* 136 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
 	var fadeInOutStyle = {
@@ -12019,7 +11902,7 @@
 
 
 /***/ },
-/* 137 */
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12117,7 +12000,7 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 138 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12169,7 +12052,7 @@
 
 
 /***/ },
-/* 139 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12201,7 +12084,7 @@
 
 
 /***/ },
-/* 140 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
