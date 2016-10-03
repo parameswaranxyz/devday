@@ -6154,7 +6154,14 @@ iframe {
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > p {
             text-overflow: ellipsis;
             overflow: hidden;
-            height: 120px; }
+            height: 120px;
+            height: 7.5rem;
+            display: block;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            display: -webkit-box; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > span {
             position: relative;
             float: right;
@@ -6208,7 +6215,13 @@ iframe {
             margin-right: 20px;
             margin-bottom: 20px; }
           .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content p {
-            color: white; }
+            color: white;
+            height: 7.5rem;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            -webkit-line-clamp: 5;
+            -webkit-box-orient: vertical;
+            display: -webkit-box; }
       .devday.home > .container > .layout > .content > main > .event.card > .agenda {
         display: none;
         z-index: 1;
