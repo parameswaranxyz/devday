@@ -617,7 +617,8 @@ export const events: DevdayEvent[] = [
     form: {
       spreadsheetId : '1ycN3XRH2UgZesuJmE0F4r4Ylbr3JVcUCuiQsZnV_lWU',
       sheetName : 'Form Responses 1'
-    }
+    },
+    image_url: '/images/events/hackathon.jpg',
   },
   {
     title: 'Devops for Devs',
@@ -681,7 +682,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '',
+    image_url: '/images/events/devops-for-devs.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '234495890',
     form: {
