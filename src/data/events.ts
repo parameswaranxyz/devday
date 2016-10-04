@@ -669,7 +669,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Kubernetes in Production',
-        abstract: '',
+        abstract: 'In this talk, Manoj will be talking about the Kubernetes setup at Indix which has been running for the last 10 months now. He will be going into the details of bringing up and managing a Kubernetes cluster and the features of Kubernetes that they use at Indix.',
         authors: [
           {
             name: 'Manoj Mahalingam',
