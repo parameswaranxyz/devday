@@ -21,16 +21,16 @@ let getAttendeeCount = (url, skipCacheCheck) => {
   });
 };
 
-let setAttendeeCount = (url, counts) => {
+let setAttendeeCount = (url, otherAttributes) => {
   let createData = () => {
-    return Object.assign({
+    return {
       _id : url,
       expires : (new Date()).getTime() + 3600000
-    }, counts);
+    };
   };
   return new Promise(function(resolve, reject){
     getAttendeeCount(url, true).then(function(data){
-      let updatedData = createData();
+      let updatedData = Object.assign({}, data, createData(), otherAttributes);
       if(data){
         updatedData._rev = data._rev
       }
@@ -45,5 +45,5 @@ let setAttendeeCount = (url, counts) => {
 
 module.exports = {
   setAttendeeCount : setAttendeeCount,
-  getAttendeeCount : getAttendeeCount
+  getAttendeeCount : getAttendeeCount,
 };

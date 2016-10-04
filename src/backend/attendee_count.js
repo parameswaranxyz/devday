@@ -38,6 +38,14 @@ let getAttendeeCount = (meetupEventUrl, eventId, spreadsheetData, eventUrl) => {
   });
 }
 
+let newAttendeeRegistered = (eventUrl) => {
+  cache.getAttendeeCount(eventUrl, true).then((data) => {
+    data.store = data.store + 1;
+    return cache.setAttendeeCount(eventUrl, data);
+  });
+}
+
 module.exports = {
-  getAttendeeCount : getAttendeeCount
+  getAttendeeCount : getAttendeeCount,
+  newAttendeeRegistered : newAttendeeRegistered
 }
