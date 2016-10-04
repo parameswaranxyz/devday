@@ -147,7 +147,7 @@ function home(sources: Sources): Sinks {
       .events('click');
   const formCloseClick$ =
     dom
-      .select('.form.event button.close')
+      .select('button.close')
       .events('click');
   const join$ =
     xs.merge(

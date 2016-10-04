@@ -48,11 +48,11 @@
 	var xstream_run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(6);
 	var dom_1 = __webpack_require__(8);
-	var router_1 = __webpack_require__(137);
+	var router_1 = __webpack_require__(138);
 	var events_1 = __webpack_require__(122);
-	var prevent_1 = __webpack_require__(138);
+	var prevent_1 = __webpack_require__(139);
 	var meetups_1 = __webpack_require__(125);
-	var registrations_1 = __webpack_require__(139);
+	var registrations_1 = __webpack_require__(140);
 	xstream_run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2076,8 +2076,8 @@
 	var xstream_1 = __webpack_require__(4);
 	var dom_1 = __webpack_require__(8);
 	var events_1 = __webpack_require__(122);
-	var event_1 = __webpack_require__(135);
-	var delay_1 = __webpack_require__(136);
+	var event_1 = __webpack_require__(136);
+	var delay_1 = __webpack_require__(137);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 	function getFormData(form) {
@@ -2199,7 +2199,7 @@
 	        .select('.join.event')
 	        .events('click');
 	    var formCloseClick$ = dom
-	        .select('.form.event button.close')
+	        .select('button.close')
 	        .events('click');
 	    var join$ = xs.merge(joinEventClick$
 	        .map(function (ev) {
@@ -9550,7 +9550,7 @@
 	var xstream_1 = __webpack_require__(4);
 	var http_1 = __webpack_require__(126);
 	var xstream_adapter_1 = __webpack_require__(3);
-	var flattenConcurrently_1 = __webpack_require__(140);
+	var flattenConcurrently_1 = __webpack_require__(135);
 	var MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 	var MeetupsSource = (function () {
 	    function MeetupsSource(meetupRequest$) {
@@ -11453,6 +11453,103 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var core_1 = __webpack_require__(5);
+	var FCIL = (function () {
+	    function FCIL(out, op) {
+	        this.out = out;
+	        this.op = op;
+	    }
+	    FCIL.prototype._n = function (t) {
+	        this.out._n(t);
+	    };
+	    FCIL.prototype._e = function (err) {
+	        this.out._e(err);
+	    };
+	    FCIL.prototype._c = function () {
+	        this.op.less();
+	    };
+	    return FCIL;
+	}());
+	var FlattenConcOperator = (function () {
+	    function FlattenConcOperator(ins) {
+	        this.ins = ins;
+	        this.type = 'flattenConcurrently';
+	        this.active = 1; // number of outers and inners that have not yet ended
+	        this.out = null;
+	    }
+	    FlattenConcOperator.prototype._start = function (out) {
+	        this.out = out;
+	        this.ins._add(this);
+	    };
+	    FlattenConcOperator.prototype._stop = function () {
+	        this.ins._remove(this);
+	        this.active = 1;
+	        this.out = null;
+	    };
+	    FlattenConcOperator.prototype.less = function () {
+	        if (--this.active === 0) {
+	            var u = this.out;
+	            if (!u)
+	                return;
+	            u._c();
+	        }
+	    };
+	    FlattenConcOperator.prototype._n = function (s) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        this.active++;
+	        s._add(new FCIL(u, this));
+	    };
+	    FlattenConcOperator.prototype._e = function (err) {
+	        var u = this.out;
+	        if (!u)
+	            return;
+	        u._e(err);
+	    };
+	    FlattenConcOperator.prototype._c = function () {
+	        this.less();
+	    };
+	    return FlattenConcOperator;
+	}());
+	exports.FlattenConcOperator = FlattenConcOperator;
+	/**
+	 * Flattens a "stream of streams", handling multiple concurrent nested streams
+	 * simultaneously.
+	 *
+	 * If the input stream is a stream that emits streams, then this operator will
+	 * return an output stream which is a flat stream: emits regular events. The
+	 * flattening happens concurrently. It works like this: when the input stream
+	 * emits a nested stream, *flattenConcurrently* will start imitating that
+	 * nested one. When the next nested stream is emitted on the input stream,
+	 * *flattenConcurrently* will also imitate that new one, but will continue to
+	 * imitate the previous nested streams as well.
+	 *
+	 * Marble diagram:
+	 *
+	 * ```text
+	 * --+--------+---------------
+	 *   \        \
+	 *    \       ----1----2---3--
+	 *    --a--b----c----d--------
+	 *     flattenConcurrently
+	 * -----a--b----c-1--d-2---3--
+	 * ```
+	 *
+	 * @return {Stream}
+	 */
+	function flattenConcurrently(ins) {
+	    return new core_1.Stream(new FlattenConcOperator(ins));
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = flattenConcurrently;
+	//# sourceMappingURL=flattenConcurrently.js.map
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
 	var dom_1 = __webpack_require__(8);
 	var definitions_1 = __webpack_require__(124);
 	var fadeInOutStyle = {
@@ -11694,7 +11791,16 @@
 	        ]),
 	        registrationSuccessful
 	            ? dom_1.div('.registration.success', [
-	                dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
+	                dom_1.h4('.message', ['Your registration was successful!', dom_1.br(), ("See you on " + event.event_time.start_time.toDateString())]),
+	                dom_1.button('.close .mdl-button', {
+	                    style: {
+	                        color: '#ff4081',
+	                        background: 'white'
+	                    },
+	                    props: {
+	                        tabindex: '0'
+	                    }
+	                }, 'Close')
 	            ])
 	            : dom_1.form('.event.form', { style: fadeInOutStyle }, [
 	                dom_1.button('.close', {
@@ -11896,7 +12002,7 @@
 
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11994,7 +12100,7 @@
 	//# sourceMappingURL=delay.js.map
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12046,7 +12152,7 @@
 
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12078,7 +12184,7 @@
 
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12135,103 +12241,6 @@
 	    };
 	}
 
-
-/***/ },
-/* 140 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var core_1 = __webpack_require__(5);
-	var FCIL = (function () {
-	    function FCIL(out, op) {
-	        this.out = out;
-	        this.op = op;
-	    }
-	    FCIL.prototype._n = function (t) {
-	        this.out._n(t);
-	    };
-	    FCIL.prototype._e = function (err) {
-	        this.out._e(err);
-	    };
-	    FCIL.prototype._c = function () {
-	        this.op.less();
-	    };
-	    return FCIL;
-	}());
-	var FlattenConcOperator = (function () {
-	    function FlattenConcOperator(ins) {
-	        this.ins = ins;
-	        this.type = 'flattenConcurrently';
-	        this.active = 1; // number of outers and inners that have not yet ended
-	        this.out = null;
-	    }
-	    FlattenConcOperator.prototype._start = function (out) {
-	        this.out = out;
-	        this.ins._add(this);
-	    };
-	    FlattenConcOperator.prototype._stop = function () {
-	        this.ins._remove(this);
-	        this.active = 1;
-	        this.out = null;
-	    };
-	    FlattenConcOperator.prototype.less = function () {
-	        if (--this.active === 0) {
-	            var u = this.out;
-	            if (!u)
-	                return;
-	            u._c();
-	        }
-	    };
-	    FlattenConcOperator.prototype._n = function (s) {
-	        var u = this.out;
-	        if (!u)
-	            return;
-	        this.active++;
-	        s._add(new FCIL(u, this));
-	    };
-	    FlattenConcOperator.prototype._e = function (err) {
-	        var u = this.out;
-	        if (!u)
-	            return;
-	        u._e(err);
-	    };
-	    FlattenConcOperator.prototype._c = function () {
-	        this.less();
-	    };
-	    return FlattenConcOperator;
-	}());
-	exports.FlattenConcOperator = FlattenConcOperator;
-	/**
-	 * Flattens a "stream of streams", handling multiple concurrent nested streams
-	 * simultaneously.
-	 *
-	 * If the input stream is a stream that emits streams, then this operator will
-	 * return an output stream which is a flat stream: emits regular events. The
-	 * flattening happens concurrently. It works like this: when the input stream
-	 * emits a nested stream, *flattenConcurrently* will start imitating that
-	 * nested one. When the next nested stream is emitted on the input stream,
-	 * *flattenConcurrently* will also imitate that new one, but will continue to
-	 * imitate the previous nested streams as well.
-	 *
-	 * Marble diagram:
-	 *
-	 * ```text
-	 * --+--------+---------------
-	 *   \        \
-	 *    \       ----1----2---3--
-	 *    --a--b----c----d--------
-	 *     flattenConcurrently
-	 * -----a--b----c-1--d-2---3--
-	 * ```
-	 *
-	 * @return {Stream}
-	 */
-	function flattenConcurrently(ins) {
-	    return new core_1.Stream(new FlattenConcOperator(ins));
-	}
-	Object.defineProperty(exports, "__esModule", { value: true });
-	exports.default = flattenConcurrently;
-	//# sourceMappingURL=flattenConcurrently.js.map
 
 /***/ }
 /******/ ]);

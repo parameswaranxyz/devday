@@ -254,7 +254,16 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
       ]),
     registrationSuccessful
       ? div('.registration.success', [
-        p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
+        h4('.message', ['Your registration was successful!', br(), `See you on ${event.event_time.start_time.toDateString()}`]),
+        button('.close .mdl-button', {
+          style : {
+            color : '#ff4081',
+            background : 'white'
+          },
+          props: {
+            tabindex: '0'
+          }
+        }, 'Close')
       ])
       : form('.event.form', { style: fadeInOutStyle }, [
         button('.close', {
