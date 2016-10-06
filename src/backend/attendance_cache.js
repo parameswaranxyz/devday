@@ -43,7 +43,15 @@ let setAttendeeCount = (url, otherAttributes) => {
   })
 }
 
+let newAttendeeRegistered = (eventUrl) => {
+  getAttendeeCount(eventUrl, true).then((data) => {
+    data.store = data.store + 1;
+    return setAttendeeCount(eventUrl, data);
+  });
+}
+
 module.exports = {
   setAttendeeCount : setAttendeeCount,
   getAttendeeCount : getAttendeeCount,
+  newAttendeeRegistered : newAttendeeRegistered
 };

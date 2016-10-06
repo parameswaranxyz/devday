@@ -1,6 +1,6 @@
 var google = require('googleapis');
 let registrationEmail = require('./registration_mail');
-let attendeeCount = require('./attendee_count');
+let attendanceCache = require('./attendance_cache');
 // If modifying these scopes, delete your previously saved credentials
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -114,7 +114,7 @@ let store = (data) => {
       if(data.present === 'true'){
         registrationEmail.send(data);
       }
-      attendeeCount.newAttendeeRegistered(data.event_url);
+      attendanceCache.newAttendeeRegistered(data.event_url);
       resolve(200);
     }).catch((err) => {
       console.log("Error storing details");
