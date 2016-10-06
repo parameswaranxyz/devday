@@ -645,7 +645,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Srimathi Harinarayanan',
-            image_url: ''
+            image_url: 'http://sahajsoft.com/images/optimized/srimathi.png'
           }
         ],
         time: {
@@ -659,7 +659,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Mahesh and Arther',
-            image_url: ''
+            image_url: 'http://sahajsoft.com/images/optimized/mahesh.png'
           }
         ],
         time: {
@@ -673,7 +673,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Manoj Mahalingam',
-            image_url: ''
+            image_url: '/images/speakers/manoj.jpg'
           }
         ],
         time: {
