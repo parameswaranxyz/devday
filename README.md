@@ -13,8 +13,10 @@ DevDay is a monthly informal event for developers to share their experiences, id
 * Go to `/home/devday/devday` and run the following commands
 
 starting for the first time
+```
 NODE_ENV=production pm2 start server.js --name="devday" -i 3
-
+```
+starting otherwise
 ```
 $ git pull
 $ npm install
