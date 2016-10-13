@@ -613,7 +613,7 @@ export const events: DevdayEvent[] = [
     ],
     color: '#211b33',
     meetup_urlname: 'devday_bangalore',
-    meetup_event_id: '233530425',
+    meetup_event_id: '234409925',
     form: {
       spreadsheetId : '1ycN3XRH2UgZesuJmE0F4r4Ylbr3JVcUCuiQsZnV_lWU',
       sheetName : 'Form Responses 1'
