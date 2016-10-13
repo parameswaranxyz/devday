@@ -11,10 +11,12 @@ DevDay is a monthly informal event for developers to share their experiences, id
 
 * Log in to the EC2 instance as `devday`
 * Go to `/home/devday/devday` and run the following commands
+
+starting for the first time
+NODE_ENV=production pm2 start server.js --name="devday" -i 3
+
 ```
 $ git pull
 $ npm install
 $ pm2 reload devday -i 3
 ```
-
-test 
