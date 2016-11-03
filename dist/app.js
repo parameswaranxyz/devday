@@ -9523,6 +9523,66 @@
 	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
 	            sheetName: 'Form Responses 1'
 	        }
+	    },
+	    {
+	        title: 'Cross Platform Mobile Apps',
+	        url: 'cross-platform-mobile-apps-handson',
+	        categories: ['events'],
+	        tags: ['cross platform', 'mobile apps', 'handson'],
+	        author: 'devday_ team',
+	        abstract: 'Participants will form teams and pick a technology of their interest (i.e. Xamarin, Cordova, React Native) to build a cross platform mobile app. The app to be built is a todo list where users can add todo items with a photo and a location. The problem has been designed so that it can be built within a few hours.',
+	        event_time: {
+	            start_time: new Date('2016-11-19T10:00:00+05:30'),
+	            end_time: new Date('2016-11-19T15:00:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-09-10T10:00:00+05:30'),
+	            end_time: new Date('2016-11-19T10:00:00+05:30'),
+	        },
+	        venue: exports.CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Introduction',
+	                abstract: 'A brief introduction to the event format along with a detailed explanation of the problem.',
+	                time: {
+	                    start_time: new Date('2016-11-19T10:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Team Formation',
+	                abstract: 'Participants will form teams based on their interest.',
+	                time: {
+	                    start_time: new Date('2016-11-19T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Get cracking with the code',
+	                abstract: 'Teams can organise their own lunch breaks during the coding time. Lunch will be provided by Sahaj.',
+	                time: {
+	                    start_time: new Date('2016-11-19T10:45:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Workshop,
+	                title: 'Showcase and discussion',
+	                abstract: 'All the apps built will be showcased. This will be followed by a discussion on pros and cons of the technologies they the individual teams would have used to solve the problem.',
+	                time: {
+	                    start_time: new Date('2016-11-19T14:00:00+05:30')
+	                }
+	            },
+	        ],
+	        color: '#040509',
+	        image_url: '',
+	        meetup_urlname: 'devday_chennai',
+	        meetup_event_id: '235318558',
+	        form: {
+	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+	            sheetName: 'Form Responses 1'
+	        }
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -11569,6 +11629,21 @@
 	function getMeridien(date) {
 	    return date.getHours() >= 12 ? 'PM' : 'AM';
 	}
+	function getAuthorInfo(entry) {
+	    var authorChildren = entry.authors && entry.authors[0] ? [dom_1.img('.avatar', {
+	            props: {
+	                src: entry.authors[0] != undefined
+	                    ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+	                    : 'images/speakers/devday-speaker.png'
+	            }
+	        }),
+	        dom_1.h5(entry.title),
+	        dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')])]
+	        : [dom_1.h5(entry.title)];
+	    return dom_1.div('.info', authorChildren.concat([
+	        dom_1.p(entry.abstract)
+	    ]));
+	}
 	function renderAgendaEntry(entry) {
 	    switch (entry.type) {
 	        case definitions_1.AgendaEntryType.Talk:
@@ -11578,18 +11653,7 @@
 	                    dom_1.h5([getHHMM(entry.time.start_time)]),
 	                    dom_1.h6([getMeridien(entry.time.start_time)])
 	                ]),
-	                dom_1.div('.info', [
-	                    dom_1.img('.avatar', {
-	                        props: {
-	                            src: entry.authors[0] != undefined
-	                                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-	                                : 'images/speakers/devday-speaker.png'
-	                        }
-	                    }),
-	                    dom_1.h5(entry.title),
-	                    dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')]),
-	                    dom_1.p(entry.abstract)
-	                ])
+	                getAuthorInfo(entry)
 	            ];
 	        case definitions_1.AgendaEntryType.Hackathon:
 	            return [

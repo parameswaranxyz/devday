@@ -23,6 +23,23 @@ function getMeridien(date: Date): string {
   return date.getHours() >= 12 ? 'PM' : 'AM';
 }
 
+function getAuthorInfo(entry){
+  let authorChildren = entry.authors && entry.authors[0] ? [img('.avatar', {
+    props: {
+      src:
+      entry.authors[0] != undefined
+        ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
+        : 'images/speakers/devday-speaker.png'
+    }
+  }),
+  h5(entry.title),
+  h6(['by ' + entry.authors.map(a => a.name).join(', ')])]
+  : [h5(entry.title)];
+  return div('.info', authorChildren.concat([
+    p(entry.abstract)
+  ]));
+}
+
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   switch (entry.type) {
     case AgendaEntryType.Talk:
@@ -32,19 +49,7 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
           h5([getHHMM(entry.time.start_time)]),
           h6([getMeridien(entry.time.start_time)])
         ]),
-        div('.info', [
-          img('.avatar', {
-            props: {
-              src:
-              entry.authors[0] != undefined
-                ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-                : 'images/speakers/devday-speaker.png'
-            }
-          }),
-          h5(entry.title),
-          h6(['by ' + entry.authors.map(a => a.name).join(', ')]),
-          p(entry.abstract)
-        ])
+        getAuthorInfo(entry)
       ];
     case AgendaEntryType.Hackathon:
       return [
