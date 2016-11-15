@@ -6147,8 +6147,7 @@ iframe {
             margin-right: 5px;
             margin-top: -3px; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > h3 {
-            margin-top: 0;
-            height: 80px; }
+            margin-top: 0; }
             .devday.home > .container > .layout > .content > main > .event.card:hover > .primary.info > .content > h3 {
               color: #283593; }
           .devday.home > .container > .layout > .content > main > .event.card > .primary.info > .content > p {

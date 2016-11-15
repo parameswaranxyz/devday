@@ -584,32 +584,65 @@ export const events: DevdayEvent[] = [
     }
   },
   {
-    title: 'Hack Hack & Just Hack',
-    url: 'hackathon',
-    categories: ['events'],
-    tags: ['hackathon','hack day'],
+    title: 'Math For Machine Learning',
+    url: 'Machine Learning',
+    categories: ['Machine Learning'],
+    tags: ['Machine Learning','Math', 'Data Science'],
     author: 'devday_ team',
-    abstract: 'Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing Software/Hardware products to win cool Prizes & Goodies',
+    abstract: 'Learn about the basic math and algorithms required for machine learning',
     event_time: {
-      start_time: new Date('2016-10-15T10:30:00+05:30'),
-      end_time: new Date('2016-10-16T10:00:00+05:30')
+      start_time: new Date('2016-11-19T10:30:00+05:30'),
+      end_time: new Date('2016-11-19T10:00:00+05:30')
     },
-    publish_time: new Date('2016-09-07T17:45:00+05:30'),
+    publish_time: new Date('2016-11-15T23:45:00+05:30'),
     registration_time: {
-      start_time: new Date('2016-09-07T17:45:00+05:30'),
-      end_time: new Date('2016-10-15T09:45:00+05:30'),
+      start_time: new Date('2016-11-15T23:45:00+05:30'),
+      end_time: new Date('2016-11-19T09:45:00+05:30'),
     },
     venue: BANGALORE_ADDRESS,
     agenda: [
-      {
-        type: AgendaEntryType.Hackathon,
-        title: 'Hackathon Begins!',
-        abstract: 'Get. Set. Code and Win amazing prizes.<br> Calling out all the programmers out there for an amazing hackathon where all you got to do is make amazing<br> Software/Hardware products.<br> The winning team gets to take home a surprise gift!<br> We have also included a bunch of goodies to be won during the hackathon.<br><br><h3>Pre-requisite:</h3><ul><li>Test</li></ul>',
-        authors: [],
+       {
+        type: AgendaEntryType.Talk,
+        title: 'Basic concepts of statistics and introduction to ML',
+        abstract: 'Get started with basic statistics and see them in action with real-time datasets. Discuss the basic definitions of machine learning and also about when and when not to use ML. We will be using Python notebook to demonstrate the concepts.',
+        authors: [
+          {
+            name: 'Deepthi Chand',
+            image_url: 'http://sahajsoft.com/images/optimized/deepthi.png'
+          }
+        ],
         time: {
-          start_time: new Date('2016-10-01T10:30:00+05:30')
+          start_time: new Date('2016-11-19T10:30:00+05:30')
         }
-      } as AgendaEntry
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Diving into machine learning with simple maths and statistics',
+        abstract: "Ever felt intimidated by the nuances and world of machine learning? Come and hear someone reason about it using rudimentary maths and concepts like Euclidean distance and Pearson's correlation score to build a super simple recommendation engine and unsupervised clusters of data. Understand how linear regression allows for predictive capabilities on datasets. Look at how to build simple classifiers using python libraries without understanding the guts of machine learning. This talk uses python for the code. Classifiers are built using the nltk library with Python.",
+        authors: [
+          {
+            name: 'Priyank Gupta',
+            image_url: 'http://sahajsoft.com/images/optimized/priyank.png'
+          }
+        ],
+        time: {
+          start_time: new Date('2016-11-19T11:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to Linear Regression',
+        abstract: '',
+        authors: [
+          {
+            name: 'Shashank Teotia',
+            image_url: 'http://sahajsoft.com/images/optimized/shashank.png'
+          }
+        ],
+        time: {
+          start_time: new Date('2016-11-19T12:30:00+05:30')
+        }
+      } as AgendaEntry,
     ],
     color: '#211b33',
     meetup_urlname: 'devday_bangalore',

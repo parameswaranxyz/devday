@@ -198,7 +198,6 @@
 
                             & > h3 {
                               margin-top: 0;
-                              height: 80px;
 
                               @at-root #{selector-replace(&, '.event.card', '.event.card:hover')} {
                                 color: #283593;
