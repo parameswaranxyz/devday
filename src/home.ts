@@ -218,18 +218,18 @@ function home(sources: Sources): Sinks {
             ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
             : [
               ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
-              // ...moreEvents(events, more).map(event => renderEvent(event, expand, shorten, join, loaded)),
-              // nav([
-              //   a('.more', {
-              //     props: { href: '#', title: 'view all previous events' },
-              //     attrs: { style: more ? 'display: none;' : '' }
-              //   }, [
-              //       'Past events',
-              //       button([
-              //         i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-              //       ])
-              //     ])
-              // ])
+              ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
+              nav([
+                a('.more', {
+                  props: { href: '#', title: 'view all previous events' },
+                  attrs: { style: more ? 'display: none;' : '' }
+                }, [
+                    'Past events',
+                    button([
+                      i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                    ])
+                  ])
+              ])
             ]);
       });
   const vdom$ =

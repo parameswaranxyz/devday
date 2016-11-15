@@ -2261,7 +2261,19 @@
 	        var expandedEvent = !shorten && events.find(function (event) { return event.url === expand; });
 	        return dom_1.main(Boolean(expandedEvent)
 	            ? [event_1.renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
-	            : events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, shorten, registrationSuccessfulUrl, present); }).slice());
+	            : events_1.topEvents(events).map(function (event) { return event_1.renderEvent(event, join, shorten, registrationSuccessfulUrl, present); }).concat(events_1.moreEvents(events, more).map(function (event) { return event_1.renderEvent(event, join, shorten, registrationSuccessfulUrl, present); }), [
+	                dom_1.nav([
+	                    dom_1.a('.more', {
+	                        props: { href: '#', title: 'view all previous events' },
+	                        attrs: { style: more ? 'display: none;' : '' }
+	                    }, [
+	                        'Past events',
+	                        dom_1.button([
+	                            dom_1.i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+	                        ])
+	                    ])
+	                ])
+	            ]));
 	    });
 	    var vdom$ = xs.combine(headerDom$, bodyDom$, footerDom$)
 	        .map(function (_a) {
@@ -8855,67 +8867,6 @@
 	};
 	exports.events = [
 	    {
-	        title: 'Technical Meetup',
-	        url: 'technical-meetup',
-	        categories: ['events'],
-	        tags: ['technology'],
-	        author: 'devday_ team',
-	        abstract: 'DEVDAY is a monthly informal event for developers to share their experiences, ideas, opinions, and perspectives, about technology.',
-	        event_time: {
-	            start_time: new Date('2016-03-05T10:30:00+05:30'),
-	        },
-	        publish_time: new Date('2016-03-05T10:30:00+05:30'),
-	        registration_time: {
-	            start_time: new Date('2016-03-05T10:30:00+05:30')
-	        },
-	        venue: exports.BANGALORE_ADDRESS,
-	        agenda: [
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Database-Days of the future past',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: "Avinash Nijampure"
-	                    }
-	                ],
-	                time: {
-	                    start_time: new Date('2016-03-05T10:30:00+05:30')
-	                }
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-03-05T11:15:00+05:30')
-	                },
-	                title: 'Tea Break'
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Talk,
-	                time: {
-	                    start_time: new Date('2016-03-05T11:30:00+05:30')
-	                },
-	                title: 'SQLite: Why aren\'t you using it more?',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
-	                authors: [
-	                    {
-	                        name: 'Srimathi Harinarayanan'
-	                    },
-	                    {
-	                        name: 'Navaneeth KN'
-	                    }
-	                ]
-	            },
-	            {
-	                type: definitions_1.AgendaEntryType.Break,
-	                time: {
-	                    start_time: new Date('2016-03-05T12:30:00+05:30')
-	                },
-	                title: 'Lunch Break'
-	            }
-	        ]
-	    },
-	    {
 	        title: 'Data science: How it helps',
 	        url: 'data-science-how-it-helps',
 	        categories: ['events'],
@@ -8936,7 +8887,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Julia - A fresh approach to data science and technical computing',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: "Viral B. Shah",
@@ -8957,7 +8908,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Applied data science for developers',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Unknown'
@@ -8997,7 +8948,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Databases: Days of the future past',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: "Avinash Nijampure"
@@ -9017,7 +8968,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'SQLite: Why aren\'t you using it more?',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Srimathi Harinarayanan',
@@ -9025,7 +8976,7 @@
 	                    },
 	                    {
 	                        name: 'Navaneeth KN',
-	                        image_url: 'navneeth.jpg'
+	                        image_url: 'images/speakers/navneeth.jpg'
 	                    }
 	                ],
 	                time: {
@@ -9035,7 +8986,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Databases as event streams',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
@@ -9076,7 +9027,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Adventures with Arduino',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: "Himesh Reddivari",
@@ -9097,7 +9048,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Journey of Samvid',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
@@ -9111,7 +9062,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Simple obstacle avoiding Robot using Arduino',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Deepak Nararyana Rao',
@@ -9125,7 +9076,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Workshop,
 	                title: 'Workshop on Arduino',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Deepak Nararyana Rao',
@@ -9166,7 +9117,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Product For Blue - <br>Green Deployments Verification',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: "Srikanth Seshadri",
@@ -9187,7 +9138,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Misconceptions of cloud: Automation!',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Arther Antony',
@@ -9201,7 +9152,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'Introduction to DevOps, the pain-points and the frameworks',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: 'Raghavendrra Mahesh',
@@ -9325,7 +9276,7 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Workshop,
 	                title: 'Hands-On with Elixir',
-	                abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam in varius ante. Cras mattis ante sit amet nunc molestie faucibus. Sed luctus arcu in leo molestie, et laoreet nibh dictum. Donec nec massa pharetra, commodo sapien id, finibus dolor. Donec tempor ipsum nisl. Vivamus in viverra arcu. Curabitur vehicula mi in nunc tristique mollis. In vel justo scelerisque, mattis urna.',
+	                abstract: '',
 	                authors: [
 	                    {
 	                        name: "Navaneeth N",
