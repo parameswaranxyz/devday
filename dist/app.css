@@ -6264,7 +6264,7 @@ iframe {
               border-radius: 50%;
               margin-right: 20px; }
             .devday.home > .container > .layout > .content > main > .event.card > .agenda > .content > .info h6 {
-              margin: -10px 0 8px;
+              margin: 0 0 8px;
               text-transform: capitalize;
               font-size: small;
               color: rgba(255, 255, 255, 0.5); }
@@ -6431,8 +6431,7 @@ iframe {
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .speakers {
           display: none; }
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .agenda {
-          display: block;
-          min-width: 885px; }
+          display: block; }
         .devday.home > .container > .layout > .content > main > .event.card.expanded > .secondary.info {
           position: initial;
           top: 0;
