@@ -6075,6 +6075,9 @@ iframe {
       .devday.home > .container > .layout > .content > header > h1 > img {
         width: 50%;
         max-width: 500px; }
+        @media (max-width: 480px) {
+          .devday.home > .container > .layout > .content > header > h1 > img {
+            width: 80%; } }
     .devday.home > .container > .layout > .content > header > h2 {
       text-align: center;
       color: white;
