@@ -9560,7 +9560,7 @@
 	            },
 	        ],
 	        color: '#040509',
-	        image_url: '',
+	        image_url: 'images/events/cross_platform.jpg',
 	        meetup_urlname: 'devday_chennai',
 	        meetup_event_id: '235318558',
 	        form: {
