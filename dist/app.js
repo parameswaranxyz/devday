@@ -9370,7 +9370,7 @@
 	    },
 	    {
 	        title: 'Math For Machine Learning',
-	        url: 'Machine Learning',
+	        url: 'machine-learning',
 	        categories: ['Machine Learning'],
 	        tags: ['Machine Learning', 'Math', 'Data Science'],
 	        author: 'devday_ team',
@@ -9434,7 +9434,7 @@
 	        meetup_event_id: '235590887',
 	        form: {
 	            spreadsheetId: '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
-	            sheetName: 'DevDay - Nov (Math for Machine Learning)'
+	            sheetName: 'Form Responses 1'
 	        },
 	        image_url: '/images/events/hackathon.jpg',
 	    },
