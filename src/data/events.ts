@@ -585,10 +585,10 @@ export const events: DevdayEvent[] = [
     ],
     color: '#211b33',
     meetup_urlname: 'devday_bangalore',
-    meetup_event_id: '234409925',
+    meetup_event_id: '235590887',
     form: {
-      spreadsheetId : '1ycN3XRH2UgZesuJmE0F4r4Ylbr3JVcUCuiQsZnV_lWU',
-      sheetName : 'Form Responses 1'
+      spreadsheetId : '1pR5PlhRfFdC3pWdvBlc6DbJ4-lhhiKHj0jNJwVHTOfY',
+      sheetName : 'DevDay - Nov (Math for Machine Learning)'
     },
     image_url: '/images/events/hackathon.jpg',
   },
