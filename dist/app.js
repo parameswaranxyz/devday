@@ -9433,7 +9433,7 @@
 	        meetup_urlname: 'devday_bangalore',
 	        meetup_event_id: '235590887',
 	        form: {
-	            spreadsheetId: 'AMjVe6j2Wmmc8eF4cB2JOzvEhbW_JGsuPQ',
+	            spreadsheetId: '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
 	            sheetName: 'DevDay - Nov (Math for Machine Learning)'
 	        },
 	        image_url: '/images/events/hackathon.jpg',
