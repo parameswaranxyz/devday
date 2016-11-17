@@ -103,7 +103,6 @@
                         line-height: 1.25em;
                         max-width: 90%;
                         margin: 0 auto;
-                        height: 130px;
 
                         & > span {
                             border-bottom: 1px rgba(255,255,255,0.87) solid;
@@ -201,6 +200,13 @@
 
                               @at-root #{selector-replace(&, '.event.card', '.event.card:hover')} {
                                 color: #283593;
+                              }
+
+                              @media (max-width: 1023px) {
+                                font-size: 2rem;
+                                font-weight: 500;
+                                line-height: 1.25;
+                                margin: 0 0 10px;
                               }
                             }
 
