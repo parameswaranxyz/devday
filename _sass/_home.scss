@@ -623,7 +623,7 @@
                         &.expanded {
                           z-index: 11;
                           height: auto;
-                          width: auto;
+                          width: 100%;
                           cursor: auto;
 
                           & > .primary.info {
@@ -643,6 +643,7 @@
                           }
                           & > .agenda {
                             display: block;
+                            margin: 0;
                           }
 
                           & > .secondary.info {
