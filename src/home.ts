@@ -9,6 +9,8 @@ import delay from 'xstream/extra/delay';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
+const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/","");
+const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/","") : "";
 
 function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   return {
@@ -127,7 +129,7 @@ function home(sources: Sources): Sinks {
   const expand$ =
     eventClick$
       .map<string>(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
-      .startWith('');
+      .startWith(eventHash);
   const shrinkEventClick$ =
     dom
       .select('.shrink')
@@ -166,7 +168,7 @@ function home(sources: Sources): Sinks {
           anchor.classList.remove('expand');
           return xs.of('');
         })
-    ).flatten().startWith('');
+    ).flatten().startWith(eventRegisterHash);
   const formClick$ =
     dom
       .select('.form.event')

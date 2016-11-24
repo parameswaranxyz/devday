@@ -515,14 +515,14 @@
                               transition-duration: .3s;
                             }
 
+                            + .event.form {
+                              padding: 20px;
+                            }
+
                             &.expand {
                               cursor: default;
                               transition:.3s cubic-bezier(.65,-0.68,.49,1.94);
                               transition-delay: .1s;
-
-                              & + .event.form {
-                                padding: 20px;
-                              }
                             }
                         }
 

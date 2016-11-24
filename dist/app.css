@@ -6367,12 +6367,12 @@ iframe {
         .devday.home > .container > .layout > .content > main > .event.card > .join.event.button > .join.icon {
           transition-delay: .6s;
           transition-duration: .3s; }
+        .devday.home > .container > .layout > .content > main > .event.card > .join.event.button + .event.form {
+          padding: 20px; }
         .devday.home > .container > .layout > .content > main > .event.card > .join.event.button.expand {
           cursor: default;
           transition: 0.3s cubic-bezier(0.65, -0.68, 0.49, 1.94);
           transition-delay: .1s; }
-          .devday.home > .container > .layout > .content > main > .event.card > .join.event.button.expand + .event.form {
-            padding: 20px; }
       .devday.home > .container > .layout > .content > main > .event.card > .shrink {
         position: absolute;
         top: 20px;

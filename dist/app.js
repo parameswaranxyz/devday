@@ -2080,6 +2080,8 @@
 	var delay_1 = __webpack_require__(137);
 	var nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 	var topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
+	var eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
+	var eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
 	function getFormData(form) {
 	    return {
 	        name: form.elements['name'].value,
@@ -2186,7 +2188,7 @@
 	        .events('click');
 	    var expand$ = eventClick$
 	        .map(function (ev) { return ev.currentTarget.attributes['data-url'].value; })
-	        .startWith('');
+	        .startWith(eventHash);
 	    var shrinkEventClick$ = dom
 	        .select('.shrink')
 	        .events('click');
@@ -2214,7 +2216,7 @@
 	        var anchor = card.querySelector('.join.event');
 	        anchor.classList.remove('expand');
 	        return xs.of('');
-	    })).flatten().startWith('');
+	    })).flatten().startWith(eventRegisterHash);
 	    var formClick$ = dom
 	        .select('.form.event')
 	        .events('click');
@@ -8871,7 +8873,7 @@
 	        url: 'data-science-how-it-helps',
 	        categories: ['events'],
 	        tags: ['data-science'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'On this 3 Edition of DevDay, we have Viral B. Shah, co-inventor of JuliaLang, and other speakers from Sahaj, to share their  experiences and learnings on Data Science.',
 	        event_time: {
 	            start_time: new Date('2016-05-07T10:30:00+05:30'),
@@ -8911,7 +8913,8 @@
 	                abstract: '',
 	                authors: [
 	                    {
-	                        name: 'Unknown'
+	                        name: 'Dileep Bapat',
+	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
 	                time: {
@@ -8932,7 +8935,7 @@
 	        url: 'all-about-databases',
 	        categories: ['events'],
 	        tags: ['databases', 'sqlite', 'event streams'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'A Date with Databases. This meet up would be all about Databases - the internals and the overall. The idea is to tear down databases, across relational/non relational, and understand them deep down.',
 	        event_time: {
 	            start_time: new Date('2016-06-04T10:30:00+05:30'),
@@ -9011,7 +9014,7 @@
 	        url: 'arduino-day',
 	        categories: ['events'],
 	        tags: ['arduino-genuino-iot'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'Arduino Day is a worldwide birthday celebration of Arduino and Genuino. It\'s a one day event –organized directly by the community, or by the Arduino founders– where people interested in Arduino and Genuino get together, share their experiences, and learn more.',
 	        event_time: {
 	            start_time: new Date('2016-04-02T10:30:00+05:30'),
@@ -9079,8 +9082,8 @@
 	                abstract: '',
 	                authors: [
 	                    {
-	                        name: 'Deepak Nararyana Rao',
-	                        image_url: 'images/speakers/deepak.jpg'
+	                        name: 'Dileep Bapat',
+	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
 	                time: {
@@ -9097,26 +9100,116 @@
 	        ]
 	    },
 	    {
-	        title: 'Cloud Computing',
-	        url: 'cloud-computing',
+	        title: 'DevDay',
+	        url: 'first-devday',
 	        categories: ['events'],
-	        tags: ['cloud computing', 'cloud'],
-	        author: 'devday_ team',
-	        abstract: 'Upload. Download. Dock. Serve. Functions on demand. Everything to do with the cloud.',
+	        tags: ['devday', 'Neo4j', 'patttern to scale mobile', 'IOT'],
+	        author: 'devday_team',
+	        abstract: 'DevDay is a monthly informal event for developers to share their experiences, ideas, opinions & perspectives about technology',
 	        event_time: {
-	            start_time: new Date('2016-07-09T10:30:00+05:30'),
-	            end_time: new Date('2016-07-09T13:30:00+05:30'),
+	            start_time: new Date('2016-03-05T10:30:00+05:30'),
+	            end_time: new Date('2016-03-03T13:00:00+05:30'),
 	        },
-	        publish_time: new Date('2016-07-09T10:30:00+05:30'),
+	        publish_time: new Date('2016-02-27T10:30:00+05:30'),
 	        registration_time: {
-	            start_time: new Date('2016-07-09T10:30:00+05:30'),
-	            end_time: new Date('2016-07-09T10:30:00+05:30')
+	            start_time: new Date('2016-02-27T10:30:00+05:30'),
+	            end_time: new Date('2016-03-05T10:00:00+05:30')
 	        },
 	        venue: exports.BANGALORE_ADDRESS,
 	        agenda: [
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
-	                title: 'Product For Blue - <br>Green Deployments Verification',
+	                title: 'Neo4j - Graph Database',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Mahesh Lal',
+	                        image_url: 'images/speakers/mahesh-lal.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-03-05T10:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-03-05T11:30:00+05:30')
+	                },
+	                title: 'Tea Break'
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Patterns to Scale Mobile Developmen',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: "Priyank Gupta",
+	                        image_url: 'images/speakers/priyank.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-03-05T11:45:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'IOT (Lightning Talk)',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Dileep Bapat',
+	                        image_url: 'images/speakers/dileep.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-03-05T12:45:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'IOT (Lightning Talk)',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Mahesh B R',
+	                        image_url: 'images/speakers/mahesh.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-03-05T13:00:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Break,
+	                time: {
+	                    start_time: new Date('2016-03-05T13:15:00+05:30')
+	                },
+	                title: 'Lunch Break'
+	            }
+	        ]
+	    },
+	    {
+	        title: 'DevOps in Cloud',
+	        url: 'devops-in-cloud',
+	        categories: ['events'],
+	        tags: ['cloud computing', 'cloud', 'devops'],
+	        author: 'devday_team',
+	        abstract: 'Upload. Download. Dock. Serve. Functions on demand. Everything to do with the cloud.',
+	        event_time: {
+	            start_time: new Date('2016-07-16T10:30:00+05:30'),
+	            end_time: new Date('2016-07-16T13:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-07-08T10:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-07-08T10:30:00+05:30'),
+	            end_time: new Date('2016-07-16T10:15:00+05:30')
+	        },
+	        venue: exports.BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Product For Blue - Green Deployments Verification',
 	                abstract: '',
 	                authors: [
 	                    {
@@ -9179,7 +9272,7 @@
 	        url: 'js-everywhere',
 	        categories: ['events'],
 	        tags: ['js', 'javascript', 'react-native', 'cycle-js'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'Desktop or offline applications? We\'ve got you covered. Reactive applications? Try cycle. Native moblie applications? We have React Native. Internet of Things? Johnny Five\'s here to help. JavaScript has evolved into one of the easiest and ubiquitous language around, and it looks like there isn\'t much that can\'t be done with it. JS Everywhere - Let\'s rejoice!',
 	        event_time: {
 	            start_time: new Date('2016-08-04T18:30:00+05:30'),
@@ -9256,11 +9349,11 @@
 	        meetup_event_id: '232886624'
 	    },
 	    {
-	        title: 'Tasting Elixir',
-	        url: 'tasting-elixir',
+	        title: 'Functional programming: Hands on Elixir',
+	        url: 'hands-on-elixir',
 	        categories: ['events'],
 	        tags: ['elixir', 'functional programming', 'concurrent programming'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'We bring to you Elixir - a concurrent, functional programming language.',
 	        event_time: {
 	            start_time: new Date('2016-08-27T10:30:00+05:30'),
@@ -9298,7 +9391,7 @@
 	        url: 'its-real-time',
 	        categories: ['events'],
 	        tags: ['real-time', 'rtc', 'webrtc', 'peer-js'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'In this edition of Dev Day (Chennai) we have talks scheduled on RTC. Come learn about aspects of real time communication and the way real time systems are built.',
 	        event_time: {
 	            start_time: new Date('2016-09-10T10:00:00+05:30'),
@@ -9370,18 +9463,18 @@
 	    },
 	    {
 	        title: 'Math For Machine Learning',
-	        url: 'machine-learning',
+	        url: 'math-for-machine-learning',
 	        categories: ['Machine Learning'],
 	        tags: ['Machine Learning', 'Math', 'Data Science'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'Learn about the basic math and algorithms required for machine learning',
 	        event_time: {
 	            start_time: new Date('2016-11-19T10:30:00+05:30'),
 	            end_time: new Date('2016-11-19T10:00:00+05:30')
 	        },
-	        publish_time: new Date('2016-11-15T23:45:00+05:30'),
+	        publish_time: new Date('2016-11-11T23:45:00+05:30'),
 	        registration_time: {
-	            start_time: new Date('2016-11-15T23:45:00+05:30'),
+	            start_time: new Date('2016-11-11T23:45:00+05:30'),
 	            end_time: new Date('2016-11-19T09:45:00+05:30'),
 	        },
 	        venue: exports.BANGALORE_ADDRESS,
@@ -9393,7 +9486,7 @@
 	                authors: [
 	                    {
 	                        name: 'Deepthi Chand',
-	                        image_url: 'http://sahajsoft.com/images/optimized/deepthi.png'
+	                        image_url: '/images/speakers/deepthi.png'
 	                    }
 	                ],
 	                time: {
@@ -9407,7 +9500,7 @@
 	                authors: [
 	                    {
 	                        name: 'Priyank Gupta',
-	                        image_url: 'http://sahajsoft.com/images/optimized/priyank.png'
+	                        image_url: '/images/speakers/priyank.png'
 	                    }
 	                ],
 	                time: {
@@ -9421,7 +9514,7 @@
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
-	                        image_url: 'http://sahajsoft.com/images/optimized/shashank.png'
+	                        image_url: '/images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
 	                time: {
@@ -9439,11 +9532,11 @@
 	        image_url: '/images/events/hackathon.jpg',
 	    },
 	    {
-	        title: 'Devops for Devs',
+	        title: 'DevOps for Devs',
 	        url: 'devops-for-devs',
 	        categories: ['events'],
 	        tags: ['devops'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'In this edition of the Dev Day, we are presenting talks on Devops - "DevOps for Devs". Come join us to understand why "DevOps" is relevant today from a technology standpoint',
 	        event_time: {
 	            start_time: new Date('2016-10-13T18:30:00+05:30'),
@@ -9463,7 +9556,7 @@
 	                authors: [
 	                    {
 	                        name: 'Srimathi Harinarayanan',
-	                        image_url: 'http://sahajsoft.com/images/optimized/srimathi.png'
+	                        image_url: 'images/speakers/srimathi.jpg'
 	                    }
 	                ],
 	                time: {
@@ -9477,7 +9570,7 @@
 	                authors: [
 	                    {
 	                        name: 'Mahesh and Arther',
-	                        image_url: 'http://sahajsoft.com/images/optimized/mahesh.png'
+	                        image_url: 'images/speakers/arther.png'
 	                    }
 	                ],
 	                time: {
@@ -9509,11 +9602,47 @@
 	        }
 	    },
 	    {
+	        title: 'Hack Hack and just Hack!',
+	        url: 'hack-and-just-hack',
+	        categories: ['Hackathon'],
+	        tags: ['IOT', 'Machine Learning', 'Data Science'],
+	        author: 'devday_team',
+	        abstract: "This time let's just code to make amazing products. Software/hardware and all things awesome.",
+	        event_time: {
+	            start_time: new Date('2016-10-15T10:00:00+05:30'),
+	            end_time: new Date('2016-10-15T17:30:00+05:30')
+	        },
+	        publish_time: new Date('2016-10-07T23:45:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-10-07T23:45:00+05:30'),
+	            end_time: new Date('2016-10-15T09:45:00+05:30'),
+	        },
+	        venue: exports.BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Hack Hack and just Hack!',
+	                abstract: 'Problem Statements:-\n\r 1. Design and develop a device/wearable that has the capability to detect the direction and intensity of sound (the required hardware would be provided at the venue). \n\r 2. Classification of certain datasets using machine learning algorithms (Dataset would be provided). \n\r 3. Device a solution to predict an indoor location of a entity (hardware would be provided).',
+	                time: {
+	                    start_time: new Date('2016-10-15T10:00:00+05:30')
+	                }
+	            }
+	        ],
+	        color: '#211b33',
+	        meetup_urlname: 'devday_bangalore',
+	        meetup_event_id: '235590887',
+	        form: {
+	            spreadsheetId: '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
+	            sheetName: 'Form Responses 1'
+	        },
+	        image_url: '/images/events/hackathon.jpg',
+	    },
+	    {
 	        title: 'Cross Platform Mobile Apps',
 	        url: 'cross-platform-mobile-apps-handson',
 	        categories: ['events'],
 	        tags: ['cross platform', 'mobile apps', 'handson'],
-	        author: 'devday_ team',
+	        author: 'devday_team',
 	        abstract: 'Participants will form teams and pick a technology of their interest (i.e. Xamarin, Cordova, React Native) to build a cross platform mobile app. The app to be built is a todo list where users can add todo items with a photo and a location. The problem has been designed so that it can be built within a few hours.',
 	        event_time: {
 	            start_time: new Date('2016-11-19T10:00:00+05:30'),
