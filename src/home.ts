@@ -94,8 +94,8 @@ function home(sources: Sources): Sinks {
   const present$ =
     presentClick$
       .map(ev => {
-        const labelElement = event.currentTarget as HTMLLabelElement;
-        const isLabel = labelElement === event.target;
+        const labelElement = ev.currentTarget as HTMLLabelElement;
+        const isLabel = labelElement === ev.target;
         const checkBoxElement = labelElement.children[0] as HTMLInputElement;
         if(isLabel) {
           checkBoxElement.checked = !checkBoxElement.checked;

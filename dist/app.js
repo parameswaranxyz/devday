@@ -2157,8 +2157,8 @@
 	        .events('click');
 	    var present$ = presentClick$
 	        .map(function (ev) {
-	        var labelElement = event.currentTarget;
-	        var isLabel = labelElement === event.target;
+	        var labelElement = ev.currentTarget;
+	        var isLabel = labelElement === ev.target;
 	        var checkBoxElement = labelElement.children[0];
 	        if (isLabel) {
 	            checkBoxElement.checked = !checkBoxElement.checked;

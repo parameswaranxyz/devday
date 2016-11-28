@@ -505,6 +505,7 @@
                             cursor: pointer;
                             transition: .3s cubic-bezier(.65,-0.40,.49,1.40);
                             transition-delay: .45s;
+                            -moz-transition: none;
 
                             &.no.delay {
                               transition-delay: 0s;
@@ -523,6 +524,7 @@
                               cursor: default;
                               transition:.3s cubic-bezier(.65,-0.68,.49,1.94);
                               transition-delay: .1s;
+                              -moz-transition: none;
                             }
                         }
 
@@ -537,6 +539,7 @@
                           border-radius: 50%;
                           cursor: pointer;
                           transition: .3s cubic-bezier(.65,-0.40,.49,1.40);
+                          -moz-transition: none;
                           transition-delay: .45s;
                           color: white;
                         }
@@ -544,6 +547,7 @@
                         .event.form {
                           z-index: 20;
                           transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+                          -moz-transition: none;
                           transition-delay: .3s;
                           #present {
                             display : block;
