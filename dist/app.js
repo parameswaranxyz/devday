@@ -9696,6 +9696,62 @@
 	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
 	            sheetName: 'Form Responses 1'
 	        }
+	    },
+	    {
+	        title: 'AI in Gaming',
+	        url: 'ai-in-gaming',
+	        categories: ['events'],
+	        tags: ['AI', 'gaming'],
+	        author: 'devday_team',
+	        abstract: 'In this edition of DevDay we are presenting a talk on the basics of AI along with a session on how to build a Tic Tac Toe game using AI.',
+	        event_time: {
+	            start_time: new Date('2016-12-15T18:30:00+05:30'),
+	            end_time: new Date('2016-12-15T20:30:00+05:30'),
+	        },
+	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2016-09-10T10:00:00+05:30'),
+	            end_time: new Date('2016-12-15T18:30:00+05:30'),
+	        },
+	        venue: exports.CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Basics of AI',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Sudarsan Balaji',
+	                        image_url: 'images/speakers/sudarsan.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-12-15T18:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Building a Tic Tac Toe game using AI',
+	                abstract: '',
+	                authors: [
+	                    {
+	                        name: 'Sudarsan Balaji',
+	                        image_url: 'images/speakers/sudarsan.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2016-12-15T19:30:00+05:30')
+	                }
+	            },
+	        ],
+	        color: '#040509',
+	        image_url: '',
+	        meetup_urlname: 'devday_chennai',
+	        meetup_event_id: '235929075',
+	        form: {
+	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+	            sheetName: 'Form Responses 1'
+	        }
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
