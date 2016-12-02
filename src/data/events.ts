@@ -964,8 +964,8 @@ export const events: DevdayEvent[] = [
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '235960569',
     form: {
-      spreadsheetId : '15_qX2sK5QfJ90eCOnqS4A2pgncon7ngWugnKqK4fyNU',
-      sheetName : 'Form Responses 1'
+      spreadsheetId : '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
+      sheetName : 'Form Responses 2'
     },
     image_url: '',
   }
