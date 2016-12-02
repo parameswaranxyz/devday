@@ -850,12 +850,12 @@ export const events: DevdayEvent[] = [
     }
   },
   {
-    title: 'AI in Gaming',
-    url: 'ai-in-gaming',
+    title: 'Self Learning Programs',
+    url: 'self-learning-programs',
     categories: ['events'],
-    tags: ['AI','gaming'],
+    tags: ['tic tac toe'],
     author: 'devday_team',
-    abstract: 'In this edition of DevDay we are presenting a talk on the basics of AI along with a session on how to build a Tic Tac Toe game using AI.',
+    abstract: 'In this edition of DevDay we are presenting a talk on the basics of self learning programs along with a session on how to build a self learning Tic Tac Toe game.',
     event_time: {
       start_time: new Date('2016-12-15T18:30:00+05:30'),
       end_time: new Date('2016-12-15T20:30:00+05:30'),
@@ -869,7 +869,7 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Talk,
-        title: 'Basics of AI',
+        title: 'Introduction to Self Learning Programs',
         abstract: '',
         authors: [
           {
@@ -883,7 +883,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'Building a Tic Tac Toe game using AI',
+        title: 'Building a Self Learning Tic Tac Toe game',
         abstract: '',
         authors: [
           {
