@@ -904,6 +904,70 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
+  }, {
+    title: 'First Dive into Deep Learning',
+    url: 'first-dive-deep-learning',
+    categories: ['events'],
+    tags: ['deep learning', 'data science'],
+    author: 'devday_team',
+    abstract: 'This time lets discuss basic concepts of Deep Learning and gets our hands dirty by solving a problem using the very basics we discussed.',
+    event_time: {
+      start_time: new Date('2016-12-10T11:00:00+05:30'),
+      end_time: new Date('2016-12-10T16:00:00+05:30'),
+    },
+    publish_time: new Date('2016-12-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2016-12-02T10:30:00+05:30'),
+      end_time: new Date('2016-12-10T18:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+       {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to Deep learning ',
+        abstract: '',
+        authors: [
+        ],
+        time: {
+          start_time: new Date('2016-12-10T11:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Basic concepts of Deep Learning',
+        abstract: '',
+        authors: [
+        ],
+        time: {
+          start_time: new Date('2016-12-10T12:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Break,
+        time: {
+          start_time: new Date('2016-02-10T13:00:00+05:30')
+        },
+        title: 'Lunch and Networking'
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Hands - on Deep Learning',
+        abstract: '',
+        authors: [
+        ],
+        time: {
+          start_time: new Date('2016-12-10T14:00:00+05:30')
+        }
+      } as AgendaEntry
+    ],
+    color: '#211b33',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '235960569',
+    form: {
+      spreadsheetId : '17An_cDH0tHgFMISnBIssA7GHfFM7BVDzY2VmjigpbT0',
+      sheetName : 'Website Registrations'
+    },
+    image_url: '',
   }
 ];
 export default events;

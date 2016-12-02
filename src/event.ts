@@ -45,39 +45,25 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
     case AgendaEntryType.Talk:
     case AgendaEntryType.Workshop:
       return [
-        div('.thumbnail', [
-          h5([getHHMM(entry.time.start_time)]),
-          h6([getMeridien(entry.time.start_time)])
-        ]),
-        getAuthorInfo(entry)
-      ];
-    case AgendaEntryType.Hackathon:
-      return [
-        div('.thumbnail', [
-          h5([getHHMM(entry.time.start_time)]),
-          h6([getMeridien(entry.time.start_time)])
-        ]),
-        div('.info', [
-          p('Get. Set. Code and Win amazing prizes'),
-          p('The winning team gets to take home a surprise gift!'),
-          p('We have also included a bunch of goodies to be won during the hackathon'),
-          br(),
-          h5('Pre-requisite:'),
-          p(" 1) Just know how to code"),
-          p(" 2) Bring your laptops"),
-          br(),
-          p("If you have a team, bring them in. If you don't, leave that to us. (max team size is 3)")
+        div('.agenda', [
+          div('.thumbnail', [
+            h5([getHHMM(entry.time.start_time)]),
+            h6([getMeridien(entry.time.start_time)])
+          ]),
+          getAuthorInfo(entry)
         ])
       ];
     case AgendaEntryType.Break:
       return [
-        div('.thumbnail.break', [
-          h5([getHHMM(entry.time.start_time)]),
-          h6([getMeridien(entry.time.start_time)])
-        ]),
-        div('.info.break', [
-          div('.centerer', [
-            h5(entry.title)
+        div('.agenda', [
+          div('.thumbnail.break', [
+            h5([getHHMM(entry.time.start_time)]),
+            h6([getMeridien(entry.time.start_time)])
+          ]),
+          div('.info.break', [
+            div('.centerer', [
+              h5(entry.title)
+            ])
           ])
         ])
       ];
@@ -349,7 +335,7 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
             style: fadeInOutStyle
           }, authors.length > 0
               ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
-              : [p(['There are no speakers at this event. Walk in with your laptops for a hands-on experience!!!'])]
+              : [p(['Walk in with your laptops for a hands-on experience!!!'])]
           )
         ]),
       div('.secondary.info', {
