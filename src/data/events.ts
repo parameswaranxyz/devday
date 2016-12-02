@@ -850,12 +850,12 @@ export const events: DevdayEvent[] = [
     }
   },
   {
-    title: 'Self Learning Programs',
-    url: 'self-learning-programs',
+    title: 'Building a tic-tac-toe game',
+    url: 'tic-tac-toe',
     categories: ['events'],
     tags: ['tic tac toe'],
     author: 'devday_team',
-    abstract: 'In this edition of DevDay we are presenting a talk on the basics of self learning programs along with a session on how to build a self learning Tic Tac Toe game.',
+    abstract: 'Ever thought playing tic-tac-toe was easy? Let’s learn to build a tic-tac-toe program that can beat us every time – on a grid of any size, not just 3x3. We will be learning about modelling a game, writing an evaluation function, and searching for the optimal move. What’s more, all that we learn can be used to program for chess! ',
     event_time: {
       start_time: new Date('2016-12-15T18:30:00+05:30'),
       end_time: new Date('2016-12-15T20:30:00+05:30'),
@@ -869,21 +869,7 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Talk,
-        title: 'Introduction to Self Learning Programs',
-        abstract: '',
-        authors: [
-          {
-            name: 'Sudarsan Balaji',
-            image_url: 'images/speakers/sudarsan.png'
-          }
-        ],
-        time: {
-          start_time: new Date('2016-12-15T18:30:00+05:30')
-        }
-      } as AgendaEntry,
-      {
-        type: AgendaEntryType.Talk,
-        title: 'Building a Self Learning Tic Tac Toe game',
+        title: 'Writing a tic-tac-toe program that can beat you every time',
         abstract: '',
         authors: [
           {
