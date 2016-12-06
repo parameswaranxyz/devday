@@ -878,7 +878,7 @@ export const events: DevdayEvent[] = [
           }
         ],
         time: {
-          start_time: new Date('2016-12-15T19:30:00+05:30')
+          start_time: new Date('2016-12-15T18:00:00+05:30')
         }
       } as AgendaEntry,
     ],
