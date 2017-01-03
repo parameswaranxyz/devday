@@ -9698,20 +9698,20 @@
 	        }
 	    },
 	    {
-	        title: 'Building a tic-tac-toe game',
-	        url: 'tic-tac-toe',
+	        title: 'Coding a Tic Tac Toe Game',
+	        url: 'game-programming-101',
 	        categories: ['events'],
-	        tags: ['tic tac toe'],
+	        tags: ['tic tac toe', 'game Programming 101'],
 	        author: 'devday_team',
 	        abstract: 'Ever thought playing tic-tac-toe was easy? Let’s learn to build a tic-tac-toe program that can beat us every time – on a grid of any size, not just 3x3. We will be learning about modelling a game, writing an evaluation function, and searching for the optimal move. What’s more, all that we learn can be used to program for chess! ',
 	        event_time: {
-	            start_time: new Date('2016-12-15T18:30:00+05:30'),
-	            end_time: new Date('2016-12-15T20:30:00+05:30'),
+	            start_time: new Date('2017-01-19T18:30:00+05:30'),
+	            end_time: new Date('2017-01-19T20:30:00+05:30'),
 	        },
-	        publish_time: new Date('2016-08-04T18:30:00+05:30'),
+	        publish_time: new Date('2017-01-02T18:30:00+05:30'),
 	        registration_time: {
-	            start_time: new Date('2016-09-10T10:00:00+05:30'),
-	            end_time: new Date('2016-12-15T18:30:00+05:30'),
+	            start_time: new Date('2017-01-02T18:30:00+05:30'),
+	            end_time: new Date('2017-01-19T18:30:00+05:30'),
 	        },
 	        venue: exports.CHENNAI_ADDRESS,
 	        agenda: [
@@ -9726,14 +9726,14 @@
 	                    }
 	                ],
 	                time: {
-	                    start_time: new Date('2016-12-15T18:00:00+05:30')
+	                    start_time: new Date('2017-01-19T18:00:00+05:30')
 	                }
 	            },
 	        ],
 	        color: '#040509',
 	        image_url: '',
 	        meetup_urlname: 'devday_chennai',
-	        meetup_event_id: '235929075',
+	        meetup_event_id: '236605725',
 	        form: {
 	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
 	            sheetName: 'Form Responses 1'
