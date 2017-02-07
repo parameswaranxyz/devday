@@ -9799,6 +9799,62 @@
 	            sheetName: 'Form Responses 1'
 	        },
 	        image_url: '',
+	    },
+	    {
+	        title: 'Know NoSQL',
+	        url: 'know-nosql',
+	        categories: ['events'],
+	        tags: ['NoSQL', 'CouchDB'],
+	        author: 'devday_team',
+	        abstract: 'In this edition of DevDay we will start with an introduction to NoSQL and the various types of NoSQL stores followed by a talk on how CouchDB was used in production',
+	        event_time: {
+	            start_time: new Date('2017-02-16T18:30:00+05:30'),
+	            end_time: new Date('2017-02-16T20:30:00+05:30'),
+	        },
+	        publish_time: new Date('2017-01-02T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2017-01-02T18:30:00+05:30'),
+	            end_time: new Date('2017-02-16T18:30:00+05:30'),
+	        },
+	        venue: exports.CHENNAI_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'NoSQL 101',
+	                abstract: 'We start the devday by exploring different types of NoSQL databases and discuss scenarios where each type of NoSQL store are typically used.',
+	                authors: [
+	                    {
+	                        name: 'Ramanathan',
+	                        image_url: '/images/speakers/ramanathan.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2017-01-19T18:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'A deep dive into CouchDB',
+	                abstract: 'In this talk we will discuss how various features of CouchDB (i.e. MapReduce, indices, sorting) were used in production in context of the CAP theorem.',
+	                authors: [
+	                    {
+	                        name: 'Raj Bharath',
+	                        image_url: '/images/speakers/raj.png'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2017-01-19T19:30:00+05:30')
+	                }
+	            },
+	        ],
+	        color: '#040509',
+	        image_url: '',
+	        meetup_urlname: 'devday_chennai',
+	        meetup_event_id: '237520259',
+	        form: {
+	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+	            sheetName: 'Form Responses 1'
+	        }
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
