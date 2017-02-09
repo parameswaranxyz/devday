@@ -1010,6 +1010,62 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
+  },
+  {
+    title: 'Microservice Architectures - How To?',
+    url: 'microservice-architectue',
+    categories: ['events'],
+    tags: ['microservice', 'distributed', 'microservice architecture'],
+    author: 'devday_team',
+    abstract: 'This time we are talking about the implementation of Microservice Architectures. Scaling, distribution, inter service communication and so on..',
+    event_time: {
+      start_time: new Date('2017-02-16T17:30:00+05:30'),
+      end_time: new Date('2017-02-16T19:30:00+05:30'),
+    },
+    publish_time: new Date('2017-02-09T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-02-09T18:30:00+05:30'),
+      end_time: new Date('2017-02-16T17:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Microservices - Check List',
+        abstract: 'Kickoff with nuts and bolts needed for implementing microservice.',
+        authors: [
+          {
+            name: 'Navaneeth K N',
+            image_url: '/images/speakers/navneeth.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T17:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Monolith to Microservice - A case study.',
+        abstract: 'This session takes you to a case study about trasnforming a giant monolith application to a distributed microservice application.',
+        authors: [
+          {
+            name: 'Thirunavukkarasu',
+            image_url: '/images/speakers/thiru.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '237578088',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
   }
 ];
 export default events;

@@ -163,12 +163,12 @@
 	    var sinkProxies = {};
 	    for (var name_1 in drivers) {
 	        if (drivers.hasOwnProperty(name_1)) {
-	            var holdSubject = streamAdapter.makeSubject();
+	            var subject = streamAdapter.makeSubject();
 	            var driverStreamAdapter = drivers[name_1].streamAdapter || streamAdapter;
-	            var stream = driverStreamAdapter.adapt(holdSubject.stream, streamAdapter.streamSubscribe);
+	            var stream = driverStreamAdapter.adapt(subject.stream, streamAdapter.streamSubscribe);
 	            sinkProxies[name_1] = {
 	                stream: stream,
-	                observer: holdSubject.observer,
+	                observer: subject.observer,
 	            };
 	        }
 	    }
@@ -194,22 +194,45 @@
 	    return sources;
 	}
 	function replicateMany(sinks, sinkProxies, streamAdapter) {
-	    var results = Object.keys(sinks)
-	        .filter(function (name) { return !!sinkProxies[name]; })
-	        .map(function (name) {
+	    var sinkNames = Object.keys(sinks).filter(function (name) { return !!sinkProxies[name]; });
+	    var buffers = {};
+	    var replicators = {};
+	    sinkNames.forEach(function (name) {
+	        buffers[name] = { next: [], error: [], complete: [] };
+	        replicators[name] = {
+	            next: function (x) { return buffers[name].next.push(x); },
+	            error: function (x) { return buffers[name].error.push(x); },
+	            complete: function (x) { return buffers[name].complete.push(x); },
+	        };
+	    });
+	    var subscriptions = sinkNames.map(function (name) {
 	        return streamAdapter.streamSubscribe(sinks[name], {
-	            next: function (x) { sinkProxies[name].observer.next(x); },
+	            next: function (x) {
+	                replicators[name].next(x);
+	            },
 	            error: function (err) {
 	                logToConsoleError(err);
-	                sinkProxies[name].observer.error(err);
+	                replicators[name].error(err);
 	            },
 	            complete: function (x) {
-	                sinkProxies[name].observer.complete(x);
-	            }
+	                replicators[name].complete(x);
+	            },
 	        });
 	    });
-	    var disposeFunctions = results
-	        .filter(function (dispose) { return typeof dispose === 'function'; });
+	    var disposeFunctions = subscriptions
+	        .filter(function (fn) { return typeof fn === 'function'; });
+	    sinkNames.forEach(function (name) {
+	        var observer = sinkProxies[name].observer;
+	        var next = observer.next;
+	        var error = observer.error;
+	        var complete = observer.complete;
+	        buffers[name].next.forEach(next);
+	        buffers[name].error.forEach(error);
+	        buffers[name].complete.forEach(complete);
+	        replicators[name].next = next;
+	        replicators[name].error = error;
+	        replicators[name].complete = complete;
+	    });
 	    return function () {
 	        disposeFunctions.forEach(function (dispose) { return dispose(); });
 	    };
@@ -282,7 +305,7 @@
 	                if (typeof dispose === 'function') {
 	                    dispose();
 	                }
-	            }
+	            },
 	        });
 	    },
 	    makeSubject: function () {
@@ -290,7 +313,7 @@
 	        var observer = {
 	            next: function (x) { stream.shamefullySendNext(x); },
 	            error: function (err) { stream.shamefullySendError(err); },
-	            complete: function () { stream.shamefullySendComplete(); }
+	            complete: function () { stream.shamefullySendComplete(); },
 	        };
 	        return { observer: observer, stream: stream };
 	    },
@@ -304,7 +327,7 @@
 	    streamSubscribe: function (stream, observer) {
 	        stream.addListener(observer);
 	        return function () { return stream.removeListener(observer); };
-	    }
+	    },
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = XStreamAdapter;
@@ -2616,35 +2639,48 @@
 
 	var h = __webpack_require__(10);
 	
-	function init(thunk) {
-	  var i, cur = thunk.data;
-	  cur.vnode = cur.fn.apply(undefined, cur.args);
+	function copyToThunk(vnode, thunk) {
+	  thunk.elm = vnode.elm;
+	  vnode.data.fn = thunk.data.fn;
+	  vnode.data.args = thunk.data.args;
+	  thunk.data = vnode.data;
+	  thunk.children = vnode.children;
+	  thunk.text = vnode.text;
+	  thunk.elm = vnode.elm;
 	}
 	
-	function prepatch(oldThunk, thunk) {
-	  var i, old = oldThunk.data, cur = thunk.data;
+	function init(thunk) {
+	  var i, cur = thunk.data;
+	  var vnode = cur.fn.apply(undefined, cur.args);
+	  copyToThunk(vnode, thunk);
+	}
+	
+	function prepatch(oldVnode, thunk) {
+	  var i, old = oldVnode.data, cur = thunk.data, vnode;
 	  var oldArgs = old.args, args = cur.args;
-	  cur.vnode = old.vnode;
 	  if (old.fn !== cur.fn || oldArgs.length !== args.length) {
-	    cur.vnode = cur.fn.apply(undefined, args);
-	    return;
+	    copyToThunk(cur.fn.apply(undefined, args), thunk);
 	  }
 	  for (i = 0; i < args.length; ++i) {
 	    if (oldArgs[i] !== args[i]) {
-	      cur.vnode = cur.fn.apply(undefined, args);
+	      copyToThunk(cur.fn.apply(undefined, args), thunk);
 	      return;
 	    }
 	  }
+	  copyToThunk(oldVnode, thunk);
 	}
 	
-	module.exports = function(name, fn /* args */) {
-	  var i, args = [];
-	  for (i = 2; i < arguments.length; ++i) {
-	    args[i - 2] = arguments[i];
+	module.exports = function(sel, key, fn, args) {
+	  if (args === undefined) {
+	    args = fn;
+	    fn = key;
+	    key = undefined;
 	  }
-	  return h('thunk' + name, {
+	  return h(sel, {
+	    key: key,
 	    hook: {init: init, prepatch: prepatch},
-	    fn: fn, args: args,
+	    fn: fn,
+	    args: args
 	  });
 	};
 
@@ -2667,11 +2703,11 @@
 	
 	module.exports = function h(sel, b, c) {
 	  var data = {}, children, text, i;
-	  if (arguments.length === 3) {
+	  if (c !== undefined) {
 	    data = b;
 	    if (is.array(c)) { children = c; }
 	    else if (is.primitive(c)) { text = c; }
-	  } else if (arguments.length === 2) {
+	  } else if (b !== undefined) {
 	    if (is.array(b)) { children = b; }
 	    else if (is.primitive(b)) { text = b; }
 	    else { data = b; }
@@ -2831,12 +2867,11 @@
 	  }
 	
 	  function createElm(vnode, insertedVnodeQueue) {
-	    var i, thunk, data = vnode.data;
+	    var i, data = vnode.data;
 	    if (isDef(data)) {
-	      if (isDef(i = data.hook) && isDef(i = i.init)) i(vnode);
-	      if (isDef(i = data.vnode)) {
-	          thunk = vnode;
-	          vnode = i;
+	      if (isDef(i = data.hook) && isDef(i = i.init)) {
+	        i(vnode);
+	        data = vnode.data;
 	      }
 	    }
 	    var elm, children = vnode.children, sel = vnode.sel;
@@ -2867,7 +2902,6 @@
 	    } else {
 	      elm = vnode.elm = api.createTextNode(vnode.text);
 	    }
-	    if (isDef(thunk)) thunk.elm = vnode.elm;
 	    return vnode.elm;
 	  }
 	
@@ -2887,7 +2921,6 @@
 	          invokeDestroyHook(vnode.children[j]);
 	        }
 	      }
-	      if (isDef(i = data.vnode)) invokeDestroyHook(i);
 	    }
 	  }
 	
@@ -2972,12 +3005,6 @@
 	    var i, hook;
 	    if (isDef(i = vnode.data) && isDef(hook = i.hook) && isDef(i = hook.prepatch)) {
 	      i(oldVnode, vnode);
-	    }
-	    if (isDef(i = oldVnode.data) && isDef(i = i.vnode)) oldVnode = i;
-	    if (isDef(i = vnode.data) && isDef(i = i.vnode)) {
-	      patchVnode(oldVnode, i, insertedVnodeQueue);
-	      vnode.elm = i.elm;
-	      return;
 	    }
 	    var elm = vnode.elm = oldVnode.elm, oldCh = oldVnode.children, ch = vnode.children;
 	    if (oldVnode === vnode) return;
@@ -3704,6 +3731,7 @@
 	
 	  var cn = _selectorParser.className;
 	
+	
 	  if (!vNode.data) {
 	    return cn;
 	  }
@@ -3711,6 +3739,7 @@
 	  var _vNode$data = vNode.data;
 	  var dataClass = _vNode$data.class;
 	  var props = _vNode$data.props;
+	
 	
 	  if (dataClass) {
 	    var c = Object.keys(vNode.data.class).filter(function (cl) {
@@ -3749,7 +3778,7 @@
 	function selectorParser() {
 	  var selector = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
 	
-	  var tagName = undefined;
+	  var tagName = void 0;
 	  var id = '';
 	  var classes = [];
 	
@@ -3759,9 +3788,9 @@
 	    tagName = 'div';
 	  }
 	
-	  var part = undefined;
-	  var type = undefined;
-	  var i = undefined;
+	  var part = void 0;
+	  var type = void 0;
+	  var i = void 0;
 	
 	  for (i = 0; i < tagParts.length; i++) {
 	    part = tagParts[i];
@@ -4022,13 +4051,17 @@
 	
 	function arrInvoker(arr) {
 	  return function() {
+	    if (!arr.length) return;
 	    // Special case when length is two, for performance
 	    arr.length === 2 ? arr[0](arr[1]) : arr[0].apply(undefined, arr.slice(1));
 	  };
 	}
 	
 	function fnInvoker(o) {
-	  return function(ev) { o.fn(ev); };
+	  return function(ev) { 
+	    if (o.fn === null) return;
+	    o.fn(ev); 
+	  };
 	}
 	
 	function updateEventListeners(oldVnode, vnode) {
@@ -4054,6 +4087,19 @@
 	    } else {
 	      old.fn = cur;
 	      on[name] = old;
+	    }
+	  }
+	  if (oldOn) {
+	    for (name in oldOn) {
+	      if (on[name] === undefined) {
+	        var old = oldOn[name];
+	        if (is.array(old)) {
+	          old.length = 0;
+	        }
+	        else {
+	          old.fn = null;
+	        }
+	      }
 	    }
 	  }
 	}
@@ -9855,6 +9901,62 @@
 	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
 	            sheetName: 'Form Responses 1'
 	        }
+	    },
+	    {
+	        title: 'Microservice Architectures - How To?',
+	        url: 'microservice-architectue',
+	        categories: ['events'],
+	        tags: ['microservice', 'distributed', 'microservice architecture'],
+	        author: 'devday_team',
+	        abstract: 'This time we are talking about the implementation of Microservice Architectures. Scaling, distribution, inter service communication and so on..',
+	        event_time: {
+	            start_time: new Date('2017-02-16T17:30:00+05:30'),
+	            end_time: new Date('2017-02-16T19:30:00+05:30'),
+	        },
+	        publish_time: new Date('2017-02-09T18:30:00+05:30'),
+	        registration_time: {
+	            start_time: new Date('2017-02-09T18:30:00+05:30'),
+	            end_time: new Date('2017-02-16T17:30:00+05:30'),
+	        },
+	        venue: exports.BANGALORE_ADDRESS,
+	        agenda: [
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Microservices - Check List',
+	                abstract: 'Kickoff with nuts and bolts needed for implementing microservice.',
+	                authors: [
+	                    {
+	                        name: 'Navaneeth K N',
+	                        image_url: '/images/speakers/navneeth.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2017-01-19T17:30:00+05:30')
+	                }
+	            },
+	            {
+	                type: definitions_1.AgendaEntryType.Talk,
+	                title: 'Monolith to Microservice - A case study.',
+	                abstract: 'This session takes you to a case study about trasnforming a giant monolith application to a distributed microservice application.',
+	                authors: [
+	                    {
+	                        name: 'Thirunavukkarasu',
+	                        image_url: '/images/speakers/thiru.jpg'
+	                    }
+	                ],
+	                time: {
+	                    start_time: new Date('2017-01-19T18:30:00+05:30')
+	                }
+	            },
+	        ],
+	        color: '#040509',
+	        image_url: '/images/events/hackathon.jpg',
+	        meetup_urlname: 'devday_bangalore',
+	        meetup_event_id: '237578088',
+	        form: {
+	            spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+	            sheetName: 'Form Responses 1'
+	        }
 	    }
 	];
 	Object.defineProperty(exports, "__esModule", { value: true });
@@ -9966,6 +10068,8 @@
 	 * `path`, and `filename` of a resource to upload.
 	 * - `withCredentials` *(Boolean)*: enables the ability to send cookies from the
 	 * origin.
+	 * - `agent` *(Object)*: an object specifying `cert` and `key` for SSL
+	 * certificate authentication.
 	 * - `redirects` *(Number)*: number of redirects to follow.
 	 * - `lazy` *(Boolean)*: whether or not this request runs lazily, which means
 	 * the request happens if and only if its corresponding response stream from the
@@ -9976,15 +10080,14 @@
 	 * manages response metastreams. These streams of responses have a `request`
 	 * field attached to them (to the stream object itself) indicating which request
 	 * (from the driver input) generated this response streams. The HTTP Source has
-	 * functions `filter()`, `select()`, and `response$$`, but is not itself a
-	 * stream. So you can call
-	 * `sources.HTTP.filter(response$ => response$.request.url === X)` to get a new
-	 * HTTP Source object which is filtered for response streams that match the
-	 * condition given, and may call `sources.HTTP.select(category)` to get a
-	 * metastream of response that match the category key. With an HTTP Source, you
-	 * can also use `httpSource.response$$` to get the metastream. You should
-	 * flatten the metastream before consuming it, then the resulting response
-	 * stream will emit the response object received through superagent.
+	 * functions `filter()` and `select()`, but is not itself a stream. So you can
+	 * call `sources.HTTP.filter(request => request.url === X)` to get a new HTTP
+	 * Source object which is filtered for response streams that match the condition
+	 * given, and may call `sources.HTTP.select(category)` to get a metastream of
+	 * response that match the category key. With an HTTP Source, you can also call
+	 * `httpSource.select()` with no param to get the metastream. You should flatten
+	 * the metastream before consuming it, then the resulting response stream will
+	 * emit the response object received through superagent.
 	 *
 	 * @return {Function} the HTTP Driver function
 	 * @function makeHTTPDriver
@@ -10013,7 +10116,7 @@
 	    if (typeof reqOptions.url !== "string") {
 	        throw new Error("Please provide a `url` property in the request options.");
 	    }
-	    var lowerCaseMethod = reqOptions.method.toLowerCase();
+	    var lowerCaseMethod = (reqOptions.method || 'GET').toLowerCase();
 	    var sanitizedMethod = lowerCaseMethod === "delete" ? "del" : lowerCaseMethod;
 	    var request = superagent[sanitizedMethod](reqOptions.url);
 	    if (typeof request.redirects === "function") {
@@ -10033,6 +10136,10 @@
 	    }
 	    if (reqOptions.withCredentials) {
 	        request = request.withCredentials();
+	    }
+	    if (reqOptions.agent) {
+	        request = request.key(reqOptions.agent.key);
+	        request = request.cert(reqOptions.agent.cert);
 	    }
 	    if (typeof reqOptions.user === 'string' && typeof reqOptions.password === 'string') {
 	        request = request.auth(reqOptions.user, reqOptions.password);
@@ -10074,6 +10181,7 @@
 	                }
 	                this.request.end(function (err, res) {
 	                    if (err) {
+	                        err.response.request = reqOptions_1;
 	                        listener.error(err);
 	                    }
 	                    else {
@@ -10122,7 +10230,6 @@
 	        var response$ = createResponse$(reqInput).remember();
 	        var reqOptions = softNormalizeRequestInput(reqInput);
 	        if (!reqOptions.lazy) {
-	            /* tslint:disable:no-empty */
 	            response$.addListener({ next: function () { }, error: function () { }, complete: function () { } });
 	        }
 	        response$ = (runStreamAdapter) ?
@@ -10138,12 +10245,9 @@
 	function makeHTTPDriver() {
 	    function httpDriver(request$, runSA, name) {
 	        var response$$ = request$
-	            .map(makeRequestInputToResponse$(runSA))
-	            .remember();
+	            .map(makeRequestInputToResponse$(runSA));
 	        var httpSource = new MainHTTPSource_1.MainHTTPSource(response$$, runSA, name, []);
-	        /* tslint:disable:no-empty */
 	        response$$.addListener({ next: function () { }, error: function () { }, complete: function () { } });
-	        /* tslint:enable:no-empty */
 	        return httpSource;
 	    }
 	    httpDriver.streamAdapter = xstream_adapter_1.default;
@@ -10169,23 +10273,15 @@
 	        this.isolateSource = isolate_1.isolateSource;
 	        this.isolateSink = isolate_1.isolateSink;
 	    }
-	    Object.defineProperty(MainHTTPSource.prototype, "response$$", {
-	        get: function () {
-	            var out = this.runStreamAdapter.adapt(this._res$$, xstream_adapter_1.default.streamSubscribe);
-	            out._isCycleSource = this._name;
-	            return out;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
 	    MainHTTPSource.prototype.filter = function (predicate) {
-	        var filteredResponse$$ = this._res$$.filter(predicate);
+	        var filteredResponse$$ = this._res$$.filter(function (r$) { return predicate(r$.request); });
 	        return new MainHTTPSource(filteredResponse$$, this.runStreamAdapter, this._name, this._namespace);
 	    };
 	    MainHTTPSource.prototype.select = function (category) {
 	        var res$$ = this._res$$;
 	        if (category) {
-	            res$$ = this._res$$.filter(function (res$) { return res$.request && res$.request.category === category; });
+	            res$$ = this._res$$
+	                .filter(function (res$) { return res$.request && res$.request.category === category; });
 	        }
 	        var out = this.runStreamAdapter.adapt(res$$, xstream_adapter_1.default.streamSubscribe);
 	        out._isCycleSource = this._name;
@@ -10202,21 +10298,20 @@
 
 	"use strict";
 	function isolateSource(httpSource, scope) {
-	    return httpSource.filter(function (res$) {
-	        return Array.isArray(res$.request._namespace) &&
-	            res$.request._namespace.indexOf(scope) !== -1;
+	    return httpSource.filter(function (request) {
+	        return Array.isArray(request._namespace) &&
+	            request._namespace.indexOf(scope) !== -1;
 	    });
 	}
 	exports.isolateSource = isolateSource;
 	function isolateSink(request$, scope) {
 	    return request$.map(function (req) {
-	        if (typeof req === "string") {
+	        if (typeof req === 'string') {
 	            return { url: req, _namespace: [scope] };
 	        }
-	        var reqOptions = req;
-	        reqOptions._namespace = reqOptions._namespace || [];
-	        reqOptions._namespace.push(scope);
-	        return reqOptions;
+	        req._namespace = req._namespace || [];
+	        req._namespace.push(scope);
+	        return req;
 	    });
 	}
 	exports.isolateSink = isolateSink;
@@ -10298,9 +10393,7 @@
 	  if (!isObject(obj)) return obj;
 	  var pairs = [];
 	  for (var key in obj) {
-	    if (null != obj[key]) {
-	      pushEncodedKeyValuePair(pairs, key, obj[key]);
-	    }
+	    pushEncodedKeyValuePair(pairs, key, obj[key]);
 	  }
 	  return pairs.join('&');
 	}
@@ -10315,18 +10408,22 @@
 	 */
 	
 	function pushEncodedKeyValuePair(pairs, key, val) {
-	  if (Array.isArray(val)) {
-	    return val.forEach(function(v) {
-	      pushEncodedKeyValuePair(pairs, key, v);
-	    });
-	  } else if (isObject(val)) {
-	    for(var subkey in val) {
-	      pushEncodedKeyValuePair(pairs, key + '[' + subkey + ']', val[subkey]);
+	  if (val != null) {
+	    if (Array.isArray(val)) {
+	      val.forEach(function(v) {
+	        pushEncodedKeyValuePair(pairs, key, v);
+	      });
+	    } else if (isObject(val)) {
+	      for(var subkey in val) {
+	        pushEncodedKeyValuePair(pairs, key + '[' + subkey + ']', val[subkey]);
+	      }
+	    } else {
+	      pairs.push(encodeURIComponent(key)
+	        + '=' + encodeURIComponent(val));
 	    }
-	    return;
+	  } else if (val === null) {
+	    pairs.push(encodeURIComponent(key));
 	  }
-	  pairs.push(encodeURIComponent(key)
-	    + '=' + encodeURIComponent(val));
 	}
 	
 	/**
@@ -10999,24 +11096,24 @@
 	  };
 	
 	  // progress
-	  var handleProgress = function(e){
+	  var handleProgress = function(direction, e) {
 	    if (e.total > 0) {
 	      e.percent = e.loaded / e.total * 100;
 	    }
-	    e.direction = 'download';
+	    e.direction = direction;
 	    self.emit('progress', e);
-	  };
-	  if (this.hasListeners('progress')) {
-	    xhr.onprogress = handleProgress;
 	  }
-	  try {
-	    if (xhr.upload && this.hasListeners('progress')) {
-	      xhr.upload.onprogress = handleProgress;
+	  if (this.hasListeners('progress')) {
+	    try {
+	      xhr.onprogress = handleProgress.bind(null, 'download');
+	      if (xhr.upload) {
+	        xhr.upload.onprogress = handleProgress.bind(null, 'upload');
+	      }
+	    } catch(e) {
+	      // Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
+	      // Reported here:
+	      // https://connect.microsoft.com/IE/feedback/details/837245/xmlhttprequest-upload-throws-invalid-argument-when-used-from-web-worker-context
 	    }
-	  } catch(e) {
-	    // Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
-	    // Reported here:
-	    // https://connect.microsoft.com/IE/feedback/details/837245/xmlhttprequest-upload-throws-invalid-argument-when-used-from-web-worker-context
 	  }
 	
 	  // timeout
@@ -11454,6 +11551,10 @@
 	  return this._fullfilledPromise.then(resolve, reject);
 	}
 	
+	exports.catch = function(cb) {
+	  return this.then(undefined, cb);
+	};
+	
 	/**
 	 * Allow for extension
 	 */
@@ -11543,21 +11644,42 @@
 	};
 	
 	/**
-	 * Write the field `name` and `val` for "multipart/form-data"
-	 * request bodies.
+	 * Write the field `name` and `val`, or multiple fields with one object
+	 * for "multipart/form-data" request bodies.
 	 *
 	 * ``` js
 	 * request.post('/upload')
 	 *   .field('foo', 'bar')
 	 *   .end(callback);
+	 *
+	 * request.post('/upload')
+	 *   .field({ foo: 'bar', baz: 'qux' })
+	 *   .end(callback);
 	 * ```
 	 *
-	 * @param {String} name
+	 * @param {String|Object} name
 	 * @param {String|Blob|File|Buffer|fs.ReadStream} val
 	 * @return {Request} for chaining
 	 * @api public
 	 */
 	exports.field = function(name, val) {
+	
+	  // name should be either a string or an object.
+	  if (null === name ||  undefined === name) {
+	    throw new Error('.field(name, val) name can not be empty');
+	  }
+	
+	  if (isObject(name)) {
+	    for (var key in name) {
+	      this.field(key, name[key]);
+	    }
+	    return this;
+	  }
+	
+	  // val should be defined now
+	  if (null === val || undefined === val) {
+	    throw new Error('.field(name, val) val can not be empty');
+	  }
 	  this._getFormData().append(name, val);
 	  return this;
 	};
