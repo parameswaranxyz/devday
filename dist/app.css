@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: 'â€œ'; }
+    content: '├óΓé¼┼ô'; }
   blockquote:after {
-    content: 'â€';
+    content: '├óΓé¼┬¥';
     margin-left: -.05em; }
 
 mark {
@@ -6500,6 +6500,10 @@ iframe {
       float: none !important; }
       .devday.home > .container > .layout > .content > footer > .section.right p {
         margin: 0; }
+        .devday.home > .container > .layout > .content > footer > .section.right p > .sahaj.org.link {
+          color: #9e9e9e; }
+          .devday.home > .container > .layout > .content > footer > .section.right p > .sahaj.org.link:hover {
+            color: #9e9e9e; }
     .devday.home > .container > .layout > .content > footer > .section > .social.button {
       position: relative;
       top: 3px;

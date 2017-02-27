@@ -9,16 +9,16 @@ import delay from 'xstream/extra/delay';
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
 const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
-const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/","");
-const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/","") : "";
+const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
+const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
 
 function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   return {
     name: form.elements['name'].value,
     email: form.elements['email'].value,
     mobile: form.elements['mobile'].value,
-    present : form.elements['presentCheckbox'].checked,
-    title: form.elements['title'] && form.elements['title'].value ,
+    present: form.elements['presentCheckbox'].checked,
+    title: form.elements['title'] && form.elements['title'].value,
     abstract: form.elements['abstract'] && form.elements['abstract'].value,
   }
 }
@@ -63,7 +63,15 @@ function renderFooter(): VNode {
       //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
       //   span('.hidden', 'share')
       // ]),
-      p(['© 2016 - Organised by Sahaj Software Solutions'])
+      p([
+        '© 2016 - Organised by ',
+        a('.sahaj.org.link', {
+          props: {
+            href: 'https://sahajsoft.com',
+            target: '_blank'
+          }
+        }, 'Sahaj Software Solutions')
+      ])
     ])
   ]);
 }
@@ -97,7 +105,7 @@ function home(sources: Sources): Sinks {
         const labelElement = ev.currentTarget as HTMLLabelElement;
         const isLabel = labelElement === ev.target;
         const checkBoxElement = labelElement.children[0] as HTMLInputElement;
-        if(isLabel) {
+        if (isLabel) {
           checkBoxElement.checked = !checkBoxElement.checked;
         }
         return checkBoxElement.checked;
@@ -267,8 +275,8 @@ function home(sources: Sources): Sinks {
       checkbox.checked = !checkbox.checked;
       setTimeout(() => checkbox.parentElement.click(), 30);
     },
-    error: () => {},
-    complete: () => {}
+    error: () => { },
+    complete: () => { }
   });
   vdom$.compose(delay<VNode>(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
