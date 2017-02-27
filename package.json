@@ -19,6 +19,7 @@
   "homepage": "https://github.com/artfuldev/devday",
   "dependencies": {
     "@cycle/dom": "^15.2.0",
+    "@cycle/history": "^5.0.0",
     "@cycle/http": "^12.0.0",
     "@cycle/run": "^1.0.0",
     "body-parser": "^1.15.2",
