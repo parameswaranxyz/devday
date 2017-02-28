@@ -1,6 +1,5 @@
 import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
-import XStreamAdapter from '@cycle/xstream-adapter';
 import { DevdayEvent, MeetupEvent } from './../definitions';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
 
@@ -24,12 +23,12 @@ export class MeetupsSource {
           };
           return requestOptions;
         });
-    const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
+    const http: HTTPSource = makeHTTPDriver()(request$, 'meetupsHttp');
     const response$$: Stream<Stream<Response>> = http.select('meetups');
     this.event$ =
       response$$
         .map(response$ => response$.replaceError(() =>
-          xs.of<Response>({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } })))
+          xs.of<Response>({ body: { 'event_url': undefined, 'yes_rsvp_count': 0} })))
         .compose(flattenConcurrently)
         .map(response => {
           return {
