@@ -1,8 +1,10 @@
-import { DOMSource } from '@cycle/dom/xstream-typings';
+import { DOMSource } from '@cycle/dom';
 import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
 import { MeetupsSource } from './drivers/meetups';
+import { HistoryInput } from '@cycle/history';
+import { Location } from 'history';
 import { RegistrationsSource, RegistrationRequest } from './drivers/registrations';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
@@ -13,6 +15,7 @@ export interface Sources {
   events: EventsSource;
   prevent: PreventSource;
   registrations: RegistrationsSource;
+  history: Stream<Location>;
 }
 
 export interface Sinks {
@@ -21,6 +24,7 @@ export interface Sinks {
   events: Stream<string>;
   prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
+  history: Stream<HistoryInput | string>;
 }
 
 export interface EventTime {
