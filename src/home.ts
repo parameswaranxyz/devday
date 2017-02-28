@@ -288,7 +288,8 @@ function home(sources: Sources): Sinks {
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
-    registrations: formSubmitRequest$
+    registrations: formSubmitRequest$,
+    history: xs.empty()
   };
 }
 
