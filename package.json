@@ -28,6 +28,7 @@
     "nodemailer": "^2.6.4",
     "pouchdb": "^6.0.5",
     "request": "^2.75.0",
+    "switch-path": "^1.2.0",
     "xstream": "^10.2.0"
   },
   "devDependencies": {
