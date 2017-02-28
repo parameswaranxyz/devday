@@ -17,7 +17,7 @@ function main(sources: Sources): Sinks {
     events: pluck<Sinks, string>(sinks$, 'events'),
     prevent: pluck<Sinks, Event>(sinks$, 'prevent'),
     registrations: pluck<Sinks, RegistrationRequest>(sinks$, 'registrations'),
-    history: pluck<Sinks, string>(sinks$, 'history')
+    history: pluck<Sinks, string>(sinks$, 'history').startWith('/')
   };
 }
 
