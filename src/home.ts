@@ -6,8 +6,6 @@ import { RegistrationRequest } from './drivers/registrations';
 import { renderEvent, renderExpandedEvent } from './event';
 import delay from 'xstream/extra/delay';
 
-const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
-const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
 
@@ -20,21 +18,6 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
     title: form.elements['title'] && form.elements['title'].value,
     abstract: form.elements['abstract'] && form.elements['abstract'].value,
   }
-}
-
-function renderHeader(noun: string, topic: string): VNode {
-  return header([
-    h1([
-      span('.hidden', 'devday_'),
-      img({ props: { src: 'images/logo.gif' } })
-    ]),
-    h2([
-      'a monthly informal event for developers to share their ',
-      span('.noun', noun),
-      ' about ',
-      span('.topic', topic)
-    ])
-  ]);
 }
 
 function renderFooter(): VNode {
@@ -113,14 +96,6 @@ function home(sources: Sources): Sinks {
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
   const registration$ = sources.registrations.registration$;
-  const noun$ = xs.periodic(1000)
-    .startWith(0)
-    .map(x => x % nouns.length)
-    .map(i => nouns[i]);
-  const topic$ = xs.periodic(3000)
-    .startWith(0)
-    .map(x => x % topics.length)
-    .map(i => topics[i]);
   const moreClick$ =
     dom
       .select('.more')
@@ -214,9 +189,6 @@ function home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const headerDom$ =
-    xs.combine(noun$, topic$)
-      .map(([noun, topic]) => renderHeader(noun, topic));
   const footerDom$ = xs.of(renderFooter());
   const bodyDom$ =
     xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
@@ -242,13 +214,12 @@ function home(sources: Sources): Sinks {
             ]);
       });
   const vdom$ =
-    xs.combine(headerDom$, bodyDom$, footerDom$)
-      .map(([headerDom, bodyDom, footerDom]) =>
+    xs.combine(bodyDom$, footerDom$)
+      .map(([bodyDom, footerDom]) =>
         div('.devday.home', [
           div('.container', [
             div('.layout', [
               div('.content', [
-                headerDom,
                 bodyDom,
                 footerDom
               ])
