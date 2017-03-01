@@ -20,44 +20,6 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   }
 }
 
-function renderFooter(): VNode {
-  return footer([
-    div('.left.section', [
-      a('.twitter.social.button', {
-        props: {
-          href: 'https://twitter.com/devday_',
-          target: '_blank'
-        }
-      }, [
-          span('.hidden', 'twitter')
-        ]),
-      a('.facebook.social.button', {
-        props: {
-          href: 'https://facebook.com/d3vday',
-          target: '_blank'
-        }
-      }, [
-          span('.hidden', 'facebook')
-        ])
-    ]),
-    div('.right.section', [
-      // button('.share.social.button', [
-      //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-      //   span('.hidden', 'share')
-      // ]),
-      p([
-        '© 2016 - Organised by ',
-        a('.sahaj.org.link', {
-          props: {
-            href: 'https://sahajsoft.com',
-            target: '_blank'
-          }
-        }, 'Sahaj Software Solutions')
-      ])
-    ])
-  ]);
-}
-
 function closest(el: HTMLElement, selector: string): HTMLElement {
   var retval: HTMLElement = undefined;
   while (el) {
@@ -189,7 +151,6 @@ function home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const footerDom$ = xs.of(renderFooter());
   const bodyDom$ =
     xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
       .map(([events, more, expand, shorten, join, registrationSuccessfulUrl, present]) => {
@@ -213,19 +174,7 @@ function home(sources: Sources): Sinks {
               ])
             ]);
       });
-  const vdom$ =
-    xs.combine(bodyDom$, footerDom$)
-      .map(([bodyDom, footerDom]) =>
-        div('.devday.home', [
-          div('.container', [
-            div('.layout', [
-              div('.content', [
-                bodyDom,
-                footerDom
-              ])
-            ])
-          ])
-        ]));
+  const vdom$ = bodyDom$;
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -248,7 +197,7 @@ function home(sources: Sources): Sinks {
     error: () => { },
     complete: () => { }
   });
-  vdom$.compose(delay<VNode>(30)).addListener({
+  vdom$.compose(delay(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
     complete: () => { },
     error: () => { }
