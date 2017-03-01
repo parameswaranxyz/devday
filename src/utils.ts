@@ -1,5 +1,5 @@
 import { Stream } from 'xstream';
 
-export function pluck<T,S>(stream: Stream<T>, propertyName: string): Stream<S> {
-  return stream.map(str => str[propertyName] || Stream.empty()).flatten();
+export function pluck<T,U>(stream: Stream<T>, getter: (single: T) => Stream<U>): Stream<U> {
+  return stream.map(str => getter(str) || Stream.empty()).flatten();
 }

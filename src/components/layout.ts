@@ -1,28 +1,29 @@
 import { Sources, Sinks } from '../definitions';
 import { Header } from './header';
 import { Footer } from './footer';
-import xs from 'xstream';
-import { div } from '@cycle/dom';
+import { Stream } from 'xstream';
+import { VNode, div } from '@cycle/dom';
 import { pluck } from '../utils';
 import { RegistrationRequest } from '../drivers/registrations';
 
 interface LayoutSources extends Sources {
-  component$: xs<(sources: Sources) => Sinks>;
+  component$: Stream<(sources: Sources) => Sinks>;
 }
 
 export function Layout(sources: LayoutSources): Sinks {
+  const xs = Stream;
   const headerDom$ = Header().dom;
   const footerDom$ = Footer().dom;
-  const sinks$ = sources.component$.map(component => component(sources));
-  const sinksDom$ = sinks$.map(sink => sink.dom);
-  const vtree$ = xs.combine(headerDom$, sinksDom$, footerDom$)
-    .map(([headerDom, bodyDom, footerDom]) =>
+  const sinks$ = sources.component$.map(component => component(sources)).debug();
+  const componentDom$ = pluck(sinks$, sinks => sinks.dom).debug();
+  const vtree$ = xs.combine(headerDom$, componentDom$, footerDom$)
+    .map(([headerDom, componentDom, footerDom]) =>
       div('.devday.home', [
         div('.container', [
           div('.layout', [
             div('.content', [
               headerDom,
-              bodyDom,
+              componentDom,
               footerDom
             ])
           ])
@@ -30,10 +31,10 @@ export function Layout(sources: LayoutSources): Sinks {
       ]));
   return {
     dom: vtree$,
-    routes: pluck<Sinks, string>(sinks$, 'routes'),
-    events: pluck<Sinks, string>(sinks$, 'events'),
-    prevent: pluck<Sinks, Event>(sinks$, 'prevent'),
-    registrations: pluck<Sinks, RegistrationRequest>(sinks$, 'registrations'),
-    history: pluck<Sinks, string>(sinks$, 'history')
+    routes: pluck(sinks$, sinks => sinks.routes),
+    events: pluck(sinks$, sinks => sinks.events),
+    prevent: pluck(sinks$, sinks => sinks.prevent),
+    registrations: pluck(sinks$, sinks => sinks.registrations),
+    history: pluck(sinks$, sinks => sinks.history)
   };
 }
