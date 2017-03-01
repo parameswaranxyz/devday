@@ -1,4 +1,4 @@
-import home from './home';
+import home from './components/home';
 
 export const routes = {
   '/': home,
