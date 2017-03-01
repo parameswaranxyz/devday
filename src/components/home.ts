@@ -1,9 +1,9 @@
 import { Stream } from 'xstream';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from './definitions';
-import { topEvents, moreEvents } from './drivers/events';
-import { RegistrationRequest } from './drivers/registrations';
-import { renderEvent, renderExpandedEvent } from './event';
+import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
+import { topEvents, moreEvents } from '../drivers/events';
+import { RegistrationRequest } from '../drivers/registrations';
+import { renderEvent, renderExpandedEvent } from '../event';
 import delay from 'xstream/extra/delay';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
@@ -151,7 +151,7 @@ function home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const bodyDom$ =
+  const vdom$ =
     xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
       .map(([events, more, expand, shorten, join, registrationSuccessfulUrl, present]) => {
         const expandedEvent = !shorten && events.find(event => event.url === expand);
@@ -174,7 +174,6 @@ function home(sources: Sources): Sinks {
               ])
             ]);
       });
-  const vdom$ = bodyDom$;
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -203,7 +202,7 @@ function home(sources: Sources): Sinks {
     error: () => { }
   });
   return {
-    dom: vdom$,
+    dom: vdom$.debug(),
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
