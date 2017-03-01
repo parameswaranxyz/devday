@@ -173,7 +173,7 @@ function home(sources: Sources): Sinks {
                   ])
               ])
             ]);
-      });
+      }).debug();
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -202,7 +202,7 @@ function home(sources: Sources): Sinks {
     error: () => { }
   });
   return {
-    dom: vdom$.debug(),
+    dom: vdom$,
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
