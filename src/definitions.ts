@@ -2,6 +2,7 @@ import { DOMSource } from '@cycle/dom';
 import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
+import { MaterialSource } from './drivers/material';
 import { MeetupsSource } from './drivers/meetups';
 import { HistoryInput } from '@cycle/history';
 import { Location } from 'history';
@@ -16,6 +17,7 @@ export interface Sources {
   prevent: PreventSource;
   registrations: RegistrationsSource;
   history: Stream<Location>;
+  material: MaterialSource;
 }
 
 export interface Sinks {
@@ -25,6 +27,7 @@ export interface Sinks {
   prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
   history: Stream<HistoryInput | string>;
+  material: Stream<boolean>;
 }
 
 export interface EventTime {

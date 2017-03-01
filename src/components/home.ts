@@ -196,20 +196,15 @@ function home(sources: Sources): Sinks {
     error: () => { },
     complete: () => { }
   });
-  /*
-  vdom$.compose(delay(30)).addListener({
-    next: () => (<any>window).componentHandler.upgradeDom(),
-    complete: () => { },
-    error: () => { }
-  });
-  */
+  const refresh$ = vdom$.compose(delay(30)).mapTo(true);
   return {
     dom: vdom$,
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
     registrations: formSubmitRequest$,
-    history: xs.empty()
+    history: xs.empty(),
+    material: refresh$
   };
 }
 

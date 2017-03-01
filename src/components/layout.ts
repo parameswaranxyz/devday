@@ -35,6 +35,7 @@ export function Layout(sources: LayoutSources): Sinks {
     events: pluck(sinks$, sinks => sinks.events),
     prevent: pluck(sinks$, sinks => sinks.prevent),
     registrations: pluck(sinks$, sinks => sinks.registrations),
-    history: pluck(sinks$, sinks => sinks.history)
+    history: pluck(sinks$, sinks => sinks.history),
+    material: pluck(sinks$, sinks => sinks.material)
   };
 }

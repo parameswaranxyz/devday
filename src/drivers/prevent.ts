@@ -2,7 +2,6 @@ import { Stream } from 'xstream';
 
 export class PreventSource {
   constructor(event$: Stream<Event>) {
-    const xs = Stream;
     event$.addListener({
       next: ev => {
         ev.preventDefault();
