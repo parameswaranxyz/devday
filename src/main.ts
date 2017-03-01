@@ -11,11 +11,7 @@ import { Layout } from './components/layout';
 function main(sources: Sources): Sinks {
   const history$: xs<Location> = sources.history;
   const component$ = history$.map(route => routes[route.pathname] as (sources: Sources) => Sinks);
-  const layout = Layout({...sources, component$});
-  return {
-    ...layout,
-    history: layout.history.startWith('/')
-  };
+  return Layout({...sources, component$});
 }
 
 export default main;
