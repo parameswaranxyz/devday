@@ -1,8 +1,8 @@
-import xs from 'xstream';
+import { Stream } from 'xstream';
 import { VNode, header, h1, span, img, h2 } from '@cycle/dom';
 
 interface HeaderSinks {
-  dom: xs<VNode>;
+  dom: Stream<VNode>;
 }
 
 const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
@@ -24,6 +24,7 @@ function renderHeader(noun: string, topic: string): VNode {
 }
 
 export function Header(): HeaderSinks {
+  const xs = Stream;
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)

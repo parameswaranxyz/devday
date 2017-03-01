@@ -1,12 +1,12 @@
-import xs from 'xstream';
+import { Stream } from 'xstream';
 import { VNode, footer, div, a, span, p } from '@cycle/dom';
 
 interface FooterSinks {
-  dom: xs<VNode>;
+  dom: Stream<VNode>;
 }
 
 export function Footer(): FooterSinks {
-  const vtree$ = xs.of(footer([
+  const vtree$ = Stream.of(footer([
     div('.left.section', [
       a('.twitter.social.button', {
         props: {
