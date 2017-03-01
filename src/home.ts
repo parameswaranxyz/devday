@@ -1,5 +1,4 @@
 import { Stream } from 'xstream';
-import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from './definitions';
 import { topEvents, moreEvents } from './drivers/events';
