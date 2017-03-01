@@ -173,7 +173,7 @@ function home(sources: Sources): Sinks {
                   ])
               ])
             ]);
-      }).debug();
+      });
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -196,11 +196,13 @@ function home(sources: Sources): Sinks {
     error: () => { },
     complete: () => { }
   });
+  /*
   vdom$.compose(delay(30)).addListener({
     next: () => (<any>window).componentHandler.upgradeDom(),
     complete: () => { },
     error: () => { }
   });
+  */
   return {
     dom: vdom$,
     events: xs.empty(),

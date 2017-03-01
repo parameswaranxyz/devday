@@ -15,7 +15,7 @@ export function Layout(sources: LayoutSources): Sinks {
   const headerDom$ = Header().dom;
   const footerDom$ = Footer().dom;
   const sinks$ = sources.component$.map(component => component(sources));
-  const componentDom$ = pluck(sinks$, sinks => sinks.dom).debug();
+  const componentDom$ = pluck(sinks$, sinks => sinks.dom);
   const vtree$ = xs.combine(headerDom$, componentDom$, footerDom$)
     .map(([headerDom, componentDom, footerDom]) =>
       div('.devday.home', [
