@@ -1,10 +1,6 @@
 import xs from 'xstream';
 import { VNode, header, h1, span, img, h2 } from '@cycle/dom';
 
-interface HeaderSources {
-
-}
-
 interface HeaderSinks {
   dom: xs<VNode>;
 }
@@ -27,7 +23,7 @@ function renderHeader(noun: string, topic: string): VNode {
   ]);
 }
 
-export function Header(sources: HeaderSources): HeaderSinks {
+export function Header(): HeaderSinks {
   const noun$ = xs.periodic(1000)
     .startWith(0)
     .map(x => x % nouns.length)
