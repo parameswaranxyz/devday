@@ -54,6 +54,7 @@
 	var meetups_1 = __webpack_require__(116);
 	var registrations_1 = __webpack_require__(138);
 	var history_1 = __webpack_require__(139);
+	var material_1 = __webpack_require__(157);
 	run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -61,7 +62,8 @@
 	    prevent: prevent_1.makePreventDriver(),
 	    meetups: meetups_1.makeMeetupsDriver(),
 	    registrations: registrations_1.makeRegistrationsDriver(),
-	    history: history_1.makeHistoryDriver()
+	    history: history_1.makeHistoryDriver(),
+	    material: material_1.makeMaterialDriver()
 	});
 
 
@@ -17355,13 +17357,14 @@
 	"use strict";
 	var PreventSource = (function () {
 	    function PreventSource(event$) {
+	        var noop = function () { };
 	        event$.addListener({
 	            next: function (ev) {
 	                ev.preventDefault();
 	                ev.stopPropagation();
 	            },
-	            error: function () { },
-	            complete: function () { }
+	            error: noop,
+	            complete: noop
 	        });
 	    }
 	    return PreventSource;
@@ -19272,6 +19275,34 @@
 	    };
 	}
 	//# sourceMappingURL=createHistory$.js.map
+
+/***/ },
+/* 157 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var MaterialSource = (function () {
+	    function MaterialSource(refresh$) {
+	        var noop = function () { };
+	        refresh$.addListener({
+	            next: function () { return window.componentHandler.upgradeDom(); },
+	            error: noop,
+	            complete: noop
+	        });
+	    }
+	    return MaterialSource;
+	}());
+	exports.MaterialSource = MaterialSource;
+	function makeMaterialDriver() {
+	    function materialDriver(request$) {
+	        return new MaterialSource(request$);
+	    }
+	    return materialDriver;
+	}
+	exports.makeMaterialDriver = makeMaterialDriver;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = makeMaterialDriver;
+
 
 /***/ }
 /******/ ]);
