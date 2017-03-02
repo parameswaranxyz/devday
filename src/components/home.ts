@@ -3,7 +3,7 @@ import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, bu
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
 import { topEvents, moreEvents } from '../drivers/events';
 import { RegistrationRequest } from '../drivers/registrations';
-import { renderEvent, renderExpandedEvent } from '../event';
+import { renderEvent } from '../event';
 import delay from 'xstream/extra/delay';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
@@ -70,18 +70,17 @@ function home(sources: Sources): Sinks {
     dom
       .select('.event.card:not(.expanded)')
       .events('click');
-  const expand$ =
+  const navigateTo$ =
     eventClick$
-      .map<string>(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
-      .startWith(eventHash);
+      .map<string>(ev => '#/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
   const shrinkEventClick$ =
     dom
       .select('.shrink')
       .events('click');
   const shorten$ =
     xs.merge(
-      expand$
-        .filter(e => e !== '')
+      navigateTo$
+        .filter(e => e !== '' && e !== '/')
         .map(() => xs.of(false)),
       shrinkEventClick$
         .map(ev => xs.of(true))
@@ -152,27 +151,23 @@ function home(sources: Sources): Sinks {
       .startWith('its-real-time');
   const currentDate = new Date();
   const vdom$ =
-    xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
-      .map(([events, more, expand, shorten, join, registrationSuccessfulUrl, present]) => {
-        const expandedEvent = !shorten && events.find(event => event.url === expand);
-        return main(
-          Boolean(expandedEvent)
-            ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
-            : [
-              ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
-              ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
-              nav([
-                a('.more', {
-                  props: { href: '#', title: 'view all previous events' },
-                  attrs: { style: more ? 'display: none;' : '' }
-                }, [
-                    'Past events',
-                    button([
-                      i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                    ])
-                  ])
+    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$)
+      .map(([events, more, shorten, join, registrationSuccessfulUrl, present]) => {
+        return main([
+          ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
+          ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
+          nav([
+            a('.more', {
+              props: { href: '#', title: 'view all previous events' },
+              attrs: { style: more ? 'display: none;' : '' }
+            }, [
+                'Past events',
+                button([
+                  i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                ])
               ])
-            ]);
+          ])
+        ]);
       });
   const prevent$ =
     xs.merge(
@@ -203,7 +198,7 @@ function home(sources: Sources): Sinks {
     routes: xs.empty(),
     prevent: prevent$,
     registrations: formSubmitRequest$,
-    history: xs.empty(),
+    history: navigateTo$,
     material: refresh$
   };
 }
