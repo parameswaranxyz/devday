@@ -7,14 +7,14 @@ import { pluck } from '../utils';
 import { RegistrationRequest } from '../drivers/registrations';
 
 interface LayoutSources extends Sources {
-  component$: Stream<(sources: Sources) => Sinks>;
+  sinks$: Stream<Sinks>;
 }
 
 export function Layout(sources: LayoutSources): Sinks {
   const xs = Stream;
   const headerDom$ = Header().dom;
   const footerDom$ = Footer().dom;
-  const sinks$ = sources.component$.map(component => component(sources));
+  const sinks$ = sources.sinks$;
   const componentDom$ = pluck(sinks$, sinks => sinks.dom);
   const vtree$ = xs.combine(headerDom$, componentDom$, footerDom$)
     .map(([headerDom, componentDom, footerDom]) =>
