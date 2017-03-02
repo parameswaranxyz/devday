@@ -32,7 +32,7 @@ function closest(el: HTMLElement, selector: string): HTMLElement {
   return retval;
 }
 
-function home(sources: Sources): Sinks {
+export function Home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
   const presentClick$ =
@@ -202,5 +202,3 @@ function home(sources: Sources): Sinks {
     material: refresh$
   };
 }
-
-export default home;
