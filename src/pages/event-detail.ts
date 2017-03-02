@@ -1,9 +1,11 @@
-import { DevdayEvent, AgendaEntry, AgendaEntryType } from '../definitions';
+import { DevdayEvent, AgendaEntry, AgendaEntryType, DevdayRegistrationData } from '../definitions';
 import { VNode, DOMSource, article, div, h4, h3, h5, h6, p, a, address, br, span, i, form, button, label, input, textarea, img, main } from '@cycle/dom';
-import { pad, fadeInOutStyle } from '../utils';
+import { pad, fadeInOutStyle, closest } from '../utils';
 import { Stream } from 'xstream';
 import { HistoryInput } from 'history';
 import { EventsSource } from '../drivers/events';
+import { RegistrationsSource, RegistrationRequest, RegistrationResult } from '../drivers/registrations';
+import { RegistrationForm } from '../components/registration-form';
 import isolate from '@cycle/isolate';
 
 function getHHMM(date: Date): string {
@@ -31,6 +33,17 @@ function getAuthorInfo(entry) {
   return div('.info', authorChildren.concat([
     p(entry.abstract)
   ]));
+}
+
+function getFormData(form: HTMLFormElement): DevdayRegistrationData {
+  return {
+    name: form.elements['name'].value,
+    email: form.elements['email'].value,
+    mobile: form.elements['mobile'].value,
+    present: form.elements['presentCheckbox'].checked,
+    title: form.elements['title'] && form.elements['title'].value,
+    abstract: form.elements['abstract'] && form.elements['abstract'].value,
+  }
 }
 
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {
@@ -74,127 +87,7 @@ function renderBackground(event: DevdayEvent): VNode {
   return div('.background', { style });
 }
 
-function renderFormFields(present: boolean): VNode[] {
-  const presentFields =
-    present
-      ? [
-        div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-          input('.mdl-textfield__input', {
-            props: {
-              id: 'title',
-              placeholder: 'Title',
-              required: 'required'
-            }
-          }),
-          label('.mdl-textfield__label', {
-            props: {
-              for: 'title'
-            }
-          }, ['Title']),
-          span('mdl-textfield__error', 'Please enter a title!')
-        ]),
-        div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-          textarea('.mdl-textfield__input', {
-            props: {
-              id: 'abstract',
-              placeholder: 'Abstract',
-              required: 'required'
-            }
-          }),
-          label('.mdl-textfield__label', {
-            props: {
-              for: 'abstract'
-            }
-          }, ['Abstract']),
-          span('mdl-textfield__error', 'Please enter an abstract!')
-        ])
-      ]
-      : [];
-  return [
-    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-      input('.mdl-textfield__input', {
-        props: {
-          id: 'name',
-          placeholder: 'Name',
-          pattern: '^[a-zA-Z][a-zA-Z ]{4,}',
-          required: 'required'
-        }
-      }),
-      label('.mdl-textfield__label', {
-        props: {
-          for: 'name'
-        }
-      }, ['Name']),
-      span('mdl-textfield__error', 'Please enter a valid name!')
-    ]),
-    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-      input('.mdl-textfield__input', {
-        props: {
-          id: 'email',
-          placeholder: 'Email',
-          type: 'email',
-          required: 'required'
-        }
-      }),
-      label('.mdl-textfield__label', {
-        props: {
-          for: 'email'
-        }
-      }, ['Email']),
-      span('mdl-textfield__error', 'Please enter a valid email!')
-    ]),
-    div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-      input('.mdl-textfield__input', {
-        props: {
-          id: 'mobile',
-          placeholder: 'Mobile',
-          pattern: '^[987][0-9]{9}$',
-          required: 'required'
-        },
-        attrs: {
-          maxlength: '10'
-        }
-      }),
-      label('.mdl-textfield__label', {
-        props: {
-          for: 'mobile'
-        }
-      }, ['Mobile']),
-      span('mdl-textfield__error', 'Please enter a valid mobile number!')
-    ]),
-    label('#present', {
-      props: {
-        for: 'presentCheckbox'
-      }
-    }, [
-        input('#presentCheckbox', { attrs: { type: 'checkbox' } }),
-        'I want to present a talk/workshop'
-      ]),
-    ...presentFields
-  ];
-}
-
-function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean, present: boolean): VNode {
-  const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-  if (!showForm)
-    return p(['This event no longer accepts new registrations.']);
-  return registrationSuccessful
-    ? div('.registration.success', [
-      p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
-    ])
-    : form('.event.form', { style: fadeInOutStyle }, [
-      ...renderFormFields(present),
-      button({
-        props: {
-          type: 'submit',
-          tabindex: '0'
-        }
-      }, ['Join Us!'])
-    ]);
-}
-
-export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: string, present: boolean): VNode {
-  const registrationSuccessful = registrationSuccessUrl === event.url;
+export function renderExpandedEvent(event: DevdayEvent, form: VNode): VNode {
   return article('.event.card.expanded', {
     attrs: {
       'data-url': event.url
@@ -264,9 +157,7 @@ export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: 
                   event.venue.city + ' - ' + event.venue.zip
                 ])
               ]),
-              div('.attending', [
-                renderExpandedForm(event, registrationSuccessful, present)
-              ])
+              div('.attending', [ form ])
             ]),
         ]),
       a('.shrink.button', {
@@ -286,15 +177,18 @@ interface EventDetailSources {
   history: Stream<Location>;
   events: EventsSource;
   eventUrl$: Stream<string>;
+  registrations: RegistrationsSource;
 }
 
 interface EventDetailSinks {
   dom: Stream<VNode>;
   history: Stream<HistoryInput | string>;
   prevent: Stream<Event>;
+  registrations: Stream<RegistrationRequest>;
 }
 
 export function EventDetailComponent(sources: EventDetailSources): EventDetailSinks {
+  const xs = Stream;
   const eventUrl$ = sources.eventUrl$;
   const event$ =
     eventUrl$
@@ -305,11 +199,57 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   const shrinkButtonClick$ =
     sources.dom.select('.shrink.button').events('.click');
   const history$ = shrinkButtonClick$.mapTo('/');
-  const vdom$ = event$.map(event => main([renderExpandedEvent(event, '', false)]));
+  const formSubmit$ =
+    sources.dom
+      .select('.form.event button[type=submit]')
+      .events('click');
+  const formSubmitRequest$ =
+    sources.events.events$
+      .map(events =>
+        formSubmit$
+          .filter(ev => {
+            // TODO: Validate
+            const buttonElement = ev.currentTarget as HTMLButtonElement;
+            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const invalidElements = formElement.querySelectorAll('.is-invalid');
+            return invalidElements.length === 0;
+          })
+          .map(ev => {
+            const buttonElement = ev.currentTarget as HTMLButtonElement;
+            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const cardElement = closest(formElement, '.event.card');
+            const eventUrl = cardElement.attributes['data-url'].value;
+            const event = events.find(event => event.url === eventUrl);
+            const request: RegistrationRequest = {
+              event,
+              data: getFormData(formElement)
+            }
+            return request;
+          })
+      ).flatten();
+  const registrationSuccessfulUrl$ =
+    event$
+      .map(event => 
+        sources.registrations.registration$
+          .filter(Boolean)
+          .map(reg => reg.event_url === event.url)
+          .startWith(false)
+        )
+      .flatten();
+  const formSinks = RegistrationForm({
+    dom: sources.dom,
+    event$,
+    success$: xs.of(false),
+    present$: xs.of(false)
+  });
+  const vdom$ =
+    xs.combine(event$, formSinks.dom)
+      .map(([event, formDom]) => main([renderExpandedEvent(event, formDom)]));
   return {
     dom: vdom$,
     history: history$,
-    prevent: shrinkButtonClick$
+    prevent: xs.merge(shrinkButtonClick$, formSubmit$),
+    registrations: formSubmitRequest$
   }
 }
 

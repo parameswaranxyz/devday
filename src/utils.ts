@@ -13,3 +13,15 @@ export function pad(n: string, width: number, z?: string): string {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
+export function closest(el: HTMLElement, selector: string): HTMLElement {
+  var retval: HTMLElement = undefined;
+  while (el) {
+    if (el.matches(selector)) {
+      retval = el;
+      break
+    }
+    el = el.parentElement;
+  }
+  return retval;
+}

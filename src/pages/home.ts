@@ -5,6 +5,7 @@ import { topEvents, moreEvents } from '../drivers/events';
 import { RegistrationRequest } from '../drivers/registrations';
 import { renderEvent } from '../event';
 import delay from 'xstream/extra/delay';
+import { closest } from '../utils';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
@@ -18,18 +19,6 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
     title: form.elements['title'] && form.elements['title'].value,
     abstract: form.elements['abstract'] && form.elements['abstract'].value,
   }
-}
-
-function closest(el: HTMLElement, selector: string): HTMLElement {
-  var retval: HTMLElement = undefined;
-  while (el) {
-    if (el.matches(selector)) {
-      retval = el;
-      break
-    }
-    el = el.parentElement;
-  }
-  return retval;
 }
 
 export function Home(sources: Sources): Sinks {
