@@ -16,6 +16,6 @@ run(main, {
   prevent: makePreventDriver(),
   meetups: makeMeetupsDriver(),
   registrations: makeRegistrationsDriver(),
-  history: makeHistoryDriver(),
+  history: makeHistoryDriver({ hash: true }),
   material: makeMaterialDriver()
 });
