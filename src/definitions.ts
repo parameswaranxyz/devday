@@ -5,7 +5,6 @@ import { PreventSource } from './drivers/prevent';
 import { MaterialSource } from './drivers/material';
 import { MeetupsSource } from './drivers/meetups';
 import { HistoryInput } from '@cycle/history';
-import { Location } from 'history';
 import { RegistrationsSource, RegistrationRequest } from './drivers/registrations';
 import { Stream } from 'xstream';
 import { VNode } from '@cycle/dom';
