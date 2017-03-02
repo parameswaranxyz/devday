@@ -1,5 +1,5 @@
-import home from '../components/home';
-import { EventDetail } from '../components/event-detail';
+import home from '../pages/home';
+import { EventDetail } from '../pages/event-detail';
 import { RouteResolution } from './definitions';
 import { Stream } from 'xstream';
 
