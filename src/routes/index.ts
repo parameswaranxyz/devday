@@ -1,4 +1,4 @@
-import { RouteResolution, RouteDefinitions, SwitchPathReturn } from './definitions';
+import { RouteResolution, RouteDefinitions } from './definitions';
 import { Sources, Sinks } from '../definitions';
 import { routes } from './routes';
 import switchPath from 'switch-path';
