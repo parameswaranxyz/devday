@@ -13164,7 +13164,7 @@
 	    city: 'Bangalore',
 	    zip: 560034,
 	    map_link: 'https://goo.gl/maps/ziSASk4tmvM2',
-	    map_image: 'images/bangalore-map.jpg'
+	    map_image: '/images/bangalore-map.jpg'
 	};
 	exports.CHENNAI_ADDRESS = {
 	    line_one: 'Sahaj Software Solutions Pvt. Ltd.',
@@ -13173,7 +13173,7 @@
 	    city: 'Chennai',
 	    zip: 600041,
 	    map_link: 'https://goo.gl/maps/7Z8iBAdjT1o',
-	    map_image: 'images/chennai-map.png'
+	    map_image: '/images/chennai-map.png'
 	};
 	exports.events = [
 	    {
