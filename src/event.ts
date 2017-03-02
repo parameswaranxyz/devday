@@ -180,25 +180,6 @@ function renderFormFields(present: boolean): VNode[] {
   ];
 }
 
-function renderExpandedForm(event: DevdayEvent, registrationSuccessful: boolean, present: boolean): VNode {
-  const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-  if (!showForm)
-    return p(['This event no longer accepts new registrations.']);
-  return registrationSuccessful
-    ? div('.registration.success', [
-      p('.message', `Your registration was successful! See you on ${event.event_time.start_time.toDateString()}`)
-    ])
-    : form('.event.form', { style: fadeInOutStyle }, [
-      ...renderFormFields(present),
-      button({
-        props: {
-          type: 'submit',
-          tabindex: '0'
-        }
-      }, ['Join Us!'])
-    ]);
-}
-
 function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, registrationSuccessful: boolean, present: boolean): VNode[] {
   const showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
   const buttonSelector = '.join.event.button' + (shorten ? '' : '.no.delay');
@@ -367,93 +348,5 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
             ])
         ]),
       ...renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)
-    ]);
-}
-
-export function renderExpandedEvent(event: DevdayEvent, registrationSuccessUrl: string, present: boolean): VNode {
-  const registrationSuccessful = registrationSuccessUrl === event.url;
-  return article('.event.card.expanded', {
-    attrs: {
-      'data-url': event.url
-    },
-    style: {
-      transform: 'scale(0)',
-      opacity: '0',
-      delayed: {
-        transform: 'scale(1)',
-        opacity: '1'
-      }
-    },
-  }, [
-      div('.primary.info', {
-        style: {
-          right: '100%',
-          delayed: {
-            right: '35%'
-          }
-        }
-      }, [
-          div('.content', {
-            style: fadeInOutStyle
-          }, [
-              h4([event.event_time.start_time.toDateString()]),
-              h3([event.title]),
-              p([event.abstract]),
-            ])
-        ]),
-      renderBackground(event),
-      div('.agenda', [
-        div('.content', { style: fadeInOutStyle }, [].concat.apply([], event.agenda.map(renderAgendaEntry)))
-      ]),
-      div('.secondary.info', {
-        style: {
-          top: '540px',
-          delayed: {
-            top: '440px'
-          }
-        }
-      },
-        [
-          div('.content', {
-            style: fadeInOutStyle
-          }, [
-              div('.location', [
-                a({
-                  props: {
-                    target: '_blank',
-                    href: event.venue.map_link
-                  }
-                },
-                  [
-                    div('.filler', {
-                      attrs: {
-                        style: `background-image: url("${event.venue.map_image}");`
-                      }
-                    })
-                  ]),
-                address([
-                  event.venue.line_one,
-                  br(),
-                  event.venue.line_two,
-                  br(),
-                  event.venue.locality,
-                  br(),
-                  event.venue.city + ' - ' + event.venue.zip
-                ])
-              ]),
-              div('.attending', [
-                renderExpandedForm(event, registrationSuccessful, present)
-              ])
-            ]),
-        ]),
-      a('.shrink.button', {
-        props: {
-          title: 'close event',
-          href: '#'
-        }
-      }, [
-          span('.hidden', 'close event'),
-          i('.material-icons', 'close')
-        ])
     ]);
 }
