@@ -1,14 +1,12 @@
 import { Stream } from 'xstream';
-import { run } from '@cycle/xstream-run';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from './definitions';
-import { topEvents, moreEvents } from './drivers/events';
-import { RegistrationRequest } from './drivers/registrations';
-import { renderEvent, renderExpandedEvent } from './event';
+import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
+import { topEvents, moreEvents } from '../drivers/events';
+import { RegistrationRequest } from '../drivers/registrations';
+import { renderEvent } from '../event';
 import delay from 'xstream/extra/delay';
+import { closest } from '../utils';
 
-const nouns = ['experiences', 'ideas', 'opinions', 'perspectives'];
-const topics = ['technology', 'internet of things', 'cloud computing', 'arduino', 'databases'];
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
 
@@ -23,72 +21,7 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   }
 }
 
-function renderHeader(noun: string, topic: string): VNode {
-  return header([
-    h1([
-      span('.hidden', 'devday_'),
-      img({ props: { src: 'images/logo.gif' } })
-    ]),
-    h2([
-      'a monthly informal event for developers to share their ',
-      span('.noun', noun),
-      ' about ',
-      span('.topic', topic)
-    ])
-  ]);
-}
-
-function renderFooter(): VNode {
-  return footer([
-    div('.left.section', [
-      a('.twitter.social.button', {
-        props: {
-          href: 'https://twitter.com/devday_',
-          target: '_blank'
-        }
-      }, [
-          span('.hidden', 'twitter')
-        ]),
-      a('.facebook.social.button', {
-        props: {
-          href: 'https://facebook.com/d3vday',
-          target: '_blank'
-        }
-      }, [
-          span('.hidden', 'facebook')
-        ])
-    ]),
-    div('.right.section', [
-      // button('.share.social.button', [
-      //   i('.material-icons', { props: { role: 'presentation' } }, 'share'),
-      //   span('.hidden', 'share')
-      // ]),
-      p([
-        '© 2016 - Organised by ',
-        a('.sahaj.org.link', {
-          props: {
-            href: 'https://sahajsoft.com',
-            target: '_blank'
-          }
-        }, 'Sahaj Software Solutions')
-      ])
-    ])
-  ]);
-}
-
-function closest(el: HTMLElement, selector: string): HTMLElement {
-  var retval: HTMLElement = undefined;
-  while (el) {
-    if (el.matches(selector)) {
-      retval = el;
-      break
-    }
-    el = el.parentElement;
-  }
-  return retval;
-}
-
-function home(sources: Sources): Sinks {
+export function Home(sources: Sources): Sinks {
   const xs = Stream;
   const dom = sources.dom;
   const presentClick$ =
@@ -114,14 +47,6 @@ function home(sources: Sources): Sinks {
   const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
   const registration$ = sources.registrations.registration$;
-  const noun$ = xs.periodic(1000)
-    .startWith(0)
-    .map(x => x % nouns.length)
-    .map(i => nouns[i]);
-  const topic$ = xs.periodic(3000)
-    .startWith(0)
-    .map(x => x % topics.length)
-    .map(i => topics[i]);
   const moreClick$ =
     dom
       .select('.more')
@@ -134,18 +59,17 @@ function home(sources: Sources): Sinks {
     dom
       .select('.event.card:not(.expanded)')
       .events('click');
-  const expand$ =
+  const navigateTo$ =
     eventClick$
-      .map<string>(ev => (ev.currentTarget as HTMLElement).attributes['data-url'].value)
-      .startWith(eventHash);
+      .map<string>(ev => '#/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
   const shrinkEventClick$ =
     dom
       .select('.shrink')
       .events('click');
   const shorten$ =
     xs.merge(
-      expand$
-        .filter(e => e !== '')
+      navigateTo$
+        .filter(e => e !== '' && e !== '/')
         .map(() => xs.of(false)),
       shrinkEventClick$
         .map(ev => xs.of(true))
@@ -215,47 +139,25 @@ function home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const headerDom$ =
-    xs.combine(noun$, topic$)
-      .map(([noun, topic]) => renderHeader(noun, topic));
-  const footerDom$ = xs.of(renderFooter());
-  const bodyDom$ =
-    xs.combine(events$, more$, expand$, shorten$, join$, registrationSuccessfulUrl$, present$)
-      .map(([events, more, expand, shorten, join, registrationSuccessfulUrl, present]) => {
-        const expandedEvent = !shorten && events.find(event => event.url === expand);
-        return main(
-          Boolean(expandedEvent)
-            ? [renderExpandedEvent(expandedEvent, registrationSuccessfulUrl, present)]
-            : [
-              ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
-              ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
-              nav([
-                a('.more', {
-                  props: { href: '#', title: 'view all previous events' },
-                  attrs: { style: more ? 'display: none;' : '' }
-                }, [
-                    'Past events',
-                    button([
-                      i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                    ])
-                  ])
-              ])
-            ]);
-      });
   const vdom$ =
-    xs.combine(headerDom$, bodyDom$, footerDom$)
-      .map(([headerDom, bodyDom, footerDom]) =>
-        div('.devday.home', [
-          div('.container', [
-            div('.layout', [
-              div('.content', [
-                headerDom,
-                bodyDom,
-                footerDom
+    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$)
+      .map(([events, more, shorten, join, registrationSuccessfulUrl, present]) => {
+        return main([
+          ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
+          ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
+          nav([
+            a('.more', {
+              props: { href: '#', title: 'view all previous events' },
+              attrs: { style: more ? 'display: none;' : '' }
+            }, [
+                'Past events',
+                button([
+                  i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
+                ])
               ])
-            ])
           ])
-        ]));
+        ]);
+      });
   const prevent$ =
     xs.merge(
       moreClick$,
@@ -278,18 +180,14 @@ function home(sources: Sources): Sinks {
     error: () => { },
     complete: () => { }
   });
-  vdom$.compose(delay<VNode>(30)).addListener({
-    next: () => (<any>window).componentHandler.upgradeDom(),
-    complete: () => { },
-    error: () => { }
-  });
+  const refresh$ = vdom$.compose(delay(30)).mapTo(true);
   return {
     dom: vdom$,
     events: xs.empty(),
     routes: xs.empty(),
     prevent: prevent$,
-    registrations: formSubmitRequest$
+    registrations: formSubmitRequest$,
+    history: navigateTo$,
+    material: refresh$
   };
 }
-
-export default home;

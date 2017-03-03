@@ -2,14 +2,14 @@ import { Stream } from 'xstream';
 
 export class PreventSource {
   constructor(event$: Stream<Event>) {
-    const xs = Stream;
+    const noop = () => {};
     event$.addListener({
       next: ev => {
         ev.preventDefault();
         ev.stopPropagation();
       },
-      error: () => { },
-      complete: () => { }
+      error: noop,
+      complete: noop
     });
   }
 }

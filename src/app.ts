@@ -6,6 +6,8 @@ import { makeEventsDriver } from './drivers/events';
 import { makePreventDriver } from './drivers/prevent';
 import { makeMeetupsDriver } from './drivers/meetups';
 import { makeRegistrationsDriver } from './drivers/registrations';
+import { makeHistoryDriver } from '@cycle/history';
+import { makeMaterialDriver } from './drivers/material';
 
 run(main, {
   dom: makeDOMDriver('#app'),
@@ -13,5 +15,7 @@ run(main, {
   events: makeEventsDriver(),
   prevent: makePreventDriver(),
   meetups: makeMeetupsDriver(),
-  registrations: makeRegistrationsDriver()
+  registrations: makeRegistrationsDriver(),
+  history: makeHistoryDriver({ hash: true }),
+  material: makeMaterialDriver()
 });

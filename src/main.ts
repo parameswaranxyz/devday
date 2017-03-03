@@ -1,9 +1,14 @@
 import { Sources, Sinks } from './definitions';
-import home from './home';
-import xs from 'xstream';
+import { resolve } from './routes';
+import { Stream } from 'xstream';
+import { Layout } from './components/layout';
 
 function main(sources: Sources): Sinks {
-  return home(sources);
+  const sinks$ =
+    (sources.history as Stream<Location>)
+      .map(route => resolve(route.hash))
+      .map(resolution => resolution.component({...sources, ...resolution.sources}));
+  return Layout({...sources, sinks$});
 }
 
 export default main;

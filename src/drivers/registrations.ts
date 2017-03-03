@@ -1,6 +1,5 @@
 import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
-import XStreamAdapter from '@cycle/xstream-adapter';
 import { DevdayEvent, DevdayRegistrationData } from './../definitions';
 import { VNode, div, input, label } from '@cycle/dom';
 
@@ -18,7 +17,7 @@ export class RegistrationsSource {
   registration$: Stream<RegistrationResult>;
   constructor(registration$: Stream<RegistrationRequest>) {
     const request$ = registration$.map(req => register(req.event, req.data));
-    const http: HTTPSource = makeHTTPDriver()(request$, XStreamAdapter);
+    const http: HTTPSource = makeHTTPDriver()(request$, 'resgistrationsHttp');
     const response$$: Stream<Stream<Response>> = http.select('registrations');
     this.registration$ =
       response$$

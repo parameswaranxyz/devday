@@ -19,7 +19,9 @@
   "homepage": "https://github.com/artfuldev/devday",
   "dependencies": {
     "@cycle/dom": "^15.2.0",
+    "@cycle/history": "^5.0.0",
     "@cycle/http": "^12.0.0",
+    "@cycle/isolate": "^2.0.0",
     "@cycle/run": "^1.0.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
@@ -27,6 +29,7 @@
     "nodemailer": "^2.6.4",
     "pouchdb": "^6.0.5",
     "request": "^2.75.0",
+    "switch-path": "^1.2.0",
     "xstream": "^10.2.0"
   },
   "devDependencies": {
@@ -38,7 +41,7 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
-    "typescript": "^2.1.6",
+    "typescript": "^2.2.1",
     "typings": "^1.3.1",
     "webpack": "^1.13.1"
   }
