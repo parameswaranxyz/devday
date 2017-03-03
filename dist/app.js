@@ -49,13 +49,13 @@
 	var run_1 = __webpack_require__(1);
 	var main_1 = __webpack_require__(8);
 	var dom_1 = __webpack_require__(13);
-	var router_1 = __webpack_require__(141);
+	var router_1 = __webpack_require__(142);
 	var events_1 = __webpack_require__(114);
-	var prevent_1 = __webpack_require__(142);
+	var prevent_1 = __webpack_require__(143);
 	var meetups_1 = __webpack_require__(117);
-	var registrations_1 = __webpack_require__(143);
-	var history_1 = __webpack_require__(144);
-	var material_1 = __webpack_require__(162);
+	var registrations_1 = __webpack_require__(144);
+	var history_1 = __webpack_require__(145);
+	var material_1 = __webpack_require__(163);
 	run_1.run(main_1.default, {
 	    dom: dom_1.makeDOMDriver('#app'),
 	    routes: router_1.makeRoutesDriver(),
@@ -2229,10 +2229,9 @@
 	};
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var routes_1 = __webpack_require__(9);
-	var layout_1 = __webpack_require__(138);
+	var layout_1 = __webpack_require__(139);
 	function main(sources) {
-	    var history$ = sources.history.debug();
-	    var sinks$ = history$
+	    var sinks$ = sources.history
 	        .map(function (route) { return routes_1.resolve(route.hash); })
 	        .map(function (resolution) { return resolution.component(__assign({}, sources, resolution.sources)); });
 	    return layout_1.Layout(__assign({}, sources, { sinks$: sinks$ }));
@@ -2247,7 +2246,7 @@
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var routes_1 = __webpack_require__(10);
-	var switch_path_1 = __webpack_require__(136);
+	var switch_path_1 = __webpack_require__(137);
 	function resolveImplementation(routes, route) {
 	    var _a = switch_path_1.default((route || '#/').replace('#', ''), routes), path = _a.path, value = _a.value;
 	    var resolution = value;
@@ -2270,10 +2269,10 @@
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
 	var home_1 = __webpack_require__(11);
-	var event_detail_1 = __webpack_require__(133);
+	var event_detail_1 = __webpack_require__(134);
 	var xstream_1 = __webpack_require__(12);
 	exports.routes = {
-	    '/': { component: home_1.default },
+	    '/': { component: home_1.Home },
 	    '/events/:event_url': function (event_url) { return ({ component: event_detail_1.EventDetail, sources: { eventUrl$: xstream_1.Stream.of(event_url) } }); }
 	};
 
@@ -2289,6 +2288,7 @@
 	var events_1 = __webpack_require__(114);
 	var event_1 = __webpack_require__(131);
 	var delay_1 = __webpack_require__(132);
+	var utils_1 = __webpack_require__(133);
 	var eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 	var eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
 	function getFormData(form) {
@@ -2301,18 +2301,7 @@
 	        abstract: form.elements['abstract'] && form.elements['abstract'].value,
 	    };
 	}
-	function closest(el, selector) {
-	    var retval = undefined;
-	    while (el) {
-	        if (el.matches(selector)) {
-	            retval = el;
-	            break;
-	        }
-	        el = el.parentElement;
-	    }
-	    return retval;
-	}
-	function home(sources) {
+	function Home(sources) {
 	    var xs = xstream_1.Stream;
 	    var dom = sources.dom;
 	    var presentClick$ = dom
@@ -2363,13 +2352,13 @@
 	    var join$ = xs.merge(joinEventClick$
 	        .map(function (ev) {
 	        var anchor = ev.currentTarget;
-	        var card = closest(anchor, '.event.card');
+	        var card = utils_1.closest(anchor, '.event.card');
 	        anchor.classList.add('expand');
 	        return xs.of(card.attributes['data-url'].value);
 	    }), formCloseClick$
 	        .map(function (ev) {
 	        var closeButton = ev.currentTarget;
-	        var card = closest(closeButton, '.event.card');
+	        var card = utils_1.closest(closeButton, '.event.card');
 	        var anchor = card.querySelector('.join.event');
 	        anchor.classList.remove('expand');
 	        return xs.of('');
@@ -2386,14 +2375,14 @@
 	            .filter(function (ev) {
 	            // TODO: Validate
 	            var buttonElement = ev.currentTarget;
-	            var formElement = closest(buttonElement, 'form');
+	            var formElement = utils_1.closest(buttonElement, 'form');
 	            var invalidElements = formElement.querySelectorAll('.is-invalid');
 	            return invalidElements.length === 0;
 	        })
 	            .map(function (ev) {
 	            var buttonElement = ev.currentTarget;
-	            var formElement = closest(buttonElement, 'form');
-	            var cardElement = closest(formElement, '.event.card');
+	            var formElement = utils_1.closest(buttonElement, 'form');
+	            var cardElement = utils_1.closest(formElement, '.event.card');
 	            var eventUrl = cardElement.attributes['data-url'].value;
 	            var event = events.find(function (event) { return event.url === eventUrl; });
 	            var request = {
@@ -2448,7 +2437,7 @@
 	        material: refresh$
 	    };
 	}
-	exports.default = home;
+	exports.Home = Home;
 
 
 /***/ },
@@ -17083,10 +17072,47 @@
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
+	var xstream_1 = __webpack_require__(12);
+	function pluck(stream, getter) {
+	    return stream.map(function (str) { return getter(str) || xstream_1.Stream.empty(); }).flatten();
+	}
+	exports.pluck = pluck;
+	exports.fadeInOutStyle = {
+	    opacity: '0', delayed: { opacity: '1' }
+	};
+	function pad(n, width, z) {
+	    z = z || '0';
+	    n = n + '';
+	    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	}
+	exports.pad = pad;
+	function closest(el, selector) {
+	    var retval = undefined;
+	    while (el) {
+	        if (el.matches(selector)) {
+	            retval = el;
+	            break;
+	        }
+	        el = el.parentElement;
+	    }
+	    return retval;
+	}
+	exports.closest = closest;
+
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	Object.defineProperty(exports, "__esModule", { value: true });
 	var definitions_1 = __webpack_require__(116);
 	var dom_1 = __webpack_require__(13);
-	var utils_1 = __webpack_require__(134);
-	var isolate_1 = __webpack_require__(135);
+	var utils_1 = __webpack_require__(133);
+	var xstream_1 = __webpack_require__(12);
+	var registration_form_1 = __webpack_require__(135);
+	var isolate_1 = __webpack_require__(136);
+	var delay_1 = __webpack_require__(132);
 	function getHHMM(date) {
 	    var hours = date.getHours();
 	    var minutes = date.getMinutes();
@@ -17149,122 +17175,7 @@
 	        style['background-size'] = event.background_size;
 	    return dom_1.div('.background', { style: style });
 	}
-	function renderFormFields(present) {
-	    var presentFields = present
-	        ? [
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.input('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'title',
-	                        placeholder: 'Title',
-	                        required: 'required'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'title'
-	                    }
-	                }, ['Title']),
-	                dom_1.span('mdl-textfield__error', 'Please enter a title!')
-	            ]),
-	            dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	                dom_1.textarea('.mdl-textfield__input', {
-	                    props: {
-	                        id: 'abstract',
-	                        placeholder: 'Abstract',
-	                        required: 'required'
-	                    }
-	                }),
-	                dom_1.label('.mdl-textfield__label', {
-	                    props: {
-	                        for: 'abstract'
-	                    }
-	                }, ['Abstract']),
-	                dom_1.span('mdl-textfield__error', 'Please enter an abstract!')
-	            ])
-	        ]
-	        : [];
-	    return [
-	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            dom_1.input('.mdl-textfield__input', {
-	                props: {
-	                    id: 'name',
-	                    placeholder: 'Name',
-	                    pattern: '^[a-zA-Z][a-zA-Z ]{4,}',
-	                    required: 'required'
-	                }
-	            }),
-	            dom_1.label('.mdl-textfield__label', {
-	                props: {
-	                    for: 'name'
-	                }
-	            }, ['Name']),
-	            dom_1.span('mdl-textfield__error', 'Please enter a valid name!')
-	        ]),
-	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            dom_1.input('.mdl-textfield__input', {
-	                props: {
-	                    id: 'email',
-	                    placeholder: 'Email',
-	                    type: 'email',
-	                    required: 'required'
-	                }
-	            }),
-	            dom_1.label('.mdl-textfield__label', {
-	                props: {
-	                    for: 'email'
-	                }
-	            }, ['Email']),
-	            dom_1.span('mdl-textfield__error', 'Please enter a valid email!')
-	        ]),
-	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
-	            dom_1.input('.mdl-textfield__input', {
-	                props: {
-	                    id: 'mobile',
-	                    placeholder: 'Mobile',
-	                    pattern: '^[987][0-9]{9}$',
-	                    required: 'required'
-	                },
-	                attrs: {
-	                    maxlength: '10'
-	                }
-	            }),
-	            dom_1.label('.mdl-textfield__label', {
-	                props: {
-	                    for: 'mobile'
-	                }
-	            }, ['Mobile']),
-	            dom_1.span('mdl-textfield__error', 'Please enter a valid mobile number!')
-	        ]),
-	        dom_1.label('#present', {
-	            props: {
-	                for: 'presentCheckbox'
-	            }
-	        }, [
-	            dom_1.input('#presentCheckbox', { attrs: { type: 'checkbox' } }),
-	            'I want to present a talk/workshop'
-	        ])
-	    ].concat(presentFields);
-	}
-	function renderExpandedForm(event, registrationSuccessful, present) {
-	    var showForm = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
-	    if (!showForm)
-	        return dom_1.p(['This event no longer accepts new registrations.']);
-	    return registrationSuccessful
-	        ? dom_1.div('.registration.success', [
-	            dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
-	        ])
-	        : dom_1.form('.event.form', { style: utils_1.fadeInOutStyle }, renderFormFields(present).concat([
-	            dom_1.button({
-	                props: {
-	                    type: 'submit',
-	                    tabindex: '0'
-	                }
-	            }, ['Join Us!'])
-	        ]));
-	}
-	function renderExpandedEvent(event, registrationSuccessUrl, present) {
-	    var registrationSuccessful = registrationSuccessUrl === event.url;
+	function renderExpandedEvent(event, form) {
 	    return dom_1.article('.event.card.expanded', {
 	        attrs: {
 	            'data-url': event.url
@@ -17332,9 +17243,7 @@
 	                        event.venue.city + ' - ' + event.venue.zip
 	                    ])
 	                ]),
-	                dom_1.div('.attending', [
-	                    renderExpandedForm(event, registrationSuccessful, present)
-	                ])
+	                dom_1.div('.attending', [form])
 	            ]),
 	        ]),
 	        dom_1.a('.shrink.button', {
@@ -17350,6 +17259,7 @@
 	}
 	exports.renderExpandedEvent = renderExpandedEvent;
 	function EventDetailComponent(sources) {
+	    var xs = xstream_1.Stream;
 	    var eventUrl$ = sources.eventUrl$;
 	    var event$ = eventUrl$
 	        .map(function (eventUrl) {
@@ -17359,11 +17269,34 @@
 	        .flatten();
 	    var shrinkButtonClick$ = sources.dom.select('.shrink.button').events('.click');
 	    var history$ = shrinkButtonClick$.mapTo('/');
-	    var vdom$ = event$.map(function (event) { return dom_1.main([renderExpandedEvent(event, '', false)]); });
+	    var success$ = event$
+	        .map(function (event) {
+	        return sources.registrations.registration$
+	            .filter(Boolean)
+	            .map(function (reg) { return reg.event_url === event.url; })
+	            .startWith(false);
+	    })
+	        .flatten();
+	    var present$ = xs.create();
+	    var formSinks = registration_form_1.RegistrationForm({
+	        dom: sources.dom,
+	        event$: event$,
+	        success$: success$,
+	        present$: present$
+	    });
+	    present$.imitate(formSinks.present$);
+	    var vdom$ = xs.combine(event$, formSinks.dom)
+	        .map(function (_a) {
+	        var event = _a[0], formDom = _a[1];
+	        return dom_1.main([renderExpandedEvent(event, formDom)]);
+	    });
+	    var refresh$ = vdom$.compose(delay_1.default(30)).mapTo(true);
 	    return {
 	        dom: vdom$,
 	        history: history$,
-	        prevent: shrinkButtonClick$
+	        prevent: xs.merge(shrinkButtonClick$, formSinks.prevent),
+	        registrations: formSinks.registrations,
+	        material: refresh$
 	    };
 	}
 	exports.EventDetailComponent = EventDetailComponent;
@@ -17371,29 +17304,190 @@
 
 
 /***/ },
-/* 134 */
+/* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
+	var dom_1 = __webpack_require__(13);
+	var isolate_1 = __webpack_require__(136);
 	var xstream_1 = __webpack_require__(12);
-	function pluck(stream, getter) {
-	    return stream.map(function (str) { return getter(str) || xstream_1.Stream.empty(); }).flatten();
+	var utils_1 = __webpack_require__(133);
+	// TODO: Refactor
+	function getFormData(form) {
+	    var registration = {
+	        name: form.elements['name'].value,
+	        email: form.elements['email'].value,
+	        mobile: form.elements['mobile'].value,
+	        present: form.elements['presentCheckbox'].checked
+	    };
+	    var titleElement = form.elements['title'];
+	    if (!titleElement.classList.contains('hidden'))
+	        registration.title = titleElement.value;
+	    var abstractElement = form.elements['abstract'];
+	    if (!abstractElement.classList.contains('hidden'))
+	        registration.abstract = abstractElement.value;
+	    return registration;
 	}
-	exports.pluck = pluck;
-	exports.fadeInOutStyle = {
-	    opacity: '0', delayed: { opacity: '1' }
-	};
-	function pad(n, width, z) {
-	    z = z || '0';
-	    n = n + '';
-	    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+	function renderFormFields(present) {
+	    var hidden = present ? '' : '.hidden';
+	    return [
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'name',
+	                    placeholder: 'Name',
+	                    pattern: '^[a-zA-Z][a-zA-Z ]{4,}',
+	                    required: 'required'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'name'
+	                }
+	            }, ['Name']),
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid name!')
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'email',
+	                    placeholder: 'Email',
+	                    type: 'email',
+	                    required: 'required'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'email'
+	                }
+	            }, ['Email']),
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid email!')
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label', [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'mobile',
+	                    placeholder: 'Mobile',
+	                    pattern: '^[987][0-9]{9}$',
+	                    required: 'required'
+	                },
+	                attrs: {
+	                    maxlength: '10'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'mobile'
+	                }
+	            }, ['Mobile']),
+	            dom_1.span('mdl-textfield__error', 'Please enter a valid mobile number!')
+	        ]),
+	        dom_1.label('#present', {
+	            props: {
+	                for: 'presentCheckbox'
+	            }
+	        }, [
+	            dom_1.input('#presentCheckbox', { attrs: { type: 'checkbox' } }),
+	            'I want to present a talk/workshop'
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label' + hidden, [
+	            dom_1.input('.mdl-textfield__input', {
+	                props: {
+	                    id: 'title',
+	                    placeholder: 'Title',
+	                    required: 'required'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'title'
+	                }
+	            }, ['Title']),
+	            dom_1.span('mdl-textfield__error', 'Please enter a title!')
+	        ]),
+	        dom_1.div('.form.text.input.element.mdl-js-textfield.mdl-textfield--floating-label' + hidden, [
+	            dom_1.textarea('.mdl-textfield__input', {
+	                props: {
+	                    id: 'abstract',
+	                    placeholder: 'Abstract',
+	                    required: 'required'
+	                }
+	            }),
+	            dom_1.label('.mdl-textfield__label', {
+	                props: {
+	                    for: 'abstract'
+	                }
+	            }, ['Abstract']),
+	            dom_1.span('mdl-textfield__error', 'Please enter an abstract!')
+	        ])
+	    ];
 	}
-	exports.pad = pad;
+	function RegistrationFormComponent(sources) {
+	    var xs = xstream_1.Stream;
+	    var present$ = xs.merge(xs.of(false), sources.dom
+	        .select('#presentCheckbox')
+	        .events('change')
+	        .map(function (ev) { return ev.target.checked; }));
+	    var formSubmit$ = sources.dom
+	        .select('.event.form button[type=submit]')
+	        .events('click');
+	    var registrations$ = sources.event$.map(function (event) {
+	        return formSubmit$
+	            .filter(function (ev) {
+	            // TODO: Validate
+	            // TODO: Refactor
+	            var buttonElement = ev.currentTarget;
+	            var formElement = utils_1.closest(buttonElement, 'form');
+	            var invalidElements = formElement.querySelectorAll('.is-invalid:not(.hidden)');
+	            return invalidElements.length === 0;
+	        })
+	            .map(function (ev) {
+	            // TODO: Refactor
+	            var buttonElement = ev.currentTarget;
+	            var formElement = utils_1.closest(buttonElement, 'form');
+	            var cardElement = utils_1.closest(formElement, '.event.card');
+	            var eventUrl = cardElement.attributes['data-url'].value;
+	            var request = {
+	                event: event,
+	                data: getFormData(formElement)
+	            };
+	            return request;
+	        });
+	    })
+	        .flatten();
+	    var vdom$ = xs.combine(sources.event$, sources.present$, sources.success$)
+	        .map(function (_a) {
+	        var event = _a[0], present = _a[1], success = _a[2];
+	        present = present == undefined ? false : present;
+	        var allowed = event.form != undefined && event.registration_time.end_time.getTime() > new Date().getTime();
+	        if (!allowed)
+	            return dom_1.p(['This event no longer accepts new registrations.']);
+	        if (success)
+	            return dom_1.div('.registration.success', [
+	                dom_1.p('.message', "Your registration was successful! See you on " + event.event_time.start_time.toDateString())
+	            ]);
+	        return dom_1.form('.event.form', { style: utils_1.fadeInOutStyle }, renderFormFields(present).concat([
+	            dom_1.button({
+	                props: {
+	                    type: 'submit',
+	                    tabindex: '0'
+	                }
+	            }, ['Join Us!'])
+	        ]));
+	    });
+	    return {
+	        dom: vdom$,
+	        present$: present$,
+	        registrations: registrations$,
+	        prevent: formSubmit$
+	    };
+	}
+	exports.RegistrationForm = function (sources) { return isolate_1.default(RegistrationFormComponent)(sources); };
 
 
 /***/ },
-/* 135 */
+/* 136 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17491,11 +17585,11 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 136 */
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var util_1 = __webpack_require__(137);
+	var util_1 = __webpack_require__(138);
 	function switchPathInputGuard(path, routes) {
 	    if (!util_1.isPattern(path)) {
 	        throw new Error("First parameter to switchPath must be a route path.");
@@ -17584,7 +17678,7 @@
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 137 */
+/* 138 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17636,16 +17730,16 @@
 	//# sourceMappingURL=util.js.map
 
 /***/ },
-/* 138 */
+/* 139 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	Object.defineProperty(exports, "__esModule", { value: true });
-	var header_1 = __webpack_require__(139);
-	var footer_1 = __webpack_require__(140);
+	var header_1 = __webpack_require__(140);
+	var footer_1 = __webpack_require__(141);
 	var xstream_1 = __webpack_require__(12);
 	var dom_1 = __webpack_require__(13);
-	var utils_1 = __webpack_require__(134);
+	var utils_1 = __webpack_require__(133);
 	function Layout(sources) {
 	    var xs = xstream_1.Stream;
 	    var headerDom$ = header_1.Header().dom;
@@ -17681,7 +17775,7 @@
 
 
 /***/ },
-/* 139 */
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17727,7 +17821,7 @@
 
 
 /***/ },
-/* 140 */
+/* 141 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17774,7 +17868,7 @@
 
 
 /***/ },
-/* 141 */
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17826,7 +17920,7 @@
 
 
 /***/ },
-/* 142 */
+/* 143 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -17857,7 +17951,7 @@
 
 
 /***/ },
-/* 143 */
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17916,7 +18010,7 @@
 
 
 /***/ },
-/* 144 */
+/* 145 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -17932,7 +18026,7 @@
 	 * @return {Function} a History Driver function
 	 * @function captureClicks
 	 */
-	var captureClicks_1 = __webpack_require__(145);
+	var captureClicks_1 = __webpack_require__(146);
 	exports.captureClicks = captureClicks_1.captureClicks;
 	/**
 	 * Create a History Driver to be used in the browser.
@@ -17950,7 +18044,7 @@
 	 * @return {Function} the History Driver function
 	 * @function makeHistoryDriver
 	 */
-	var drivers_1 = __webpack_require__(146);
+	var drivers_1 = __webpack_require__(147);
 	exports.makeHistoryDriver = drivers_1.makeHistoryDriver;
 	/**
 	 * Create a History Driver for older browsers using hash routing.
@@ -17968,7 +18062,7 @@
 	 * @return {Function} the History Driver function
 	 * @function makeHashHistoryDriver
 	 */
-	var drivers_2 = __webpack_require__(146);
+	var drivers_2 = __webpack_require__(147);
 	exports.makeHashHistoryDriver = drivers_2.makeHashHistoryDriver;
 	/**
 	 * Create a History Driver to be used in non-browser enviroments such as
@@ -17987,12 +18081,12 @@
 	 * @return {Function} the History Driver function
 	 * @function makeHashHistoryDriver
 	 */
-	var drivers_3 = __webpack_require__(146);
+	var drivers_3 = __webpack_require__(147);
 	exports.makeServerHistoryDriver = drivers_3.makeServerHistoryDriver;
 	//# sourceMappingURL=index.js.map
 
 /***/ },
-/* 145 */
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -18070,12 +18164,12 @@
 	//# sourceMappingURL=captureClicks.js.map
 
 /***/ },
-/* 146 */
+/* 147 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var history_1 = __webpack_require__(147);
-	var createHistory_1 = __webpack_require__(161);
+	var history_1 = __webpack_require__(148);
+	var createHistory_1 = __webpack_require__(162);
 	function makeHistoryDriver(options) {
 	    var history = history_1.createBrowserHistory(options);
 	    return function historyDriver(sink$) {
@@ -18100,7 +18194,7 @@
 	//# sourceMappingURL=drivers.js.map
 
 /***/ },
-/* 147 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18108,7 +18202,7 @@
 	exports.__esModule = true;
 	exports.createPath = exports.parsePath = exports.locationsAreEqual = exports.createLocation = exports.createMemoryHistory = exports.createHashHistory = exports.createBrowserHistory = undefined;
 	
-	var _LocationUtils = __webpack_require__(148);
+	var _LocationUtils = __webpack_require__(149);
 	
 	Object.defineProperty(exports, 'createLocation', {
 	  enumerable: true,
@@ -18123,7 +18217,7 @@
 	  }
 	});
 	
-	var _PathUtils = __webpack_require__(151);
+	var _PathUtils = __webpack_require__(152);
 	
 	Object.defineProperty(exports, 'parsePath', {
 	  enumerable: true,
@@ -18138,15 +18232,15 @@
 	  }
 	});
 	
-	var _createBrowserHistory2 = __webpack_require__(152);
+	var _createBrowserHistory2 = __webpack_require__(153);
 	
 	var _createBrowserHistory3 = _interopRequireDefault(_createBrowserHistory2);
 	
-	var _createHashHistory2 = __webpack_require__(159);
+	var _createHashHistory2 = __webpack_require__(160);
 	
 	var _createHashHistory3 = _interopRequireDefault(_createHashHistory2);
 	
-	var _createMemoryHistory2 = __webpack_require__(160);
+	var _createMemoryHistory2 = __webpack_require__(161);
 	
 	var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 	
@@ -18157,7 +18251,7 @@
 	exports.createMemoryHistory = _createMemoryHistory3.default;
 
 /***/ },
-/* 148 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -18167,15 +18261,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _resolvePathname = __webpack_require__(149);
+	var _resolvePathname = __webpack_require__(150);
 	
 	var _resolvePathname2 = _interopRequireDefault(_resolvePathname);
 	
-	var _valueEqual = __webpack_require__(150);
+	var _valueEqual = __webpack_require__(151);
 	
 	var _valueEqual2 = _interopRequireDefault(_valueEqual);
 	
-	var _PathUtils = __webpack_require__(151);
+	var _PathUtils = __webpack_require__(152);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -18225,7 +18319,7 @@
 	};
 
 /***/ },
-/* 149 */
+/* 150 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18300,7 +18394,7 @@
 	module.exports = resolvePathname;
 
 /***/ },
-/* 150 */
+/* 151 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18349,7 +18443,7 @@
 	exports.default = valueEqual;
 
 /***/ },
-/* 151 */
+/* 152 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -18407,7 +18501,7 @@
 	};
 
 /***/ },
-/* 152 */
+/* 153 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -18418,25 +18512,25 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(154);
+	var _warning = __webpack_require__(155);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(155);
+	var _invariant = __webpack_require__(156);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _LocationUtils = __webpack_require__(148);
+	var _LocationUtils = __webpack_require__(149);
 	
-	var _PathUtils = __webpack_require__(151);
+	var _PathUtils = __webpack_require__(152);
 	
-	var _createTransitionManager = __webpack_require__(156);
+	var _createTransitionManager = __webpack_require__(157);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _ExecutionEnvironment = __webpack_require__(157);
+	var _ExecutionEnvironment = __webpack_require__(158);
 	
-	var _DOMUtils = __webpack_require__(158);
+	var _DOMUtils = __webpack_require__(159);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -18723,10 +18817,10 @@
 	};
 	
 	exports.default = createBrowserHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 153 */
+/* 154 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -18912,7 +19006,7 @@
 
 
 /***/ },
-/* 154 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -18976,10 +19070,10 @@
 	
 	module.exports = warning;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 155 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -19034,17 +19128,17 @@
 	
 	module.exports = invariant;
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 156 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
-	var _warning = __webpack_require__(154);
+	var _warning = __webpack_require__(155);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -19125,10 +19219,10 @@
 	};
 	
 	exports.default = createTransitionManager;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 157 */
+/* 158 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19137,7 +19231,7 @@
 	var canUseDOM = exports.canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 /***/ },
-/* 158 */
+/* 159 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -19195,7 +19289,7 @@
 	};
 
 /***/ },
-/* 159 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -19204,25 +19298,25 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(154);
+	var _warning = __webpack_require__(155);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(155);
+	var _invariant = __webpack_require__(156);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _LocationUtils = __webpack_require__(148);
+	var _LocationUtils = __webpack_require__(149);
 	
-	var _PathUtils = __webpack_require__(151);
+	var _PathUtils = __webpack_require__(152);
 	
-	var _createTransitionManager = __webpack_require__(156);
+	var _createTransitionManager = __webpack_require__(157);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _ExecutionEnvironment = __webpack_require__(157);
+	var _ExecutionEnvironment = __webpack_require__(158);
 	
-	var _DOMUtils = __webpack_require__(158);
+	var _DOMUtils = __webpack_require__(159);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -19523,10 +19617,10 @@
 	};
 	
 	exports.default = createHashHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 160 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -19537,15 +19631,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(154);
+	var _warning = __webpack_require__(155);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _PathUtils = __webpack_require__(151);
+	var _PathUtils = __webpack_require__(152);
 	
-	var _LocationUtils = __webpack_require__(148);
+	var _LocationUtils = __webpack_require__(149);
 	
-	var _createTransitionManager = __webpack_require__(156);
+	var _createTransitionManager = __webpack_require__(157);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
@@ -19699,10 +19793,10 @@
 	};
 	
 	exports.default = createMemoryHistory;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(153)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(154)))
 
 /***/ },
-/* 161 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -19753,7 +19847,7 @@
 	//# sourceMappingURL=createHistory$.js.map
 
 /***/ },
-/* 162 */
+/* 163 */
 /***/ function(module, exports) {
 
 	"use strict";
