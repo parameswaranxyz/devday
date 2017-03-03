@@ -7,6 +7,7 @@ import { EventsSource } from '../drivers/events';
 import { RegistrationsSource, RegistrationRequest, RegistrationResult } from '../drivers/registrations';
 import { RegistrationForm } from '../components/registration-form';
 import isolate from '@cycle/isolate';
+import delay from 'xstream/extra/delay';
 
 function getHHMM(date: Date): string {
   const hours = date.getHours();
@@ -33,17 +34,6 @@ function getAuthorInfo(entry) {
   return div('.info', authorChildren.concat([
     p(entry.abstract)
   ]));
-}
-
-function getFormData(form: HTMLFormElement): DevdayRegistrationData {
-  return {
-    name: form.elements['name'].value,
-    email: form.elements['email'].value,
-    mobile: form.elements['mobile'].value,
-    present: form.elements['presentCheckbox'].checked,
-    title: form.elements['title'] && form.elements['title'].value,
-    abstract: form.elements['abstract'] && form.elements['abstract'].value,
-  }
 }
 
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {
@@ -185,6 +175,7 @@ interface EventDetailSinks {
   history: Stream<HistoryInput | string>;
   prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
+  material: Stream<boolean>;
 }
 
 export function EventDetailComponent(sources: EventDetailSources): EventDetailSinks {
@@ -199,35 +190,7 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   const shrinkButtonClick$ =
     sources.dom.select('.shrink.button').events('.click');
   const history$ = shrinkButtonClick$.mapTo('/');
-  const formSubmit$ =
-    sources.dom
-      .select('.form.event button[type=submit]')
-      .events('click');
-  const formSubmitRequest$ =
-    sources.events.events$
-      .map(events =>
-        formSubmit$
-          .filter(ev => {
-            // TODO: Validate
-            const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
-            const invalidElements = formElement.querySelectorAll('.is-invalid');
-            return invalidElements.length === 0;
-          })
-          .map(ev => {
-            const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
-            const cardElement = closest(formElement, '.event.card');
-            const eventUrl = cardElement.attributes['data-url'].value;
-            const event = events.find(event => event.url === eventUrl);
-            const request: RegistrationRequest = {
-              event,
-              data: getFormData(formElement)
-            }
-            return request;
-          })
-      ).flatten();
-  const registrationSuccessfulUrl$ =
+  const success$ =
     event$
       .map(event => 
         sources.registrations.registration$
@@ -236,20 +199,24 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
           .startWith(false)
         )
       .flatten();
+  const present$ = xs.create<boolean>();
   const formSinks = RegistrationForm({
     dom: sources.dom,
     event$,
-    success$: xs.of(false),
-    present$: xs.of(false)
+    success$,
+    present$
   });
+  present$.imitate(formSinks.present$);
   const vdom$ =
     xs.combine(event$, formSinks.dom)
       .map(([event, formDom]) => main([renderExpandedEvent(event, formDom)]));
+  const refresh$ = vdom$.compose(delay(30)).mapTo(true);
   return {
     dom: vdom$,
     history: history$,
-    prevent: xs.merge(shrinkButtonClick$, formSubmit$),
-    registrations: formSubmitRequest$
+    prevent: xs.merge(shrinkButtonClick$, formSinks.prevent),
+    registrations: formSinks.registrations,
+    material: refresh$
   }
 }
 
