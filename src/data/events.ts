@@ -1066,6 +1066,62 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }
+  },
+  {
+    title: 'Modern Architecture',
+    url: 'architecture',
+    categories: ['events'],
+    tags: ['Architecture', 'Azure', 'microservices'],
+    author: 'devday_team',
+    abstract: 'In this Devday we will start with a talk on serverless architecture on the azure platform followed by a session on microservices.',
+    event_time: {
+      start_time: new Date('2017-03-16T18:30:00+05:30'),
+      end_time: new Date('2017-03-16T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-03-02T18:30:00+05:30'),
+      end_time: new Date('2017-03-16T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Serverless Architecture',
+        abstract: 'The talk will start with an introduction to serverless architecture and why it is so hot now. From the basics we will explore web jobs, creating and running azure functions and integration of azure functions with logic apps.',
+        authors: [
+          {
+            name: 'Karthikeyan VK',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Microservices',
+        abstract: '',
+        authors: [
+          // {
+          //   name: 'to be decided',
+          //   image_url: ''
+          // }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '238210259',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
 ];
 export default events;
