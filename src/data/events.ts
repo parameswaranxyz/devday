@@ -1069,7 +1069,7 @@ export const events: DevdayEvent[] = [
   },
   {
     title: 'Modern Architecture',
-    url: 'architecture',
+    url: 'modern-architecture',
     categories: ['events'],
     tags: ['Architecture', 'Azure', 'microservices'],
     author: 'devday_team',
