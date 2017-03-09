@@ -1068,12 +1068,12 @@ export const events: DevdayEvent[] = [
     }
   },
   {
-    title: 'Modern Architecture',
-    url: 'modern-architecture',
+    title: 'Architecture',
+    url: 'architecture',
     categories: ['events'],
-    tags: ['Architecture', 'Azure', 'microservices'],
+    tags: ['Architecture', 'load', 'microservices'],
     author: 'devday_team',
-    abstract: 'In this Devday we will start with a talk on serverless architecture on the azure platform followed by a session on microservices.',
+    abstract: 'We start this DevDay by exploring a case study on managing a high load system followed by a discussion on microservices',
     event_time: {
       start_time: new Date('2017-03-16T18:30:00+05:30'),
       end_time: new Date('2017-03-16T20:30:00+05:30'),
@@ -1087,12 +1087,12 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Talk,
-        title: 'Serverless Architecture',
-        abstract: 'The talk will start with an introduction to serverless architecture and why it is so hot now. From the basics we will explore web jobs, creating and running azure functions and integration of azure functions with logic apps.',
+        title: 'Experience with high load system design',
+        abstract: 'I had an opportunity to design and implement a system to monitor the activity of a performant cloud deployment solution. The talk is about my experience in design and architecture of such a system; the trade offs made; things that failed to work etc.',
         authors: [
           {
-            name: 'Karthikeyan VK',
-            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
+            name: 'Srikanth Seshadri',
+            image_url: '/images/speakers/srikanth.png'
           }
         ],
         time: {
@@ -1101,13 +1101,13 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'Microservices',
-        abstract: '',
+        title: 'Microservices - what, why and how?',
+        abstract: 'In this talk we will explore what microservices is, why you should or should not move to a microservice architecture as well as discuss some best practices',
         authors: [
-          // {
-          //   name: 'to be decided',
-          //   image_url: ''
-          // }
+          {
+            name: 'Arvind Sridharan',
+            image_url: '/images/speakers/arvind.jpg'
+          }
         ],
         time: {
           start_time: new Date('2017-01-19T19:30:00+05:30')
