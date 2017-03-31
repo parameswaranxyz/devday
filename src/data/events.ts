@@ -1123,5 +1123,61 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
+  {
+    title: 'Distributed Systems and Serverless Architecture',
+    url: 'distributed-systems-and-serverless-architecture',
+    categories: ['events'],
+    tags: ['Architecture', 'load', 'microservices'],
+    author: 'devday_team',
+    abstract: '',
+    event_time: {
+      start_time: new Date('2017-04-20T18:30:00+05:30'),
+      end_time: new Date('2017-04-20T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-03-02T18:30:00+05:30'),
+      end_time: new Date('2017-04-20T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Serverless Architecture',
+        abstract: 'The talk will start with an introduction to serverless architecture and why it is so hot now. From the basics we will explore web jobs, creating and running azure functions and integration of azure functions with logic apps.',
+        authors: [
+          {
+            name: 'Karthikeyan VK',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Suuchi - Toolkit for building Distributed Data systems',
+        abstract: 'Suuchi is a Scala library that can be used for building distributed data systems. I\'ll be talking about the motivation for building such a library and a simple code walk through at the end on how to build such a simple distributed KV store using Suuchi.',
+        authors: [
+          {
+            name: 'Ashwanth Kumar',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/3/000/1d8/020/29f39fe.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '238855098',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
 ];
 export default events;
