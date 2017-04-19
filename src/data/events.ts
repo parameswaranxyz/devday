@@ -1147,7 +1147,7 @@ export const events: DevdayEvent[] = [
         abstract: 'The talk will start with an introduction to serverless architecture and why it is so hot now. From the basics we will explore web jobs, creating and running azure functions and integration of azure functions with logic apps.',
         authors: [
           {
-            name: 'Karthikeyan VK',
+            name: 'Karthikeyan VK, Web Application Architect at CADS Software',
             image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
           }
         ],
@@ -1161,7 +1161,7 @@ export const events: DevdayEvent[] = [
         abstract: 'Suuchi is a Scala library that can be used for building distributed data systems. I\'ll be talking about the motivation for building such a library and a simple code walk through at the end on how to build such a simple distributed KV store using Suuchi.',
         authors: [
           {
-            name: 'Ashwanth Kumar',
+            name: 'Ashwanth Kumar, Software Engineer at Indix',
             image_url: '/images/speakers/ashwanth.jpg'
           }
         ],
