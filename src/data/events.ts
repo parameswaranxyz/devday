@@ -1162,7 +1162,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Ashwanth Kumar',
-            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/3/000/1d8/020/29f39fe.jpg'
+            image_url: '/images/speakers/ashwanth.jpg'
           }
         ],
         time: {
