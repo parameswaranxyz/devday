@@ -1179,5 +1179,65 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
+  {
+    title: 'Should you "React" js',
+    url: 'should-you-react-js',
+    categories: ['events'],
+    tags: ['react', 'vue', 'mithril', 'javsacript', 'js', 'frontend'],
+    author: 'devday_team',
+    abstract: 'This DevDay, we start off by talking about various javascript frameworks and how to pick one. We will then drill down to a particular javascript framework as part of the second talk.',
+    event_time: {
+      start_time: new Date('2017-05-18T18:30:00+05:30'),
+      end_time: new Date('2017-05-18T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-03-02T18:30:00+05:30'),
+      end_time: new Date('2017-05-18T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'React.js Vue.js Mithril.js - How do you decide?',
+        abstract: 'Recently there are lots of JavaScript frameworks to pick from and they are very different from the way they have been designed to solve a same problem. I will compare and explain these design ideas and how they fare based on my project work experience in all these 3 frameworks',
+        authors: [
+          {
+            name: 'Sudhakar, Lead Software Consultant at Tarka Labs',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/1c8/2b3/3aa58e7.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be Decided',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-01-19T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-01-19T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '239567301',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
 ];
 export default events;
