@@ -1248,9 +1248,9 @@ export const events: DevdayEvent[] = [
     abstract: 'This time we are talking about functional programming with a hands on session.',
     event_time: {
       start_time: new Date('2017-05-06T10:30:00+05:30'),
-      end_time: new Date('2017-05-18T13:00:00+05:30'),
+      end_time: new Date('2017-05-06T13:00:00+05:30'),
     },
-    publish_time: new Date('2017-05-02T18:30:00+05:30'),
+    publish_time: new Date('2017-05-02T09:30:00+05:30'),
     registration_time: {
       start_time: new Date('2017-05-02T09:30:00+05:30'),
       end_time: new Date('2017-05-18T13:00:00+05:30'),
@@ -1286,8 +1286,8 @@ export const events: DevdayEvent[] = [
         }
       } as AgendaEntry
     ],
-    color: '#040509',
-    image_url: 'images/events/cross_platform.jpg',
+    color: '#283593',
+    image_url: 'images/events/functional_programming.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '239660651',
     form: {
