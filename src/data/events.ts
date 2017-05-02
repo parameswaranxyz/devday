@@ -1239,5 +1239,61 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
+  {
+    title: 'Functional Programming',
+    url: 'functional-programming',
+    categories: ['events'],
+    tags: ['javsacript', 'js', 'frontend', 'elixir'],
+    author: 'devday_team',
+    abstract: 'This time we are talking about functional programming with a hands on session.',
+    event_time: {
+      start_time: new Date('2017-05-06T10:30:00+05:30'),
+      end_time: new Date('2017-05-18T13:00:00+05:30'),
+    },
+    publish_time: new Date('2017-05-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-05-02T09:30:00+05:30'),
+      end_time: new Date('2017-05-18T13:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to functional programming',
+        abstract: 'Introduction to functional programming using Elixir',
+        authors: [
+          {
+            name: 'Navaneeth, Software Consultant, Sahaj',
+            image_url: 'images/speakers/navneeth.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-05-06T10:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Hands-on functional programming',
+        abstract: 'Hands-on session on functional programming using Scala',
+        authors: [
+          {
+            name: 'Dileep Bapat, Software Consultant, Sahaj',
+            image_url: 'images/speakers/dileep.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-05-06T11:30:00+05:30')
+        }
+      } as AgendaEntry
+    ],
+    color: '#040509',
+    image_url: 'images/events/cross_platform.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '239660651',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  }
 ];
 export default events;
