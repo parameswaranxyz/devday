@@ -1213,9 +1213,14 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'To be Decided',
-        abstract: '',
-        authors: [],
+        title: 'Building a Real World React Redux App',
+        abstract: 'In this talk I would like to share my experience on working with React.js and redux to build and deploy a front-end application, how to take your basic understanding of react and apply it to building UI components, how you can organise your application\'s data in your redux store and finally how to connect them together to do the magic.',
+        authors: [
+          {
+            name : 'Alfred, Solution Consultant at Sahaj Software',
+            image_url :'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkFAAAAJGY1ZTMwNjU5LWYxZDYtNDU0OS05MWI5LTk4NjdmNjg4N2YyMA.jpg'
+          }
+        ],
         time: {
           start_time: new Date('2017-01-19T19:30:00+05:30')
         }
