@@ -1017,10 +1017,11 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'A deep dive into CouchDB',
+        video: 'https://www.youtube.com/watch?v=Lz9TSFU8ZTg&t=258s',
         abstract: 'In this talk we will discuss how various features of CouchDB (i.e. MapReduce, indices, sorting) were used in production in context of the CAP theorem.',
         authors: [
           {
-            name: 'Raj Bharath',
+            name: 'Raj Bharath Kannan',
             linkedin_profile_url: 'https://www.linkedin.com/in/rajbharath/',
             image_url: '/images/speakers/raj.png'
           }
@@ -1232,8 +1233,8 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'React.js Vue.js Mithril.js - How do you decide?',
-        // video: 'https://www.google.com',
-        // ppt: 'http://devday.in/images/devday.gif',
+        video: 'https://www.youtube.com/watch?v=7Dz__uU1t9o',
+        ppt: 'http://sudhakar.online/programming/2017/05/18/react-vue-mithril.html',
         abstract: 'Recently there are lots of JavaScript frameworks to pick from and they are very different from the way they have been designed to solve a same problem. I will compare and explain these design ideas and how they fare based on my project work experience in all these 3 frameworks',
         authors: [
           {
@@ -1249,6 +1250,8 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Building a Real World React Redux App',
+        video: 'https://www.youtube.com/watch?v=1J0jSFahZYU',
+        ppt: 'https://www.slideshare.net/secret/kLRzmO5eEzx2Op',
         abstract: 'In this talk I would like to share my experience on working with React.js and redux to build and deploy a front-end application, how to take your basic understanding of react and apply it to building UI components, how you can organise your application\'s data in your redux store and finally how to connect them together to do the magic.',
         authors: [
           {
