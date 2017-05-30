@@ -66,6 +66,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Dileep Bapat',
+            linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
             image_url: 'images/speakers/dileep.jpg'
           }
         ],
@@ -127,6 +128,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Srimathi Harinarayanan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
             image_url: 'images/speakers/srimathi.jpg'
           },
           {
@@ -145,6 +147,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Shashank Teotia',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
             image_url: 'images/speakers/shashank-teotia.jpg'
           }
         ],
@@ -207,6 +210,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Shashank Teotia',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
             image_url: 'images/speakers/shashank-teotia.jpg'
           }
         ],
@@ -221,6 +225,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Deepak Nararyana Rao',
+            linkedin_profile_url: 'https://www.linkedin.com/in/endeepak/',
             image_url: 'images/speakers/deepak.jpg'
           }
         ],
@@ -235,6 +240,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Dileep Bapat',
+            linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
             image_url: 'images/speakers/dileep.jpg'
           }
         ],
@@ -297,6 +303,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: "Priyank Gupta",
+            linkedin_profile_url: 'https://www.linkedin.com/in/priyaaank/',
             image_url: 'images/speakers/priyank.png'
           }
         ],
@@ -311,6 +318,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Dileep Bapat',
+            linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
             image_url: 'images/speakers/dileep.jpg'
           }
         ],
@@ -325,6 +333,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Mahesh B R',
+            linkedin_profile_url: 'https://www.linkedin.com/in/raghavendrra-mahesh-0011a610/',
             image_url: 'images/speakers/mahesh.png'
           }
         ],
@@ -366,6 +375,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: "Srikanth Seshadri",
+            linkedin_profile_url: 'https://www.linkedin.com/in/srikanth-seshadri-3402794/',
             image_url: 'images/speakers/srikanth.png'
           }
         ],
@@ -387,6 +397,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Arther Antony',
+            linkedin_profile_url: 'https://www.linkedin.com/in/artherantony/',
             image_url: 'images/speakers/arther.png'
           }
         ],
@@ -401,6 +412,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Raghavendrra Mahesh',
+            linkedin_profile_url: 'https://www.linkedin.com/in/raghavendrra-mahesh-0011a610/',
             image_url: 'images/speakers/mahesh.png'
           }
         ],
@@ -444,6 +456,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Sairam Krishnamurthy',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sairamkrish/',
             image_url: 'images/speakers/sairam.jpg'
           }
         ],
@@ -458,6 +471,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Vagmi Mudumbai',
+            linkedin_profile_url: 'https://www.linkedin.com/in/vagmi/',
             image_url: 'images/speakers/vagmi.jpg'
           }
         ],
@@ -472,6 +486,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Sudarsan Balaji',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sudarsanbalaji/',
             image_url: 'images/speakers/sudarsan.png'
           }
         ],
@@ -486,6 +501,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Raj Bharath Kannan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/rajbharath/',
             image_url: 'images/speakers/raj.png'
           }
         ],
@@ -563,6 +579,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Arvind Sridharan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/arvsr1988/',
             image_url: 'images/speakers/arvind.jpg'
           }
         ],
@@ -577,6 +594,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Sudhir Jonathan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sudhir-jonathan-5b4610b/',
             image_url: 'images/speakers/sudhir.png'
           }
         ],
@@ -591,6 +609,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Vijayakumar Nagarajan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/vijayakumarnagarajan/',
             image_url: 'images/speakers/vijayakumar.png'
           }
         ],
@@ -638,6 +657,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Deepthi Chand',
+            linkedin_profile_url: 'https://www.linkedin.com/in/deepthi-chand-alagandula-5415862b/',
             image_url: '/images/speakers/deepthi.png'
           }
         ],
@@ -652,6 +672,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Priyank Gupta',
+            linkedin_profile_url: 'https://www.linkedin.com/in/priyaaank/',
             image_url: '/images/speakers/priyank.png'
           }
         ],
@@ -666,6 +687,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Shashank Teotia',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
             image_url: '/images/speakers/shashank-teotia.jpg'
           }
         ],
@@ -708,6 +730,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Srimathi Harinarayanan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
             image_url: 'images/speakers/srimathi.jpg'
           }
         ],
@@ -722,6 +745,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Mahesh and Arther',
+            linkedin_profile_url: 'https://www.linkedin.com/in/artherantony/',
             image_url: 'images/speakers/arther.png'
           }
         ],
@@ -736,6 +760,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Manoj Mahalingam',
+            linkedin_profile_url: 'https://www.linkedin.com/in/manojlds/',
             image_url: '/images/speakers/manoj.jpg'
           }
         ],
@@ -874,6 +899,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Sudarsan Balaji',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sudarsanbalaji/',
             image_url: 'images/speakers/sudarsan.png'
           }
         ],
@@ -980,6 +1006,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Ramanathan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/ramanathan-balakrishnan-a9594217/',
             image_url: '/images/speakers/ramanathan.jpg'
           }
         ],
@@ -994,6 +1021,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Raj Bharath',
+            linkedin_profile_url: 'https://www.linkedin.com/in/rajbharath/',
             image_url: '/images/speakers/raj.png'
           }
         ],
@@ -1092,6 +1120,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Srikanth Seshadri',
+            linkedin_profile_url: 'https://www.linkedin.com/in/srikanth-seshadri-3402794/',
             image_url: '/images/speakers/srikanth.png'
           }
         ],
@@ -1106,6 +1135,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Arvind Sridharan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/arvsr1988/',
             image_url: '/images/speakers/arvind.jpg'
           }
         ],
@@ -1148,6 +1178,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Karthikeyan VK, Web Application Architect at CADS Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/karthikeyan-vk-27508254/',
             image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
           }
         ],
@@ -1162,6 +1193,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Ashwanth Kumar, Software Engineer at Indix',
+            linkedin_profile_url: 'https://www.linkedin.com/in/ashwanthkumar/',
             image_url: '/images/speakers/ashwanth.jpg'
           }
         ],
@@ -1285,6 +1317,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Dileep Bapat, Software Consultant, Sahaj',
+            linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
             image_url: 'images/speakers/dileep.jpg'
           }
         ],
