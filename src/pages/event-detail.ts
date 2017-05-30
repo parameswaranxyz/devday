@@ -20,14 +20,10 @@ function getMeridien(date: Date): string {
 }
 
 function getAuthorInfo(entry) {
-  let authorChildren = entry.authors && entry.authors[0] ? [img('.avatar', {
-    props: {
-      src:
-      entry.authors[0] != undefined
-        ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-        : 'images/speakers/devday-speaker.png'
-    }
-  }),
+  let authorChildren = entry.authors && entry.authors[0] ? [a('.link',
+    { props: { href: entry.authors[0].linkedin_profile_url || "#", target: "_blank"}},
+    img('.avatar', { props: { src: entry.authors[0].image_url || 'images/speakers/devday-speaker.png' } })
+  ),
   h5(entry.title),
   h6(['by ' + entry.authors.map(a => a.name).join(', ')])]
     : [h5(entry.title)];

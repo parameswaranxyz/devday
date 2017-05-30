@@ -217,9 +217,9 @@ blockquote {
   blockquote:before {
     position: absolute;
     left: -.5em;
-    content: '├óΓé¼┼ô'; }
+    content: 'â€œ'; }
   blockquote:after {
-    content: '├óΓé¼┬¥';
+    content: 'â€';
     margin-left: -.05em; }
 
 mark {
@@ -6110,13 +6110,13 @@ iframe {
       height: 550px;
       background: white;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-origin: 0% 0%;
-      cursor: pointer; }
+      transform-origin: 0% 0%; }
       .devday.home > .container > .layout > .content > main > .event.card .registration.success {
         text-align: center;
         padding-top: 10px;
         color: white; }
       .devday.home > .container > .layout > .content > main > .event.card > .primary.info {
+        cursor: pointer;
         position: absolute;
         z-index: 0;
         top: 0;
@@ -6180,6 +6180,7 @@ iframe {
               left: 4px; }
       .devday.home > .container > .layout > .content > main > .event.card > .background {
         position: absolute;
+        cursor: pointer;
         top: 0;
         left: 0;
         right: 0;
@@ -6212,14 +6213,16 @@ iframe {
             top: 20px;
             left: 20px;
             color: rgba(255, 255, 255, 0.7); }
-          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content > .avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            margin: 0;
-            margin-right: 20px;
-            margin-bottom: 20px; }
+          .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content > .link {
+            cursor: pointer; }
+            .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content > .link > .avatar {
+              width: 56px;
+              height: 56px;
+              border-radius: 50%;
+              border: 1px solid rgba(255, 255, 255, 0.5);
+              margin: 0;
+              margin-right: 20px;
+              margin-bottom: 20px; }
           .devday.home > .container > .layout > .content > main > .event.card > .speakers > .content p {
             color: white;
             height: 7.5rem;

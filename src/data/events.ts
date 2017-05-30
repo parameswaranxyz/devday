@@ -1204,6 +1204,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name: 'Sudhakar, Lead Software Consultant at Tarka Labs',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sudhakar82/',
             image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/000/1c8/2b3/3aa58e7.jpg'
           }
         ],
@@ -1218,6 +1219,7 @@ export const events: DevdayEvent[] = [
         authors: [
           {
             name : 'Alfred, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/alfredmilan/',
             image_url :'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAkFAAAAJGY1ZTMwNjU5LWYxZDYtNDU0OS05MWI5LTk4NjdmNjg4N2YyMA.jpg'
           }
         ],

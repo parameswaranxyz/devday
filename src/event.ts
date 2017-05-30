@@ -39,36 +39,6 @@ function getAuthorInfo(entry){
   ]));
 }
 
-function renderAgendaEntry(entry: AgendaEntry): VNode[] {
-  switch (entry.type) {
-    case AgendaEntryType.Talk:
-    case AgendaEntryType.Workshop:
-      return [
-        div('.agenda', [
-          div('.thumbnail', [
-            h5([getHHMM(entry.time.start_time)]),
-            h6([getMeridien(entry.time.start_time)])
-          ]),
-          getAuthorInfo(entry)
-        ])
-      ];
-    case AgendaEntryType.Break:
-      return [
-        div('.agenda', [
-          div('.thumbnail.break', [
-            h5([getHHMM(entry.time.start_time)]),
-            h6([getMeridien(entry.time.start_time)])
-          ]),
-          div('.info.break', [
-            div('.centerer', [
-              h5(entry.title)
-            ])
-          ])
-        ])
-      ];
-  }
-}
-
 function renderBackground(event: DevdayEvent): VNode {
   var style = {};
   if (event.color)
@@ -314,7 +284,7 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
           div('.content', {
             style: fadeInOutStyle
           }, authors.length > 0
-              ? authors.map(speaker => img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } }))
+              ? authors.map(speaker => a('.link', { props: { href: speaker.linkedin_profile_url || "#", target: "_blank"}}, img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
               : [p(['Walk in with your laptops for a hands-on experience!!!'])]
           )
         ]),
