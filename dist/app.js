@@ -12436,6 +12436,8 @@
 	            {
 	                type: definitions_1.AgendaEntryType.Talk,
 	                title: 'React.js Vue.js Mithril.js - How do you decide?',
+	                // video: 'https://www.google.com',
+	                // ppt: 'http://devday.in/images/devday.gif',
 	                abstract: 'Recently there are lots of JavaScript frameworks to pick from and they are very different from the way they have been designed to solve a same problem. I will compare and explain these design ideas and how they fare based on my project work experience in all these 3 frameworks',
 	                authors: [
 	                    {
@@ -15217,7 +15219,7 @@
 	            dom_1.div('.content', {
 	                style: fadeInOutStyle
 	            }, authors.length > 0
-	                ? authors.map(function (speaker) { return dom_1.a('.link', { props: { href: speaker.linkedin_profile_url || "#", target: "_blank" } }, dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })); })
+	                ? authors.map(function (speaker) { return dom_1.a('.link', { props: { href: speaker.linkedin_profile_url || "#", target: "_blank" } }, [dom_1.img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })]); })
 	                : [dom_1.p(['Walk in with your laptops for a hands-on experience!!!'])])
 	        ]),
 	        dom_1.div('.secondary.info', {
@@ -15409,11 +15411,22 @@
 	function getAuthorInfo(entry) {
 	    var authorChildren = entry.authors && entry.authors[0] ? [dom_1.a('.link', { props: { href: entry.authors[0].linkedin_profile_url || "#", target: "_blank" } }, dom_1.img('.avatar', { props: { src: entry.authors[0].image_url || 'images/speakers/devday-speaker.png' } })),
 	        dom_1.h5(entry.title),
-	        dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')])]
+	        dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')])
+	    ]
 	        : [dom_1.h5(entry.title)];
-	    return dom_1.div('.info', authorChildren.concat([
-	        dom_1.p(entry.abstract)
-	    ]));
+	    return dom_1.div('.info', authorChildren.concat([dom_1.p(entry.abstract)].concat(getTalkMaterials(entry))));
+	}
+	function getTalkMaterials(entry) {
+	    var materialsContent = [];
+	    if (entry.video)
+	        materialsContent.push(dom_1.a('.video', { props: { href: entry.video || "#", target: "_blank" } }, [
+	            dom_1.span('', 'Video')
+	        ]));
+	    if (entry.ppt)
+	        materialsContent.push(dom_1.a('.ppt', { props: { href: entry.ppt || '#', target: "_blank" } }, [
+	            dom_1.span('', 'Slides')
+	        ]));
+	    return materialsContent;
 	}
 	function renderAgendaEntry(entry) {
 	    switch (entry.type) {

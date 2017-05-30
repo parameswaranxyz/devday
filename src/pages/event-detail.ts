@@ -25,11 +25,21 @@ function getAuthorInfo(entry) {
     img('.avatar', { props: { src: entry.authors[0].image_url || 'images/speakers/devday-speaker.png' } })
   ),
   h5(entry.title),
-  h6(['by ' + entry.authors.map(a => a.name).join(', ')])]
+  h6(['by ' + entry.authors.map(a => a.name).join(', ')])
+  ]
     : [h5(entry.title)];
-  return div('.info', authorChildren.concat([
-    p(entry.abstract)
-  ]));
+  return div('.info', authorChildren.concat([p(entry.abstract)].concat(getTalkMaterials(entry))));
+}
+
+function getTalkMaterials(entry) {
+  let materialsContent = [];
+  if (entry.video) materialsContent.push(a('.video', { props: {href: entry.video || "#", target: "_blank"}}, [
+          span('', 'Video')
+        ]))
+  if (entry.ppt) materialsContent.push(a('.ppt', { props: {href: entry.ppt || '#', target: "_blank"}}, [
+          span('', 'Slides')
+        ]))
+  return materialsContent;
 }
 
 function renderAgendaEntry(entry: AgendaEntry): VNode[] {

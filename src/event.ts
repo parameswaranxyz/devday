@@ -267,7 +267,7 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
           div('.content', {
             style: fadeInOutStyle
           }, authors.length > 0
-              ? authors.map(speaker => a('.link', { props: { href: speaker.linkedin_profile_url || "#", target: "_blank"}}, img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })))
+              ? authors.map(speaker => a('.link', { props: { href: speaker.linkedin_profile_url || "#", target: "_blank"}}, [img('.avatar', { props: { src: speaker.image_url || 'images/speakers/devday-speaker.png' } })]))
               : [p(['Walk in with your laptops for a hands-on experience!!!'])]
           )
         ]),

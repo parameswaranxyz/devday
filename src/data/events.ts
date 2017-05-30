@@ -1232,6 +1232,8 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'React.js Vue.js Mithril.js - How do you decide?',
+        // video: 'https://www.google.com',
+        // ppt: 'http://devday.in/images/devday.gif',
         abstract: 'Recently there are lots of JavaScript frameworks to pick from and they are very different from the way they have been designed to solve a same problem. I will compare and explain these design ideas and how they fare based on my project work experience in all these 3 frameworks',
         authors: [
           {
