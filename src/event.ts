@@ -22,23 +22,6 @@ function getMeridien(date: Date): string {
   return date.getHours() >= 12 ? 'PM' : 'AM';
 }
 
-function getAuthorInfo(entry){
-  let authorChildren = entry.authors && entry.authors[0] ? [img('.avatar', {
-    props: {
-      src:
-      entry.authors[0] != undefined
-        ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-        : 'images/speakers/devday-speaker.png'
-    }
-  }),
-  h5(entry.title),
-  h6(['by ' + entry.authors.map(a => a.name).join(', ')])]
-  : [h5(entry.title)];
-  return div('.info', authorChildren.concat([
-    p(entry.abstract)
-  ]));
-}
-
 function renderBackground(event: DevdayEvent): VNode {
   var style = {};
   if (event.color)

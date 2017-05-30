@@ -11273,6 +11273,7 @@
 	                authors: [
 	                    {
 	                        name: 'Dileep Bapat',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
 	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
@@ -11334,6 +11335,7 @@
 	                authors: [
 	                    {
 	                        name: 'Srimathi Harinarayanan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
 	                        image_url: 'images/speakers/srimathi.jpg'
 	                    },
 	                    {
@@ -11352,6 +11354,7 @@
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
 	                        image_url: 'images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
@@ -11414,6 +11417,7 @@
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
 	                        image_url: 'images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
@@ -11428,6 +11432,7 @@
 	                authors: [
 	                    {
 	                        name: 'Deepak Nararyana Rao',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/endeepak/',
 	                        image_url: 'images/speakers/deepak.jpg'
 	                    }
 	                ],
@@ -11442,6 +11447,7 @@
 	                authors: [
 	                    {
 	                        name: 'Dileep Bapat',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
 	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
@@ -11504,6 +11510,7 @@
 	                authors: [
 	                    {
 	                        name: "Priyank Gupta",
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/priyaaank/',
 	                        image_url: 'images/speakers/priyank.png'
 	                    }
 	                ],
@@ -11518,6 +11525,7 @@
 	                authors: [
 	                    {
 	                        name: 'Dileep Bapat',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
 	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
@@ -11532,6 +11540,7 @@
 	                authors: [
 	                    {
 	                        name: 'Mahesh B R',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/raghavendrra-mahesh-0011a610/',
 	                        image_url: 'images/speakers/mahesh.png'
 	                    }
 	                ],
@@ -11573,6 +11582,7 @@
 	                authors: [
 	                    {
 	                        name: "Srikanth Seshadri",
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/srikanth-seshadri-3402794/',
 	                        image_url: 'images/speakers/srikanth.png'
 	                    }
 	                ],
@@ -11594,6 +11604,7 @@
 	                authors: [
 	                    {
 	                        name: 'Arther Antony',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/artherantony/',
 	                        image_url: 'images/speakers/arther.png'
 	                    }
 	                ],
@@ -11608,6 +11619,7 @@
 	                authors: [
 	                    {
 	                        name: 'Raghavendrra Mahesh',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/raghavendrra-mahesh-0011a610/',
 	                        image_url: 'images/speakers/mahesh.png'
 	                    }
 	                ],
@@ -11651,6 +11663,7 @@
 	                authors: [
 	                    {
 	                        name: 'Sairam Krishnamurthy',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/sairamkrish/',
 	                        image_url: 'images/speakers/sairam.jpg'
 	                    }
 	                ],
@@ -11665,6 +11678,7 @@
 	                authors: [
 	                    {
 	                        name: 'Vagmi Mudumbai',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/vagmi/',
 	                        image_url: 'images/speakers/vagmi.jpg'
 	                    }
 	                ],
@@ -11679,6 +11693,7 @@
 	                authors: [
 	                    {
 	                        name: 'Sudarsan Balaji',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/sudarsanbalaji/',
 	                        image_url: 'images/speakers/sudarsan.png'
 	                    }
 	                ],
@@ -11693,6 +11708,7 @@
 	                authors: [
 	                    {
 	                        name: 'Raj Bharath Kannan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/rajbharath/',
 	                        image_url: 'images/speakers/raj.png'
 	                    }
 	                ],
@@ -11770,6 +11786,7 @@
 	                authors: [
 	                    {
 	                        name: 'Arvind Sridharan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/arvsr1988/',
 	                        image_url: 'images/speakers/arvind.jpg'
 	                    }
 	                ],
@@ -11784,6 +11801,7 @@
 	                authors: [
 	                    {
 	                        name: 'Sudhir Jonathan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/sudhir-jonathan-5b4610b/',
 	                        image_url: 'images/speakers/sudhir.png'
 	                    }
 	                ],
@@ -11798,6 +11816,7 @@
 	                authors: [
 	                    {
 	                        name: 'Vijayakumar Nagarajan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/vijayakumarnagarajan/',
 	                        image_url: 'images/speakers/vijayakumar.png'
 	                    }
 	                ],
@@ -11845,6 +11864,7 @@
 	                authors: [
 	                    {
 	                        name: 'Deepthi Chand',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/deepthi-chand-alagandula-5415862b/',
 	                        image_url: '/images/speakers/deepthi.png'
 	                    }
 	                ],
@@ -11859,6 +11879,7 @@
 	                authors: [
 	                    {
 	                        name: 'Priyank Gupta',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/priyaaank/',
 	                        image_url: '/images/speakers/priyank.png'
 	                    }
 	                ],
@@ -11873,6 +11894,7 @@
 	                authors: [
 	                    {
 	                        name: 'Shashank Teotia',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/shashank-teotia-8a9b946/',
 	                        image_url: '/images/speakers/shashank-teotia.jpg'
 	                    }
 	                ],
@@ -11915,6 +11937,7 @@
 	                authors: [
 	                    {
 	                        name: 'Srimathi Harinarayanan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
 	                        image_url: 'images/speakers/srimathi.jpg'
 	                    }
 	                ],
@@ -11929,6 +11952,7 @@
 	                authors: [
 	                    {
 	                        name: 'Mahesh and Arther',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/artherantony/',
 	                        image_url: 'images/speakers/arther.png'
 	                    }
 	                ],
@@ -11943,6 +11967,7 @@
 	                authors: [
 	                    {
 	                        name: 'Manoj Mahalingam',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/manojlds/',
 	                        image_url: '/images/speakers/manoj.jpg'
 	                    }
 	                ],
@@ -12081,6 +12106,7 @@
 	                authors: [
 	                    {
 	                        name: 'Sudarsan Balaji',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/sudarsanbalaji/',
 	                        image_url: 'images/speakers/sudarsan.png'
 	                    }
 	                ],
@@ -12184,6 +12210,7 @@
 	                authors: [
 	                    {
 	                        name: 'Ramanathan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/ramanathan-balakrishnan-a9594217/',
 	                        image_url: '/images/speakers/ramanathan.jpg'
 	                    }
 	                ],
@@ -12198,6 +12225,7 @@
 	                authors: [
 	                    {
 	                        name: 'Raj Bharath',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/rajbharath/',
 	                        image_url: '/images/speakers/raj.png'
 	                    }
 	                ],
@@ -12296,6 +12324,7 @@
 	                authors: [
 	                    {
 	                        name: 'Srikanth Seshadri',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/srikanth-seshadri-3402794/',
 	                        image_url: '/images/speakers/srikanth.png'
 	                    }
 	                ],
@@ -12310,6 +12339,7 @@
 	                authors: [
 	                    {
 	                        name: 'Arvind Sridharan',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/arvsr1988/',
 	                        image_url: '/images/speakers/arvind.jpg'
 	                    }
 	                ],
@@ -12352,6 +12382,7 @@
 	                authors: [
 	                    {
 	                        name: 'Karthikeyan VK, Web Application Architect at CADS Software',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/karthikeyan-vk-27508254/',
 	                        image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAYQAAAAJDFkZDgyYjk1LTllZjYtNDE3OC1iNzNlLTI2MWNmMTljMDIyZQ.jpg'
 	                    }
 	                ],
@@ -12366,6 +12397,7 @@
 	                authors: [
 	                    {
 	                        name: 'Ashwanth Kumar, Software Engineer at Indix',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/ashwanthkumar/',
 	                        image_url: '/images/speakers/ashwanth.jpg'
 	                    }
 	                ],
@@ -12489,6 +12521,7 @@
 	                authors: [
 	                    {
 	                        name: 'Dileep Bapat, Software Consultant, Sahaj',
+	                        linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
 	                        image_url: 'images/speakers/dileep.jpg'
 	                    }
 	                ],
@@ -14942,21 +14975,6 @@
 	}
 	function getMeridien(date) {
 	    return date.getHours() >= 12 ? 'PM' : 'AM';
-	}
-	function getAuthorInfo(entry) {
-	    var authorChildren = entry.authors && entry.authors[0] ? [dom_1.img('.avatar', {
-	            props: {
-	                src: entry.authors[0] != undefined
-	                    ? entry.authors[0].image_url || 'images/speakers/devday-speaker.png'
-	                    : 'images/speakers/devday-speaker.png'
-	            }
-	        }),
-	        dom_1.h5(entry.title),
-	        dom_1.h6(['by ' + entry.authors.map(function (a) { return a.name; }).join(', ')])]
-	        : [dom_1.h5(entry.title)];
-	    return dom_1.div('.info', authorChildren.concat([
-	        dom_1.p(entry.abstract)
-	    ]));
 	}
 	function renderBackground(event) {
 	    var style = {};
