@@ -1339,6 +1339,68 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }
+  },
+  {
+    title: 'Data, Data Everywhere!',
+    url: 'data-data-everywhere',
+    categories: ['events'],
+    tags: ['platform', 'data', 'analytics'],
+    author: 'devday_team',
+    abstract: 'This DevDay we will talk on how to build platforms to use data in a way that would enable meaningful user interaction.',
+    event_time: {
+      start_time: new Date('2017-06-15T18:30:00+05:30'),
+      end_time: new Date('2017-06-15T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-06-02T18:30:00+05:30'),
+      end_time: new Date('2017-06-15T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Make your data talk - Building a data platform services from the ground up',
+        abstract: 'Data is the asset which powers any business today. As every business interacts with its users digitally, data about those interactions provide insights that help drive a better engagement with all parties. However, building platforms and products with these data at scale has its own challenges. In this talk, we discuss the motivation, challenges and learnings from building such data platform and services to help the organization connect with users in a better way and provide much more value.',
+        authors: [
+          {
+            name: 'Sonjoy Bose, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sanjoyb/',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAfEAAAAJDIxNWMxOWZhLTEyMjYtNGQ5Yi1hNmUyLThiZDVlYzI2NjkxZg.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-01-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be Decided',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-01-19T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-01-19T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '240478877',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
+
 ];
 export default events;
