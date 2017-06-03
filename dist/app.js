@@ -12655,7 +12655,7 @@
 	                abstract: 'Data is the asset which powers any business today. As every business interacts with its users digitally, data about those interactions provide insights that help drive a better engagement with all parties. However, building platforms and products with these data at scale has its own challenges. In this talk, we discuss the motivation, challenges and learnings from building such data platform and services to help the organization connect with users in a better way and provide much more value.',
 	                authors: [
 	                    {
-	                        name: 'Sonjoy Bose, Solution Consultant at Sahaj Software',
+	                        name: 'Sanjoy Bose, Solution Consultant at Sahaj Software',
 	                        linkedin_profile_url: 'https://www.linkedin.com/in/sanjoyb/',
 	                        image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAfEAAAAJDIxNWMxOWZhLTEyMjYtNGQ5Yi1hNmUyLThiZDVlYzI2NjkxZg.jpg'
 	                    }
