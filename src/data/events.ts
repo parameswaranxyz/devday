@@ -1346,7 +1346,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['platform', 'data', 'analytics'],
     author: 'devday_team',
-    abstract: 'This DevDay we will talk on how to build platforms to use data in a way that would enable meaningful user interaction.',
+    abstract: 'This DevDay we will talk on how to build platforms to use data in a way that would enable meaningful user interaction followed by a session on how Indix does matching of 1.5+ billion products at scale.',
     event_time: {
       start_time: new Date('2017-06-15T18:30:00+05:30'),
       end_time: new Date('2017-06-15T20:30:00+05:30'),
@@ -1375,9 +1375,13 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'To be Decided',
-        abstract: '',
-        authors: [],
+        title: 'Matching at Scale',
+        abstract: 'We will look at the techniques and technologies that Indix uses (Scalding and Spark, Dedup, buckets and fuzzy matching), to solve the problem of matching 1.5 + billion products with each other at scale.',
+        authors: [
+          {
+            name : "Karthik N and Rajesh KM, Indix",
+          }
+        ],
         time: {
           start_time: new Date('2017-01-19T19:30:00+05:30')
         }
