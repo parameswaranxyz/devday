@@ -1346,7 +1346,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['platform', 'data', 'analytics'],
     author: 'devday_team',
-    abstract: 'This DevDay we will talk on how to build platforms to use data in a way that would enable meaningful user interaction followed by a session on how Indix does matching of 1.5+ billion products at scale.',
+    abstract: 'This DevDay we will talk on how to build platforms to leverage data from user interaction followed by a session on how Indix does matching of 1.5+ billion products at scale.',
     event_time: {
       start_time: new Date('2017-06-15T18:30:00+05:30'),
       end_time: new Date('2017-06-15T20:30:00+05:30'),
