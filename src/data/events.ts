@@ -1405,6 +1405,63 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
-
+  {
+    title: 'Developing Applications that Scale',
+    url: 'applications-that-scale',
+    categories: ['events'],
+    tags: ['scalabel architecture', 'principles', 'patterns', 'app engine'],
+    author: 'devday_team',
+    abstract: 'The talks would mostly cover the principles and patterns that a developer would need to write scalable applications.',
+    event_time: {
+      start_time: new Date('2017-06-24T10:00:00+05:30'),
+      end_time: new Date('2017-06-24T10:00:00+05:30'),
+    },
+    publish_time: new Date('2017-06-17T14:00:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-06-17T14:00:00+05:30'),
+      end_time: new Date('2017-06-24T09:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'AppEngine and Scalability',
+        abstract: '',
+        authors: [
+          {
+            name: 'Jijesh Mohan',
+            linkedin_profile_url: 'https://in.linkedin.com/in/jijesh-mohan-545488a',
+            image_url: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAkoAAAAJGM1ZjI3Yjc1LTIxMjQtNDhkMC1hNDg1LWVjMjk5NWZkYTFkZQ.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-06-24T10:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Developing Apps that scale: Principles and Patterns',
+        abstract: '',
+        authors: [
+          {
+            name : "Mahesh Lal",
+            linkedin_profile_url: 'https://in.linkedin.com/in/maheshlal',
+            image_url: 'images/speakers/mahesh-lal.png'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-06-24T11:00:00+05:30')
+        }
+      }
+    ],
+    color: '#040509',
+    image_url: '/images/events/its_real_time.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '240836694',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  }
 ];
 export default events;
