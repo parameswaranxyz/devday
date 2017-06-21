@@ -1452,6 +1452,20 @@ export const events: DevdayEvent[] = [
         time: {
           start_time: new Date('2017-06-24T11:00:00+05:30')
         }
+      },
+      {
+        type: AgendaEntryType.Talk,
+        title: ' Building software for a bootstrapped business',
+        abstract: '',
+        authors: [
+          {
+            name : "Subbu Athikunte",
+            linkedin_profile_url: 'https://www.linkedin.com/in/athikunte/'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-06-24T11:00:00+05:30')
+        }
       }
     ],
     color: '#040509',
