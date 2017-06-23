@@ -1464,7 +1464,7 @@ export const events: DevdayEvent[] = [
           }
         ],
         time: {
-          start_time: new Date('2017-06-24T11:00:00+05:30')
+          start_time: new Date('2017-06-24T12:00:00+05:30')
         }
       }
     ],
