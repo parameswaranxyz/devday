@@ -147,6 +147,13 @@ export function Home(sources: Sources): Sinks {
     xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$)
       .map(([events, more, shorten, join, registrationSuccessfulUrl, present]) => {
         return main([
+          div(
+            '.banner-card .mdl-card .mdl-shadow--2dp',
+            {},
+            [ div('.mdl-card__title', {}, [img('', { props: {src: '/images/devmerge-logo.png'}}, '')]),
+              span('#dates', {}, 'August 19 & 20, 2017   IIT Madras Research Park, Chennai'),
+              div('.banner-message .mdl-card__supporting-text', {}, "DEVMERGE_ is a hackathon where work is play and play is work. It has been our dream to bring together the best of hackers under one roof over a weekend and let them play! This August, our dream comes true."),
+              div('.text-center .mdl-card__actions mdl-card--border', {}, [a('.mdl-button .mdl-button--colored .mdl-js-button .mdl-js-ripple-effect', { props: { href: 'http://devday.in/devmerge', target: "_blank" } }, "Register")] )]),
           ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
           ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
           nav([

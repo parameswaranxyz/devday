@@ -6105,6 +6105,27 @@ iframe {
     -webkit-flex-shrink: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0; }
+    .devday.home > .container > .layout > .content > main > .banner-card {
+      width: 70%;
+      margin: auto;
+      padding: 10px;
+      display: block;
+      text-align: center; }
+      .devday.home > .container > .layout > .content > main > .banner-card .mdl-card__title, .devday.home > .container > .layout > .content > main > .banner-card .devday.event > .container > .layout > main > .panel > section .card > header, .devday.event > .container > .layout > main > .panel > section .devday.home > .container > .layout > .content > main > .banner-card .card > header {
+        height: 120px; }
+        .devday.home > .container > .layout > .content > main > .banner-card .mdl-card__title img, .devday.home > .container > .layout > .content > main > .banner-card .devday.event > .container > .layout > main > .panel > section .card > header img, .devday.event > .container > .layout > main > .panel > section .devday.home > .container > .layout > .content > main > .banner-card .card > header img {
+          height: 100%;
+          margin: auto; }
+      .devday.home > .container > .layout > .content > main > .banner-card .banner-message {
+        width: 100%; }
+      .devday.home > .container > .layout > .content > main > .banner-card span#dates {
+        font-size: 10pt;
+        color: white;
+        background: #2D3D8E;
+        padding: 5px 15px;
+        border-radius: 50px; }
+      .devday.home > .container > .layout > .content > main > .banner-card .text-center {
+        text-align: center; }
     .devday.home > .container > .layout > .content > main > .event.card {
       z-index: 10;
       height: 550px;

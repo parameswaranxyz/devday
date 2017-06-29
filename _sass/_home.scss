@@ -137,6 +137,35 @@
                     -ms-flex-negative: 0;
                     flex-shrink: 0;
 
+                    & > .banner-card {
+                      width: 70%;
+                      margin: auto;
+                      padding: 10px;
+                      display: block;
+                      text-align: center;
+                      .mdl-card__title {
+                        height: 120px;
+                        img {
+                          height: 100%;
+                          margin: auto;
+                        }
+                      }
+                      .banner-message {
+                        width: 100%;
+                      }
+                      span#dates {
+                        font-size: 10pt;
+                        color: white;
+                        background: #2D3D8E;
+                        padding: 5px 15px;
+                        border-radius: 50px;
+                      }
+
+                      .text-center {
+                        text-align: center;
+                      }
+                    }
+
                     & > .event.card {
                         @extend .mdl-card;
                         @extend .mdl-cell;
@@ -761,7 +790,7 @@
 
                           & > .sahaj.org.link {
                             color: #9e9e9e;
-                            
+
                             &:hover {
                               color: #9e9e9e;
                             }
