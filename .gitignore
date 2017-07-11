@@ -17,3 +17,6 @@ src/**/*.js
 !src/backend/**
 npm-debug.log*
 attendancedb/
+dist/app.js
+dist/app.css
+dist/app.css.map
