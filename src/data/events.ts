@@ -1476,6 +1476,73 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
+  },
+  {
+    title: 'Make your data talk!',
+    url: 'make-your-data-talk',
+    categories: ['events'],
+    tags: ['data', 'visualisation'],
+    author: 'devday_team',
+    abstract: 'This DevDay will have talks focussing on building applications around data.',
+    event_time: {
+      start_time: new Date('2017-07-29T10:30:00+05:30'),
+      end_time: new Date('2017-07-29T13:00:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-06-02T18:30:00+05:30'),
+      end_time: new Date('2017-07-29T10:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Baby Steps Towoards a Tech Strategy in an Enterprise Labyrinth: A Tech Preview',
+        abstract: 'The Data Team helps big and small enterprises realize value from data with the right strategic vision. We will talk about an ingestion platform we built both in its technical depth of evolution as well as value generation towards a bigger data strategy',
+        authors: [
+          {
+            name: 'Ankit and Ganesh, The Data Team',
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2017-07-29T10:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be decided',
+        abstract: '',
+        authors: [
+          {
+            name : "Srimathi, Sahaj Software",
+            linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
+            image_url: 'images/speakers/srimathi.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-07-29T11:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Lunch and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-07-29T12:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '241588646',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
   }
 ];
 export default events;
