@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "The site for devday",
   "scripts": {
-    "build": "sass  ./_sass/app.scss:./dist/app.css && webpack",
-    "dev": "concurrently \"sass --watch ./_sass/app.scss:./dist/app.css\" \"webpack --watch\" \"lite-server\"",
+    "build": "node-sass _sass/app.scss dist/app.css && webpack",
+    "dev": "concurrently \"node-sass --watch _sass/app.scss dist/app.css\" \"webpack --watch\" \"lite-server\"",
     "start": "npm run dev",
     "postinstall": "typings install"
   },
