@@ -1512,8 +1512,8 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
-        title: 'To be decided',
-        abstract: '',
+        title: 'Making data "talk" and "drive" insights',
+        abstract: 'There is something magical about exploring large amounts of data and presenting it, as simply as we can, to drive insights/decision making. In this talk, we will cover popular ways to visualize data on the web. We will look at interactive data viz examples from popular charting libraries like highcharts, d3 etc.',
         authors: [
           {
             name : "Srimathi, Sahaj Software",
