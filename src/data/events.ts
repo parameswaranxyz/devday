@@ -1497,7 +1497,7 @@ export const events: DevdayEvent[] = [
     agenda: [
       {
         type: AgendaEntryType.Talk,
-        title: 'Baby Steps Towoards a Tech Strategy in an Enterprise Labyrinth: A Tech Preview',
+        title: 'Baby Steps Towards a Tech Strategy in an Enterprise Labyrinth: A Tech Preview',
         abstract: 'The Data Team helps big and small enterprises realize value from data with the right strategic vision. We will talk about an ingestion platform we built both in its technical depth of evolution as well as value generation towards a bigger data strategy',
         authors: [
           {
