@@ -1,4 +1,5 @@
 import { DevdayEvent, Address, AgendaEntry, AgendaEntryType } from './../definitions';
+import * as Cycle from '@cycle/dom' ;
 
 export const BANGALORE_ADDRESS: Address = {
       line_one: '#365, 3rd Floor, Sulochana Building',
@@ -1539,6 +1540,58 @@ export const events: DevdayEvent[] = [
     image_url: '/images/events/hackathon.jpg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '241588646',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
+  {
+    title: 'Lets Teach Machines..',
+    url: 'lets-teach-machines',
+    categories: ['events'],
+    tags: ['data', 'machine learning', 'ml', 'artificial intelligence', 'ai'],
+    author: 'devday_team',
+    abstract: 'yup, lets teach machines..a course on machine learning.. Spanning over four days.. We will explain you the techniques used in ML from scratch with maths behind the scene and a hands on in R on the concept. Course will be on every subsequent Saturdays starting from 9th Sept 2017',
+    event_time: {
+      start_time: new Date('2017-09-09T10:00:00+05:30'),
+      end_time: new Date('2017-09-09T16:00:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-08-29T10:00:00+05:30'),
+      end_time: new Date('2017-09-09T10:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to machine learning',
+        abstract: [Cycle.ul('', [Cycle.li('',' What is ML'), Cycle.li('What is AI'), Cycle.li('','What is DL')])],
+        authors:[
+          {
+            name: 'Swaminathan Ganesan, Soulution Consultant - Sahaj',
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2017-09-09T10:00:00+05:30')
+        }
+      },
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to R',
+        abstract: [Cycle.ul('', [Cycle.li('','Installation and sanity check'), Cycle.li('What is AI'), Cycle.li('','Basic DS in R and few operations related')])],
+        authors: [],
+        time: {
+          start_time: new Date('2017-09-09T14:00:00+05:30')
+        }
+      }
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '242827851',
     form: {
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
