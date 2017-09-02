@@ -1596,6 +1596,95 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }
+  },
+  {
+    title: 'DEVMERGE_',
+    url: 'devmerge',
+    categories: ['events'],
+    tags: ['hackathon', 'devmerge'],
+    author: 'devday_team',
+    abstract: 'DEVMERGE_ is a hackathon where work is play and play is work. It has been our dream to bring together the best of hackers under one roof over a weekend and let them play! This August, our dream comes true.',
+    event_time: {
+      start_time: new Date('2017-08-19T12:30:00+05:30'),
+      end_time: new Date('2017-08-20T12:00:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-06-02T18:30:00+05:30'),
+      end_time: new Date('2017-07-29T10:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda:[],
+    details:
+      Cycle.div('', [
+        Cycle.h3('', 'Winners'),
+        Cycle.h4('', Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/file/d/0Bzbu-2OjDNYQbmRhVGdzV0QzamM/view?usp=sharing'}}, 'First Prize: Techno Titans, SKCT Coimbatore')),
+        Cycle.p('', 'A Ajai Srikanth, S Ashwin Karthik and A Balaji'),
+        Cycle.h4('', 'Second Prize: Diabetic Aid, IIT Madras'),
+        Cycle.p('', 'S Sathiyamoorthy, Sowmiya C and B Chandran'),
+        Cycle.h4('', 'Third Prize: Intelitixians, InteliTix Solutions'),
+        Cycle.p('', 'Ayyalu	and Satish'),
+      ]),
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '241139843',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
+  {
+    title: 'Ideas from DEVMERGE_',
+    url: 'devmerge-ideas',
+    categories: ['events'],
+    tags: ['hackathon', 'ideas'],
+    author: 'devday_team',
+    abstract: 'Hackers who hacked during DEVMERGE_ (a hackathon organised by Sahaj Software) will take us through on the their journey from ideation to development, discuss on the tech stack and the inspirations they had to build the idea. We got to see this during DEVMERGE_. As we enjoyed it, We thought of opening it up to a wider audience. Come and spend couple of hours and see it yourself.',
+    event_time: {
+      start_time: new Date('2017-09-14T10:30:00+05:30'),
+      end_time: new Date('2017-09-14T13:00:00+05:30'),
+    },
+    publish_time: new Date('2017-03-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-07-02T18:30:00+05:30'),
+      end_time: new Date('2017-07-14T18:00:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Git Rollback - generating code from voice',
+        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQUTNDLVVwYmxta28'}}, 'Description of their idea and implmentation'),
+        time: {
+          start_time: new Date('2017-07-29T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'House Stark - an interactive museum using AR',
+        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQTHBDRlpHY1JwSlU'}}, 'Description of their idea and implmentation'),
+        time: {
+          start_time: new Date('2017-07-29T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Vangogh - Applying Texture from one image to another using ML',
+        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQVWtpZjM2NkFSZGs'}}, 'Description of their idea and implmentation'),
+        time: {
+          start_time: new Date('2017-07-29T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '243038919',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
 ];
 export default events;

@@ -48,10 +48,10 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
     case AgendaEntryType.Workshop:
       return [
         div('.agenda', [
-          div('.thumbnail', [
+          entry.time ? div('.thumbnail', [
             h5([getHHMM(entry.time.start_time)]),
             h6([getMeridien(entry.time.start_time)])
-          ]),
+          ]) : div('',''),
           getAuthorInfo(entry)
         ])
       ];
@@ -114,9 +114,9 @@ export function renderExpandedEvent(event: DevdayEvent, form: VNode): VNode {
             ])
         ]),
       renderBackground(event),
-      div('.agenda', [
+      event.agenda.length > 0  ? div('.agenda', [
         div('.content', { style: fadeInOutStyle }, [].concat.apply([], event.agenda.map(renderAgendaEntry)))
-      ]),
+      ]) :  div('.secondary.info', {style {color:'white'}}, [div('.content', event.details)]),
       div('.secondary.info', {
         style: {
           top: '540px',
@@ -198,7 +198,7 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   const history$ = shrinkButtonClick$.mapTo('/');
   const success$ =
     event$
-      .map(event => 
+      .map(event =>
         sources.registrations.registration$
           .filter(Boolean)
           .map(reg => reg.event_url === event.url)
