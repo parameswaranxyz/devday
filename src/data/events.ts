@@ -1640,7 +1640,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['hackathon', 'ideas'],
     author: 'devday_team',
-    abstract: 'Hackers who hacked during DEVMERGE_ (a hackathon organised by Sahaj Software) will take us through on the their journey from ideation to development, discuss on the tech stack and the inspirations they had to build the idea. We got to see this during DEVMERGE_. As we enjoyed it, We thought of opening it up to a wider audience. Come and spend couple of hours and see it yourself.',
+    abstract: 'Hackers who hacked during DEVMERGE_ (a hackathon organised by Sahaj Software and TiE Chennai) will take us through on the their journey from ideation to development, discuss on the tech stack and the inspirations they had to build the idea. We got to see this during DEVMERGE_. As we enjoyed it, We thought of opening it up to a wider audience. Come and spend couple of hours and see it yourself.',
     event_time: {
       start_time: new Date('2017-09-14T10:30:00+05:30'),
       end_time: new Date('2017-09-14T13:00:00+05:30'),
