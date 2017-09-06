@@ -1569,7 +1569,7 @@ export const events: DevdayEvent[] = [
         abstract: [Cycle.ul('', [Cycle.li('',' What is ML'), Cycle.li('What is AI'), Cycle.li('','What is DL')])],
         authors:[
           {
-            name: 'Swaminathan Ganesan, Soulution Consultant - Sahaj',
+            name: 'Swaminathan Ganesan, Solution Consultant - Sahaj',
             linkedin_profile_url: '',
             image_url: ''
           }
