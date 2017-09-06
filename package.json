@@ -4,7 +4,7 @@
   "description": "The site for devday",
   "scripts": {
     "build": "node-sass _sass/app.scss dist/app.css && webpack",
-    "dev": "concurrently \"node-sass --watch _sass/app.scss dist/app.css\" \"webpack --watch\" \"lite-server\"",
+    "dev": "node-sass -w _sass/app.scss dist/app.css & webpack --watch & lite-server",
     "start": "npm run dev",
     "postinstall": "typings install"
   },
@@ -34,7 +34,6 @@
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
-    "concurrently": "^2.2.0",
     "css-loader": "^0.23.1",
     "lite-server": "^2.2.2",
     "node-sass": "^3.8.0",
