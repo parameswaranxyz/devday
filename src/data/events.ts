@@ -1648,7 +1648,7 @@ export const events: DevdayEvent[] = [
     publish_time: new Date('2017-03-02T18:30:00+05:30'),
     registration_time: {
       start_time: new Date('2017-07-02T18:30:00+05:30'),
-      end_time: new Date('2017-07-14T18:00:00+05:30'),
+      end_time: new Date('2017-09-14T18:00:00+05:30'),
     },
     venue: CHENNAI_ADDRESS,
     agenda: [
@@ -1665,7 +1665,7 @@ export const events: DevdayEvent[] = [
         title: 'House Stark - an interactive museum using AR',
         abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQTHBDRlpHY1JwSlU'}}, 'Description of their idea and implmentation'),
         time: {
-          start_time: new Date('2017-07-29T18:30:00+05:30')
+          start_time: new Date('2017-07-29T19:10:00+05:30')
         }
       } as AgendaEntry,
       {
@@ -1673,7 +1673,7 @@ export const events: DevdayEvent[] = [
         title: 'Vangogh - Applying Texture from one image to another using ML',
         abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQVWtpZjM2NkFSZGs'}}, 'Description of their idea and implmentation'),
         time: {
-          start_time: new Date('2017-07-29T18:30:00+05:30')
+          start_time: new Date('2017-07-29T19:50:00+05:30')
         }
       } as AgendaEntry,
     ],
