@@ -1685,6 +1685,48 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  },
+  }, {
+    title: 'Lets Teach Machines.. (2)',
+    url: 'lets-teach-machines-week-2',
+    categories: ['events'],
+    tags: ['data', 'machine learning', 'ml', 'artificial intelligence', 'ai'],
+    author: 'devday_team',
+    abstract: 'Second session of the series \"Lets Teach Machines\". In this session we will cover regression analysis with hands-on. In the first session, we have covered introduction to ML, probability, introduction to statistics, permutations, basic distributions and an introduction to R. If you missed it, do a brush up of these things and show up..',
+    event_time: {
+      start_time: new Date('2017-09-16T10:00:00+05:30'),
+      end_time: new Date('2017-09-16T16:00:00+05:30'),
+    },
+    publish_time: new Date('2017-09-09T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-09T18:30:00+05:30'),
+      end_time: new Date('2017-09-16T10:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Regression analysis',
+        abstract: [Cycle.ul('', [Cycle.li('', ' Linear'), Cycle.li('Logistic')])],
+        authors: [
+          {
+            name: 'Dileep Bapat',
+            linkedin_profile_url: 'https://www.linkedin.com/in/dileepbapat/',
+            image_url: 'images/speakers/dileep.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-09-16T10:00:00+05:30')
+        }
+      }
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '243276467',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
+  }
 ];
 export default events;
