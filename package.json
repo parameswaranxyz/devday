@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "The site for devday",
   "scripts": {
-    "build": "node-sass _sass/app.scss dist/app.css && webpack",
-    "dev": "node-sass -w _sass/app.scss dist/app.css & webpack --watch & lite-server",
+    "build": "./node_modules/.bin/node-sass ./_sass/app.scss dist/app.css && webpack",
+    "predev":  "./node_modules/.bin/node-sass ./_sass/app.scss dist/app.css",
+    "dev": "webpack --watch & lite-server",
     "start": "npm run dev",
     "postinstall": "typings install"
   },
