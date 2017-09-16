@@ -1685,7 +1685,8 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }, {
+  }, 
+  {
     title: 'Lets Teach Machines.. (2)',
     url: 'lets-teach-machines-week-2',
     categories: ['events'],
@@ -1723,6 +1724,59 @@ export const events: DevdayEvent[] = [
     image_url: '/images/events/hackathon.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '243276467',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
+  },
+  {
+    title: 'Lets Teach Machines.. (3)',
+    url: 'lets-teach-machines-week-3',
+    categories: ['events'],
+    tags: ['data', 'machine learning', 'ml', 'artificial intelligence', 'ai'],
+    author: 'devday_team',
+    abstract: 'Learning continues to the third session of the series \"Lets Teach Machines\". In this session, we will cover Classification Techniques and Market Basket Analysis.',
+    event_time: {
+      start_time: new Date('2017-09-23T10:00:00+05:30'),
+      end_time: new Date('2017-09-23T16:00:00+05:30'),
+    },
+    publish_time: new Date('2017-09-16T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-16T10:30:00+05:30'),
+      end_time: new Date('2017-09-23T10:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Classification',
+        abstract: [Cycle.ul('', [Cycle.li('', ' Supervised'), Cycle.li('Unsupervised')])],
+        authors: [
+          {
+            name: 'Devangana Khokhar',
+            linkedin_profile_url: 'https://twitter.com/DevanganaK',
+            image_url: 'https://pbs.twimg.com/profile_images/785919292067819520/9uQnsu37_400x400.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-09-23T10:00:00+05:30')
+        }
+      },
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Market Basket Analysis',
+        abstract: [Cycle.ul('', [Cycle.li('', ' Technique used for sales prediction')])],
+        authors: [
+        ],
+        time: {
+          start_time: new Date('2017-09-23T14:00:00+05:30')
+        }
+      }
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '243411983',
     form: {
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
