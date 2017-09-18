@@ -1659,7 +1659,8 @@ export const events: DevdayEvent[] = [
         time: {
           start_time: new Date('2017-07-29T18:30:00+05:30')
         }
-      } as AgendaEntry,
+        // TODO: Fix any cast
+      } as any as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
         title: 'House Stark - an interactive museum using AR',
@@ -1667,7 +1668,7 @@ export const events: DevdayEvent[] = [
         time: {
           start_time: new Date('2017-07-29T19:10:00+05:30')
         }
-      } as AgendaEntry,
+      } as any as AgendaEntry,
       {
         type: AgendaEntryType.Talk,
         title: 'Vangogh - Applying Texture from one image to another using ML',
@@ -1675,7 +1676,7 @@ export const events: DevdayEvent[] = [
         time: {
           start_time: new Date('2017-07-29T19:50:00+05:30')
         }
-      } as AgendaEntry,
+      } as any as AgendaEntry,
     ],
     color: '#040509',
     image_url: '/images/events/hackathon.jpg',
@@ -1782,5 +1783,6 @@ export const events: DevdayEvent[] = [
       sheetName: 'Form Responses 1'
     }
   }
-];
+  // TODO: Remove cast
+] as DevdayEvent[];
 export default events;
