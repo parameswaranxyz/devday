@@ -1,9 +1,10 @@
 import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
-import { DevdayEvent, MeetupEvent } from './../definitions';
+import { DevdayEvent, MeetupEvent } from '../definitions';
 import flattenConcurrently from 'xstream/extra/flattenConcurrently';
+declare const API_ENDPOINT: string;
 
-const MEETUP_EVENT_URL = '/attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
+const MEETUP_EVENT_URL = 'attendees/:eventUrl?meetup_url=:urlname&meetup_event_id=:id&spreadsheetData=:spreadsheetData';
 
 export class MeetupsSource {
   event$: Stream<MeetupEvent>;
@@ -13,7 +14,7 @@ export class MeetupsSource {
         .debug()
         .map(event => {
           const requestOptions: RequestOptions = {
-            url: MEETUP_EVENT_URL
+            url: API_ENDPOINT + MEETUP_EVENT_URL
               .replace(':urlname', event.meetup_urlname)
               .replace(':id', event.meetup_event_id)
               .replace(':eventUrl', event.url)
@@ -28,7 +29,7 @@ export class MeetupsSource {
     this.event$ =
       response$$
         .map(response$ => response$.replaceError(() =>
-          xs.of<Response>({ body: { 'event_url': undefined, 'yes_rsvp_count': 0} })))
+          xs.of({ body: { 'event_url': undefined, 'yes_rsvp_count': 0 } } as Response)))
         .compose(flattenConcurrently)
         .map(response => {
           return {

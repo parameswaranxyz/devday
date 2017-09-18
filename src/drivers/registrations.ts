@@ -2,6 +2,7 @@ import xs, { Stream, Producer, Listener } from 'xstream';
 import { HTTPSource, RequestOptions, Response, makeHTTPDriver } from '@cycle/http';
 import { DevdayEvent, DevdayRegistrationData } from './../definitions';
 import { VNode, div, input, label } from '@cycle/dom';
+declare const API_ENDPOINT: string;
 
 export interface RegistrationResult {
   event_url: string;
@@ -57,7 +58,7 @@ function register(event: DevdayEvent, data: DevdayRegistrationData): RequestOpti
   };
 
   return {
-    url: '/register',
+    url: API_ENDPOINT + 'register',
     method: 'POST',
     send: payload,
     category: 'registrations',

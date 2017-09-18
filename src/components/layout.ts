@@ -31,7 +31,6 @@ export function Layout(sources: LayoutSources): Sinks {
       ]));
   return {
     dom: vtree$,
-    routes: pluck(sinks$, sinks => sinks.routes),
     events: pluck(sinks$, sinks => sinks.events),
     prevent: pluck(sinks$, sinks => sinks.prevent),
     registrations: pluck(sinks$, sinks => sinks.registrations),

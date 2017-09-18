@@ -1,27 +1,25 @@
 import { DOMSource } from '@cycle/dom';
-import { RoutesSource } from './drivers/router';
 import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
 import { MaterialSource } from './drivers/material';
 import { MeetupsSource } from './drivers/meetups';
 import { HistoryInput } from '@cycle/history';
 import { RegistrationsSource, RegistrationRequest } from './drivers/registrations';
-import { Stream } from 'xstream';
+import { Stream, MemoryStream } from 'xstream';
 import { VNode } from '@cycle/dom';
 
 export interface Sources {
   dom: DOMSource;
-  routes: RoutesSource;
   events: EventsSource;
   prevent: PreventSource;
   registrations: RegistrationsSource;
-  history: Stream<Location>;
+  history: MemoryStream<Location>;
   material: MaterialSource;
+  meetups: MeetupsSource;
 }
 
 export interface Sinks {
   dom: Stream<VNode>;
-  routes: Stream<string>;
   events: Stream<string>;
   prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
