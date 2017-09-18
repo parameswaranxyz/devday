@@ -1,4 +1,5 @@
 import { Stream } from 'xstream';
+import 'material-design-lite';
 
 export class MaterialSource {
   constructor(refresh$: Stream<boolean>) {
