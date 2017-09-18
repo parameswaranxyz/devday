@@ -209,15 +209,14 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
   ]
 }
 
+const renderAttending = (event: DevdayEvent): VNode => {
+  const { attending } = event;
+  return div('.attending', [
+    p([`${!!attending ? `${attending} registrations.` : 'Registration data unavailable.'}`])
+  ]);
+};
+
 export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolean, registrationSuccessfulUrl: string, present: boolean): VNode {
-  let getAttendingElement = () => {
-    if(!event.attending){
-      return null;
-    }
-    return div('.attending', [
-            p([`${event.attending} attending`])
-          ]);
-  }
   const clickedBoolean = joinUrl === event.url;
   const registrationSuccessful = registrationSuccessfulUrl === event.url;
   const authors: Author[] = [].concat.apply([], event.agenda.filter(entry => Boolean(entry.authors) && Boolean(entry.authors.length)).map(entry => entry.authors));
@@ -297,7 +296,7 @@ export function renderEvent(event: DevdayEvent, joinUrl: string, shorten: boolea
                   })
                 ])
               ]),
-              getAttendingElement()
+              renderAttending(event)
             ])
         ]),
       ...renderForm(event, clickedBoolean, shorten, registrationSuccessful, present)
