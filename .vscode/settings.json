@@ -10,5 +10,6 @@
         "**/*.js.map": true,
         "images": true,
         "dist": true
-    }
+    },
+    "typescript.tsdk": "node_modules/typescript/lib"
 }
