@@ -11,7 +11,6 @@ export class MeetupsSource {
   constructor(meetupRequest$: Stream<DevdayEvent>) {
     const request$ =
       meetupRequest$
-        .debug()
         .map(event => {
           const requestOptions: RequestOptions = {
             url: API_ENDPOINT + MEETUP_EVENT_URL

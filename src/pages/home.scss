@@ -529,7 +529,7 @@
                               padding-left: 20px;
 
                               &::before {
-                                content: 'attending';
+                                content: 'registration';
                                 text-transform: uppercase;
                                 color: $light-hint-text-color;
                               }
@@ -829,5 +829,9 @@
                 }
             }
         }
+    }
+
+    .inline-link {
+      color: white;
     }
 }
