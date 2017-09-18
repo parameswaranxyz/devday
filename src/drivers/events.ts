@@ -10,24 +10,17 @@ export class EventsSource {
   events$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
-    this.event$ =
-      event$
-        .map(url =>
-          events
-            .filter(event => url === event.url)
-            .shift());
+    this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
     const meetupsEvent$ =
       xs.fromArray(
-        events.filter(event =>
-          event.meetup_event_id != undefined
-          && event.meetup_urlname != undefined
-        ));
-    const meetups = makeMeetupsDriver()(meetupsEvent$);
-    const meetup$ = meetups.event$;
+        events
+          .filter(event => !!event.meetup_event_id && !!event.meetup_urlname)
+          .filter(event => !!event.form && !!event.form.spreadsheetId)
+      );
+    const meetup$ = makeMeetupsDriver()(meetupsEvent$).event$;
     const eventsChange$ = meetup$.map(meetup => {
       const event = events.find(event => event.url === meetup.event_url);
-      if (event != undefined)
-        event.attending = meetup.yes_rsvp_count;
+      if (event != undefined) event.attending = meetup.yes_rsvp_count;
       return true;
     });
     this.events$ =
