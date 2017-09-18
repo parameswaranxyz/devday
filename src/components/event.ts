@@ -210,9 +210,15 @@ function renderForm(event: DevdayEvent, clicked: boolean, shorten: boolean, regi
 }
 
 const renderAttending = (event: DevdayEvent): VNode => {
-  const { attending } = event;
+  const { attending, meetup_event_id, meetup_urlname } = event;
+  const hasMeetupLink = !!meetup_event_id && !!meetup_urlname;
   return div('.attending', [
-    p([`${!!attending ? `${attending} registrations.` : 'Registration data unavailable.'}`])
+    p([
+      `${!!attending ? `${attending} registrations.` : 'Registration data unavailable.'} `,
+      hasMeetupLink
+      ? a('.inline-link', { props: { href: `https://www.meetup.com/${meetup_urlname}/events/${meetup_event_id}/` } }, ['Meetup'])
+      : null
+    ])
   ]);
 };
 
