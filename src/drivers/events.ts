@@ -21,7 +21,6 @@ export class EventsSource {
         events.filter(event =>
           event.meetup_event_id != undefined
           && event.meetup_urlname != undefined
-          && event.event_time.start_time.getTime() > new Date().getTime()
         ));
     const meetups = makeMeetupsDriver()(meetupsEvent$);
     const meetup$ = meetups.event$;
