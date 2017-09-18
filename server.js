@@ -5,7 +5,7 @@ let registrationStore = require('./backend/registration_store');
 let attendeeCount = require('./backend/attendee_count');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static('./')); // for static file serving
+app.use(express.static('./dist')); // for static file serving
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
