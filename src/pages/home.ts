@@ -3,9 +3,10 @@ import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, bu
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
 import { topEvents, moreEvents } from '../drivers/events';
 import { RegistrationRequest } from '../drivers/registrations';
-import { renderEvent } from '../event';
+import { renderEvent } from '../components/event';
 import delay from 'xstream/extra/delay';
 import { closest } from '../utils';
+import './home.scss';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
@@ -44,7 +45,6 @@ export function Home(sources: Sources): Sinks {
         return checkBoxElement.checked;
       })
       .startWith(false);
-  const route$ = sources.routes.route$;
   const events$ = sources.events.events$.remember();
   const registration$ = sources.registrations.registration$;
   const moreClick$ =
@@ -58,14 +58,20 @@ export function Home(sources: Sources): Sinks {
   const eventClick$ =
     dom
       .select('.event.card:not(.expanded)')
-      .events('click').filter(e => e.target.className !== 'avatar' && e.target.className !== 'location' && e.target.parentElement.className !== 'speakers' && e.target.parentElement.className !== 'secondary info');
+      .events('click').filter(e => {
+        const target = e.target as HTMLElement;
+        return target.className !== 'avatar'
+          && target.className !== 'location'
+          && target.parentElement.className !== 'speakers'
+          && target.parentElement.className !== 'secondary info';
+      });
   const speakerClick$ =
     dom
       .select('.speakers.content.link')
       .events('click').map( e => { console.log('tes'); return e;});
   const navigateTo$ =
     eventClick$
-      .map<string>(ev => '#/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
+      .map<string>(ev => '/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
   const shrinkEventClick$ =
     dom
       .select('.shrink')
@@ -188,7 +194,6 @@ export function Home(sources: Sources): Sinks {
   return {
     dom: vdom$,
     events: xs.empty(),
-    routes: xs.empty(),
     prevent: prevent$,
     registrations: formSubmitRequest$,
     history: navigateTo$,

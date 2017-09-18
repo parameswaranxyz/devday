@@ -1,5 +1,6 @@
 import { Stream } from 'xstream';
 import { VNode, header, h1, span, img, h2 } from '@cycle/dom';
+import './header.scss';
 
 interface HeaderSinks {
   dom: Stream<VNode>;
