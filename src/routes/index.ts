@@ -13,6 +13,6 @@ function resolveImplementation(routes: RouteDefinitions, route: string): RouteRe
   };
 }
 
-export function resolve(route: string): RouteResolution {
+export const resolve = (route: string): RouteResolution => {
   return resolveImplementation(routes, route);
-}
+};
