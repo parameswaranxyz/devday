@@ -216,7 +216,7 @@ const renderAttending = (event: DevdayEvent): VNode => {
     p([
       `${!!attending ? `${attending} registrations.` : 'Registration data unavailable.'} `,
       hasMeetupLink
-      ? a('.inline-link', { props: { href: `https://www.meetup.com/${meetup_urlname}/events/${meetup_event_id}/` } }, ['Meetup'])
+      ? a('.inline-link', { props: { href: `https://www.meetup.com/${meetup_urlname}/events/${meetup_event_id}/`, target: '_blank' } }, ['Meetup'])
       : null
     ])
   ]);
