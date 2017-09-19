@@ -19,3 +19,4 @@ npm-debug.log*
 attendancedb/
 dist/
 cypress/screenshots/
+cypress/videos/
