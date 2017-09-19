@@ -30,6 +30,8 @@
         bottom: 0;
         top: 0;
         position: fixed;
+        -webkit-filter: blur(15px);
+        filter: blur(15px);
 
         // background image source: https://www.pexels.com/photo/people-meeting-workspace-team-7097/
 
