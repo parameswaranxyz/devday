@@ -3,6 +3,7 @@ import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, bu
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
 import { topEvents, moreEvents } from '../../drivers/events';
 import { RegistrationRequest } from '../../drivers/registrations';
+import { TalkRegistration } from './components/TalkRegistration';
 import { renderEvent } from './components/Event';
 import delay from 'xstream/extra/delay';
 import { closest } from '../../utils';
@@ -149,9 +150,10 @@ export function Home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
+  const talkRegistrationDom$ = TalkRegistration().dom;
   const vdom$ =
-    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$)
-      .map(([events, more, shorten, join, registrationSuccessfulUrl, present]) => {
+    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$, talkRegistrationDom$)
+      .map(([events, more, shorten, join, registrationSuccessfulUrl, present, talkRegistrationDom]) => {
         return main([
           ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
           ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
@@ -165,7 +167,8 @@ export function Home(sources: Sources): Sinks {
                   i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
                 ])
               ])
-          ])
+          ]),
+          talkRegistrationDom
         ]);
       });
   const prevent$ =
