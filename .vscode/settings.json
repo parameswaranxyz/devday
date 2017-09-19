@@ -9,7 +9,8 @@
         ".sass-cache": true,
         "**/*.js.map": true,
         "images": true,
-        "dist": true
+        "dist": true,
+        "attendancedb": true
     },
     "typescript.tsdk": "node_modules/typescript/lib"
 }
