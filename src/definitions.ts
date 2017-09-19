@@ -3,6 +3,7 @@ import { EventsSource } from './drivers/events';
 import { PreventSource } from './drivers/prevent';
 import { MaterialSource } from './drivers/material';
 import { MeetupsSource } from './drivers/meetups';
+import { TalksSource, TalksResult } from './drivers/talks';
 import { HistoryInput } from '@cycle/history';
 import { RegistrationsSource, RegistrationRequest } from './drivers/registrations';
 import { Stream, MemoryStream } from 'xstream';
@@ -16,6 +17,7 @@ export interface Sources {
   history: MemoryStream<Location>;
   material: MaterialSource;
   meetups: MeetupsSource;
+  talks: TalksSource;
 }
 
 export interface Sinks {
@@ -25,6 +27,7 @@ export interface Sinks {
   registrations: Stream<RegistrationRequest>;
   history: Stream<HistoryInput | string>;
   material: Stream<boolean>;
+  talks: Stream<DevdayRegistrationData>;
 }
 
 export interface EventTime {

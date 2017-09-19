@@ -34,6 +34,7 @@ export const Layout = (sources: LayoutSources): Sinks => {
     prevent: pluck(sinks$, sinks => sinks.prevent),
     registrations: pluck(sinks$, sinks => sinks.registrations),
     history: pluck(sinks$, sinks => sinks.history),
-    material: pluck(sinks$, sinks => sinks.material)
+    material: pluck(sinks$, sinks => sinks.material),
+    talks: pluck(sinks$, sinks => sinks.talks)
   };
 };
