@@ -1,12 +1,12 @@
 import { Stream } from 'xstream';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
-import { topEvents, moreEvents } from '../drivers/events';
-import { RegistrationRequest } from '../drivers/registrations';
-import { renderEvent } from '../components/event';
+import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
+import { topEvents, moreEvents } from '../../drivers/events';
+import { RegistrationRequest } from '../../drivers/registrations';
+import { renderEvent } from '../../components/event';
 import delay from 'xstream/extra/delay';
-import { closest } from '../utils';
-import './home.scss';
+import { closest } from '../../utils';
+import './styles.scss';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
