@@ -29,13 +29,13 @@ export const TalkRegistration = ({ dom }: Sources): Sinks => {
   const submitClick$ = dom.select('.talk-submit').events('click');
   const talk$ =
     submitClick$
+      .compose(delay(50))
       .filter(ev => {
         // TODO: Validate
         const buttonElement = ev.currentTarget as HTMLButtonElement;
         const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
         const invalidElements = formElement.querySelectorAll('.is-invalid');
-        const data = getFormData(formElement);
-        return !!data.title && !!data.abstract && !!data.name && !!data.email && !!data.mobile && invalidElements.length === 0;
+        return invalidElements.length === 0;
       })
       .map(ev => {
         const buttonElement = ev.currentTarget as HTMLButtonElement;
