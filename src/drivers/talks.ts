@@ -9,7 +9,7 @@ export interface TalksResult {
 }
 
 const toRequestOptions = (data: DevdayRegistrationData): RequestOptions => ({
-  url: API_ENDPOINT + 'register',
+  url: API_ENDPOINT + 'talks',
   method: 'POST',
   send: data,
   category: 'talks',
