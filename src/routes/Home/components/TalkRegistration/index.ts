@@ -5,16 +5,20 @@ import { DevdayRegistrationData } from '../../../../definitions';
 import { closestParent } from '../../../../utils';
 import dropRepeats from 'xstream/extra/dropRepeats';
 import delay from 'xstream/extra/delay';
+import { Snackbar } from '../../../../drivers/snackbars';
+import { TalksSource } from '../../../../drivers/talks';
 import './styles.scss';
 
 interface Sources {
   dom: DOMSource;
+  talks: TalksSource;
 }
 
 interface Sinks {
   dom: Stream<VNode>;
   prevent: Stream<Event>;
   talks: Stream<DevdayRegistrationData>;
+  snackbars: Stream<Snackbar>;
 }
 
 const getFormData = (form: HTMLFormElement): DevdayRegistrationData => ({
@@ -25,7 +29,11 @@ const getFormData = (form: HTMLFormElement): DevdayRegistrationData => ({
   abstract: form.elements['talk-abstract'].value,
 });
 
-export const TalkRegistration = ({ dom }: Sources): Sinks => {
+export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
+  const snackbar$ = talks.talk$.map<Snackbar>(({ success }) => ({
+    message: success ? 'Talk submitted' : 'Talk submission failed',
+    timeout: 5000
+  }));
   const submitClick$ = dom.select('.talk-submit').events('click');
   const talk$ =
     submitClick$
@@ -111,6 +119,7 @@ export const TalkRegistration = ({ dom }: Sources): Sinks => {
   return {
     dom: vdom$,
     prevent: submitClick$,
-    talks: talk$
+    talks: talk$,
+    snackbars: snackbar$
   };
 };

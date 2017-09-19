@@ -4,6 +4,7 @@ import { Footer } from './Footer';
 import { Stream } from 'xstream';
 import { VNode, div } from '@cycle/dom';
 import { pluck } from '../utils';
+import { renderSnackbar } from '../drivers/snackbars';
 
 interface LayoutSources extends Sources {
   sinks$: Stream<Sinks>;
@@ -15,6 +16,7 @@ export const Layout = (sources: LayoutSources): Sinks => {
   const footerDom$ = Footer().dom;
   const sinks$ = sources.sinks$;
   const componentDom$ = pluck(sinks$, sinks => sinks.dom);
+  const snackbarDom = renderSnackbar();
   const vtree$ = xs.combine(headerDom$, componentDom$, footerDom$)
     .map(([headerDom, componentDom, footerDom]) =>
       div('.devday.home', [
@@ -26,7 +28,8 @@ export const Layout = (sources: LayoutSources): Sinks => {
               footerDom
             ])
           ])
-        ])
+        ]),
+        snackbarDom
       ]));
   return {
     dom: vtree$,
@@ -35,6 +38,7 @@ export const Layout = (sources: LayoutSources): Sinks => {
     registrations: pluck(sinks$, sinks => sinks.registrations),
     history: pluck(sinks$, sinks => sinks.history),
     material: pluck(sinks$, sinks => sinks.material),
-    talks: pluck(sinks$, sinks => sinks.talks)
+    talks: pluck(sinks$, sinks => sinks.talks),
+    snackbars: pluck(sinks$, sinks => sinks.snackbars)
   };
 };

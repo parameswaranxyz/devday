@@ -8,6 +8,7 @@ import { HistoryInput } from '@cycle/history';
 import { RegistrationsSource, RegistrationRequest } from './drivers/registrations';
 import { Stream, MemoryStream } from 'xstream';
 import { VNode } from '@cycle/dom';
+import { Snackbar } from './drivers/snackbars';
 
 export interface Sources {
   dom: DOMSource;
@@ -28,6 +29,7 @@ export interface Sinks {
   history: Stream<HistoryInput | string>;
   material: Stream<boolean>;
   talks: Stream<DevdayRegistrationData>;
+  snackbars: Stream<Snackbar>;
 }
 
 export interface EventTime {

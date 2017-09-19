@@ -23,9 +23,8 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   }
 }
 
-export function Home(sources: Sources): Sinks {
+export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
-  const dom = sources.dom;
   const presentClick$ =
     dom
       .select('#present')
@@ -46,8 +45,8 @@ export function Home(sources: Sources): Sinks {
         return checkBoxElement.checked;
       })
       .startWith(false);
-  const events$ = sources.events.events$.remember();
-  const registration$ = sources.registrations.registration$;
+  const events$ = events.events$.remember();
+  const registration$ = registrations.registration$;
   const moreClick$ =
     dom
       .select('.more')
@@ -150,7 +149,7 @@ export function Home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const talkRegistration = TalkRegistration({ dom });
+  const talkRegistration = TalkRegistration({ dom, talks });
   const vdom$ =
     xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$, talkRegistration.dom)
       .map(([events, more, shorten, join, registrationSuccessfulUrl, present, talkRegistrationDom]) => {
@@ -202,6 +201,7 @@ export function Home(sources: Sources): Sinks {
     registrations: formSubmitRequest$,
     history: navigateTo$,
     material: refresh$,
-    talks: talkRegistration.talks
+    talks: talkRegistration.talks,
+    snackbars: talkRegistration.snackbars
   };
 }
