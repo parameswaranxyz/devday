@@ -5,7 +5,7 @@ interface FooterSinks {
   dom: Stream<VNode>;
 }
 
-export function Footer(): FooterSinks {
+export const Footer = (): FooterSinks => {
   const vtree$ = Stream.of(footer([
     div('.left.section', [
       a('.twitter.social.button', {
@@ -40,4 +40,4 @@ export function Footer(): FooterSinks {
   return {
     dom: vtree$
   };
-}
+};

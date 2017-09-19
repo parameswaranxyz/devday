@@ -1,0 +1,6 @@
+@import '../../styles/devday.scss';
+
+.text-field {
+  @extend .mdl-textfield;
+  @extend .mdl-textfield--floating-label;
+}

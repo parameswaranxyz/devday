@@ -1,15 +1,14 @@
-import { DevdayEvent, AgendaEntry, AgendaEntryType, DevdayRegistrationData } from '../definitions';
+import { DevdayEvent, AgendaEntry, AgendaEntryType, DevdayRegistrationData } from '../../definitions';
 import { VNode, DOMSource, article, div, h4, h3, h5, h6, p, a, address, br, span, i, form, button, label, input, textarea, img, main } from '@cycle/dom';
-import { pad, fadeInOutStyle, closest } from '../utils';
+import { pad, fadeInOutStyle, closestParent } from '../../utils';
 import { Stream } from 'xstream';
 import { HistoryInput } from '@cycle/history';
-import { EventsSource } from '../drivers/events';
-import { RegistrationsSource, RegistrationRequest, RegistrationResult } from '../drivers/registrations';
-import { RegistrationForm } from '../components/registration-form';
+import { EventsSource } from '../../drivers/events';
+import { RegistrationsSource, RegistrationRequest, RegistrationResult } from '../../drivers/registrations';
+import { RegistrationForm } from './components/RegistrationForm';
 import isolate from '@cycle/isolate';
 import delay from 'xstream/extra/delay';
-
-import './event.scss';
+import './styles.scss';
 
 function getHHMM(date: Date): string {
   const hours = date.getHours();

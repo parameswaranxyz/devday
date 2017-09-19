@@ -4,8 +4,9 @@
   "description": "The site for devday",
   "scripts": {
     "build": "cross-env NODE_ENV=production API_ENDPOINT=/ webpack",
+    "start:server": "node server.js",
     "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://localhost:5000/ webpack-dev-server --content-base ./dist --hot --inline --colors --port 3030 --open --history-api-fallback",
-    "start": "npm run dev"
+    "start": "npm run start:server & npm run dev"
   },
   "keywords": [
     "devday"
@@ -51,7 +52,7 @@
     "source-map-loader": "^0.2.1",
     "style-loader": "^0.13.2",
     "ts-loader": "^2.3.7",
-    "typescript": "^2.3.4",
+    "typescript": "^2.5.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",

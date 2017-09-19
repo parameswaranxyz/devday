@@ -1,0 +1,46 @@
+@import '../../../../styles/devday.scss';
+
+.talk-registration {
+  @extend .mdl-card;
+  @extend .mdl-cell;
+  @extend .mdl-cell--6-col;
+  @extend .mdl-cell--3-offset;
+
+  &:hover, &:active, &:focus {
+    .title {
+      filter: none;
+    }
+  }
+
+  .title {
+    @extend .mdl-card__title;
+    background: #3f51b5 url('../../../../images/presentation.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    color: white;
+    height: 176px;
+    filter: #{"grayscale()"};
+    transition-duration: 0.3s;
+    transition-property: all;
+
+    h4 {
+      @extend .mdl-card__title-text;
+    }
+  }
+
+  .content {
+    @extend .mdl-card__supporting-text;
+
+  }
+
+  .footer {
+    @extend .mdl-card__actions;
+    @extend .mdl-card--border;
+    
+    a {
+      @extend .mdl-button;
+      @extend .mdl-button--colored;
+    }
+  }
+}

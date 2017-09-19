@@ -1,12 +1,13 @@
 import { Stream } from 'xstream';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../definitions';
-import { topEvents, moreEvents } from '../drivers/events';
-import { RegistrationRequest } from '../drivers/registrations';
-import { renderEvent } from '../components/event';
+import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
+import { topEvents, moreEvents } from '../../drivers/events';
+import { RegistrationRequest } from '../../drivers/registrations';
+import { TalkRegistration } from './components/TalkRegistration';
+import { renderEvent } from './components/Event';
 import delay from 'xstream/extra/delay';
-import { closest } from '../utils';
-import './home.scss';
+import { closestParent } from '../../utils';
+import './styles.scss';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
 const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
@@ -22,9 +23,8 @@ function getFormData(form: HTMLFormElement): DevdayRegistrationData {
   }
 }
 
-export function Home(sources: Sources): Sinks {
+export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
-  const dom = sources.dom;
   const presentClick$ =
     dom
       .select('#present')
@@ -45,8 +45,8 @@ export function Home(sources: Sources): Sinks {
         return checkBoxElement.checked;
       })
       .startWith(false);
-  const events$ = sources.events.events$.remember();
-  const registration$ = sources.registrations.registration$;
+  const events$ = events.events$.remember();
+  const registration$ = registrations.registration$;
   const moreClick$ =
     dom
       .select('.more')
@@ -68,7 +68,7 @@ export function Home(sources: Sources): Sinks {
   const speakerClick$ =
     dom
       .select('.speakers.content.link')
-      .events('click').map( e => { console.log('tes'); return e;});
+      .events('click');
   const navigateTo$ =
     eventClick$
       .map<string>(ev => '/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
@@ -98,14 +98,14 @@ export function Home(sources: Sources): Sinks {
       joinEventClick$
         .map(ev => {
           const anchor = ev.currentTarget as HTMLAnchorElement;
-          const card = closest(anchor, '.event.card');
+          const card = closestParent(anchor, '.event.card');
           anchor.classList.add('expand');
           return xs.of<string>(card.attributes['data-url'].value);
         }),
       formCloseClick$
         .map(ev => {
           const closeButton = ev.currentTarget as HTMLButtonElement;
-          const card = closest(closeButton, '.event.card');
+          const card = closestParent(closeButton, '.event.card');
           const anchor = card.querySelector('.join.event');
           anchor.classList.remove('expand');
           return xs.of('');
@@ -126,14 +126,14 @@ export function Home(sources: Sources): Sinks {
           .filter(ev => {
             // TODO: Validate
             const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
             const invalidElements = formElement.querySelectorAll('.is-invalid');
             return invalidElements.length === 0;
           })
           .map(ev => {
             const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
-            const cardElement = closest(formElement, '.event.card');
+            const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
+            const cardElement = closestParent(formElement, '.event.card');
             const eventUrl = cardElement.attributes['data-url'].value;
             const event = events.find(event => event.url === eventUrl);
             const request: RegistrationRequest = {
@@ -149,9 +149,10 @@ export function Home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
+  const talkRegistration = TalkRegistration({ dom, talks });
   const vdom$ =
-    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$)
-      .map(([events, more, shorten, join, registrationSuccessfulUrl, present]) => {
+    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$, talkRegistration.dom)
+      .map(([events, more, shorten, join, registrationSuccessfulUrl, present, talkRegistrationDom]) => {
         return main([
           ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
           ...moreEvents(events, more).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
@@ -165,7 +166,8 @@ export function Home(sources: Sources): Sinks {
                   i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
                 ])
               ])
-          ])
+          ]),
+          talkRegistrationDom
         ]);
       });
   const prevent$ =
@@ -177,7 +179,8 @@ export function Home(sources: Sources): Sinks {
       formClick$,
       formCloseClick$,
       formSubmit$,
-      presentClick$
+      presentClick$,
+      talkRegistration.prevent
     );
   presentCheckboxClick$.addListener({
     next: ev => {
@@ -197,6 +200,8 @@ export function Home(sources: Sources): Sinks {
     prevent: prevent$,
     registrations: formSubmitRequest$,
     history: navigateTo$,
-    material: refresh$
+    material: refresh$,
+    talks: talkRegistration.talks,
+    snackbars: talkRegistration.snackbars
   };
 }

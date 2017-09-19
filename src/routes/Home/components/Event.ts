@@ -1,6 +1,6 @@
 import { Stream } from 'xstream';
 import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, textarea, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from '../definitions';
+import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from '../../../definitions';
 
 const fadeInOutStyle = {
   opacity: '0', delayed: { opacity: '1' }
@@ -216,7 +216,7 @@ const renderAttending = (event: DevdayEvent): VNode => {
     p([
       `${!!attending ? `${attending} registrations.` : 'Registration data unavailable.'} `,
       hasMeetupLink
-      ? a('.inline-link', { props: { href: `https://www.meetup.com/${meetup_urlname}/events/${meetup_event_id}/` } }, ['Meetup'])
+      ? a('.inline-link', { props: { href: `https://www.meetup.com/${meetup_urlname}/events/${meetup_event_id}/`, target: '_blank' } }, ['Meetup'])
       : null
     ])
   ]);

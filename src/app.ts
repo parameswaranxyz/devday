@@ -7,6 +7,8 @@ import { makeMeetupsDriver } from './drivers/meetups';
 import { makeRegistrationsDriver } from './drivers/registrations';
 import { makeHashHistoryDriver } from '@cycle/history';
 import { makeMaterialDriver } from './drivers/material';
+import { makeTalksDriver } from './drivers/talks';
+import { makeSnackbarsDriver } from './drivers/snackbars';
 import './styles/devday.scss';
 import './styles/material-icons.scss';
 import './styles/roboto.scss';
@@ -18,5 +20,7 @@ run(main, {
   registrations: makeRegistrationsDriver(),
   history: makeHashHistoryDriver() as any,
   material: makeMaterialDriver(),
-  meetups: makeMeetupsDriver()
+  meetups: makeMeetupsDriver(),
+  talks: makeTalksDriver(),
+  snackbars: makeSnackbarsDriver()
 });
