@@ -1,6 +1,6 @@
 import { DevdayEvent, AgendaEntry, AgendaEntryType, DevdayRegistrationData } from '../../definitions';
 import { VNode, DOMSource, article, div, h4, h3, h5, h6, p, a, address, br, span, i, form, button, label, input, textarea, img, main } from '@cycle/dom';
-import { pad, fadeInOutStyle, closest } from '../../utils';
+import { pad, fadeInOutStyle, closestParent } from '../../utils';
 import { Stream } from 'xstream';
 import { HistoryInput } from '@cycle/history';
 import { EventsSource } from '../../drivers/events';

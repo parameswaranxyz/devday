@@ -3,7 +3,7 @@ import isolate from '@cycle/isolate';
 import { Stream } from 'xstream';
 import { RegistrationRequest } from '../../../drivers/registrations';
 import { DevdayEvent, DevdayRegistrationData } from '../../../definitions';
-import { fadeInOutStyle, closest } from '../../../utils';
+import { fadeInOutStyle, closestParent } from '../../../utils';
 
 interface RegistrationFormSources {
   dom: DOMSource;
@@ -152,15 +152,15 @@ function RegistrationFormComponent(sources: RegistrationFormSources): Registrati
           // TODO: Validate
           // TODO: Refactor
           const buttonElement = ev.currentTarget as HTMLButtonElement;
-          const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+          const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
           const invalidElements = formElement.querySelectorAll('.is-invalid:not(.hidden)');
           return invalidElements.length === 0;
         })
         .map(ev => {
           // TODO: Refactor
           const buttonElement = ev.currentTarget as HTMLButtonElement;
-          const formElement = closest(buttonElement, 'form') as HTMLFormElement;
-          const cardElement = closest(formElement, '.event.card');
+          const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
+          const cardElement = closestParent(formElement, '.event.card');
           const eventUrl = cardElement.attributes['data-url'].value;
           const request: RegistrationRequest = {
             event,

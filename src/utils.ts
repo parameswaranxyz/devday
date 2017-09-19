@@ -14,7 +14,7 @@ export function pad(n: string, width: number, z?: string): string {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-export function closest(el: HTMLElement, selector: string): HTMLElement {
+export function closestParent(el: HTMLElement, selector: string): HTMLElement {
   var retval: HTMLElement = undefined;
   while (el) {
     if (el.matches(selector)) {

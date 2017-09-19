@@ -6,7 +6,7 @@ import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
 import { renderEvent } from './components/Event';
 import delay from 'xstream/extra/delay';
-import { closest } from '../../utils';
+import { closestParent } from '../../utils';
 import './styles.scss';
 
 const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
@@ -69,7 +69,7 @@ export function Home(sources: Sources): Sinks {
   const speakerClick$ =
     dom
       .select('.speakers.content.link')
-      .events('click').map( e => { console.log('tes'); return e;});
+      .events('click');
   const navigateTo$ =
     eventClick$
       .map<string>(ev => '/events/' + (ev.currentTarget as HTMLElement).attributes['data-url'].value);
@@ -99,14 +99,14 @@ export function Home(sources: Sources): Sinks {
       joinEventClick$
         .map(ev => {
           const anchor = ev.currentTarget as HTMLAnchorElement;
-          const card = closest(anchor, '.event.card');
+          const card = closestParent(anchor, '.event.card');
           anchor.classList.add('expand');
           return xs.of<string>(card.attributes['data-url'].value);
         }),
       formCloseClick$
         .map(ev => {
           const closeButton = ev.currentTarget as HTMLButtonElement;
-          const card = closest(closeButton, '.event.card');
+          const card = closestParent(closeButton, '.event.card');
           const anchor = card.querySelector('.join.event');
           anchor.classList.remove('expand');
           return xs.of('');
@@ -127,14 +127,14 @@ export function Home(sources: Sources): Sinks {
           .filter(ev => {
             // TODO: Validate
             const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
+            const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
             const invalidElements = formElement.querySelectorAll('.is-invalid');
             return invalidElements.length === 0;
           })
           .map(ev => {
             const buttonElement = ev.currentTarget as HTMLButtonElement;
-            const formElement = closest(buttonElement, 'form') as HTMLFormElement;
-            const cardElement = closest(formElement, '.event.card');
+            const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
+            const cardElement = closestParent(formElement, '.event.card');
             const eventUrl = cardElement.attributes['data-url'].value;
             const event = events.find(event => event.url === eventUrl);
             const request: RegistrationRequest = {
@@ -150,9 +150,9 @@ export function Home(sources: Sources): Sinks {
       .map(reg => reg.event_url)
       .startWith('its-real-time');
   const currentDate = new Date();
-  const talkRegistrationDom$ = TalkRegistration().dom;
+  const talkRegistration = TalkRegistration({ dom });
   const vdom$ =
-    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$, talkRegistrationDom$)
+    xs.combine(events$, more$, shorten$, join$, registrationSuccessfulUrl$, present$, talkRegistration.dom)
       .map(([events, more, shorten, join, registrationSuccessfulUrl, present, talkRegistrationDom]) => {
         return main([
           ...topEvents(events).map(event => renderEvent(event, join, shorten, registrationSuccessfulUrl, present)),
@@ -180,7 +180,8 @@ export function Home(sources: Sources): Sinks {
       formClick$,
       formCloseClick$,
       formSubmit$,
-      presentClick$
+      presentClick$,
+      talkRegistration.prevent
     );
   presentCheckboxClick$.addListener({
     next: ev => {
@@ -200,6 +201,7 @@ export function Home(sources: Sources): Sinks {
     prevent: prevent$,
     registrations: formSubmitRequest$,
     history: navigateTo$,
-    material: refresh$
+    material: refresh$,
+    talks: talkRegistration.talks
   };
 }
