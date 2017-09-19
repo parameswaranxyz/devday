@@ -27,7 +27,7 @@ export const TextField = ({ id$, type$, pattern$, label$, error$, required$, max
       .map(([id, type, pattern, labelString, error, required, maxLength ]) =>
         div('.text-field.mdl-js-textfield', [
           input('.mdl-textfield__input', { props: { type, pattern, id, required: required ? 'required' : '', maxLength } }),
-          label('.mdl-textfield__label', { props: { for: id } }, [labelString]),
+          label('.mdl-textfield__label', { attrs: { for: id } }, [labelString]),
           !!error ? span('.mdl-textfield__error', [error]) : null
         ])
       );
