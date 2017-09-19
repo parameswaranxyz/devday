@@ -1,9 +1,9 @@
-import { Sources, Sinks } from '../../definitions';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
+import { Sources, Sinks } from '../definitions';
+import { Header } from './Header';
+import { Footer } from './Footer';
 import { Stream } from 'xstream';
 import { VNode, div } from '@cycle/dom';
-import { pluck } from '../../utils';
+import { pluck } from '../utils';
 
 interface LayoutSources extends Sources {
   sinks$: Stream<Sinks>;
