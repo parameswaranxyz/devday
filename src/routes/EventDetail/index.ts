@@ -227,4 +227,6 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   }
 }
 
-export const EventDetail = (sources: EventDetailSources) => isolate(EventDetailComponent)(sources) as EventDetailSinks;
+export function EventDetail(sources: EventDetailSources): EventDetailSinks {
+  return isolate(EventDetailComponent)(sources);
+}
