@@ -6,7 +6,8 @@
     "build": "cross-env NODE_ENV=production API_ENDPOINT=/ webpack",
     "start:server": "node server.js",
     "tests:unit": "mocha -r ts-node/register -r ignore-styles -r jsdom-global/register src/**/*.spec.ts",
-    "tests:integration": "npm run start:server & npm run build && cypress run",
+    "tests:integration": "npm run start & cypress run",
+    "tests:integration:production": "npm run start:server & npm run build && cypress run --config baseUrl=http://localhost:5000",
     "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://localhost:5000/ webpack-dev-server --content-base ./dist --hot --inline --colors --port 3030 --open --history-api-fallback",
     "start": "npm run start:server & npm run dev"
   },
