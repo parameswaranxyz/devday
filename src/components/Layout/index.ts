@@ -1,16 +1,15 @@
-import { Sources, Sinks } from '../definitions';
-import { Header } from './header';
-import { Footer } from './footer';
+import { Sources, Sinks } from '../../definitions';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
 import { Stream } from 'xstream';
 import { VNode, div } from '@cycle/dom';
-import { pluck } from '../utils';
-import { RegistrationRequest } from '../drivers/registrations';
+import { pluck } from '../../utils';
 
 interface LayoutSources extends Sources {
   sinks$: Stream<Sinks>;
 }
 
-export function Layout(sources: LayoutSources): Sinks {
+export const Layout = (sources: LayoutSources): Sinks => {
   const xs = Stream;
   const headerDom$ = Header().dom;
   const footerDom$ = Footer().dom;
@@ -37,4 +36,4 @@ export function Layout(sources: LayoutSources): Sinks {
     history: pluck(sinks$, sinks => sinks.history),
     material: pluck(sinks$, sinks => sinks.material)
   };
-}
+};

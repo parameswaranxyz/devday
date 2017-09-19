@@ -3,7 +3,7 @@ import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, bu
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
 import { topEvents, moreEvents } from '../../drivers/events';
 import { RegistrationRequest } from '../../drivers/registrations';
-import { renderEvent } from '../../components/event';
+import { renderEvent } from './components/Event';
 import delay from 'xstream/extra/delay';
 import { closest } from '../../utils';
 import './styles.scss';

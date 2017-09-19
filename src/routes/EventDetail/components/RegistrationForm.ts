@@ -1,9 +1,9 @@
 import { DOMSource, VNode, p, div, form, button, input, label, span, textarea } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { Stream } from 'xstream';
-import { RegistrationRequest } from '../drivers/registrations';
-import { DevdayEvent, DevdayRegistrationData } from '../definitions';
-import { fadeInOutStyle, closest } from '../utils';
+import { RegistrationRequest } from '../../../drivers/registrations';
+import { DevdayEvent, DevdayRegistrationData } from '../../../definitions';
+import { fadeInOutStyle, closest } from '../../../utils';
 
 interface RegistrationFormSources {
   dom: DOMSource;

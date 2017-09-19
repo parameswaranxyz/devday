@@ -1,6 +1,6 @@
 import { Stream } from 'xstream';
 import { VNode, header, h1, span, img, h2 } from '@cycle/dom';
-import './header.scss';
+import './styles.scss';
 
 interface HeaderSinks {
   dom: Stream<VNode>;
@@ -24,7 +24,7 @@ function renderHeader(noun: string, topic: string): VNode {
   ]);
 }
 
-export function Header(): HeaderSinks {
+export const Header = (): HeaderSinks => {
   const xs = Stream;
   const noun$ = xs.periodic(1000)
     .startWith(0)
@@ -40,4 +40,4 @@ export function Header(): HeaderSinks {
   return {
     dom: vtree$
   };
-}
+};
