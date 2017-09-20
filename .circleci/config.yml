@@ -53,6 +53,9 @@ jobs:
       # build project assets
       - run: npm run build
 
+      # add known host
+      - run: ssh-keyscan -t rsa -H 52.41.95.126 >> ~/.ssh/known_hosts
+
       # copy dist directory to server
       - run: scp -r dist devday@52.41.95.126:~
 
