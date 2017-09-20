@@ -17,7 +17,7 @@ export const CHENNAI_ADDRESS: Address = {
       city: 'Chennai',
       zip: 600041,
       map_link: 'https://goo.gl/maps/7Z8iBAdjT1o',
-      map_image: '/images/locations/chennai-map-small.png'
+      map_image: '/images/locations/chennai-map-small.jpg'
     };
 
 export const events: DevdayEvent[] = [
@@ -1686,7 +1686,7 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }, 
+  },
   {
     title: 'Lets Teach Machines.. (2)',
     url: 'lets-teach-machines-week-2',
@@ -1782,7 +1782,74 @@ export const events: DevdayEvent[] = [
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
     }
-  }
+  },
+  {
+    title: 'Breaking down Blockchain',
+    url: 'blockchain-decrypted',
+    categories: ['events'],
+    tags: ['blockchain', 'ethereum '],
+    author: 'devday_team',
+    abstract: 'With blockchain being an emerging technology, this DevDay will give an introduction to the blockchain concept. We will then explore how it is being used in the industry.',
+    event_time: {
+      start_time: new Date('2017-10-12T18:30:00+05:30'),
+      end_time: new Date('2017-10-12T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2017-10-29T10:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to Blockchain and Ethereum',
+        abstract: '',
+        authors: [
+          {
+            name: 'Zahoor Mohammed, Ethereum Foundation',
+            linkedin_profile_url: 'https://www.linkedin.com/in/j-mohamed-zahoor-294b1020/?ppe=1',
+            image_url: 'https://media.licdn.com/media/AAEAAQAAAAAAAA3LAAAAJDM4MTI0YmRkLTk2MzgtNGRlNi1iNWEyLTE0MzVjZjQ2ZGY3Mg.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-10-12T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'How can blockchain help prevent fraud?',
+        abstract: 'This talk will explore how the blockchain concept was used to build a platform to aid invoice discounting',
+        authors: [
+          {
+            name : "Satish Salivati, InteliTix Solutions",
+            linkedin_profile_url: 'https://www.linkedin.com/in/satishsalivati/',
+            image_url: 'https://media.licdn.com/media/AAEAAQAAAAAAAA1YAAAAJGQxZGI4ZDc5LWUyNDctNDhmNC1iMzQwLTM4M2ViMDZlNGFjZg.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-10-12T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-10-12T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/hackathon.jpg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '243513680',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
+  },
   // TODO: Remove cast
 ] as DevdayEvent[];
 export default events;
