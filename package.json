@@ -4,7 +4,7 @@
   "description": "The site for devday",
   "scripts": {
     "build": "cross-env NODE_ENV=production API_ENDPOINT=/ webpack",
-    "start:server": "cd backend && npm install && npm start",
+    "start:server": "cd ../devday-backend && npm install && npm start",
     "tests:unit": "mocha -r ts-node/register -r ignore-styles -r jsdom-global/register src/**/*.spec.ts",
     "tests:integration": "npm run start & cypress run",
     "tests:integration:production": "npm run start:server & npm run build && cypress run --config baseUrl=http://localhost:5000",

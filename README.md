@@ -6,7 +6,7 @@ DevDay is a monthly informal event for developers to share their experiences, id
 
 * Node.js v8.5, NPM v5 required: `npm install`
 * Cycle.js front-end: `npm start` (http://localhost:3000)
-* Express node server back-end : `node server.js` - (http://localhost:5000)
+* Express node server back-end: Clone [devday-backend](https://github.com/sahajsoft/devday-backend) repo then run `node server:start` - (http://localhost:5000)
 
 ## Deployment
 
