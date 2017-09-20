@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The site for devday",
   "scripts": {
-    "build": "cross-env NODE_ENV=production API_ENDPOINT=/ webpack",
+    "build": "cross-env NODE_ENV=production API_ENDPOINT=http://devday.in/ webpack",
     "tests:unit": "mocha -r ts-node/register -r ignore-styles -r jsdom-global/register src/**/*.spec.ts",
     "tests:integration": "npm run start && cypress run",
     "dev": "cross-env NODE_ENV=development API_ENDPOINT=http://devday.in/ webpack-dev-server --content-base ./dist --hot --inline --colors --port 3030 --open --history-api-fallback",
