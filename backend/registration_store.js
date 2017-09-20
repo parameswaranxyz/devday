@@ -5,7 +5,7 @@ let attendanceCache = require('./attendance_cache');
 // at ~/.credentials/sheets.googleapis.com-nodejs-quickstart.json
 var SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
 
-var key = require('../devday-753952375eca.json');
+var key = require('./devday-753952375eca.json');
 var jwtClient = new google.auth.JWT(key.client_email, null, key.private_key, SCOPES, null);
 
 let getSheetName = function(data){
