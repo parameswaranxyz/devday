@@ -10,7 +10,9 @@
         "**/*.js.map": true,
         "images": true,
         "dist": true,
-        "attendancedb": true
+        "attendancedb": true,
+        "backend/node_modules": true,
+        "backend/attendancedb": true
     },
     "typescript.tsdk": "node_modules/typescript/lib"
 }
