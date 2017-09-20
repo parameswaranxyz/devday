@@ -1,18 +1,18 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-let registrationStore = require('./backend/registration_store');
-var emailService = require('./backend/registration_mail');
-let attendeeCount = require('./backend/attendee_count');
+let registrationStore = require('./registration_store');
+var emailService = require('./registration_mail');
+let attendeeCount = require('./attendee_count');
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static('./dist')); // for static file serving
+app.use(express.static('../dist')); // for static file serving
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-
 
 app.get('/attendees/:event_url', (req, res) => {
   let query = req.query;
