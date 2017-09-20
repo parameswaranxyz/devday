@@ -20,3 +20,5 @@ attendancedb/
 dist/
 cypress/screenshots/
 cypress/videos/
+backend/node_modules/
+backend/attendance_db/
