@@ -8,7 +8,7 @@ function resolveImplementation(routes: RouteDefinitions, route: string): RouteRe
   const resolution = value as RouteResolution;
   return {
     path: path,
-    component: resolution.component,
+    getComponent: resolution.getComponent,
     sources: resolution.sources
   };
 }
