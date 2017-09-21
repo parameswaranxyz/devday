@@ -11,7 +11,6 @@ import { makeTalksDriver } from './drivers/talks';
 import { makeSnackbarsDriver } from './drivers/snackbars';
 import './styles/devday.scss';
 import './styles/material-icons.scss';
-import './styles/roboto.scss';
 
 run(main, {
   dom: makeDOMDriver('#root'),
