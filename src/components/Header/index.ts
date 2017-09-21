@@ -13,7 +13,7 @@ function renderHeader(noun: string, topic: string): VNode {
   return header([
     h1([
       span('.hidden', 'devday_'),
-      img({ props: { src: 'images/logo.gif' } })
+      img({ attrs: { src: 'images/logo.gif', alt: 'DEVDAY_' } })
     ]),
     h2([
       'a monthly informal event for developers to share their ',
