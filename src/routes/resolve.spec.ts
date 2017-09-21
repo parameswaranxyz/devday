@@ -2,7 +2,8 @@ import { resolve } from './resolve';
 import { expect } from 'chai';
 import 'mocha';
 
-describe('routes.resolve', () => {
+describe('routes.resolve', function() {
+  this.timeout(5000);
   it('should resolve / to Home', () => {
     const resolution = resolve('/');
     expect(resolution).to.not.be.null;
