@@ -6,6 +6,7 @@ import { Layout } from './components/Layout';
 export const main = (sources: Sources): Sinks => {
   const sinks$ = sources.history
       .map(route => resolve(route.pathname))
-      .map(resolution => resolution.component({...sources, ...resolution.sources}));
+      .map(resolution => Stream.fromPromise(resolution.getComponent().then(component => component({...sources, ...resolution.sources}))))
+      .flatten();
   return Layout({...sources, sinks$});
 };

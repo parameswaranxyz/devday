@@ -1,8 +1,12 @@
 import { Sources, Sinks } from '../definitions';
 
+interface Component {
+  (sources: Sources): Sinks;
+}
+
 export interface RouteResolution {
   path?: string;
-  component: (sources: Sources) => Sinks;
+  getComponent: () => Promise<Component>;
   sources?: any;
 }
 
