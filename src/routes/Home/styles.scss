@@ -190,7 +190,7 @@
                               font-size: inherit;
                               color: $dark-secondary-text-color;
                               margin: 0;
-                              font-weight : normal;
+                              font-weight : 400;
                             }
 
                             & > h4 {
@@ -220,7 +220,7 @@
 
                               @media (max-width: 1023px) {
                                 font-size: 2rem;
-                                font-weight: 500;
+                                font-weight: 400;
                                 line-height: 1.25;
                                 margin: 0 0 10px;
                               }
@@ -289,7 +289,7 @@
                               content: 'speakers';
                               text-transform: uppercase;
                               position: absolute;
-                              font-weight: bold;
+                              font-weight: 700;
                               top: 20px;
                               left: 20px;
                               color: $light-secondary-text-color;
@@ -338,7 +338,7 @@
                             &::before {
                               content: 'agenda';
                               text-transform: uppercase;
-                              font-weight: bold;
+                              font-weight: 700;
                               position: absolute;
                               top: 20px;
                               left: 20px;
@@ -736,7 +736,7 @@
                         -ms-flex-align: center;
                         align-items: center;
                         color: white;
-                        font-weight: 500;
+                        font-weight: 400;
 
                         & > a {
                             color: white;
