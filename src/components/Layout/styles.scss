@@ -1,0 +1,86 @@
+@import '../../styles/devday.scss';
+::-webkit-input-placeholder {
+  color: $light-secondary-text-color !important;
+}
+
+:-moz-placeholder {
+  color: $light-secondary-text-color !important;
+}
+
+::-moz-placeholder {
+  color: $light-secondary-text-color !important;
+}
+
+:-ms-input-placeholder {
+  color: $light-secondary-text-color !important;
+}
+
+.devday.home {
+
+  &::before {
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+    content: '';
+    will-change: transform;
+    z-index: -2;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: fixed;
+    -webkit-filter: blur(15px);
+    filter: blur(15px); // background image source: https://www.pexels.com/photo/people-meeting-workspace-team-7097/
+    background-image: url('../../images/background.jpg');
+    background-color: transparent;
+  }
+
+  &::after {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0.65+0,0+100;Neutral+Density */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+    /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000', GradientType=1);
+    /* IE6-9 fallback on horizontal gradient */
+    content: '';
+    will-change: transform;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    position: fixed;
+  }
+
+  &>.container {
+    @extend .mdl-layout__container;
+
+    &>.layout {
+      @extend .mdl-layout;
+      @extend .has-drawer;
+      @extend .is-upgraded;
+      
+      &>.content {
+        @extend .mdl-layout__content;
+        position: relative;
+
+        &>main {
+          @extend .mdl-grid;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          max-width: 900px;
+          padding: 0;
+          width: 100%;
+          margin: 0 auto;
+          -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}

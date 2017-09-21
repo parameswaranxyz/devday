@@ -1,10 +1,11 @@
-import { Sources, Sinks } from '../definitions';
-import { Header } from './Header';
-import { Footer } from './Footer';
+import { Sources, Sinks } from '../../definitions';
+import { Header } from '../Header';
+import { Footer } from '../Footer';
 import { Stream } from 'xstream';
 import { VNode, div } from '@cycle/dom';
-import { pluck } from '../utils';
-import { renderSnackbar } from '../drivers/snackbars';
+import { pluck } from '../../utils';
+import { renderSnackbar } from '../../drivers/snackbars';
+import './styles.scss';
 
 interface LayoutSources extends Sources {
   sinks$: Stream<Sinks>;

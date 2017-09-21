@@ -1,71 +1,108 @@
 @import '../../styles/devday.scss';
 
-.devday > .container > .layout > header {
+.devday>.container>.layout>header {
+  @extend .mdl-layout__header;
+  @extend .mdl-color--primary;
 
+  &>.container {
+    @extend .android-header !optional;
     @extend .mdl-layout__header;
-    @extend .mdl-color--primary;
+    @extend .mdl-layout__header--waterfall;
 
-    & > .container {
-        @extend .android-header !optional;
-        @extend .mdl-layout__header;
-        @extend .mdl-layout__header--waterfall;
+    &>.content {
+      @extend .mdl-layout__header-row;
 
-        & > .content {
-            @extend .mdl-layout__header-row;
+      &>.title {
+        @extend .mdl-layout-title;
 
-            & > .title {
-                @extend .mdl-layout-title;
-
-                & > img {
-                    height: 24px;
-                }
-            }
-
-            & > .search.box {
-                @extend .mdl-textfield;
-                @extend .mdl-textfield--expandable;
-                @extend .mdl-textfield--floating-label;
-                @extend .mdl-textfield--align-right;
-                @extend .mdl-textfield--full-width;
-
-                & > label {
-                    @extend .mdl-button;
-                    @extend .mdl-button--icon;
-                }
-
-                & > .input.holder {
-                    @extend .mdl-textfield__expandable-holder;
-
-                    & > input[type=text] {
-                        @extend .textfield__input !optional;
-                    }
-                }
-            }
-
-            & > .navigation.container {
-                @extend .mdl-navigation;
-
-                direction: rtl;
-                -webkit-order: 1;
-                -ms-flex-order: 1;
-                order: 1;
-                margin-left: auto!important;
-                width: auto;
-                transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-                
-                & > nav {
-                    display: inline-block;
-                    height: 60px;
-                    line-height: 68px;
-                    background-color: transparent !important;
-                    border-bottom: 4px solid transparent;
-
-                    & > a {
-                        @extend .mdl-navigation__link;
-                        @extend .mdl-typography--text-uppercase;
-                    }
-                }
-            }
+        &>img {
+          height: 24px;
         }
+      }
+
+      &>.search.box {
+        @extend .mdl-textfield;
+        @extend .mdl-textfield--expandable;
+        @extend .mdl-textfield--floating-label;
+        @extend .mdl-textfield--align-right;
+        @extend .mdl-textfield--full-width;
+
+        &>label {
+          @extend .mdl-button;
+          @extend .mdl-button--icon;
+        }
+
+        &>.input.holder {
+          @extend .mdl-textfield__expandable-holder;
+          &>input[type=text] {
+            @extend .textfield__input !optional;
+          }
+        }
+      }
+
+      &>.navigation.container {
+        @extend .mdl-navigation;
+        direction: rtl;
+        -webkit-order: 1;
+        -ms-flex-order: 1;
+        order: 1;
+        margin-left: auto!important;
+        width: auto;
+        transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &>nav {
+          display: inline-block;
+          height: 60px;
+          line-height: 68px;
+          background-color: transparent !important;
+          border-bottom: 4px solid transparent;
+          
+          &>a {
+            @extend .mdl-navigation__link;
+            @extend .mdl-typography--text-uppercase;
+          }
+        }
+      }
     }
+  }
+}
+
+header {
+  padding: 20px;
+
+  &>h1 {
+    text-align: center;
+
+    &>img {
+      width: 50%;
+      max-width: 500px;
+      @media (max-width: 480px) {
+        width: 80%;
+      }
+    }
+  }
+
+  &>h2 {
+    text-align: center;
+    color: white;
+    font-weight: 100;
+    font-size: 2em;
+    line-height: 1.25em;
+    max-width: 90%;
+    margin: 0 auto;
+
+    &>span {
+      border-bottom: 1px rgba(255, 255, 255, 0.87) solid;
+      display: inline-block;
+
+      &.noun {
+        width: 160px;
+      }
+
+      &.topic {
+        width: auto;
+        min-width: 215px;
+      }
+    }
+  }
 }

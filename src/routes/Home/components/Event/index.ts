@@ -1,6 +1,7 @@
 import { Stream } from 'xstream';
 import { div, article, a, img, i, span, header, nav, main, section, h4, h5, h6, footer, form, label, input, textarea, button, h3, p, address, br, makeDOMDriver, VNode } from '@cycle/dom';
-import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from '../../../definitions';
+import { Sources, Sinks, AgendaEntry, AgendaEntryType, DevdayEvent, Author } from '../../../../definitions';
+import './styles.scss';
 
 const fadeInOutStyle = {
   opacity: '0', delayed: { opacity: '1' }
