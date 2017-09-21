@@ -18,7 +18,7 @@
 .devday.home {
 
   &::before {
-    background-size: cover;
+    background-size: cover, cover;
     background-attachment: fixed;
     background-position: center center;
     content: '';
@@ -30,8 +30,9 @@
     top: 0;
     position: fixed;
     -webkit-filter: blur(15px);
-    filter: blur(15px); // background image source: https://www.pexels.com/photo/people-meeting-workspace-team-7097/
-    background-image: url('../../images/background.jpg');
+    filter: blur(15px);
+    // background image source: https://www.pexels.com/photo/people-meeting-workspace-team-7097/
+    background-image: url('../../images/background.jpg'), url('../../images/background-small.jpg');
     background-color: transparent;
   }
 
