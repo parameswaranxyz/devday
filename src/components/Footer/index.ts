@@ -1,5 +1,7 @@
 import { Stream } from 'xstream';
 import { VNode, footer, div, a, span, p } from '@cycle/dom';
+import delay from 'xstream/extra/delay';
+import './styles.scss';
 
 interface FooterSinks {
   dom: Stream<VNode>;
@@ -36,7 +38,8 @@ export const Footer = (): FooterSinks => {
         }, 'Sahaj Software Solutions')
       ])
     ])
-  ]));
+  ])).compose(delay(500))
+  .startWith(footer());
   return {
     dom: vtree$
   };
