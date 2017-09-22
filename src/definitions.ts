@@ -1,6 +1,5 @@
 import { DOMSource } from '@cycle/dom';
 import { EventsSource } from './drivers/events';
-import { PreventSource } from './drivers/prevent';
 import { MaterialSource } from './drivers/material';
 import { MeetupsSource } from './drivers/meetups';
 import { TalksSource, TalksResult } from './drivers/talks';
@@ -13,7 +12,6 @@ import { Snackbar } from './drivers/snackbars';
 export interface Sources {
   dom: DOMSource;
   events: EventsSource;
-  prevent: PreventSource;
   registrations: RegistrationsSource;
   history: MemoryStream<Location>;
   material: MaterialSource;
@@ -24,7 +22,6 @@ export interface Sources {
 export interface Sinks {
   dom: Stream<VNode>;
   events: Stream<string>;
-  prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
   history: Stream<HistoryInput | string>;
   material: Stream<boolean>;

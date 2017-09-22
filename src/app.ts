@@ -2,7 +2,6 @@ import { run } from '@cycle/run';
 import { main } from './main';
 import { makeDOMDriver } from '@cycle/dom';
 import { makeEventsDriver } from './drivers/events';
-import { makePreventDriver } from './drivers/prevent';
 import { makeMeetupsDriver } from './drivers/meetups';
 import { makeRegistrationsDriver } from './drivers/registrations';
 import { makeHashHistoryDriver } from '@cycle/history';
@@ -13,7 +12,6 @@ import { makeSnackbarsDriver } from './drivers/snackbars';
 run(main, {
   dom: makeDOMDriver('#root'),
   events: makeEventsDriver(),
-  prevent: makePreventDriver(),
   registrations: makeRegistrationsDriver(),
   history: makeHashHistoryDriver() as any,
   material: makeMaterialDriver(),

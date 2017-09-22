@@ -16,7 +16,6 @@ interface Sources {
 
 interface Sinks {
   dom: Stream<VNode>;
-  prevent: Stream<Event>;
   talks: Stream<DevdayRegistrationData>;
   snackbars: Stream<Snackbar>;
 }
@@ -34,7 +33,7 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
     message: success ? 'Talk submitted' : 'Talk submission failed',
     timeout: 5000
   }));
-  const submitClick$ = dom.select('.talk-submit').events('click');
+  const submitClick$ = dom.select('.talk-submit').events('click', { preventDefault: true });
   const talk$ =
     submitClick$
       .compose(delay(50))
@@ -118,7 +117,6 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
   });
   return {
     dom: vdom$,
-    prevent: submitClick$,
     talks: talk$,
     snackbars: snackbar$
   };

@@ -12,7 +12,7 @@ import './styles.scss';
 export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
   const registration$ = registrations.registration$;
-  const moreClick$ = dom.select('.more').events('click');
+  const moreClick$ = dom.select('.more').events('click', { preventDefault: true });
   const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
   const events$ =
@@ -50,15 +50,9 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
           talkRegistrationDom
         ])
       );
-  const prevent$ =
-    xs.merge(
-      moreClick$,
-      talkRegistration.prevent
-    );
   return {
     dom: vdom$,
     events: xs.empty(),
-    prevent: prevent$,
     registrations: xs.empty(),
     history: navigateTo$,
     material: xs.empty(),

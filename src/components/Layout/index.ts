@@ -36,7 +36,6 @@ export const Layout = (sources: LayoutSources): Sinks => {
   return {
     dom: vtree$,
     events: pluck(sinks$, sinks => sinks.events),
-    prevent: pluck(sinks$, sinks => sinks.prevent),
     registrations: pluck(sinks$, sinks => sinks.registrations),
     history: pluck(sinks$, sinks => sinks.history),
     material: pluck(sinks$, sinks => sinks.material),

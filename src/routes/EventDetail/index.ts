@@ -173,7 +173,6 @@ interface EventDetailSources {
 interface EventDetailSinks {
   dom: Stream<VNode>;
   history: Stream<HistoryInput | string>;
-  prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
   material: Stream<boolean>;
 }
@@ -188,7 +187,7 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
           .map(events => events.find(event => event.url === eventUrl)))
       .flatten();
   const shrinkButtonClick$ =
-    sources.dom.select('.shrink.button').events('.click');
+    sources.dom.select('.shrink.button').events('.click', { preventDefault: true });
   const history$ = shrinkButtonClick$.mapTo('/');
   const success$ =
     event$
@@ -214,7 +213,6 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   return {
     dom: vdom$,
     history: history$,
-    prevent: xs.merge(shrinkButtonClick$, formSinks.prevent),
     registrations: formSinks.registrations,
     material: refresh$
   }
