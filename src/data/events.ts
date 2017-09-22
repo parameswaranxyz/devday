@@ -512,7 +512,6 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: '#f7df1e',
-    background_size: '200px',
     image_url: 'images/events/js_everywhere.png',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624'
@@ -1398,7 +1397,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/data-everywhere.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '240478877',
     form: {
@@ -1470,7 +1469,7 @@ export const events: DevdayEvent[] = [
       }
     ],
     color: '#040509',
-    image_url: '/images/events/its_real_time.jpg',
+    image_url: '/images/events/applications-scale.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '240836694',
     form: {
@@ -1537,7 +1536,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/data-talk.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '241588646',
     form: {
@@ -1626,7 +1625,7 @@ export const events: DevdayEvent[] = [
         Cycle.p('', 'Ayyalu	and Satish'),
       ]),
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/ideas-hackathon.jpg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '241139843',
     form: {
@@ -1679,7 +1678,7 @@ export const events: DevdayEvent[] = [
       } as any as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/ideas-hackathon.jpg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '243038919',
     form: {
