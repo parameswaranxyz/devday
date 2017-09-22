@@ -82,7 +82,8 @@ export const events: DevdayEvent[] = [
         },
         title: 'Lunch Break'
       } as AgendaEntry
-    ]
+    ],
+    image_url: 'images/events/data-science.jpeg'
   },
   {
     title: 'All about databases',
@@ -163,7 +164,8 @@ export const events: DevdayEvent[] = [
         },
         title: 'Lunch'
       } as AgendaEntry
-    ]
+    ],
+    image_url: 'images/events/data-everywhere.jpeg'
   },
   {
     title: 'Arduino Day',
@@ -514,7 +516,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: '#f7df1e',
-    image_url: 'images/events/js_everywhere.png',
+    image_url: 'images/events/javascript.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624'
   },
@@ -621,7 +623,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: 'images/events/its_real_time.jpg',
+    image_url: 'images/events/fast.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624',
     form: {
@@ -705,7 +707,7 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
       sheetName : 'Form Responses 1'
     },
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/math.jpeg',
   },
   {
     title: 'DevOps for Devs',
@@ -772,7 +774,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/devops-for-devs.jpeg',
+    image_url: '/images/events/for-devs.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '234495890',
     form: {
@@ -814,7 +816,7 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
       sheetName : 'Form Responses 1'
     },
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/hack.jpeg',
   },
   {
     title: 'Cross Platform Mobile Apps',
@@ -868,7 +870,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: 'images/events/cross_platform.jpg',
+    image_url: 'images/events/devices.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '235318558',
     form: {
