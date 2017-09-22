@@ -5,11 +5,10 @@ import { DevdayEvent} from '../../../../definitions';
 import * as moment from 'moment';
 import './styles.scss';
 
-const getMediaStyle = ({ color, image_url, background_size }: Partial<DevdayEvent>) => {
+const getMediaStyle = ({ color, image_url }: Partial<DevdayEvent>) => {
   var style = {};
   if (color) style['background-color'] = color;
   if (image_url != undefined) style['background-image'] = `url("${image_url}")`;
-  if (background_size != undefined) style['background-size'] = background_size;
   return style;
 };
 
@@ -27,9 +26,9 @@ interface Sinks {
 const EventComponent = ({ dom, event }: Sources): Sinks => {
   const viewDetailsClick$ = dom.select('.action').events('click');
   const navigateToEvent$ = event.map(({ url }) => viewDetailsClick$.map(click => '/events/'+ url)).flatten();
-  const vtree$ = event.map(({ title, event_time: { start_time }, abstract, venue: { city }, color, image_url, background_size }) =>
+  const vtree$ = event.map(({ title, event_time: { start_time }, abstract, venue: { city }, color, image_url }) =>
     article('.event', [
-      div('.media', { style: getMediaStyle({ color, image_url, background_size }) }, [
+      div('.media', { style: getMediaStyle({ color, image_url }) }, [
         div('.overlay', [city])
       ]),
       div('.content', [
