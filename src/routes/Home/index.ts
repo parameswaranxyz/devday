@@ -12,26 +12,34 @@ import './styles.scss';
 export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
   const registration$ = registrations.registration$;
-  const moreClick$ =
-    dom
-      .select('.more')
-      .events('click');
-  const more$ =
-    moreClick$
-      .map(ev => true)
-      .startWith(false);
+  const moreClick$ = dom.select('.more').events('click');
+  const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
   const events$ =
     xs.combine(events.events$, more$)
       .map(([events, more]) =>
         getEventsList(events, more)
-          .map(event => Event({ dom, event: Stream.of(event) }))
+          .map(event => Event({ dom, event$: xs.of(event) }))
       );
-  const eventCardDoms$ = events$.map(sinks => Stream.combine(...sinks.map(s => s.dom)) as Stream<VNode[]>).flatten();
+  const eventPrevent$ =
+    events$
+      .map(sinks => sinks.map(s => s.prevent))
+      .map(prevents => xs.merge(...prevents) as Stream<Event>)
+      .flatten();
+  const navigateTo$ =
+    events$
+      .map(sinks => sinks.map(s => s.history))
+      .map(histories => xs.merge(...histories) as Stream<string>)
+      .flatten();
+  const eventCardDoms$ =
+    events$
+      .map(sinks => sinks.map(s => s.dom))
+      .map<Stream<VNode[]>>(dom$s => xs.combine(...dom$s))
+      .flatten();
   const vdom$ =
     xs.combine(eventCardDoms$, more$, talkRegistration.dom)
-      .map(([eventCardDoms, more, talkRegistrationDom]) => {
-        return main([
+      .map(([eventCardDoms, more, talkRegistrationDom]) =>
+        main([
           ...eventCardDoms,
           nav([
             a('.more', {
@@ -45,23 +53,13 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
               ])
           ]),
           talkRegistrationDom
-        ]);
-      });
-  const eventCardprevents$ =
-    events$
-      .map(sinks => sinks.map(s => s.prevent))
-      .map(prevents => xs.merge(...prevents) as Stream<Event>)
-      .flatten();
-  const navigateTo$ =
-    events$
-      .map(sinks => sinks.map(s => s.history))
-      .map(histories => xs.merge(...histories) as Stream<string>)
-      .flatten();
+        ])
+      );
   const prevent$ =
     xs.merge(
       moreClick$,
       talkRegistration.prevent,
-      eventCardprevents$
+      eventPrevent$
     );
   return {
     dom: vdom$,
