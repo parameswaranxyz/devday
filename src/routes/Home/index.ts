@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
-import { topEvents, moreEvents, getEventsList } from '../../drivers/events';
+import { getEventsList } from '../../drivers/events';
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
 import { Event } from './components/Event';

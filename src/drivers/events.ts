@@ -37,30 +37,6 @@ export function makeEventsDriver(): (event$: Stream<string>) => EventsSource {
   return eventsDriver;
 }
 
-export function topEvents(events: DevdayEvent[]): DevdayEvent[] {
-  const chennaiEvent =
-    events
-      .filter(ev => ev.venue === CHENNAI_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  const bangaloreEvent =
-    events
-      .filter(ev => ev.venue === BANGALORE_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  return [bangaloreEvent, chennaiEvent];
-}
-
-export function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
-  if (!more)
-    return [];
-  const topEventsResult = topEvents(events);
-  const sortedEvents =
-    events
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
-  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
-}
-
 export function getEventsList(events: DevdayEvent[], more: boolean): DevdayEvent[] {
   const sortedEvents = events.sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
   return more ? sortedEvents : sortedEvents.filter((x,i) => i < 2);
