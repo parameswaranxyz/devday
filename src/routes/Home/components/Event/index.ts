@@ -2,6 +2,7 @@ import { Stream } from 'xstream';
 import { div, article, h2, h3, button, p, VNode, DOMSource } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { DevdayEvent} from '../../../../definitions';
+import sampleCombine from 'xstream/extra/sampleCombine'
 import * as moment from 'moment';
 import './styles.scss';
 
@@ -12,13 +13,12 @@ interface Sources {
 
 interface Sinks {
   dom: Stream<VNode>;
-  prevent: Stream<Event>;
   history: Stream<string>;
 }
 
 const EventComponent = ({ dom, event$ }: Sources): Sinks => {
-  const viewDetailsClick$ = dom.select('.action').events('click').debug();
-  const navigateTo$ = event$.map(({ url }) => viewDetailsClick$.map(click => '/events/'+ url)).flatten().debug();
+  const viewDetailsClick$ = dom.select('.action').events('click', { preventDefault: true });
+  const navigateTo$ = viewDetailsClick$.compose(sampleCombine(event$)).map(([click, { url }]) => '/events/'+ url).debug();
   const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url }) =>
     article('.event', [
       div('.media', { style: { 'background-image': `url("${image_url}")` } }, [
@@ -39,7 +39,6 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
   );
   return {
     dom: vtree$,
-    prevent: viewDetailsClick$,
     history: navigateTo$
   };
 }
