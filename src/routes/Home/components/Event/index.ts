@@ -7,7 +7,7 @@ import './styles.scss';
 
 interface Sources {
   dom: DOMSource;
-  event: Stream<DevdayEvent>;
+  event$: Stream<DevdayEvent>;
 }
 
 interface Sinks {
@@ -16,10 +16,10 @@ interface Sinks {
   history: Stream<string>;
 }
 
-const EventComponent = ({ dom, event }: Sources): Sinks => {
-  const viewDetailsClick$ = dom.select('.action').events('click');
-  const navigateToEvent$ = event.map(({ url }) => viewDetailsClick$.map(click => '/events/'+ url)).flatten();
-  const vtree$ = event.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url }) =>
+const EventComponent = ({ dom, event$ }: Sources): Sinks => {
+  const viewDetailsClick$ = dom.select('.action').events('click').debug();
+  const navigateTo$ = event$.map(({ url }) => viewDetailsClick$.map(click => '/events/'+ url)).flatten().debug();
+  const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url }) =>
     article('.event', [
       div('.media', { style: { 'background-image': `url("${image_url}")` } }, [
         div('.overlay', [city])
@@ -40,7 +40,7 @@ const EventComponent = ({ dom, event }: Sources): Sinks => {
   return {
     dom: vtree$,
     prevent: viewDetailsClick$,
-    history: navigateToEvent$
+    history: navigateTo$
   };
 }
 
