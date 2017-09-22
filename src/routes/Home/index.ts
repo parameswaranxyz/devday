@@ -21,11 +21,6 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
         getEventsList(events, more)
           .map(event => Event({ dom, event$: xs.of(event) }))
       );
-  const eventPrevent$ =
-    events$
-      .map(sinks => sinks.map(s => s.prevent))
-      .map(prevents => xs.merge(...prevents) as Stream<Event>)
-      .flatten();
   const navigateTo$ =
     events$
       .map(sinks => sinks.map(s => s.history))
@@ -58,8 +53,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const prevent$ =
     xs.merge(
       moreClick$,
-      talkRegistration.prevent,
-      eventPrevent$
+      talkRegistration.prevent
     );
   return {
     dom: vdom$,
