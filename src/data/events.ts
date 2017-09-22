@@ -256,7 +256,8 @@ export const events: DevdayEvent[] = [
         },
         title: 'Lunch Break'
       } as AgendaEntry
-    ]
+    ],
+    image_url: 'images/events/arduino-day.jpeg'
   },
   {
     title: 'DevDay',
@@ -349,7 +350,8 @@ export const events: DevdayEvent[] = [
         },
         title: 'Lunch Break'
       } as AgendaEntry
-    ]
+    ],
+    image_url: 'images/events/devday.jpg'
   },
   {
     title: 'DevOps in Cloud',
