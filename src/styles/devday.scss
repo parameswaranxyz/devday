@@ -1,5 +1,6 @@
 $performance_font: Roboto, Helvetica, "Segoe UI", Arial, sans-serif;
 $preferred_font: Roboto, Helvetica, "Segoe UI", Arial, sans-serif;
+$trim-color-classes: true;
 
 @import "~material-design-lite/src/material-design-lite.scss";
 
@@ -33,6 +34,13 @@ $range : $large-screen - $small-screen !default;
 $intervals: 20 !default;
 $interval-size: $range / $intervals !default;
 
+.mdl-color-text--grey-700 {
+  color: unquote("rgb(#{$palette-grey-700})") !important;
+}
+
+.mdl-color--grey-100 {
+  background-color: unquote("rgb(#{$palette-grey-100})") !important;
+}
 
 .hidden {
     @extend .visuallyhidden;
