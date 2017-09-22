@@ -73,13 +73,8 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   }
 }
 
-function renderBackground(event: DevdayEvent): VNode {
-  var style = {};
-  if (event.color)
-    style['background-color'] = event.color;
-  if (event.image_url != undefined)
-    style['background-image'] = `url("${event.image_url}")`;
-  return div('.background', { style });
+function renderBackground({ image_url }: DevdayEvent): VNode {
+  return div('.background', { style: { 'background-image': `url("${image_url}")`} });
 }
 
 export function renderExpandedEvent(event: DevdayEvent, form: VNode): VNode {
