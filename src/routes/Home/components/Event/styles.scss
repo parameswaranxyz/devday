@@ -156,7 +156,7 @@
   }
 
   @media screen and (min-width: 840px) {
-    height: 155px;
+    height: 200px;
 
     .media {
       width: 25%;
@@ -164,7 +164,7 @@
 
     .content {
       left: 22%;
-      height: 130px;
+      height: 175px;
 
       .header, .separator, .description, .footer {
         position: absolute;
@@ -173,7 +173,7 @@
       }
 
       .header {
-        width: 25%;
+        width: 40%;
         left: 0;
 
         .title {
@@ -188,28 +188,30 @@
       }
 
       .separator {
-        left: 25%;
+        left: 40%;
         border: none;
         border-right: 1px solid #999;
         margin: 0;
         padding: 0;
-        height: 54px;
-        width: 1px;
-        margin-top: 25px;
+        height: auto;
+        width: 0px;
+        top: 25px;
+        bottom: 50px;
       }
 
       .description {
-        left: 25%;
-        right: 20%;
-        height: 105px;
+        left: 40%;
+        right: 0;
+        height: auto;
         margin-bottom: 0;
+        bottom: 0;
       }
 
       .footer {
-        right: 0;
-        width: 20%;
-        top: 0;
-        padding-left: 10px;
+        left: 0;
+        width: 40%;
+        bottom: 0;
+        top: auto;
       }
     }
   }
