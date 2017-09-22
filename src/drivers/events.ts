@@ -61,4 +61,9 @@ export function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] 
   return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
 }
 
+export function getEventsList(events: DevdayEvent[], more: boolean): DevdayEvent[] {
+  const sortedEvents = events.sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
+  return more ? sortedEvents : sortedEvents.filter((x,i) => i < 2);
+}
+
 export default makeEventsDriver;
