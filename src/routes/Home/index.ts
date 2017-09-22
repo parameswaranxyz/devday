@@ -9,20 +9,6 @@ import delay from 'xstream/extra/delay';
 import { closestParent } from '../../utils';
 import './styles.scss';
 
-const eventHash = location.hash.match('/register/') ? "" : location.hash.replace("#/", "");
-const eventRegisterHash = location.hash.match('/register/') ? location.hash.replace("#/register/", "") : "";
-
-function getFormData(form: HTMLFormElement): DevdayRegistrationData {
-  return {
-    name: form.elements['name'].value,
-    email: form.elements['email'].value,
-    mobile: form.elements['mobile'].value,
-    present: form.elements['presentCheckbox'].checked,
-    title: form.elements['title'] && form.elements['title'].value,
-    abstract: form.elements['abstract'] && form.elements['abstract'].value,
-  }
-}
-
 export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
   const events$ = events.events$.remember();
