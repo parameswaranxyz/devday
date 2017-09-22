@@ -79,8 +79,6 @@ function renderBackground(event: DevdayEvent): VNode {
     style['background-color'] = event.color;
   if (event.image_url != undefined)
     style['background-image'] = `url("${event.image_url}")`;
-  if (event.background_size != undefined)
-    style['background-size'] = event.background_size;
   return div('.background', { style });
 }
 
