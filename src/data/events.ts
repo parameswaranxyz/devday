@@ -516,7 +516,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: '#f7df1e',
-    image_url: 'images/events/javascript.jpeg',
+    image_url: 'images/events/js_everywhere.png',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '232886624'
   },
@@ -554,7 +554,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: '#211b33',
-    image_url: 'images/events/tasting_elixir.jpg',
+    image_url: 'images/events/programming.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '233530425'
   },
@@ -913,14 +913,15 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '',
+    image_url: 'images/events/tic-tac-toe.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '236605725',
     form: {
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }, {
+  },
+  {
     title: 'First Dive into Deep Learning',
     url: 'first-dive-deep-learning',
     categories: ['events'],
@@ -983,7 +984,7 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1xR-opuZ3sIEvjktfzpkuC60J3gJNlRExMYP74Ym4zwo',
       sheetName : 'Form Responses 1'
     },
-    image_url: '',
+    image_url: 'images/events/connections.jpeg',
   },
   {
     title: 'Know NoSQL',
@@ -1036,7 +1037,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '',
+    image_url: 'images/events/learn.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '237520259',
     form: {
@@ -1092,7 +1093,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/question.jpeg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '237578088',
     form: {
@@ -1150,7 +1151,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '',
+    image_url: 'images/events/architecture.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '238210259',
     form: {
@@ -1208,7 +1209,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/honeycomb.jpg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '238855098',
     form: {
@@ -1279,7 +1280,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/question.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '239567301',
     form: {
@@ -1336,7 +1337,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry
     ],
     color: '#283593',
-    image_url: 'images/events/functional_programming.jpg',
+    image_url: 'images/events/code.jpeg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '239660651',
     form: {
