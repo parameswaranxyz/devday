@@ -1589,7 +1589,7 @@ export const events: DevdayEvent[] = [
       }
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/teach-machines.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '242827851',
     form: {
@@ -1722,7 +1722,7 @@ export const events: DevdayEvent[] = [
       }
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/teach-machines.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '243276467',
     form: {
@@ -1775,7 +1775,7 @@ export const events: DevdayEvent[] = [
       }
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/teach-machines.jpg',
     meetup_urlname: 'devday_bangalore',
     meetup_event_id: '243411983',
     form: {
@@ -1842,7 +1842,7 @@ export const events: DevdayEvent[] = [
       } as AgendaEntry,
     ],
     color: '#040509',
-    image_url: '/images/events/hackathon.jpg',
+    image_url: '/images/events/blockchain.jpeg',
     meetup_urlname: 'devday_chennai',
     meetup_event_id: '243513680',
     form: {
