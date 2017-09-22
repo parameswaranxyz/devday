@@ -11,7 +11,6 @@ import './styles.scss';
 
 export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
-  const events$ = events.events$.remember();
   const registration$ = registrations.registration$;
   const moreClick$ =
     dom
@@ -22,13 +21,13 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
       .map(ev => true)
       .startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
-  const eventCards$ =
-    xs.combine(events$, more$)
+  const events$ =
+    xs.combine(events.events$, more$)
       .map(([events, more]) =>
         getEventsList(events, more)
           .map(event => Event({ dom, event: Stream.of(event) }))
       );
-  const eventCardDoms$ = eventCards$.map(sinks => Stream.combine(...sinks.map(s => s.dom)) as Stream<VNode[]>).flatten();
+  const eventCardDoms$ = events$.map(sinks => Stream.combine(...sinks.map(s => s.dom)) as Stream<VNode[]>).flatten();
   const vdom$ =
     xs.combine(eventCardDoms$, more$, talkRegistration.dom)
       .map(([eventCardDoms, more, talkRegistrationDom]) => {
@@ -49,18 +48,14 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
         ]);
       });
   const eventCardprevents$ =
-    eventCards$
+    events$
       .map(sinks => sinks.map(s => s.prevent))
-      .map(prevents => xs.combine(...prevents) as Stream<Event[]>)
-      .flatten()
-      .map(events => xs.fromArray(events))
+      .map(prevents => xs.merge(...prevents) as Stream<Event>)
       .flatten();
   const navigateTo$ =
-    eventCards$
+    events$
       .map(sinks => sinks.map(s => s.history))
-      .map(histories => xs.combine(...histories) as Stream<string[]>)
-      .flatten()
-      .map(histories => xs.fromArray(histories))
+      .map(histories => xs.merge(...histories) as Stream<string>)
       .flatten();
   const prevent$ =
     xs.merge(
@@ -68,14 +63,13 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
       talkRegistration.prevent,
       eventCardprevents$
     );
-  const refresh$ = vdom$.compose(delay(30)).mapTo(true);
   return {
     dom: vdom$,
     events: xs.empty(),
     prevent: prevent$,
     registrations: xs.empty(),
     history: navigateTo$,
-    material: refresh$,
+    material: xs.empty(),
     talks: talkRegistration.talks,
     snackbars: talkRegistration.snackbars
   };
