@@ -106,8 +106,7 @@ export interface DevdayEvent {
   registration_time: EventTime;
   venue: Address;
   agenda: AgendaEntry[];
-  image_url?: string;
-  color?: string;
+  image_url: string;
   meetup_urlname?: string;
   meetup_event_id?: string;
   attending?: number;
