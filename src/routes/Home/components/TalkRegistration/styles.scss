@@ -3,8 +3,11 @@
 .talk-registration {
   @extend .mdl-card;
   @extend .mdl-cell;
-  @extend .mdl-cell--6-col;
-  @extend .mdl-cell--3-offset;
+  @extend .mdl-cell--6-col-desktop;
+  @extend .mdl-cell--4-col-tablet;
+  @extend .mdl-cell--4-col-phone;
+  @extend .mdl-cell--3-offset-desktop;
+  @extend .mdl-cell--2-offset-tablet;
 
   &:hover, &:active, &:focus {
     .title {
