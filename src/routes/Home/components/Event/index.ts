@@ -4,6 +4,7 @@ import isolate from '@cycle/isolate';
 import { DevdayEvent} from '../../../../definitions';
 import sampleCombine from 'xstream/extra/sampleCombine';
 import * as moment from 'moment';
+import * as marked from 'marked';
 import './styles.scss';
 
 interface Sources {
@@ -30,7 +31,7 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
           h3('.subtitle', [moment(start_time).format('dddd, MMMM Do YYYY')])
         ]),
         div('.separator'),
-        p('.description', { attrs: { title: abstract } }, [ abstract ]),
+        div('.description', { props: { innerHTML: marked(abstract) } }),
         div('.footer', [
           button('.action', ['View Details'])
         ])
