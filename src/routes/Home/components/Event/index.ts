@@ -18,7 +18,7 @@ interface Sinks {
 
 const EventComponent = ({ dom, event$ }: Sources): Sinks => {
   const viewDetailsClick$ = dom.select('.action').events('click', { preventDefault: true });
-  const navigateTo$ = viewDetailsClick$.compose(sampleCombine(event$)).map(([_, { url }]) => '/events/'+ url).debug();
+  const navigateTo$ = viewDetailsClick$.compose(sampleCombine(event$)).map(([_, { url }]) => '/events/'+ url);
   const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url }) =>
     article('.event', [
       div('.media', { style: { 'background-image': `url("${image_url}")` } }, [
