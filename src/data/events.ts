@@ -1,5 +1,4 @@
 import { DevdayEvent, Address, AgendaEntry, AgendaEntryType } from './../definitions';
-import * as Cycle from '@cycle/dom' ;
 
 export const BANGALORE_ADDRESS: Address = {
       line_one: '#365, 3rd Floor, Sulochana Building',
@@ -1570,7 +1569,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Introduction to machine learning',
-        abstract: [Cycle.ul('', [Cycle.li('',' What is ML'), Cycle.li('What is AI'), Cycle.li('','What is DL')])],
+        abstract: '* What is ML\n* What is AI\n* What is DL',
         authors:[
           {
             name: 'Swaminathan Ganesan, Solution Consultant - Sahaj',
@@ -1585,7 +1584,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Introduction to R',
-        abstract: [Cycle.ul('', [Cycle.li('','Installation and sanity check'), Cycle.li('What is AI'), Cycle.li('','Basic DS in R and few operations related')])],
+        abstract: '* Installation and sanity check\n* What is AI\n* Basic DS in R and few operations related',
         authors: [],
         time: {
           start_time: new Date('2017-09-09T14:00:00+05:30')
@@ -1619,16 +1618,13 @@ export const events: DevdayEvent[] = [
     },
     venue: CHENNAI_ADDRESS,
     agenda:[],
-    details:
-      Cycle.div('', [
-        Cycle.h3('', 'Winners'),
-        Cycle.h4('', Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/file/d/0Bzbu-2OjDNYQbmRhVGdzV0QzamM/view?usp=sharing'}}, 'First Prize: Techno Titans, SKCT Coimbatore')),
-        Cycle.p('', 'A Ajai Srikanth, S Ashwin Karthik and A Balaji'),
-        Cycle.h4('', 'Second Prize: Diabetic Aid, IIT Madras'),
-        Cycle.p('', 'S Sathiyamoorthy, Sowmiya C and B Chandran'),
-        Cycle.h4('', 'Third Prize: Intelitixians, InteliTix Solutions'),
-        Cycle.p('', 'Ayyalu	and Satish'),
-      ]),
+    details: '### Winners\n'
+        + '#### [First Prize: Techno Titans, SKCT Coimbatore](https://drive.google.com/file/d/0Bzbu-2OjDNYQbmRhVGdzV0QzamM/view?usp=sharing)\n'
+        + 'A Ajai Srikanth, S Ashwin Karthik and A Balaji\n'
+        + '#### Second Prize: Diabetic Aid, IIT Madras\n'
+        + 'S Sathiyamoorthy, Sowmiya C and B Chandran\n'
+        + '#### Third Prize: Intelitixians, InteliTix Solutions\n'
+        + 'Ayyalu	and Satish',
     color: '#040509',
     image_url: '/images/events/ideas-hackathon.jpg',
     meetup_urlname: 'devday_chennai',
@@ -1659,7 +1655,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Git Rollback - generating code from voice',
-        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQUTNDLVVwYmxta28'}}, 'Description of their idea and implmentation'),
+        abstract: 'Simplix is an Android app where anyone can learn how to code, and quickly generate large segments of code directly from their voice. [More...](https://drive.google.com/open?id=0Bzbu-2OjDNYQUTNDLVVwYmxta28)',
         time: {
           start_time: new Date('2017-07-29T18:30:00+05:30')
         }
@@ -1668,7 +1664,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'House Stark - an interactive museum using AR',
-        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQTHBDRlpHY1JwSlU'}}, 'Description of their idea and implmentation'),
+        abstract: 'People love museums. But they don\'t go there. So we get the museum to them. With a little bit of AR. [More...](https://drive.google.com/open?id=0Bzbu-2OjDNYQTHBDRlpHY1JwSlU)',
         time: {
           start_time: new Date('2017-07-29T19:10:00+05:30')
         }
@@ -1676,7 +1672,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Vangogh - Applying Texture from one image to another using ML',
-        abstract: Cycle.a('', {style:{cursor:'pointer', color:'white'}, props: {target: '_blank', href: 'https://drive.google.com/open?id=0Bzbu-2OjDNYQVWtpZjM2NkFSZGs'}}, 'Description of their idea and implmentation'),
+        abstract: 'We all love photos. We love paintings too. What if our everyday photos can have the feel of a painting? [More...](https://drive.google.com/open?id=0Bzbu-2OjDNYQVWtpZjM2NkFSZGs)',
         time: {
           start_time: new Date('2017-07-29T19:50:00+05:30')
         }
@@ -1712,7 +1708,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Regression analysis',
-        abstract: [Cycle.ul('', [Cycle.li('', ' Linear'), Cycle.li('Logistic')])],
+        abstract: '* Linear Regression\n* Logistic Regression',
         authors: [
           {
             name: 'Dileep Bapat',
@@ -1755,7 +1751,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Classification',
-        abstract: [Cycle.ul('', [Cycle.li('', ' Supervised'), Cycle.li('Unsupervised')])],
+        abstract: 'Supervised and unsupervised',
         authors: [
           {
             name: 'Devangana Khokhar',
@@ -1770,7 +1766,7 @@ export const events: DevdayEvent[] = [
       {
         type: AgendaEntryType.Talk,
         title: 'Market Basket Analysis',
-        abstract: [Cycle.ul('', [Cycle.li('', ' Technique used for sales prediction')])],
+        abstract: 'Techniques used for sales predictions',
         authors: [
         ],
         time: {
