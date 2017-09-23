@@ -2,7 +2,7 @@ import { Stream } from 'xstream';
 import { div, article, h2, h3, button, p, VNode, DOMSource } from '@cycle/dom';
 import isolate from '@cycle/isolate';
 import { DevdayEvent} from '../../../../definitions';
-import sampleCombine from 'xstream/extra/sampleCombine'
+import sampleCombine from 'xstream/extra/sampleCombine';
 import * as moment from 'moment';
 import './styles.scss';
 
