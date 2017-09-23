@@ -43,4 +43,4 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
   };
 }
 
-export const Event: (sources: Sources) => Sinks = isolate(EventComponent);
+export const Event: (sources: Sources) => Sinks = sources => isolate(EventComponent)(sources);
