@@ -108,6 +108,7 @@ export interface DevdayEvent {
   meetup_event_id?: string;
   attending?: number;
   form?: DevdayRegistrationForm;
+  details?: string;
 }
 
 export interface MeetupEvent {
