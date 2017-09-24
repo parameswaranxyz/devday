@@ -3,7 +3,7 @@ import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, bu
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
-import { Event } from './components/Event';
+import { EventList } from './components/EventList';
 import delay from 'xstream/extra/delay';
 import { closestParent } from '../../utils';
 import './styles.scss';
@@ -14,22 +14,12 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const moreClick$ = dom.select('.more').events('click', { preventDefault: true });
   const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
-  const events$ = events.main$.map(events => events.map(event => Event({ dom, event$: xs.of(event) })));
-  const navigateTo$ =
-    events$
-      .map(sinks => sinks.map(s => s.history))
-      .map(histories => xs.merge(...histories) as Stream<string>)
-      .flatten();
-  const eventCardDoms$ =
-    events$
-      .map(sinks => sinks.map(s => s.dom))
-      .map<Stream<VNode[]>>(dom$s => xs.combine(...dom$s))
-      .flatten();
+  const eventList = EventList({ dom, events$: events.main$ });
   const vdom$ =
-    xs.combine(eventCardDoms$, more$, talkRegistration.dom)
-      .map(([eventCardDoms, more, talkRegistrationDom]) =>
+    xs.combine(eventList.dom, more$, talkRegistration.dom)
+      .map(([eventDoms, more, talkRegistrationDom]) =>
         main([
-          ...eventCardDoms,
+          ...eventDoms,
           nav([
             a('.more', {
               props: { href: '#', title: 'view all previous events' },
@@ -48,7 +38,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
     dom: vdom$,
     events: xs.empty(),
     registrations: xs.empty(),
-    history: navigateTo$,
+    history: eventList.history,
     material: xs.empty(),
     talks: talkRegistration.talks,
     snackbars: talkRegistration.snackbars
