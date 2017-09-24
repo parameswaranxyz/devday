@@ -17,34 +17,27 @@ interface Sinks {
   history: Stream<string>;
 }
 
-const style = {
-  transition: 'all .15s cubic-bezier(0.4, 0.0, 0.2, 1)',
-  'transform-origin': '0% 0%',
-  transform: 'scale(0)',
-  opacity: '0',
-  delayed: {
-    transform: 'scale(1)',
-    opacity: '1'
-  }
+const fadeInOutStyle = {
+  opacity: '0', delayed: {opacity: '1'}, remove: {opacity: '0'}
 };
 
 const EventComponent = ({ dom, event$ }: Sources): Sinks => {
   const viewDetailsClick$ = dom.select('.action').events('click', { preventDefault: true });
   const navigateTo$ = viewDetailsClick$.compose(sampleCombine(event$)).map(([_, { url }]) => '/events/'+ url);
   const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url, url }) =>
-    article('.event', { style, key: url }, [
-      div('.media', { style: { 'background-image': `url("${image_url}")` } }, [
-        div('.overlay', [city])
+    article('.event', { style: fadeInOutStyle, key: url }, [
+      div('.media', { style: { delayed: { 'background-image': `url("${image_url}")` } } }, [
+        div('.overlay', { style: fadeInOutStyle }, [city])
       ]),
       div('.content', [
         div('.header', [
-          h2('.title', { attrs: { title: title } }, [ title ]),
-          h3('.subtitle', [moment(start_time).format('dddd, MMMM Do YYYY')])
+          h2('.title', { attrs: { title: title }, style: fadeInOutStyle }, [ title ]),
+          h3('.subtitle', { style: fadeInOutStyle }, [moment(start_time).format('dddd, MMMM Do YYYY')])
         ]),
         div('.separator'),
-        div('.description', { props: { innerHTML: marked(abstract) } }),
+        div('.description', { props: { innerHTML: marked(abstract) }, style: fadeInOutStyle }),
         div('.footer', [
-          button('.action', ['View Details'])
+          button('.action', { style: fadeInOutStyle }, ['View Details'])
         ])
       ])
     ])

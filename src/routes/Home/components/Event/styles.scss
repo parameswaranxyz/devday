@@ -1,5 +1,9 @@
 @import '../../../../styles/devday.scss';
 
+$transition-duration-mobile: .195s;
+$transition-duration-tablet: .225s;
+$transition-duration-desktop: .375s;
+
 .event {
   @extend .mdl-cell;
   @extend .mdl-cell--12-col;
@@ -10,7 +14,7 @@
   position: relative;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin-bottom: 25px;
-  transition: all .195s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: opacity $transition-duration-mobile cubic-bezier(0.4, 0.0, 0.2, 1);
 
   .media {
     position: absolute;
@@ -21,6 +25,7 @@
     background: #213142;
     overflow: visible;
     background-size: cover;
+    transition-delay: $transition-duration-mobile;
 
     .overlay {
       background: rgba(25,25,25, 0.5);
@@ -56,6 +61,7 @@
         font-weight: 700;
         height: 36px;
         overflow: hidden;
+        transition-delay: $transition-duration-mobile;
       }
 
       .subtitle {
@@ -64,6 +70,7 @@
         color: #666;
         font-size: 1.1rem;
         line-height: 1.5;
+        transition-delay: $transition-duration-mobile;
       }
     }
 
@@ -81,6 +88,7 @@
       height: 145px;
       overflow: hidden;
       margin-bottom: 1rem;
+      transition-delay: $transition-duration-mobile;
       
       p {
         font-size: 1rem;
@@ -115,7 +123,7 @@
 
   @media screen and (min-width: 480px) {
     height: 300px;
-    transition: all .225s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: opacity $transition-duration-tablet cubic-bezier(0.4, 0.0, 0.2, 1);
     
     .media {
       height: auto;
@@ -165,10 +173,11 @@
 
   @media screen and (min-width: 840px) {
     height: 200px;
-    transition: all .375s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition: opacity $transition-duration-desktop cubic-bezier(0.4, 0.0, 0.2, 1);
 
     .media {
       width: 25%;
+      transition-delay: $transition-duration-desktop;
     }
 
     .content {
@@ -189,10 +198,12 @@
           height: auto;
           max-height: 54px;
           margin-bottom: 5px;
+          transition-delay: $transition-duration-desktop;
         }
 
         .subtitle {
           line-height: 1.25;
+          transition-delay: $transition-duration-desktop;
         }
       }
 
@@ -215,6 +226,7 @@
         margin-bottom: 25px;
         padding-bottom: 0;
         bottom: 0;
+        transition-delay: $transition-duration-desktop;
       }
 
       .footer {
