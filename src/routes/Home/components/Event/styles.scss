@@ -130,6 +130,7 @@ $transition-duration-desktop: .375s;
       width: 40%;
       right: auto;
       bottom: 0;
+      transition-delay: $transition-duration-tablet;
 
       .overlay {
         top: initial;
@@ -154,10 +155,12 @@ $transition-duration-desktop: .375s;
           margin-bottom: 0;
           text-overflow: ellipsis;
           overflow: hidden;
+          transition-delay: 2*$transition-duration-tablet;
         }
 
         .subtitle {
           font-size: 1rem;
+          transition-delay: 2*$transition-duration-tablet;
         }
       }
 
@@ -167,6 +170,7 @@ $transition-duration-desktop: .375s;
 
       .description {
         height: 82px;
+        transition-delay: 2*$transition-duration-tablet;
       }
     }
   }
