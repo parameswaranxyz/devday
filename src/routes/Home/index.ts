@@ -1,7 +1,6 @@
 import { Stream } from 'xstream';
 import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
-import { getEventsList } from '../../drivers/events';
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
 import { Event } from './components/Event';
@@ -15,12 +14,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const moreClick$ = dom.select('.more').events('click', { preventDefault: true });
   const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
-  const events$ =
-    xs.combine(events.events$.compose(delay(300)), more$)
-      .map(([events, more]) =>
-        getEventsList(events, more)
-          .map(event => Event({ dom, event$: xs.of(event) }))
-      );
+  const events$ = events.main$.map(events => events.map(event => Event({ dom, event$: xs.of(event) })));
   const navigateTo$ =
     events$
       .map(sinks => sinks.map(s => s.history))
