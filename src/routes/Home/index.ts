@@ -16,7 +16,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
   const events$ =
-    xs.combine(events.events$, more$)
+    xs.combine(events.events$.compose(delay(300)), more$)
       .map(([events, more]) =>
         getEventsList(events, more)
           .map(event => Event({ dom, event$: xs.of(event) }))
