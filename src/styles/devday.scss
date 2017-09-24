@@ -34,6 +34,15 @@ $range : $large-screen - $small-screen !default;
 $intervals: 20 !default;
 $interval-size: $range / $intervals !default;
 
+$transition-duration-mobile: .195s;
+$transition-duration-tablet: .225s;
+$transition-duration-desktop: .375s;
+
+$standard-curve: cubic-bezier(0.4, 0.0, 0.2, 1);
+$deceleration-curve: cubic-bezier(0.0, 0.0, 0.2, 1);
+$acceleration-curve: cubic-bezier(0.4, 0.0, 1, 1);
+$sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1);
+
 .mdl-color-text--grey-700 {
   color: unquote("rgb(#{$palette-grey-700})") !important;
 }
