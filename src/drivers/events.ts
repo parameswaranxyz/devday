@@ -4,29 +4,24 @@ import { DevdayEvent } from './../definitions';
 import { makeMeetupsDriver } from './meetups';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './../data/events';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import delay from 'xstream/extra/delay';
+
+const getStartTime = (event: DevdayEvent): number => event.event_time.start_time.getTime();
+const byStartTime = (a: DevdayEvent, b: DevdayEvent) => getStartTime(b) - getStartTime(a);
+const sortByStartTime = (events: DevdayEvent[]) => events.sort(byStartTime);
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
   events$: Stream<DevdayEvent[]>;
+  main$: Stream<DevdayEvent[]>;
+  archive$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
+    const events$ = xs.of(sortByStartTime(events)).compose(delay(300));
     this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
-    const meetupsEvent$ =
-      xs.fromArray(
-        events
-          .filter(event => !!event.meetup_event_id && !!event.meetup_urlname)
-          .filter(event => !!event.form && !!event.form.spreadsheetId)
-      );
-    const meetup$ = makeMeetupsDriver()(meetupsEvent$).event$;
-    const eventsChange$ = meetup$.map(meetup => {
-      const event = events.find(event => event.url === meetup.event_url);
-      if (event != undefined) event.attending = meetup.yes_rsvp_count;
-      return true;
-    });
-    this.events$ =
-      eventsChange$
-        .map(() => events)
-        .startWith(events);
+    this.events$ = events$;
+    this.main$ = events$.map(events => events.slice(0, 2));
+    this.archive$ = events$.map(events => events.slice(2));
   }
 }
 
@@ -35,11 +30,6 @@ export function makeEventsDriver(): (event$: Stream<string>) => EventsSource {
     return new EventsSource(event$);
   }
   return eventsDriver;
-}
-
-export function getEventsList(events: DevdayEvent[], more: boolean): DevdayEvent[] {
-  const sortedEvents = events.sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
-  return more ? sortedEvents : sortedEvents.filter((x,i) => i < 2);
 }
 
 export default makeEventsDriver;
