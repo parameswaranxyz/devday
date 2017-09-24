@@ -14,7 +14,7 @@ $transition-duration-desktop: .375s;
   position: relative;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin-bottom: 25px;
-  transition: opacity $transition-duration-mobile cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: opacity $transition-duration-mobile cubic-bezier(0.0, 0.0, 0.2, 1);;
 
   .media {
     position: absolute;
@@ -123,7 +123,7 @@ $transition-duration-desktop: .375s;
 
   @media screen and (min-width: 480px) {
     height: 300px;
-    transition: opacity $transition-duration-tablet cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition-duration: $transition-duration-tablet;
     
     .media {
       height: auto;
@@ -177,7 +177,7 @@ $transition-duration-desktop: .375s;
 
   @media screen and (min-width: 840px) {
     height: 200px;
-    transition: opacity $transition-duration-desktop cubic-bezier(0.4, 0.0, 0.2, 1);
+    transition-duration: $transition-duration-desktop;
 
     .media {
       width: 25%;
