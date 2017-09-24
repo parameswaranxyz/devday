@@ -1,9 +1,5 @@
 @import '../../../../styles/devday.scss';
 
-$transition-duration-mobile: .195s;
-$transition-duration-tablet: .225s;
-$transition-duration-desktop: .375s;
-
 .event {
   @extend .mdl-cell;
   @extend .mdl-cell--12-col;
@@ -14,7 +10,7 @@ $transition-duration-desktop: .375s;
   position: relative;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin-bottom: 25px;
-  transition: opacity $transition-duration-mobile cubic-bezier(0.0, 0.0, 0.2, 1);;
+  transition: opacity $transition-duration-mobile $deceleration-curve;
 
   .media {
     position: absolute;
