@@ -10,6 +10,7 @@
   position: relative;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   margin-bottom: 25px;
+  transition: all .195s cubic-bezier(0.4, 0.0, 0.2, 1);
 
   .media {
     position: absolute;
@@ -114,6 +115,7 @@
 
   @media screen and (min-width: 480px) {
     height: 300px;
+    transition: all .225s cubic-bezier(0.4, 0.0, 0.2, 1);
     
     .media {
       height: auto;
@@ -163,6 +165,7 @@
 
   @media screen and (min-width: 840px) {
     height: 200px;
+    transition: all .375s cubic-bezier(0.4, 0.0, 0.2, 1);
 
     .media {
       width: 25%;
