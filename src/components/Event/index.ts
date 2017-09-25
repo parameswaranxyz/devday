@@ -23,7 +23,11 @@ const fadeInOutStyle = {
 
 const EventComponent = ({ dom, event$ }: Sources): Sinks => {
   const viewDetailsClick$ = dom.select('.action').events('click', { preventDefault: true });
-  const navigateTo$ = viewDetailsClick$.compose(sampleCombine(event$)).map(([_, { url }]) => '/events/'+ url);
+  const navigateTo$ =
+    viewDetailsClick$.compose(sampleCombine(event$))
+      .map(([_, { meetup_event_id, meetup_urlname }]) =>
+        `https://meetup.com/${meetup_urlname}/events/${meetup_event_id}`
+      );
   const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url, url }) =>
     article('.event', { style: fadeInOutStyle, key: url }, [
       div('.media', { style: { delayed: { 'background-image': `url("${image_url}")` } } }, [
@@ -42,9 +46,10 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
       ])
     ])
   );
+  navigateTo$.addListener({ next: location => window.open(location, '_blank') });
   return {
     dom: vtree$,
-    history: navigateTo$
+    history: Stream.empty()
   };
 }
 
