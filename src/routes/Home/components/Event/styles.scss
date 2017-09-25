@@ -67,6 +67,7 @@
         font-size: 1.1rem;
         line-height: 1.5;
         transition-delay: $transition-duration-mobile;
+        font-family: $body-font;
       }
     }
 
@@ -80,7 +81,7 @@
       font-size: 1rem;
       line-height: 1.5;
       color: #333;
-      font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
+      font-family: $body-font;
       height: 145px;
       overflow: hidden;
       margin-bottom: 1rem;
