@@ -21,4 +21,13 @@ describe('routes.resolve', function() {
       expect(component.name).to.equal('EventDetail');
     });
   });
+
+  it('should resolve /archive to Archive', () => {
+    const resolution = resolve('/archive');
+    expect(resolution).to.not.be.null;
+    return resolution.getComponent().then(component => {
+      expect(component).to.not.be.null;
+      expect(component.name).to.equal('Archive');
+    });
+  });
 });
