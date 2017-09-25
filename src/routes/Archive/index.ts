@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { main, h2, button, i, a, nav } from '@cycle/dom';
 import { Sources, Sinks } from '../../definitions';
-import { EventList } from '../Home/components/EventList';
+import { EventList } from '../../components/EventList';
 import './styles.scss';
 
 export function Archive({ dom, events }: Sources): Sinks {

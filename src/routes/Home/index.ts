@@ -3,7 +3,7 @@ import { main, nav, h2 } from '@cycle/dom';
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
-import { EventList } from './components/EventList';
+import { EventList } from '../../components/EventList';
 import { ArchiveLink } from './components/ArchiveLink';
 import delay from 'xstream/extra/delay';
 import { closestParent } from '../../utils';

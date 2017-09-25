@@ -1,7 +1,7 @@
 import { Stream } from 'xstream';
 import { Event } from '../Event';
 import { VNode, DOMSource } from '@cycle/dom';
-import { DevdayEvent } from '../../../../definitions';
+import { DevdayEvent } from '../../definitions';
 import isolate from '@cycle/isolate';
 
 interface Sources {
