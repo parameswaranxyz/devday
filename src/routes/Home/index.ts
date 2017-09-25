@@ -1,5 +1,5 @@
 import { Stream } from 'xstream';
-import { div, header, h1, span, img, h2, h3, h4, p, main, article, a, i, nav, button, footer, makeDOMDriver, VNode } from '@cycle/dom';
+import { main, nav, h2 } from '@cycle/dom';
 import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../definitions';
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
@@ -19,6 +19,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
     xs.combine(eventList.dom, archiveLink.dom, talkRegistration.dom)
       .map(([eventDoms, archiveLink, talkRegistrationDom]) =>
         main('.home', [
+          h2('Upcoming events'),
           ...eventDoms,
           nav([ archiveLink ]),
           talkRegistrationDom
