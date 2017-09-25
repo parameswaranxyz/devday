@@ -23,17 +23,10 @@ nav {
   font-weight: 400;
 
   & > a {
-      color: white;
-      text-decoration: none;
-      margin-left: auto;
-
-      & > button {
-          @extend .mdl-button;
-          @extend .mdl-button--icon;
-      }
+    margin-left: auto;
   }
 }
 
-    .inline-link {
-      color: white;
-    }
+.inline-link {
+  color: white;
+}
