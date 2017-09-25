@@ -4,6 +4,7 @@ import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../defin
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
 import { EventList } from './components/EventList';
+import { ArchiveLink } from './components/ArchiveLink';
 import delay from 'xstream/extra/delay';
 import { closestParent } from '../../utils';
 import './styles.scss';
@@ -11,26 +12,15 @@ import './styles.scss';
 export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
   const registration$ = registrations.registration$;
-  const moreClick$ = dom.select('.more').events('click', { preventDefault: true });
-  const more$ = moreClick$.map(ev => true).startWith(false);
   const talkRegistration = TalkRegistration({ dom, talks });
   const eventList = EventList({ dom, events$: events.main$ });
+  const archiveLink = ArchiveLink({ dom });
   const vdom$ =
-    xs.combine(eventList.dom, more$, talkRegistration.dom)
-      .map(([eventDoms, more, talkRegistrationDom]) =>
+    xs.combine(eventList.dom, archiveLink.dom, talkRegistration.dom)
+      .map(([eventDoms, archiveLink, talkRegistrationDom]) =>
         main([
           ...eventDoms,
-          nav([
-            a('.more', {
-              props: { href: '#', title: 'view all previous events' },
-              attrs: { style: more ? 'display: none;' : '' }
-            }, [
-                'Past events',
-                button([
-                  i('.material-icons', { props: { role: 'presentation' } }, 'arrow_forward')
-                ])
-              ])
-          ]),
+          nav([ archiveLink ]),
           talkRegistrationDom
         ])
       );
@@ -38,7 +28,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
     dom: vdom$,
     events: xs.empty(),
     registrations: xs.empty(),
-    history: eventList.history,
+    history: xs.merge(eventList.history, archiveLink.history),
     material: xs.empty(),
     talks: talkRegistration.talks,
     snackbars: talkRegistration.snackbars
