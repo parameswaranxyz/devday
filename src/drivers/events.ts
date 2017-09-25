@@ -9,18 +9,19 @@ import delay from 'xstream/extra/delay';
 const getStartTime = (event: DevdayEvent): number => event.event_time.start_time.getTime();
 const byStartTime = (a: DevdayEvent, b: DevdayEvent) => getStartTime(b) - getStartTime(a);
 const sortByStartTime = (events: DevdayEvent[]) => events.sort(byStartTime);
+const reverse = (events: DevdayEvent[]) => events.sort(() => 1);
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
   events$: Stream<DevdayEvent[]>;
-  main$: Stream<DevdayEvent[]>;
+  latest$: Stream<DevdayEvent[]>;
   archive$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
     const events$ = xs.of(sortByStartTime(events)).compose(delay(300));
     this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
     this.events$ = events$;
-    this.main$ = events$.map(events => events.slice(0, 2));
+    this.latest$ = events$.map(events => reverse(events.slice(0, 2)));
     this.archive$ = events$.map(events => events.slice(2));
   }
 }

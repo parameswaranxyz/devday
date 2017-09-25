@@ -13,13 +13,13 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const xs = Stream;
   const registration$ = registrations.registration$;
   const talkRegistration = TalkRegistration({ dom, talks });
-  const eventList = EventList({ dom, events$: events.main$ });
+  const eventList = EventList({ dom, events$: events.latest$ });
   const archiveLink = ArchiveLink({ dom });
   const vdom$ =
     xs.combine(eventList.dom, archiveLink.dom, talkRegistration.dom)
       .map(([eventDoms, archiveLink, talkRegistrationDom]) =>
         main('.home', [
-          h2('Upcoming events'),
+          h2('Latest events'),
           ...eventDoms,
           nav([ archiveLink ]),
           talkRegistrationDom
