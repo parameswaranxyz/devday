@@ -28,7 +28,7 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
       .map(([_, { meetup_event_id, meetup_urlname }]) =>
         `https://meetup.com/${meetup_urlname}/events/${meetup_event_id}`
       );
-  const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url, url }) =>
+  const vtree$ = event$.map(({ title, event_time: { start_time }, abstract, venue: { city }, image_url, url, meetup_event_id, meetup_urlname }) =>
     article('.event', { style: fadeInOutStyle, key: url }, [
       div('.media', { style: { delayed: { 'background-image': `url("${image_url}")` } } }, [
         div('.overlay', { style: fadeInOutStyle }, [city])
@@ -41,7 +41,7 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
         div('.separator'),
         div('.description', { props: { innerHTML: marked(abstract) }, style: fadeInOutStyle }),
         div('.footer', [
-          button('.action', { style: fadeInOutStyle }, ['View Details'])
+          !!meetup_urlname && !!meetup_event_id ? button('.action', { style: fadeInOutStyle }, ['View Details']) : null
         ])
       ])
     ])
