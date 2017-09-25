@@ -7,6 +7,12 @@ export const routes = {
       return Home;
     }
   },
+  '/archive': {
+    getComponent: async () => {
+      const { Archive } = await import(/* webpackChunkName: "Archive" */'./Archive');
+      return Archive;
+    }
+  },
   '/events/:event_url': (event_url: string) => ({
     getComponent: async () => {
       const { EventDetail } = await import(/* webpackChunkName: "EventDetail" */'./EventDetail');

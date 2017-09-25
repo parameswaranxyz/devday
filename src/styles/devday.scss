@@ -1,5 +1,6 @@
 $performance_font: Roboto, Helvetica, "Segoe UI", Arial, sans-serif;
 $preferred_font: Roboto, Helvetica, "Segoe UI", Arial, sans-serif;
+$trim-color-classes: true;
 
 @import "~material-design-lite/src/material-design-lite.scss";
 
@@ -33,6 +34,25 @@ $range : $large-screen - $small-screen !default;
 $intervals: 20 !default;
 $interval-size: $range / $intervals !default;
 
+$transition-duration-mobile: .195s;
+$transition-duration-tablet: .225s;
+$transition-duration-desktop: .375s;
+
+$standard-curve: cubic-bezier(0.4, 0.0, 0.2, 1);
+$deceleration-curve: cubic-bezier(0.0, 0.0, 0.2, 1);
+$acceleration-curve: cubic-bezier(0.4, 0.0, 1, 1);
+$sharp-curve: cubic-bezier(0.4, 0.0, 0.6, 1);
+
+$body-font: medium-content-sans-serif-font,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Geneva,Arial,sans-serif;
+$heading-font: medium-ui-sans-serif-text-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+
+.mdl-color-text--grey-700 {
+  color: unquote("rgb(#{$palette-grey-700})") !important;
+}
+
+.mdl-color--grey-100 {
+  background-color: unquote("rgb(#{$palette-grey-100})") !important;
+}
 
 .hidden {
     @extend .visuallyhidden;

@@ -4,29 +4,26 @@ import { DevdayEvent } from './../definitions';
 import { makeMeetupsDriver } from './meetups';
 import { CHENNAI_ADDRESS, BANGALORE_ADDRESS } from './../data/events';
 import dropRepeats from 'xstream/extra/dropRepeats';
+import delay from 'xstream/extra/delay';
+
+const getStartTime = (event: DevdayEvent): number => event.event_time.start_time.getTime();
+const byStartTime = (a: DevdayEvent, b: DevdayEvent) => getStartTime(b) - getStartTime(a);
+const sortByStartTime = (events: DevdayEvent[]) => events.sort(byStartTime);
+const reverse = (events: DevdayEvent[]) => events.sort(() => 1);
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
   events$: Stream<DevdayEvent[]>;
+  upcoming$: Stream<DevdayEvent[]>;
+  archive$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
+    const now = new Date();
+    const events$ = xs.of(sortByStartTime(events)).compose(delay(300));
     this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
-    const meetupsEvent$ =
-      xs.fromArray(
-        events
-          .filter(event => !!event.meetup_event_id && !!event.meetup_urlname)
-          .filter(event => !!event.form && !!event.form.spreadsheetId)
-      );
-    const meetup$ = makeMeetupsDriver()(meetupsEvent$).event$;
-    const eventsChange$ = meetup$.map(meetup => {
-      const event = events.find(event => event.url === meetup.event_url);
-      if (event != undefined) event.attending = meetup.yes_rsvp_count;
-      return true;
-    });
-    this.events$ =
-      eventsChange$
-        .map(() => events)
-        .startWith(events);
+    this.events$ = events$;
+    this.upcoming$ = events$.map(events => reverse(events.filter(({ event_time: { end_time } }) => end_time > now)));
+    this.archive$ = events$.map(events => events.filter(({ event_time: { end_time } }) => end_time <= now));
   }
 }
 
@@ -35,30 +32,6 @@ export function makeEventsDriver(): (event$: Stream<string>) => EventsSource {
     return new EventsSource(event$);
   }
   return eventsDriver;
-}
-
-export function topEvents(events: DevdayEvent[]): DevdayEvent[] {
-  const chennaiEvent =
-    events
-      .filter(ev => ev.venue === CHENNAI_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  const bangaloreEvent =
-    events
-      .filter(ev => ev.venue === BANGALORE_ADDRESS)
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime())
-      .shift();
-  return [bangaloreEvent, chennaiEvent];
-}
-
-export function moreEvents(events: DevdayEvent[], more: boolean): DevdayEvent[] {
-  if (!more)
-    return [];
-  const topEventsResult = topEvents(events);
-  const sortedEvents =
-    events
-      .sort((a, b) => b.event_time.start_time.getTime() - a.event_time.start_time.getTime());
-  return sortedEvents.filter(event => topEventsResult.indexOf(event) === -1);
 }
 
 export default makeEventsDriver;

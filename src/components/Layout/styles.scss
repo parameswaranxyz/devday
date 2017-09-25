@@ -74,13 +74,17 @@
           display: -webkit-flex;
           display: -ms-flexbox;
           display: flex;
-          max-width: 900px;
+          max-width: 960px;
           padding: 0;
           width: 100%;
           margin: 0 auto;
           -webkit-flex-shrink: 0;
           -ms-flex-negative: 0;
           flex-shrink: 0;
+
+          @media screen and (min-width: 480px) and (max-width: 839px) {
+            max-width: 720px;
+          }
         }
       }
     }

@@ -1,33 +1,26 @@
 @import '../../styles/devday.scss';
 
-main.home {
+main.archive {
 
   nav {
     @extend .mdl-cell;
     @extend .mdl-cell--4-col-phone;
     @extend .mdl-cell--8-col-tablet;
     @extend .mdl-cell--12-col-desktop;
-    margin: 12px 15px;
+  
+    margin: 8px 15px;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
     -webkit-flex-direction: row;
     -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-justify-content: space-between;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
     color: white;
     font-weight: 400;
-
-    & > a {
-      margin-left: auto;
-    }
   }
-
+  
   h2 {
     color: white;
     text-transform: uppercase;
@@ -35,7 +28,16 @@ main.home {
     margin: 0;
     margin-left: 0.5rem;
     line-height: 1.15;
-    margin-bottom: 1rem;
     font-family: $heading-font;
+  }
+
+  .inline-back-button {
+    color: white;
+    text-decoration: none;
+
+    button {
+      @extend .mdl-button;
+      @extend .mdl-button--icon;
+    }
   }
 }

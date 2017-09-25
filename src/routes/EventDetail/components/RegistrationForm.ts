@@ -16,7 +16,6 @@ interface RegistrationFormSinks {
   dom: Stream<VNode>;
   present$: Stream<boolean>;
   registrations: Stream<RegistrationRequest>;
-  prevent: Stream<Event>;
 }
 
 // TODO: Refactor
@@ -144,7 +143,7 @@ function RegistrationFormComponent(sources: RegistrationFormSources): Registrati
   const formSubmit$ =
     sources.dom
       .select('.event.form button[type=submit]')
-      .events('click');
+      .events('click', { preventDefault: true });
   const registrations$ =
     sources.event$.map(event =>
       formSubmit$
@@ -193,8 +192,7 @@ function RegistrationFormComponent(sources: RegistrationFormSources): Registrati
   return {
     dom: vdom$,
     present$,
-    registrations: registrations$,
-    prevent: formSubmit$
+    registrations: registrations$
   };
 }
 

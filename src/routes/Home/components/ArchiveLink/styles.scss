@@ -1,0 +1,11 @@
+@import '../../../../styles/devday.scss';
+
+.more {
+  color: white;
+  text-decoration: none;
+
+  & > button {
+      @extend .mdl-button;
+      @extend .mdl-button--icon;
+  }
+}

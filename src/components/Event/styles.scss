@@ -1,0 +1,242 @@
+@import '../../styles/devday.scss';
+
+.event {
+  @extend .mdl-cell;
+  @extend .mdl-cell--12-col;
+  height: 600px;
+  font-family: medium-ui-sans-serif-text-font,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif;
+  background: white;
+  border-radius: 2px;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  margin-bottom: 25px;
+  transition: opacity $transition-duration-mobile $deceleration-curve;
+
+  .media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    background: #213142;
+    overflow: visible;
+    background-size: cover;
+    transition-delay: $transition-duration-mobile;
+
+    .overlay {
+      background: rgba(25,25,25, 0.5);
+      padding: 5px 15px;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: rgba(225,225,225, 0.9);
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 230px;
+    left: 50px;
+    right: 50px;
+    height: 370px;
+    overflow: hidden;
+    background: white;
+    padding: 25px;
+    text-align: center;
+
+    .header {
+
+      .title {
+        text-transform: uppercase;
+        margin: 0;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        color: #333;
+        font-size: 1.3rem;
+        line-height: 1;
+        font-weight: 700;
+        height: 36px;
+        overflow: hidden;
+        transition-delay: $transition-duration-mobile;
+        font-family: $heading-font;
+      }
+
+      .subtitle {
+        font-style: italic;
+        margin: 0;
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.5;
+        transition-delay: $transition-duration-mobile;
+        font-family: $body-font;
+      }
+    }
+
+    .separator {
+      border-bottom: 1px solid #666;
+      margin: 25px auto;
+      width: 20%;
+    }
+
+    .description {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #333;
+      font-family: $body-font;
+      height: 145px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      transition-delay: $transition-duration-mobile;
+      
+      p {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+    }
+
+    .footer {
+
+      .action {
+        outline: none;
+        font-size: 1rem;
+        border: 1px solid #999;
+        padding: 10px 25px;
+        text-transform: uppercase;
+        background: white;
+        color: #999;
+
+        &:hover {
+          background: #ddd;
+          color: white;
+          cursor: pointer;
+        }
+
+        &:active {
+          background: #aaa;
+          color: white;
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 480px) {
+    height: 300px;
+    transition-duration: $transition-duration-tablet;
+    
+    .media {
+      height: auto;
+      width: 40%;
+      right: auto;
+      bottom: 0;
+      transition-delay: $transition-duration-tablet;
+
+      .overlay {
+        top: initial;
+        right: inherit;
+        bottom: 5px;
+        left: 5px;
+      }
+    }
+
+    .content {
+      left: 37%;
+      bottom: 0;
+      top: 25px;
+      text-align: left;
+      right: 0;
+      height: 275px;
+
+      .header {
+
+        .title {
+          height: 18px;
+          margin-bottom: 0;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          transition-delay: 2*$transition-duration-tablet;
+        }
+
+        .subtitle {
+          font-size: 1rem;
+          transition-delay: 2*$transition-duration-tablet;
+        }
+      }
+
+      .separator {
+        margin-left: 0;
+      }
+
+      .description {
+        height: 82px;
+        transition-delay: 2*$transition-duration-tablet;
+      }
+    }
+  }
+
+  @media screen and (min-width: 840px) {
+    height: 200px;
+    transition-duration: $transition-duration-desktop;
+
+    .media {
+      width: 25%;
+      transition-delay: $transition-duration-desktop;
+    }
+
+    .content {
+      left: 22%;
+      height: 175px;
+
+      .header, .separator, .description, .footer {
+        position: absolute;
+        padding: 25px;
+        top: 0;
+      }
+
+      .header {
+        width: 40%;
+        left: 0;
+
+        .title {
+          height: auto;
+          max-height: 54px;
+          margin-bottom: 5px;
+          transition-delay: $transition-duration-desktop;
+        }
+
+        .subtitle {
+          line-height: 1.25;
+          transition-delay: $transition-duration-desktop;
+        }
+      }
+
+      .separator {
+        left: 40%;
+        border: none;
+        border-right: 1px solid #999;
+        margin: 0;
+        padding: 0;
+        height: auto;
+        width: 0px;
+        top: 25px;
+        bottom: 50px;
+      }
+
+      .description {
+        left: 40%;
+        right: 0;
+        height: auto;
+        margin-bottom: 25px;
+        padding-bottom: 0;
+        bottom: 0;
+        transition-delay: $transition-duration-desktop;
+      }
+
+      .footer {
+        left: 0;
+        width: 40%;
+        bottom: 0;
+        top: auto;
+      }
+    }
+  }
+}

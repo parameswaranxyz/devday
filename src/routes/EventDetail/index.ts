@@ -73,15 +73,8 @@ function renderAgendaEntry(entry: AgendaEntry): VNode[] {
   }
 }
 
-function renderBackground(event: DevdayEvent): VNode {
-  var style = {};
-  if (event.color)
-    style['background-color'] = event.color;
-  if (event.image_url != undefined)
-    style['background-image'] = `url("${event.image_url}")`;
-  if (event.background_size != undefined)
-    style['background-size'] = event.background_size;
-  return div('.background', { style });
+function renderBackground({ image_url }: DevdayEvent): VNode {
+  return div('.background', { style: { 'background-image': `url("${image_url}")`} });
 }
 
 export function renderExpandedEvent(event: DevdayEvent, form: VNode): VNode {
@@ -180,7 +173,6 @@ interface EventDetailSources {
 interface EventDetailSinks {
   dom: Stream<VNode>;
   history: Stream<HistoryInput | string>;
-  prevent: Stream<Event>;
   registrations: Stream<RegistrationRequest>;
   material: Stream<boolean>;
 }
@@ -195,7 +187,7 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
           .map(events => events.find(event => event.url === eventUrl)))
       .flatten();
   const shrinkButtonClick$ =
-    sources.dom.select('.shrink.button').events('.click');
+    sources.dom.select('.shrink.button').events('.click', { preventDefault: true });
   const history$ = shrinkButtonClick$.mapTo('/');
   const success$ =
     event$
@@ -221,7 +213,6 @@ export function EventDetailComponent(sources: EventDetailSources): EventDetailSi
   return {
     dom: vdom$,
     history: history$,
-    prevent: xs.merge(shrinkButtonClick$, formSinks.prevent),
     registrations: formSinks.registrations,
     material: refresh$
   }
