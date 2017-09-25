@@ -14,15 +14,16 @@ const reverse = (events: DevdayEvent[]) => events.sort(() => 1);
 export class EventsSource {
   event$: Stream<DevdayEvent>;
   events$: Stream<DevdayEvent[]>;
-  latest$: Stream<DevdayEvent[]>;
+  upcoming$: Stream<DevdayEvent[]>;
   archive$: Stream<DevdayEvent[]>;
   constructor(event$: Stream<string>) {
     const xs = Stream;
+    const now = new Date();
     const events$ = xs.of(sortByStartTime(events)).compose(delay(300));
     this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
     this.events$ = events$;
-    this.latest$ = events$.map(events => reverse(events.slice(0, 2)));
-    this.archive$ = events$.map(events => events.slice(2));
+    this.upcoming$ = events$.map(events => reverse(events.filter(({ event_time: { end_time } }) => end_time > now)));
+    this.archive$ = events$.map(events => events.filter(({ event_time: { end_time } }) => end_time <= now));
   }
 }
 
