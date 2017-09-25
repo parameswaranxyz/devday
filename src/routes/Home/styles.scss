@@ -1,32 +1,30 @@
 @import '../../styles/devday.scss';
 
-nav {
-  @extend .mdl-cell;
-  @extend .mdl-cell--4-col-phone;
-  @extend .mdl-cell--8-col-tablet;
-  @extend .mdl-cell--12-col-desktop;
+main.home {
 
-  margin: 12px 15px;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: row;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: white;
-  font-weight: 400;
+  nav {
+    @extend .mdl-cell;
+    @extend .mdl-cell--4-col-phone;
+    @extend .mdl-cell--8-col-tablet;
+    @extend .mdl-cell--12-col-desktop;
+    margin: 12px 15px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: white;
+    font-weight: 400;
 
-  & > a {
-    margin-left: auto;
+    & > a {
+      margin-left: auto;
+    }
   }
-}
-
-.inline-link {
-  color: white;
 }

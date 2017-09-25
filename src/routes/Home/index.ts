@@ -18,7 +18,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const vdom$ =
     xs.combine(eventList.dom, archiveLink.dom, talkRegistration.dom)
       .map(([eventDoms, archiveLink, talkRegistrationDom]) =>
-        main([
+        main('.home', [
           ...eventDoms,
           nav([ archiveLink ]),
           talkRegistrationDom
