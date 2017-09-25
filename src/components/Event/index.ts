@@ -36,7 +36,7 @@ const EventComponent = ({ dom, event$ }: Sources): Sinks => {
       div('.content', [
         div('.header', [
           h2('.title', { attrs: { title: title }, style: fadeInOutStyle }, [ title ]),
-          h3('.subtitle', { style: fadeInOutStyle }, [moment(start_time).format('dddd, MMMM Do YYYY')])
+          h3('.subtitle', { style: fadeInOutStyle }, [moment(start_time).format('llll')])
         ]),
         div('.separator'),
         div('.description', { props: { innerHTML: marked(abstract) }, style: fadeInOutStyle }),
