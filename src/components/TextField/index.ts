@@ -36,8 +36,9 @@ export const TextField = ({ dom, id$, type$, pattern$, label$, error$, required$
   const value$ = input$.map(input => input.value).startWith(undefined);
   const valid$ =
     required$
-      .map(() => input$.map(input => input.validity.valid).startWith(false))
-      .flatten();
+      .map(() => input$.map(input => input.validity.valid))
+      .flatten()
+      .startWith(false);
   const vdom$ =
     Stream
       .combine(id$, type$, pattern$, label$, error$, required$, maxLength$, rows$)
