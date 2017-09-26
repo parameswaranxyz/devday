@@ -6,12 +6,11 @@ import '../styles/material-icons.scss';
 export class MaterialSource {
   constructor(refresh$: Stream<boolean>) {
     refresh$
-      .compose(delay(200))
+      .compose(delay(30))
       .addListener({
         next: () => {
           const handler = (<any>window).componentHandler;
-          if (handler == undefined) return console.log('handler not ready');
-          handler.upgradeDom();
+          if (handler == undefined) return;
           handler.upgradeAllRegistered();
         }
       });
