@@ -30,7 +30,7 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
     events: xs.empty(),
     registrations: xs.empty(),
     history: xs.merge(eventList.history, archiveLink.history),
-    material: xs.empty(),
+    material: talkRegistration.material,
     talks: talkRegistration.talks,
     snackbars: talkRegistration.snackbars
   };

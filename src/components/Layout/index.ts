@@ -5,7 +5,6 @@ import { Stream } from 'xstream';
 import { VNode, div } from '@cycle/dom';
 import { pluck } from '../../utils';
 import { renderSnackbar } from '../../drivers/snackbars';
-import '../../styles/material-icons.scss';
 import './styles.scss';
 
 interface LayoutSources extends Sources {
