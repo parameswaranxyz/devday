@@ -36,6 +36,7 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
   const submitClick$ = dom.select('.talk-submit').events('click', { preventDefault: true });
   // Hack to enable material validation on click of submit, cannot be removed.
   // https://github.com/google/material-design-lite/issues/1502
+  // TODO: Move to driver
   submitClick$
     .compose(delay(50))
     .addListener({
