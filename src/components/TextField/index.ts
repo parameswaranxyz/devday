@@ -27,8 +27,8 @@ export const TextField = ({ dom, id$, type$, pattern$, label$, error$, required$
       .map(id => dom.select('#' + id).events('input'))
       .flatten()
       .map(event => (event.target as HTMLInputElement));
-  const value$ = input$.map(input => input.value);
-  const valid$ = input$.map(input => input.validity.valid);
+  const value$ = input$.map(input => input.value).startWith(undefined);
+  const valid$ = input$.map(input => input.validity.valid).startWith(false);
   type$ = type$ || Stream.of('text');
   pattern$ = pattern$ || Stream.of(undefined);
   error$ = error$ || Stream.of(undefined);
