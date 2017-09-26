@@ -3,7 +3,6 @@ import { VNode, section, div, h4, a, form, DOMSource } from '@cycle/dom';
 import { TextField } from '../../../../components/TextField';
 import { DevdayRegistrationData } from '../../../../definitions';
 import { closestParent } from '../../../../utils';
-import dropRepeats from 'xstream/extra/dropRepeats';
 import delay from 'xstream/extra/delay';
 import { Snackbar } from '../../../../drivers/snackbars';
 import { TalksSource } from '../../../../drivers/talks';
@@ -16,6 +15,7 @@ interface Sources {
 
 interface Sinks {
   dom: Stream<VNode>;
+  material: Stream<boolean>;
   talks: Stream<DevdayRegistrationData>;
   snackbars: Stream<Snackbar>;
 }
@@ -29,14 +29,22 @@ const getFormData = (form: HTMLFormElement): DevdayRegistrationData => ({
 });
 
 export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
+  const xs = Stream;
   const snackbar$ = talks.talk$.map<Snackbar>(({ success }) => ({
     message: success ? 'Talk submitted' : 'Talk submission failed',
     timeout: 5000
   }));
+  const container = dom.select('.talk-registration');
+  const interact$ =
+    xs.merge(
+      container.events('mouseover'),
+      container.events('click'),
+      container.events('touchstart')
+    ).take(1);
   const submitClick$ = dom.select('.talk-submit').events('click', { preventDefault: true });
   const talk$ =
     submitClick$
-      .compose(delay(50))
+      .compose(delay(250))
       .filter(ev => {
         // TODO: Validate
         const buttonElement = ev.currentTarget as HTMLButtonElement;
@@ -50,7 +58,7 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
         const data = getFormData(formElement);
         return data;
       });
-  const required$ = submitClick$.mapTo(true).startWith(false).take(2);
+  const required$ = xs.merge(xs.of(false).compose(delay(1)), submitClick$.mapTo(true));
   const titleDom$ = TextField({
     id$: Stream.of('talk-title'),
     error$: Stream.of('Please enter a title!'),
@@ -105,19 +113,10 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
           ])
         ])
       );
-  required$.compose(delay(30)).addListener({
-    next: () =>
-      [].slice.call(document.querySelectorAll('.talk-registration'))
-        .filter(Boolean)
-        .map(form => [].slice.call(form.querySelectorAll('.mdl-js-textfield')))
-        .map(textFields => textFields.map(element => element.MaterialTextfield).filter(Boolean))
-        .forEach(fields => fields.forEach(field => field.init())),
-    error: () => { },
-    complete: () => { }
-  });
   return {
     dom: vdom$,
     talks: talk$,
-    snackbars: snackbar$
+    snackbars: snackbar$,
+    material: xs.merge(interact$, required$).mapTo(true)
   };
 };
