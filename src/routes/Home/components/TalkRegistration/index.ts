@@ -20,14 +20,6 @@ interface Sinks {
   snackbars: Stream<Snackbar>;
 }
 
-const getFormData = (form: HTMLFormElement): DevdayRegistrationData => ({
-  name: form.elements['talk-name'].value,
-  email: form.elements['talk-email'].value,
-  mobile: form.elements['talk-mobile'].value,
-  title: form.elements['talk-title'].value,
-  abstract: form.elements['talk-abstract'].value,
-});
-
 export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
   const xs = Stream;
   const snackbar$ = talks.talk$.map<Snackbar>(({ success }) => ({
@@ -42,67 +34,74 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
       container.events('touchstart')
     ).take(1);
   const submitClick$ = dom.select('.talk-submit').events('click', { preventDefault: true });
-  const talk$ =
-    submitClick$
-      .map(ev => {
-        const buttonElement = ev.currentTarget as HTMLButtonElement;
-        const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
+  // Hack to enable material validation on click of submit, cannot be removed.
+  // https://github.com/google/material-design-lite/issues/1502
+  // TODO: Move to driver
+  submitClick$
+    .compose(delay(50))
+    .addListener({
+      next: ev =>
         [].slice
-          .call(formElement.querySelectorAll('.mdl-js-textfield'))
-          .map(element => element.MaterialTextfield).filter(Boolean)
-          .forEach(field => field.init());
-        return ev;
-      })
-      .filter(ev => {
-        const buttonElement = ev.currentTarget as HTMLButtonElement;
-        const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
-        const invalidElements = formElement.querySelectorAll('.is-invalid');
-        return invalidElements.length === 0;
-      })
-      .map(ev => {
-        const buttonElement = ev.currentTarget as HTMLButtonElement;
-        const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
-        const data = getFormData(formElement);
-        return data;
-      });
-  const required$ = xs.merge(xs.of(false).compose(delay(1)), submitClick$.mapTo(true)).take(2).debug();
-  const titleDom$ = TextField({
+          .call(closestParent(ev.target as HTMLButtonElement, 'form').querySelectorAll('.mdl-js-textfield'))
+          .map(element => element.MaterialTextfield)
+          .filter(Boolean)
+          .forEach(field => field.init())
+    });
+  const required$ = xs.merge(xs.of(false).compose(delay(1)), submitClick$.mapTo(true)).take(2);
+  const title = TextField({
+    dom,
     id$: Stream.of('talk-title'),
     error$: Stream.of('Please enter a title!'),
     label$: Stream.of('Title'),
     required$
-  }).dom;
-  const abstractDom$ = TextField({
+  });
+  const abstract = TextField({
+    dom,
     id$: Stream.of('talk-abstract'),
     error$: Stream.of('Please enter an abstract!'),
     label$: Stream.of('Abstract'),
     rows$: Stream.of(5),
     required$
-  }).dom;
-  const nameDom$ = TextField({
+  });
+  const name = TextField({
+    dom,
     id$: Stream.of('talk-name'),
     error$: Stream.of('Please enter a valid name!'),
     label$: Stream.of('Name'),
     pattern$: Stream.of('^[a-zA-Z][a-zA-Z ]{4,}'),
     required$
-  }).dom;
-  const emailDom$ = TextField({
+  });
+  const email = TextField({
+    dom,
     id$: Stream.of('talk-email'),
     error$: Stream.of('Please enter a valid email!'),
     label$: Stream.of('Email'),
     type$: Stream.of('email'),
     required$
-  }).dom;
-  const mobileDom$ = TextField({
+  });
+  const mobile = TextField({
+    dom,
     id$: Stream.of('talk-mobile'),
     error$: Stream.of('Please enter a valid mobile!'),
     label$: Stream.of('Mobile'),
     pattern$: Stream.of('^[987][0-9]{9}$'),
     maxLength$: Stream.of(10),
     required$
-  }).dom;
+  });
+  const valid$ =
+    xs.combine(title.valid$, abstract.valid$, name.valid$, email.valid$, mobile.valid$)
+      .map(validities => validities.every(valid => !!valid));
+  const talk$ =
+    xs.combine(title.value$, abstract.value$, name.value$, email.value$, mobile.value$)
+      .map(([title, abstract, name, email, mobile]) =>
+        valid$.map(valid =>
+          submitClick$
+            .filter(ev => valid)
+            .map(() => ({ title, abstract, name, email, mobile } as DevdayRegistrationData))
+        ).flatten()
+      ).flatten();
   const vdom$ =
-    Stream.combine(titleDom$, abstractDom$, nameDom$, emailDom$, mobileDom$)
+    Stream.combine(title.dom, abstract.dom, name.dom, email.dom, mobile.dom)
       .map(([titleDom, abstractDom, nameDom, emailDom, mobileDom]) =>
         form('.talk-registration', [
           div('.title', [
