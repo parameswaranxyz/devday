@@ -22,19 +22,22 @@ interface Sinks {
 
 export const TextField = ({ dom, id$, type$, pattern$, label$, error$, required$, maxLength$, rows$ }: Sources): Sinks => {
   const xs = Stream;
-  const input$ =
-    id$
-      .map(id => dom.select('#' + id).events('input'))
-      .flatten()
-      .map(event => (event.target as HTMLInputElement));
-  const value$ = input$.map(input => input.value).startWith(undefined);
-  const valid$ = input$.map(input => input.validity.valid).startWith(false);
   type$ = type$ || Stream.of('text');
   pattern$ = pattern$ || Stream.of(undefined);
   error$ = error$ || Stream.of(undefined);
   maxLength$ = maxLength$ || Stream.of(undefined);
   rows$ = rows$ || Stream.of(1);
   required$ = required$ || Stream.of(false);
+  const input$ =
+    id$
+      .map(id => dom.select('#' + id).events('input'))
+      .flatten()
+      .map(event => (event.target as HTMLInputElement));
+  const value$ = input$.map(input => input.value).startWith(undefined);
+  const valid$ =
+    required$
+      .map(() => input$.map(input => input.validity.valid).startWith(false))
+      .flatten();
   const vdom$ =
     Stream
       .combine(id$, type$, pattern$, label$, error$, required$, maxLength$, rows$)
