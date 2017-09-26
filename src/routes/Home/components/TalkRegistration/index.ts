@@ -44,9 +44,16 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
   const submitClick$ = dom.select('.talk-submit').events('click', { preventDefault: true });
   const talk$ =
     submitClick$
-      .compose(delay(250))
+      .map(ev => {
+        const buttonElement = ev.currentTarget as HTMLButtonElement;
+        const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
+        [].slice
+          .call(formElement.querySelectorAll('.mdl-js-textfield'))
+          .map(element => element.MaterialTextfield).filter(Boolean)
+          .forEach(field => field.init());
+        return ev;
+      })
       .filter(ev => {
-        // TODO: Validate
         const buttonElement = ev.currentTarget as HTMLButtonElement;
         const formElement = closestParent(buttonElement, 'form') as HTMLFormElement;
         const invalidElements = formElement.querySelectorAll('.is-invalid');
@@ -58,7 +65,7 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
         const data = getFormData(formElement);
         return data;
       });
-  const required$ = xs.merge(xs.of(false).compose(delay(1)), submitClick$.mapTo(true));
+  const required$ = xs.merge(xs.of(false).compose(delay(1)), submitClick$.mapTo(true)).take(2).debug();
   const titleDom$ = TextField({
     id$: Stream.of('talk-title'),
     error$: Stream.of('Please enter a title!'),
@@ -117,6 +124,6 @@ export const TalkRegistration = ({ dom, talks }: Sources): Sinks => {
     dom: vdom$,
     talks: talk$,
     snackbars: snackbar$,
-    material: xs.merge(interact$, required$).mapTo(true)
+    material: xs.merge(interact$.mapTo(true), required$.mapTo(true))
   };
 };
