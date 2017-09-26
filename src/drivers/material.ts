@@ -1,14 +1,20 @@
 import { Stream } from 'xstream';
+import delay from 'xstream/extra/delay';
 import 'material-design-lite';
+import '../styles/material-icons.scss';
 
 export class MaterialSource {
   constructor(refresh$: Stream<boolean>) {
-    const noop = () => {};
-    refresh$.addListener({
-      next: () => (<any>window).componentHandler.upgradeDom(),
-      error: noop,
-      complete: noop
-    });
+    refresh$
+      .compose(delay(200))
+      .addListener({
+        next: () => {
+          const handler = (<any>window).componentHandler;
+          if (handler == undefined) return console.log('handler not ready');
+          handler.upgradeDom();
+          handler.upgradeAllRegistered();
+        }
+      });
   }
 }
 
