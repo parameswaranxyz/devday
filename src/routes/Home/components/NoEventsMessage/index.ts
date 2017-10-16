@@ -11,20 +11,20 @@ interface Sinks {
   dom: Stream<VNode>;
 }
 
+const messageDom =
+  p('.message', [
+    "We're ideating the topics and presentations for the next event.",
+    br(),
+    "If you have an idea, let us know using the form below, or contact us at ",
+    a({ attrs: { href: 'mailto:devday.chn@gmail.com' } }, "devday.chn@gmail.com")
+  ]);
+
 export const NoEventsMessage = ({ events$ }: Sources): Sinks => {
   const vdom$ =
     events$
       .map(events => events.length)
       .compose(dropRepeats())
-      .filter(length => length === 0)
-      .mapTo(
-        p('.message', [
-          "We're ideating the topics and presentations for the next event.",
-          br(),
-          "If you have an idea, let us know using the form below, or contact us at ",
-          a({ attrs: { href: 'mailto:devday.chn@gmail.com' } }, "devday.chn@gmail.com")
-        ])
-      ).startWith(null);
+      .map(length => length > 0 ? null : messageDom);
   return {
     dom: vdom$,
   };
