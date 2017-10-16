@@ -37,5 +37,26 @@ main.home {
     line-height: 1.15;
     margin-bottom: 1rem;
     font-family: $heading-font;
+    width: 100%;
+  }
+
+  .message {
+    color: white;
+    clear: both;
+    display: block;
+    text-align: center;
+    line-height: 1.2;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: $heading-font;
+    font-weight: 100;
+
+    a {
+      color: white;
+
+      &:link, &:visited, &:hover, &:active, &:focus {
+        color: white;
+      }
+    }
   }
 }
