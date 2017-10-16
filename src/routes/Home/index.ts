@@ -4,6 +4,7 @@ import { Sources, Sinks, DevdayRegistrationData, DevdayEvent } from '../../defin
 import { RegistrationRequest } from '../../drivers/registrations';
 import { TalkRegistration } from './components/TalkRegistration';
 import { EventList } from '../../components/EventList';
+import { NoEventsMessage } from './components/NoEventsMessage';
 import { ArchiveLink } from './components/ArchiveLink';
 import delay from 'xstream/extra/delay';
 import { closestParent } from '../../utils';
@@ -14,13 +15,15 @@ export function Home({ dom, talks, events, registrations }: Sources): Sinks {
   const registration$ = registrations.registration$;
   const talkRegistration = TalkRegistration({ dom, talks });
   const eventList = EventList({ dom, events$: events.upcoming$ });
+  const noEventsMessage = NoEventsMessage({ events$: events.upcoming$ });
   const archiveLink = ArchiveLink({ dom });
   const vdom$ =
-    xs.combine(eventList.dom, archiveLink.dom, talkRegistration.dom)
-      .map(([eventDoms, archiveLink, talkRegistrationDom]) =>
+    xs.combine(eventList.dom, noEventsMessage.dom, archiveLink.dom, talkRegistration.dom)
+      .map(([eventDoms, message, archiveLink, talkRegistrationDom]) =>
         main('.home', [
           h2('Upcoming events'),
           ...eventDoms,
+          message,
           nav([ archiveLink ]),
           talkRegistrationDom
         ])
