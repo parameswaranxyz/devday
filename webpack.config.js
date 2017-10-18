@@ -129,7 +129,7 @@ function addRules(rules) {
 // TypeScript and source maps
 addRules([
   { test: /\.tsx?$/, loader: 'ts-loader' },
-  { test: /\.js$/, loader: 'source-map-loader', enforce: 'pre' }
+  { test: /\.js$/, loader: 'source-map-loader', enforce: 'pre', exclude: [ path.join(ROOT, 'node_modules') ] }
 ]);
 // Styles
 addRules([
