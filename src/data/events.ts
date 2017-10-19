@@ -1850,6 +1850,89 @@ export const events: DevdayEvent[] = [
       sheetName : 'Form Responses 1'
     }
   },
+  {
+    title: 'Lets Teach Machines.. (4)',
+    url: 'lets-teach-machines-week-4',
+    categories: ['events'],
+    tags: ['data', 'machine learning', 'ml', 'artificial intelligence', 'ai'],
+    author: 'devday_team',
+    abstract: 'This time in \"Lets Teach Machines\" we will play with real data, with all the algorithms we have learned. This is pretty simple, gather together, form into small groups, find a problem, solve and share your findings.  We will be happy if you have a problem in mind.',
+    event_time: {
+      start_time: new Date('2017-10-28T10:00:00+05:30'),
+      end_time: new Date('2017-10-28T16:30:00+05:30'),
+    },
+    publish_time: new Date('2017-10-16T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-10-16T10:30:00+05:30'),
+      end_time: new Date('2017-10-28T10:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-10-28T10:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Problem Statements pitching and Discussion',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-10-28T10:15:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Workshop,
+        title: 'Dive into Data',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-10-28T11:00:00+05:30')
+        }
+      } as AgendaEntry,
+
+      {
+        type: AgendaEntryType.Break,
+        time: {
+          start_time: new Date('2016-10-28T13:00:00+05:30')
+        },
+        title: 'Lunch Break'
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Workshop,
+        title: 'Dive into Data (resume)',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-10-28T13:45:00+05:30')
+        }
+      } as AgendaEntry,
+
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Shareback',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2016-10-28T16:00:00+05:30')
+        }
+      } as AgendaEntry
+
+    ],
+    color: '#040509',
+    image_url: '/images/events/teach-machines.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '244343746',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
+  }
   // TODO: Remove cast
 ] as DevdayEvent[];
 export default events;
