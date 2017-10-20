@@ -1932,6 +1932,73 @@ export const events: DevdayEvent[] = [
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
     }
+  },
+  {
+    title: 'Red Green Refactor',
+    url: 'red-green-refactor',
+    categories: ['events'],
+    tags: ['tdd', 'spock', 'junit'],
+    author: 'devday_team',
+    abstract: 'This DevDay will be focussed on Test Driven Development. We start with a talk on Spock and how it is different from other Java based testing frameworks. We are looking for another speaker so feel free to reach out to us.',
+    event_time: {
+      start_time: new Date('2017-11-16T18:30:00+05:30'),
+      end_time: new Date('2017-11-16T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2017-11-16T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Spock - a testing framework',
+        abstract: 'Spock is a expressive testing framework for JVM languages. It is a DSL framework written on Groovy. Compared to JUnit, Spock enforces Setup - Trigger - Assert paradigm. With DSL based approach, developer can think to write test code differently than production code. Spock runs on JUnit Runner, so existing test environment can be reused.',
+        authors: [
+          {
+            name: 'Parani Raja, XVela',
+            linkedin_profile_url: 'https://www.linkedin.com/in/paraniraja/',
+            image_url: 'https://media.licdn.com/media/AAEAAQAAAAAAAAL4AAAAJDViYjM1YmUyLTc5MTAtNGVkNi04MjlhLTgxMjhiODA1NTM2OA.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2017-10-12T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'TBD',
+        abstract: '',
+        authors: [
+          {
+            name : "",
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2017-10-12T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2017-10-12T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '244373937',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
   }
   // TODO: Remove cast
 ] as DevdayEvent[];
