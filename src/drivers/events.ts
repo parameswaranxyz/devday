@@ -9,7 +9,6 @@ import delay from 'xstream/extra/delay';
 const getStartTime = (event: DevdayEvent): number => event.event_time.start_time.getTime();
 const byStartTime = (a: DevdayEvent, b: DevdayEvent) => getStartTime(b) - getStartTime(a);
 const sortByStartTime = (events: DevdayEvent[]) => events.sort(byStartTime);
-const reverse = (events: DevdayEvent[]) => events.sort(() => -1);
 
 export class EventsSource {
   event$: Stream<DevdayEvent>;
@@ -22,7 +21,7 @@ export class EventsSource {
     const events$ = xs.of(sortByStartTime(events)).compose(delay(300));
     this.event$ = event$.map(url => events.filter(event => url === event.url).shift());
     this.events$ = events$;
-    this.upcoming$ = events$.map(events => reverse(events.filter(({ event_time: { end_time } }) => end_time > now)));
+    this.upcoming$ = events$.map(events => events.filter(({ event_time: { end_time } }) => end_time > now).reverse());
     this.archive$ = events$.map(events => events.filter(({ event_time: { end_time } }) => end_time <= now));
   }
 }
