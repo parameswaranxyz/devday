@@ -77,7 +77,7 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     template: path.join(SRC, 'index.html'),
     hash: false,
-    favicon: path.join(SRC, 'favicon.ico'),
+    favicon: path.join(SRC, 'manifest/favicon.ico'),
     filename: 'index.html',
     inject: 'body',
     minify: { collapseWhitespace: true }
@@ -85,7 +85,7 @@ webpackConfig.plugins = [
   new CopyWebpackPlugin([
     { from: 'src/images', to: 'images' },
     { from: 'src/fonts', to: 'fonts' },
-    { from: 'src/manifest', to: '/' }
+    { from: 'src/manifest', to: DIST }
   ])
 ];
 
