@@ -84,7 +84,8 @@ webpackConfig.plugins = [
   }),
   new CopyWebpackPlugin([
     { from: 'src/images', to: 'images' },
-    { from: 'src/fonts', to: 'fonts' }
+    { from: 'src/fonts', to: 'fonts' },
+    { from: 'src/manifest.json', to: 'manifest.json' }
   ])
 ];
 
