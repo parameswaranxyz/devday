@@ -77,7 +77,6 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     template: path.join(SRC, 'index.html'),
     hash: false,
-    favicon: path.join(SRC, 'manifest/favicon.ico'),
     filename: 'index.html',
     inject: 'body',
     minify: { collapseWhitespace: true }
