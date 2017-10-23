@@ -5,6 +5,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var debug = require('debug')('app:config:webpack');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var SWPreCachePlugin = require('sw-precache-webpack-plugin');
 
 // Environment Constants
 var NODE_ENV = process.env.NODE_ENV;
@@ -76,14 +77,15 @@ webpackConfig.plugins = [
   new HtmlWebpackPlugin({
     template: path.join(SRC, 'index.html'),
     hash: false,
-    favicon: path.join(SRC, 'favicon.ico'),
+    favicon: path.join(SRC, 'manifest/favicon.ico'),
     filename: 'index.html',
     inject: 'body',
     minify: { collapseWhitespace: true }
   }),
   new CopyWebpackPlugin([
     { from: 'src/images', to: 'images' },
-    { from: 'src/fonts', to: 'fonts' }
+    { from: 'src/fonts', to: 'fonts' },
+    { from: 'src/manifest', to: DIST }
   ])
 ];
 
@@ -104,7 +106,15 @@ if (__DEV__) {
         warnings: false
       }
     }),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new SWPreCachePlugin({
+      minify: true,
+      cacheId: 'devday-in',
+      filename: 'service-worker.js',
+      navigateFallback: 'index.html',
+      dontCacheBustUrlsMatching:/\.\w{8}\./,
+      staticFileGlobsIgnorePatterns: [/\.map$/, /\.json$/],
+    })
   )
 }
 
