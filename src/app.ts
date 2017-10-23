@@ -19,3 +19,10 @@ run(main, {
   talks: makeTalksDriver(),
   snackbars: makeSnackbarsDriver()
 });
+
+declare const __PROD__: boolean;
+if(__PROD__ && 'serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/service-worker.js')
+    .then(registration => console.log('SW registration successful with scope: ', registration.scope));
+}
