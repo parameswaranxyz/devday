@@ -1999,6 +1999,49 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
+  },
+  {
+    title: 'Lets Teach Machines.. (5)',
+    url: 'lets-teach-machines-week-5',
+    categories: ['events'],
+    tags: ['data', 'machine learning', 'ml', 'artificial intelligence', 'ai'],
+    author: 'devday_team',
+    abstract: 'This time we will talk about Bayesian Statistics, the theory, math behind it and a hands-on as usual. Event is open for all (even if you couldn\'t attend previous sessions). ',
+    event_time: {
+      start_time: new Date('2017-12-09T10:00:00+05:30'),
+      end_time: new Date('2017-12-09T16:00:00+05:30'),
+    },
+    publish_time: new Date('2017-12-04T23:45:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-12-04T23:45:00+05:30'),
+      end_time: new Date('2017-12-09T10:00:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to Bayesian Statistics',
+        abstract: '',
+        authors: [
+          {
+            name: "Jayant Pahuja",
+            linkedin_profile_url: 'https://twitter.com/JayantPahuja',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2017-12-09T10:00:00+05:30')
+        }
+      } as AgendaEntry
+    ],
+    color: '#040509',
+    image_url: '/images/events/teach-machines.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '245638273',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
   }
   // TODO: Remove cast
 ] as DevdayEvent[];
