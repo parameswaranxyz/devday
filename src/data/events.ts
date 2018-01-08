@@ -2042,7 +2042,74 @@ export const events: DevdayEvent[] = [
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
     }
+  },
+{
+  title: 'Blockchain Unblocked',
+  url: 'blockchain-unblocked',
+  categories: ['events'],
+  tags: ['blockchain', 'ethereum '],
+  author: 'devday_team',
+  abstract: 'With blockchain being an emerging technology, this DevDay will give an introduction to the blockchain concept. We will then explore how it is being used in the industry.',
+  event_time: {
+    start_time: new Date('2018-01-18T18:30:00+05:30'),
+    end_time: new Date('2018-01-18T20:30:00+05:30'),
+  },
+  publish_time: new Date('2017-09-02T18:30:00+05:30'),
+  registration_time: {
+    start_time: new Date('2017-09-02T18:30:00+05:30'),
+    end_time: new Date('2018-01-18T18:30:00+05:30'),
+  },
+  venue: CHENNAI_ADDRESS,
+  agenda: [
+    {
+      type: AgendaEntryType.Talk,
+      title: 'A Non-Fintech view of BlockChain Technology - Part 1',
+      abstract: 'Every article, that we read about BlockChain as technology or a platform or an algorithm ends up giving examples on A sending money to B and goes on to explain how to avoid double spending and secure your payments and so on.\n In this talk we will look at BlockChain technology’s general features that help us to build Non-Fintech business applications.',
+      authors: [
+        {
+          name: 'Balaji Sundararajan, CTO, Consilx',
+          linkedin_profile_url: 'https://www.linkedin.com/in/balajis/',
+          image_url: 'https://media.licdn.com/media/AAEAAQAAAAAAAAkbAAAAJDljMzdiOGMxLTU0ZmUtNDBmOS04ODQ4LTNmZjY3MmQwMDRkNQ.jpg'
+        }
+      ],
+      time: {
+        start_time: new Date('2018-01-18T18:30:00+05:30')
+      }
+    } as AgendaEntry,
+    {
+      type: AgendaEntryType.Talk,
+      title: 'Introduction to Hyperledger Fabric',
+      abstract: '',
+      authors: [
+        {
+          name : "Karthikeyan Sukumaran, Chief Executive Officer at RAKS OM2 (Specializing in Blockchain Research and Development)",
+          linkedin_profile_url: 'https://www.linkedin.com/in/karthikeyansukumaran/',
+          image_url: 'https://media.licdn.com/media/p/7/005/039/145/178dced.jpg'
+        }
+      ],
+      time: {
+        start_time: new Date('2018-01-18T19:30:00+05:30')
+      }
+    } as AgendaEntry,
+    {
+      type: AgendaEntryType.Talk,
+      title: 'Dinner and networking',
+      abstract: '',
+      authors: [],
+      time: {
+        start_time: new Date('2018-01-18T20:30:00+05:30')
+      }
+    } as AgendaEntry,
+  ],
+  color: '#040509',
+  image_url: '/images/events/blockchain.jpeg',
+  meetup_urlname: 'devday_chennai',
+  meetup_event_id: '246608969',
+  form: {
+    spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+    sheetName : 'Form Responses 1'
   }
+},
   // TODO: Remove cast
 ] as DevdayEvent[];
 export default events;
