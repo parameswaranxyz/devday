@@ -2161,7 +2161,35 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     }
-  }
+  },
   // TODO: Remove cast
+  {
+    title: 'Docker Swarm & Monitoring with Prometheus',
+    url: 'docker-swarm',
+    categories: ['events'],
+    tags: ['docker', 'containers', 'swarm'],
+    author: 'devday_team',
+    abstract: 'This edition is a talk and hands-on on running containers with Docker Swarm and monitoring with Prometheus. If you are new to Docker, just take a look and walk in, we will be going little deeper inside containers..',
+    event_time: {
+      start_time: new Date('2018-02-24T10:30:00+05:30'),
+      end_time: new Date('2018-02-24T14:00:00+05:30'),
+    },
+    publish_time: new Date('2018-02-05T10:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-02-24T10:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+    ],
+    color: '#040509',
+    image_url: '/images/events/teach-machines.jpg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '247486143',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
+  },
 ] as DevdayEvent[];
 export default events;
