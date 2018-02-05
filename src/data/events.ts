@@ -2108,8 +2108,60 @@ export const events: DevdayEvent[] = [
   form: {
     spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
     sheetName : 'Form Responses 1'
+  },
+  },
+  {
+    title: 'Exploring "Ethereum" on Blockchain! A hands on workshop.',
+    url: 'blockchain-unblocked',
+    categories: ['events'],
+    tags: ['blockchain', 'ethereum '],
+    author: 'devday_team',
+    abstract: 'Join us for this Hands On Workshop on Ethereum on Feb 10th at Sahaj Software,Chennai. Srimathi & Srinivas from Sahaj Software will take you through this session. You will need to bring your laptop for the event. We will send you the tools that you would need to setup before the event.',
+    event_time: {
+      start_time: new Date('2018-02-10T10:00:00+05:30'),
+      end_time: new Date('2018-02-10T12:00:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-02-10T09:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'A Non-Fintech view of BlockChain Technology - Part 1',
+        abstract: 'Every article, that we read about BlockChain as technology or a platform or an algorithm ends up giving examples on A sending money to B and goes on to explain how to avoid double spending and secure your payments and so on.\n In this talk we will look at BlockChain technology’s general features that help us to build Non-Fintech business applications.',
+        authors: [
+          {
+            name: 'Srimathi and Srinivasan',
+            linkedin_profile_url: 'https://www.linkedin.com/in/balajis/',
+            image_url: 'https://media.licdn.com/media/AAEAAQAAAAAAAAkbAAAAJDljMzdiOGMxLTU0ZmUtNDBmOS04ODQ4LTNmZjY3MmQwMDRkNQ.jpg'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-02-10T10:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Snacks and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-02-10T12:00:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/blockchain.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '247151344',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    }
   }
-},
   // TODO: Remove cast
 ] as DevdayEvent[];
 export default events;
