@@ -2191,5 +2191,72 @@ export const events: DevdayEvent[] = [
       sheetName: 'Form Responses 1'
     }
   },
+  {
+    title: 'Devday Chennai 18.04',
+    url: 'devday-chennai-18-04',
+    categories: ['events'],
+    tags: ['graph', 'databases', 'nosql'],
+    author: 'devday_team',
+    abstract: 'In this edition of DevDay we will explore graph databases.',
+    event_time: {
+      start_time: new Date('2018-04-25T18:30:00+05:30'),
+      end_time: new Date('2018-04-25T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-04-25T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction to Graph Databases',
+        abstract: 'Every article, that we read about BlockChain as technology or a platform or an algorithm ends up giving examples on A sending money to B and goes on to explain how to avoid double spending and secure your payments and so on.\n In this talk we will look at BlockChain technology’s general features that help us to build Non-Fintech business applications.',
+        authors: [
+          {
+            name: 'Sairam Krishnamurthy, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sairamkrish/',
+            image_url: 'https://media.licdn.com/dms/image/C4E03AQF2LJWE6sKLhQ/profile-displayphoto-shrink_800_800/0?e=1529157600&v=beta&t=voIqij6Hi3wiMcfu7iDOVTQeUoROZdXEO2Mw68wlhNk'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-01-18T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be decided',
+        abstract: '',
+        authors: [
+          {
+            name : "",
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-04-25T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-04-25T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: 'images/events/connections.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '249865411',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
+    },
 ] as DevdayEvent[];
 export default events;
