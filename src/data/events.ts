@@ -2264,7 +2264,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['blockchain', 'bitcoin', 'etherium', 'consensus', 'smart contracts'],
     author: 'devday_team',
-    abstract: 'April edition of Banglore Sahaj DevDay is all about block chain. Event is packed with a talk on building crypto currency from scratch - components involved, consensus algorithms, cryptography required and a hands-on about Hands on - Writing smart contracts in Etherium',
+    abstract: 'April edition of Banglore Sahaj DevDay is all about block chain. Event is packed with a talk on building crypto currency from scratch - components involved, consensus algorithms, cryptography required and a hands-on about writing smart contracts in Etherium',
     event_time: {
       start_time: new Date('2018-04-21T10:30:00+05:30'),
       end_time: new Date('2018-04-25T16:00:00+05:30'),
