@@ -2257,6 +2257,49 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     },
+  },
+  {
+    title: 'Understanding Blockchain & Writing Smart Contracts in Etherium - Talk & Hands-on',
+    url: 'devday-banglore-21-04',
+    categories: ['events'],
+    tags: ['blockchain', 'bitcoin', 'etherium', 'consensus', 'smart contracts'],
+    author: 'devday_team',
+    abstract: 'April edition of Banglore Sahaj DevDay is all about block chain. Event is packed with a talk on building crypto currency from scratch - components involved, consensus algorithms, cryptography required and a hands-on about Hands on - Writing smart contracts in Etherium',
+    event_time: {
+      start_time: new Date('2018-04-21T10:30:00+05:30'),
+      end_time: new Date('2018-04-25T16:00:00+05:30'),
     },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-04-21T10:30:00+05:30'),
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Block chain',
+        abstract: 'Block chain',
+        authors: [
+          {
+            name: 'Srimathi Harinarayan, Srinivasan Chandramouli',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sairamkrish/',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-01-18T18:30:00+05:30')
+        }
+      } as AgendaEntry
+    ],
+    color: '#040509',
+    image_url: '/images/events/blockchain.jpeg',
+    meetup_urlname: 'devday_bangalore',
+    meetup_event_id: '249348599',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    },
+  },
 ] as DevdayEvent[];
 export default events;
