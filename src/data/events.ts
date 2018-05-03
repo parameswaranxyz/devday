@@ -2300,6 +2300,72 @@ export const events: DevdayEvent[] = [
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
     },
+  },{
+    title: 'Devday Chennai 18.05',
+    url: 'devday-chennai-18-05',
+    categories: ['events'],
+    tags: ['functional', 'f#'],
+    author: 'devday_team',
+    abstract: 'In this edition of DevDay we will explore functional and reactive programing',
+    event_time: {
+      start_time: new Date('2018-05-24T18:30:00+05:30'),
+      end_time: new Date('2018-05-24T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-05-24T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Demystifying Functional Programming',
+        abstract: 'Because of some perceived complexities and the mathematical background in functional programming, the beginners get bogged down while learning and putting it into practice. Few people even give up after some initial attempts. But it is not as much harder as we think. It is just different! Together, let\'s experience a different perspective of functional programming and get started in a better way',
+        authors: [
+          {
+            name: 'Tamizhvendan, Ajira Technologies',
+            linkedin_profile_url: 'https://www.linkedin.com/in/tamizhvendan/',
+            image_url: 'https://media.licdn.com/dms/image/C4D03AQHKbjjI9YNJ6g/profile-displayphoto-shrink_800_800/0?e=1530748800&v=beta&t=L37q5GumhOuMMyDh2Gqgw1OcpMoHUdjLdXqJCb8p0R0'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-05-24T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be decided',
+        abstract: '',
+        authors: [
+          {
+            name : "",
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-05-24T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-05-24T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '250403698',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
   },
 ] as DevdayEvent[];
 export default events;
