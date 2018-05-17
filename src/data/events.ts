@@ -2301,7 +2301,7 @@ export const events: DevdayEvent[] = [
       sheetName: 'Form Responses 1'
     },
   },{
-    title: 'Devday Chennai 18.05',
+    title: 'Devday Chennai May 2018',
     url: 'devday-chennai-18-05',
     categories: ['events'],
     tags: ['functional', 'f#'],
