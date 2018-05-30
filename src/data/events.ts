@@ -2366,6 +2366,72 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     },
+  },{
+    title: 'Devday Chennai June 2018',
+    url: 'devday-chennai-06-18',
+    categories: ['events'],
+    tags: ['elixir', 'javascript'],
+    author: 'devday_team',
+    abstract: 'In this edition of DevDay we will explore asynchronous foundations in javascript. We will also get introduced to programming in elixir.',
+    event_time: {
+      start_time: new Date('2018-06-23T11:00:00+05:30'),
+      end_time: new Date('2018-06-23T13:00:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-06-23T10:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Asynchronous foundations in JS to understand Promises',
+        abstract: 'Because of some perceived complexities and the mathematical background in functional programming, the beginners get bogged down while learning and putting it into practice. Few people even give up after some initial attempts. But it is not as much harder as we think. It is just different! Together, let\'s experience a different perspective of functional programming and get started in a better way',
+        authors: [
+          {
+            name: 'Vijayabharathi',
+            linkedin_profile_url: 'https://www.linkedin.com/in/vijayabharathi-balasubramanian-7b078518/',
+            image_url: 'https://media.licdn.com/dms/image/C4D03AQE3EDBwoqvk6Q/profile-displayphoto-shrink_800_800/0?e=1533168000&v=beta&t=Ri2KS4H5PeHKKJGip_nwyruT4oo9ZGCY8Bw3b_XwWSU'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-06-23T11:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Introduction To Elixir',
+        abstract: '',
+        authors: [
+          {
+            name : "Athira Mukundan",
+            linkedin_profile_url: 'https://www.linkedin.com/in/athira-mukundan/',
+            image_url: 'https://media.licdn.com/dms/image/C4E03AQFVPVpLO2F_vg/profile-displayphoto-shrink_800_800/0?e=1533168000&v=beta&t=kLsbhGm17GIPMqtRkCwFNlHFSw9TAQGH2T72Z2omo9Y'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-06-23T12:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Networking and Lunch',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-06-23T13:00:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '251201996',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
   },
 ] as DevdayEvent[];
 export default events;
