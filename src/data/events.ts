@@ -2439,7 +2439,7 @@ export const events: DevdayEvent[] = [
     categories: ['events'],
     tags: ['golang', 'elixir', 'concurrency'],
     author: 'devday_team',
-    abstract: 'In this DevDay we will explore concurrency in golang and elixir',
+    abstract: 'In this DevDay we will explore concurrency in golang and elixir. We will also present an introduction to ThreeJS - a javascript library used to create and display 3D computer graphics in web browser, using webGL.',
     event_time: {
       start_time: new Date('2018-07-19T18:30:00+05:30'),
       end_time: new Date('2018-07-19T20:30:00+05:30'),
