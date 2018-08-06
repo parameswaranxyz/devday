@@ -2499,6 +2499,130 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     },
+  },
+  {
+    title: 'Devday Chennai July 2018',
+    url: 'devday-chennai-18-07',
+    categories: ['events'],
+    tags: ['golang', 'elixir', 'concurrency'],
+    author: 'devday_team',
+    abstract: 'In this DevDay we will explore concurrency in golang and elixir. We will also present an introduction to ThreeJS - a javascript library used to create and display 3D computer graphics in web browser, using webGL.',
+    event_time: {
+      start_time: new Date('2018-07-19T18:30:00+05:30'),
+      end_time: new Date('2018-07-19T20:30:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-07-19T18:30:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Concurrency in Golang and Elixir',
+        abstract: 'Both Golang Goroutines and Erlang processes are based on Communicating Sequential Processes with subtle differences in the way they are implemented. This talk will be to explore the concurrency in detail in the hopes of building better concurrent systems.',
+        authors: [
+          {
+            name: 'Sudhakar Rayavaram, Tarka Labs',
+            linkedin_profile_url: 'https://www.linkedin.com/in/sudhakar82/',
+            image_url: 'https://media.licdn.com/dms/image/C4E03AQFBU50VYwWqNg/profile-displayphoto-shrink_800_800/0?e=1536192000&v=beta&t=Om8QQGUPGfhGlEOMuFhQqaK0gPzBBh_6oypQ7oemHZU'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-07-19T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'To be decided',
+        abstract: '',
+        authors: [
+          {
+            name : "",
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-07-19T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-07-19T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '252427507',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
+  },
+  {
+    title: 'Devday Chennai August 2018',
+    url: 'devday-august-18-08',
+    categories: ['events'],
+    tags: ['blockchain', 'hyperledger'],
+    author: 'devday_team',
+    abstract: 'In this DevDay we will explore hyperledger with a real use case.',
+    event_time: {
+      start_time: new Date('2018-08-18T11:00:00+05:30'),
+      end_time: new Date('2018-08-18T13:00:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-08-18T11:00:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Concurrency in Golang and Elixir',
+        abstract: 'Both Golang Goroutines and Erlang processes are based on Communicating Sequential Processes with subtle differences in the way they are implemented. This talk will be to explore the concurrency in detail in the hopes of building better concurrent systems.',
+        authors: [
+          {
+            name: 'Srimathi, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shrimats/',
+            image_url: 'https://media.licdn.com/dms/image/C4D03AQFjftke-pAItA/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=CyTeKHEBKhhJIAtD0fPyDKzIuEgWavS-n12_8AIZWc8'
+          },
+          {
+            name: 'Shalin, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: 'https://www.linkedin.com/in/shalin-lk-a8446272/',
+            image_url: 'https://media.licdn.com/dms/image/C4E03AQFrx6mI6wlUdg/profile-displayphoto-shrink_800_800/0?e=1539216000&v=beta&t=FgRjrtLaTghCATBOpnciz7iMQZhoU0Havwb5tSYu8Bk'
+          }
+        ],
+        time: {
+          start_time: new Date('2018-08-18T11:00:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Lunch and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-08-18T13:00:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '253540085',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
   }
 ] as DevdayEvent[];
 export default events;
