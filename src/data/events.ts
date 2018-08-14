@@ -2623,6 +2623,50 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     },
+  },
+  {
+    title: 'Devday Bangalore August 2018',
+    url: 'devday-blr-auh-2018',
+    categories: ['events'],
+    tags: ['graphql', 'databases'],
+    author: 'devday_team',
+    abstract: 'In this devday we will look at the guts of some of the cool technologies that power the products of 2018',
+    event_time: {
+      start_time: new Date('2018-08-25T10:30:00+05:30'),
+      end_time: new Date('2018-08-25T13:00:00+05:30'),
+    },
+    publish_time: new Date('2018-08-25T10:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2018-08-25T10:30:00+05:30'),
+      end_time: new Date('2018-08-25T13:30:00+05:30')
+    },
+    venue: BANGALORE_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'The guts of Hasura GraphQL engine',
+        abstract: 'The Hasura GraphQL engine is an open source GraphQL server that gives you GraphQL APIs instantly over any Postgres database. In this talk, we will go over the design and architecture of this high-performance, low-footprint engine. For example, on Heroku free tier with the free Postgres add-on, you can get query throughputs in excess of a 1000 requests/sec at around ~50MB of RAM',
+        authors: [],
+        time: {
+          start_time: new Date('2018-08-25T10:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Break,
+        time: {
+          start_time: new Date('2018-08-25T11:15:00+05:30')
+        },
+        title: 'Tea Break'
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: 'images/events/programming.jpg',
+    meetup_event_id: '253293789',
+    meetup_urlname: 'devday_bangalore',
+    form: {
+      spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName: 'Form Responses 1'
+    }
   }
 ] as DevdayEvent[];
 export default events;
