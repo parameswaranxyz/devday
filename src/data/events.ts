@@ -2667,6 +2667,78 @@ export const events: DevdayEvent[] = [
       spreadsheetId: '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName: 'Form Responses 1'
     }
+  },
+  {
+    title: 'Devday Chennai September 2018',
+    url: 'devday-sep-18-08',
+    categories: ['events'],
+    tags: ['redis', 'probabilistic data structures', 'ai', 'nlu', 'rasa'],
+    author: 'devday_team',
+    abstract: 'In this DevDay we will explore real time log analysis using probailistic data structures and building a chatbot using conversational AI.',
+    event_time: {
+      start_time: new Date('2018-09-20T18:30:00+05:30'),
+      end_time: new Date('2018-09-20T13:20:00+05:30'),
+    },
+    publish_time: new Date('2017-09-02T18:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2017-09-02T18:30:00+05:30'),
+      end_time: new Date('2018-09-20T18:00:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Real Time Log Analysis using Probabilistic Data Structures in Redis',
+        abstract: 'Analysing user event logs in real-time is pretty easy to do if you are willing to throw money at the problem. But if you want to process hundreds of millions of events with very low memory, you would want to look at probabilistic data structures. Probabilistic Data Structures allow you to process huge volumes of data on low memory machines, while compromising on accuracy – which in some cases are a valid trade off.',
+        authors: [
+          {
+            name: 'Srinivasan Rangarajan',
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-09-18T18:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Build a chatbot using Rasa',
+        abstract: 'Learn how to write great conversational AI. Handle contextual, back-and-forth conversations with interactive machine learning instead of hand-crafting rules. Understand your customer\'s intent and extract entities with state of the art NLU. Build a bot that goes beyond answering simple questions using Rasa, a framework of open source machine learning tools.',
+        authors: [
+          {
+            name: 'Shwetha, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: '',
+            image_url: ''
+          },
+          {
+            name: 'Jayant, Solution Consultant at Sahaj Software',
+            linkedin_profile_url: '',
+            image_url: ''
+          }
+        ],
+        time: {
+          start_time: new Date('2018-09-20T19:30:00+05:30')
+        }
+      } as AgendaEntry,
+      {
+        type: AgendaEntryType.Talk,
+        title: 'Dinner and networking',
+        abstract: '',
+        authors: [],
+        time: {
+          start_time: new Date('2018-09-20T20:30:00+05:30')
+        }
+      } as AgendaEntry,
+    ],
+    color: '#040509',
+    image_url: '/images/events/code.jpeg',
+    meetup_urlname: 'devday_chennai',
+    meetup_event_id: '254413806',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
   }
 ] as DevdayEvent[];
 export default events;
