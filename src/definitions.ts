@@ -92,6 +92,7 @@ export interface DevdayRegistrationData {
 }
 
 export interface DevdayEvent {
+  banner: boolean;
   title: string;
   url: string;
   categories: string[];

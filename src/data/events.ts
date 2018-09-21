@@ -2739,6 +2739,34 @@ export const events: DevdayEvent[] = [
       spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
       sheetName : 'Form Responses 1'
     },
+  },
+  {
+    banner: true,
+    title: 'DevMerge Chennai 2018 - Hackathon',
+    url: 'https://devday.in/devmerge',
+    categories: ['events'],
+    tags: ['ai', 'blockchain'],
+    author: 'devday_team',
+    abstract: 'Building for the billions with Blockchain and AI',
+    event_time: {
+      start_time: new Date('2018-10-27T09:30:00+05:30'),
+      end_time: new Date('2018-10-28T18:00:00+05:30'),
+    },
+    publish_time: new Date('2018-09-22T8:30:00+05:30'),
+    registration_time: {
+      start_time: new Date('2018-09-22T18:30:00+05:30'),
+      end_time: new Date('2018-10-28T18:00:00+05:30'),
+    },
+    venue: CHENNAI_ADDRESS,
+    agenda: [],
+    color: '#040509',
+    image_url: 'https://raw.githubusercontent.com/parameswaranxyz/devmerge2k18/master/devday_devmerge_1.jpg',
+    meetup_urlname: 'https://devday.in/devmerge',
+    meetup_event_id: '254413806',
+    form: {
+      spreadsheetId : '1dySpYU4nW8mxVxkt8Zzju72HpuE_5DBdzU-RvwOVu18',
+      sheetName : 'Form Responses 1'
+    },
   }
 ] as DevdayEvent[];
 export default events;
